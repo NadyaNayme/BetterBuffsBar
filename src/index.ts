@@ -2,6 +2,7 @@
 // also gives your editor info about the window.alt1 api
 import * as a1lib from 'alt1';
 import * as BuffReader from 'alt1/buffs';
+import Sortable from 'sortablejs';
 import html2canvas from 'html2canvas';
 
 // tell webpack that this file relies index.html, appconfig.json and icon.png, this makes webpack
@@ -68,7 +69,7 @@ function createCanvas() {
 	let overlayCanvas = document.createElement('canvas');
 	overlayCanvas.id = 'OverlayCanvas';
 
-	let bbb = document.getElementById('BetterBuffsBar');
+	let bbb = document.getElementById('Buffs');
 	let overlayWidth = bbb.offsetWidth;
 	let overlayHeight = bbb.offsetHeight;
 	overlayCanvas.width = overlayWidth;
@@ -78,23 +79,23 @@ function createCanvas() {
 
 function captureOverlay() {
 	let overlayCanvas = createCanvas();
-	html2canvas(document.querySelector('#BetterBuffsBar'), {
+	html2canvas(document.querySelector('#Buffs'), {
 		allowTaint: true,
 		canvas: overlayCanvas,
 		backgroundColor: 'transparent',
 		useCORS: true,
 		removeContainer: true,
 	})
-	.then((canvas) => {
-		try {
-			paintCanvas(canvas);
-		} catch (e) {
-			console.log('Error saving image? ' + e);
-		}
-	})
-	.catch(() => {
-		console.log('Overlay failed to capture.');
-	});
+		.then((canvas) => {
+			try {
+				paintCanvas(canvas);
+			} catch (e) {
+				console.log('Error saving image? ' + e);
+			}
+		})
+		.catch(() => {
+			console.log('Overlay failed to capture.');
+		});
 }
 
 function paintCanvas(canvas: HTMLCanvasElement) {
@@ -224,7 +225,7 @@ async function findAnimateDead(buffs: BuffReader.Buff[]) {
 let posBtn = document.getElementById('OverlayPosition');
 posBtn.addEventListener('click', setOverlayPosition);
 async function setOverlayPosition() {
-	let bbb = document.getElementById('BetterBuffsBar');
+	let bbb = document.getElementById('Buffs');
 	let overlayWidth = bbb.offsetWidth;
 	let overlayHeight = bbb.offsetHeight;
 
@@ -252,7 +253,7 @@ async function setOverlayPosition() {
 }
 
 function updateLocation(e) {
-	let bbb = document.getElementById('BetterBuffsBar');
+	let bbb = document.getElementById('Buffs');
 	let overlayWidth = bbb.offsetWidth;
 	let overlayHeight = bbb.offsetHeight;
 	updateSetting('overlayPosition', {
@@ -277,7 +278,7 @@ export async function startOverlay() {
 
 		let overlayPosition = getSetting('overlayPosition');
 
-		let bbb = document.getElementById('BetterBuffsBar');
+		let bbb = document.getElementById('Buffs');
 		let overlayWidth = bbb.offsetWidth;
 		let overlayHeight = bbb.offsetHeight;
 
@@ -316,23 +317,8 @@ function setDefaultSettings() {
 	localStorage.setItem(
 		'betterBuffBar',
 		JSON.stringify({
-			animateDead: true,
-			animateDeadPriority: 7,
-			bolgStacks: false,
-			bolgStacksPriority: 8,
+			activeOverlay: true,
 			buffsLocation: findPlayerBuffs,
-			darkness: true,
-			darknessPriority: 6,
-			fsoaSpec: true,
-			fsoaSpecPriority: 9,
-			overload: true,
-			overloadPriority: 1,
-			jasBookProc: true,
-			jasBookProcPriority: 6,
-			fulBookProc: true,
-			fulBookProcPriority: 5,
-			weaponPoison: true,
-			weaponPoisonPriority: 2,
 			uiScale: 100,
 			updatingOverlayPosition: false,
 		})
@@ -340,10 +326,55 @@ function setDefaultSettings() {
 }
 
 function loadSettings() {
+	setSortables();
 	setFadeInactiveBuffs();
-	setTrackedBuffs();
-	setPriorities();
+	setOverlay();
 	setLoopSpeed();
+}
+
+function setSortables() {
+	const sortables = ['Buffs', 'UntrackedBuffs'];
+
+	// Create the sortables
+	sortables.forEach((sortable) => {
+		const el = document.getElementById(sortable);
+
+		Sortable.create(el, {
+			group: 'trackedBuffs',
+			dataIdAttr: 'id',
+			store: {
+				set: function (sortable) {
+					var order = sortable.toArray();
+					localStorage.setItem(sortable.el.id, order.join('|'));
+				},
+			},
+			onSort: function (evt) {
+				var currentSortable = evt.to[Object.keys(evt.to)[0]];
+				var order = currentSortable.toArray();
+				localStorage[currentSortable.el.id] = order.join('|');
+			},
+		});
+	});
+
+	// Re-sort into their saved areas on load
+	sortables.forEach((sortable) => {
+		const parent = document.getElementById(sortable);
+		const itemOrder = localStorage.getItem(sortable);
+		const itemOrderArr = itemOrder ? itemOrder.split('|') : [];
+
+		let prevItem;
+		itemOrderArr.forEach((item) => {
+			const child = document.getElementById(item);
+			if (!prevItem) {
+				parent.insertBefore(child, parent.firstChild);
+			} else {
+				const prevChild = document.getElementById(prevItem);
+				prevChild.parentNode.insertBefore(child, prevChild.nextSibling);
+			}
+			prevItem = item;
+		});
+	});
+
 }
 
 function setFadeInactiveBuffs() {
@@ -351,22 +382,8 @@ function setFadeInactiveBuffs() {
 	setCheckboxChecked(buff);
 }
 
-function setTrackedBuffs() {
-	let buffs = document.querySelectorAll('.buff');
-	buffs.forEach((buff: HTMLInputElement) => {
-		setCheckboxChecked(buff);
-	});
-}
-
 function setCheckboxChecked(el: HTMLInputElement) {
 	el.checked = Boolean(getSetting(el.dataset.setting));
-}
-
-function setPriorities() {
-	let priorityInputs = document.querySelectorAll('.priority');
-	priorityInputs.forEach((input: HTMLInputElement) => {
-		input.value = getSetting(input.dataset.setting.toString());
-	});
 }
 
 let priorityInputs = document.querySelectorAll('.priority');
@@ -377,14 +394,15 @@ priorityInputs.forEach((input: HTMLInputElement) => {
 });
 
 function setOverlay() {
-	let showOverlay = <HTMLInputElement>(
-		document.getElementById('ShowOverlay')
-	);
+	let showOverlay = <HTMLInputElement>document.getElementById('ShowOverlay');
 	setCheckboxChecked(showOverlay);
-	betterBuffsBar.classList.toggle('overlay', Boolean(getSetting('activeOverlay')));
-	showOverlay.addEventListener('change', function() {
+	betterBuffsBar.classList.toggle(
+		'overlay',
+		Boolean(getSetting('activeOverlay'))
+	);
+	showOverlay.addEventListener('change', function () {
 		location.reload();
-	})
+	});
 }
 
 function setLoopSpeed() {
