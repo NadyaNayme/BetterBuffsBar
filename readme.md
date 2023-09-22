@@ -24,5 +24,6 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 ## Known Issues
 
 - UI Scale >100% results in it being cut off
+- Rapid movement of camera can cause FSOA Buff to be detected with 120s time. FSOA detection is super fragile (matching on 15 pixels...). If someone can make a better transparent buff icon this can be improved.
 
 If you encounter any other bugs - please submit an issue and I'll investigate it.

@@ -16488,14 +16488,14 @@ function findOverloaded(buffs) {
                     overloadData = value.readArg('timearg');
                     if (!(overloadData.time > 59)) return [3 /*break*/, 3];
                     OverloadBuff.dataset.time = (value.readArg('timearg').time / 60).toString() + "m";
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 2:
                     _c.sent();
                     return [3 /*break*/, 6];
                 case 3:
                     if (!(overloadData.time == 11)) return [3 /*break*/, 5];
                     OverloadBuff.dataset.time = '<10s';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 4:
                     _c.sent();
                     OverloadBuff.dataset.time = '';
@@ -16540,14 +16540,14 @@ function findPoisonous(buffs) {
                     if (!(poisonousData.time > 59)) return [3 /*break*/, 3];
                     WeaponPoisonBuff.dataset.time =
                         (value.readArg('timearg').time / 60).toString() + 'm';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 2:
                     _c.sent();
                     return [3 /*break*/, 6];
                 case 3:
                     if (!(poisonousData.time == 11)) return [3 /*break*/, 5];
                     WeaponPoisonBuff.dataset.time = '<10s';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 4:
                     _c.sent();
                     WeaponPoisonBuff.dataset.time = '';
@@ -16592,14 +16592,14 @@ function findDarkness(buffs) {
                     if (!(darknessData.time > 59)) return [3 /*break*/, 3];
                     DarknessBuff.dataset.time =
                         (value.readArg('timearg').time / 60).toString() + 'm';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 2:
                     _c.sent();
                     return [3 /*break*/, 6];
                 case 3:
                     if (!(darknessData.time == 11)) return [3 /*break*/, 5];
                     DarknessBuff.dataset.time = '<10s';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 4:
                     _c.sent();
                     DarknessBuff.dataset.time = '';
@@ -16615,7 +16615,7 @@ function findDarkness(buffs) {
                 case 7:
                     if (!(darknessData == undefined)) return [3 /*break*/, 9];
                     DarknessBuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 8:
                     _c.sent();
                     DarknessBuff.dataset.time = '';
@@ -16648,14 +16648,14 @@ function findAnimateDead(buffs) {
                     if (!(animateDeadData.time > 59)) return [3 /*break*/, 3];
                     AnimateDeadBuff.dataset.time =
                         (value.readArg('timearg').time / 60).toString() + 'm';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 2:
                     _c.sent();
                     return [3 /*break*/, 6];
                 case 3:
                     if (!(animateDeadData.time == 11)) return [3 /*break*/, 5];
                     AnimateDeadBuff.dataset.time = '<10s';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 4:
                     _c.sent();
                     AnimateDeadBuff.dataset.time = '';
@@ -16671,7 +16671,7 @@ function findAnimateDead(buffs) {
                 case 7:
                     if (!(animateDeadData == undefined)) return [3 /*break*/, 9];
                     AnimateDeadBuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 8:
                     _c.sent();
                     AnimateDeadBuff.dataset.time = '';
