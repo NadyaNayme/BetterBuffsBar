@@ -254,12 +254,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   width: 100%;
 }
 
-#Buffs {
-  --scale: 100;
-  transform: scale(calc(var(--scale) / 100));
-  transform-origin: top;
-}
-
 #Buffs,
 #UntrackedBuffs {
   --maxcount: 5;
@@ -270,6 +264,15 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   list-style: none;
   margin:0;
   padding:0;
+}
+
+#Buffs {
+  --scale: 100;
+  transform: scale(calc(var(--scale) / 100));
+  transform-origin: top;
+  min-height: 1px;
+  min-width: 1px;
+  width: calc(27px * var(--maxcount) + (4px * var(--maxcount)));
 }
 
 #Buffs li,
@@ -362,6 +365,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 
 #FsoaSpecBuff.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_14___});
+}
+
+#BetterBuffsBar:not(.fade) #Buffs li.inactive {
+  display: none;
 }
 
 #UntrackedBuffs {
@@ -16732,7 +16739,6 @@ function findFsoaBuff(buffs) {
                     for (_i = 0, _a = Object.entries(buffs); _i < _a.length; _i++) {
                         _b = _a[_i], _key = _b[0], value = _b[1];
                         fsoaBuff = value.countMatch(buffImages.fsoaWeaponSpec, false);
-                        console.log(fsoaBuff);
                         if (fsoaBuff.passed >= 15) {
                             fsoaBuffData = value.readArg('timearg');
                             FsoaSpecBuff.dataset.time = value
@@ -16947,8 +16953,12 @@ function setBuffsPerRow() {
     });
 }
 function setFadeInactiveBuffs() {
-    var buff = document.querySelectorAll('.fade-inactive')[0];
-    setCheckboxChecked(buff);
+    var fadeInactiveBuffs = document.querySelectorAll('.fade-inactive')[0];
+    setCheckboxChecked(fadeInactiveBuffs);
+    betterBuffsBar.classList.toggle('fade', Boolean(getSetting('fadeInactiveBuffs')));
+    fadeInactiveBuffs.addEventListener('change', function () {
+        betterBuffsBar.classList.toggle('fade', Boolean(getSetting('fadeInactiveBuffs')));
+    });
 }
 function setCustomScale() {
     var buffsTracker = document.getElementById('Buffs');

@@ -322,7 +322,6 @@ async function findFsoaBuff(buffs: BuffReader.Buff[]) {
 			buffImages.fsoaWeaponSpec,
 			false
 		);
-		console.log(fsoaBuff);
 		if (fsoaBuff.passed >= 15) {
 			fsoaBuffData = value.readArg('timearg');
 			FsoaSpecBuff.dataset.time = value
@@ -534,8 +533,18 @@ function setBuffsPerRow() {
 
 }
 function setFadeInactiveBuffs() {
-	let buff = <HTMLInputElement>document.querySelectorAll('.fade-inactive')[0];
-	setCheckboxChecked(buff);
+	let fadeInactiveBuffs = <HTMLInputElement>document.querySelectorAll('.fade-inactive')[0];
+	setCheckboxChecked(fadeInactiveBuffs);
+	betterBuffsBar.classList.toggle(
+		'fade',
+		Boolean(getSetting('fadeInactiveBuffs'))
+	);
+	fadeInactiveBuffs.addEventListener('change', function () {
+		betterBuffsBar.classList.toggle(
+			'fade',
+			Boolean(getSetting('fadeInactiveBuffs'))
+		);
+	});
 }
 
 function setCustomScale() {
