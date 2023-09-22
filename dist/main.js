@@ -16888,7 +16888,9 @@ function setDefaultSettings() {
         activeOverlay: true,
         buffsLocation: findPlayerBuffs,
         buffsPerRow: 5,
+        loopSpeed: 150,
         uiScale: 100,
+        overlayPosition: { x: 100, y: 100 },
         updatingOverlayPosition: false,
     }));
 }
