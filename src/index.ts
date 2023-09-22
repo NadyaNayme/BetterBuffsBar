@@ -26,6 +26,7 @@ let DarknessBuff = document.getElementById('DarknessBuff');
 let AnimateDeadBuff = document.getElementById('AnimateDeadBuff');
 let BolgStacksBuff = document.getElementById('BolgStacksBuff');
 let TimeRiftBuff = document.getElementById('TimeRiftBuff');
+let FsoaSpecBuff = document.getElementById('FsoaSpecBuff');
 
 // loads all images as raw pixel data async, images have to be saved as *.data.png
 // this also takes care of metadata headers in the image that make browser load the image
@@ -38,6 +39,7 @@ var buffImages = a1lib.webpackImages({
 	antipoisonActive: require('./asset/data/Anti-poison_Active.data.png'),
 	chronicleAttraction: require('./asset/data/Chronicle_Attraction.data.png'),
 	darkness: require('./asset/data/Darkness_top.data.png'),
+	fsoaWeaponSpec: require('./asset/data/fsoaSpecBuff.data.png'),
 	overloaded: require('./asset/data/Overloaded.data.png'),
 	perfectEquilibrium: require('./asset/data/Perfect_Equilibrium.data.png'),
 	poisonous: require('./asset/data/Poisonous-top.data.png'),
@@ -140,6 +142,7 @@ function watchBuffs() {
 			findPoisonous(buffs);
 			// findPrayerRenewal(buffs);
 			// findAntipoison(buffs);
+			findFsoaBuff(buffs);
 			findDarkness(buffs);
 			findAnimateDead(buffs);
 			findJasProc(buffs);
@@ -199,7 +202,6 @@ async function findPoisonous(buffs: BuffReader.Buff[]) {
 	let poisonousData;
 	for (let [_key, value] of Object.entries(buffs)) {
 		let poisonousBuff = value.countMatch(buffImages.poisonous, false);
-		console.log(poisonousBuff);
 		if (poisonousBuff.passed > 161) {
 			poisonousData = value.readArg('timearg');
 			if (poisonousData.time > 59) {
@@ -230,7 +232,6 @@ async function findDarkness(buffs: BuffReader.Buff[]) {
 	let darknessData;
 	for (let [_key, value] of Object.entries(buffs)) {
 		let darknessBuff = value.countMatch(buffImages.darkness, false);
-		console.log(darknessBuff);
 		if (darknessBuff.passed > 120) {
 			darknessData = value.readArg('timearg');
 			if (darknessData.time > 59) {
@@ -314,43 +315,36 @@ async function findJasProc(buffs: BuffReader.Buff[]) {
 	return jasProcData;
 }
 
-// async function findFsoaBuff(buffs: BuffReader.Buff[]) {
-// 	let fsoaBuffData;
-// 	for (let [_key, value] of Object.entries(buffs)) {
-// 		let fsoaBuff = value.countMatch(buffImages.fsoaWeaponSpec, false);
-// 		if (fsoaBuff.passed > 50) {
-// 			fsoaBuffData = value.readArg('timearg');
-// 			if (fsoaBuffData.time > 59) {
-// 				TimeRiftBuff.dataset.time =
-// 					(value.readArg('timearg').time / 60).toString() + 'm';
-// 				await new Promise((done) => setTimeout(done, 10000));
-// 			} else if (fsoaBuffData.time == 11) {
-// 				TimeRiftBuff.dataset.time = '<10s';
-// 				await new Promise((done) => setTimeout(done, 10000));
-// 				TimeRiftBuff.dataset.time = '';
-// 			} else {
-// 				TimeRiftBuff.dataset.time = value
-// 					.readArg('timearg')
-// 					.time.toString();
-// 			}
-// 		}
-// 	}
-// 	if (fsoaBuffData == undefined) {
-// 		TimeRiftBuff.classList.add('inactive');
-// 		await new Promise((done) => setTimeout(done, 10000));
-// 		TimeRiftBuff.dataset.time = '';
-// 	} else {
-// 		TimeRiftBuff.classList.remove('inactive');
-// 	}
-// 	await new Promise((done) => setTimeout(done, 10));
-// 	return fsoaBuffData;
-// }
+async function findFsoaBuff(buffs: BuffReader.Buff[]) {
+	let fsoaBuffData;
+	for (let [_key, value] of Object.entries(buffs)) {
+		let fsoaBuff = value.countMatch(
+			buffImages.fsoaWeaponSpec,
+			false
+		);
+		console.log(fsoaBuff);
+		if (fsoaBuff.passed >= 15) {
+			fsoaBuffData = value.readArg('timearg');
+			FsoaSpecBuff.dataset.time = value
+				.readArg('timearg')
+				.time.toString();
+		}
+	}
+	if (fsoaBuffData == undefined) {
+		FsoaSpecBuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 600));
+		FsoaSpecBuff.dataset.time = '';
+	} else {
+		FsoaSpecBuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return fsoaBuffData;
+}
 
 async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	let bolgStacksData;
 	for (let [_key, value] of Object.entries(buffs)) {
 		let bolgStacksBuff = value.countMatch(buffImages.perfectEquilibrium, false);
-		console.log(bolgStacksBuff);
 		if (bolgStacksBuff.passed > 100) {
 			bolgStacksData = value.readArg('timearg');
 			BolgStacksBuff.dataset.time = value
