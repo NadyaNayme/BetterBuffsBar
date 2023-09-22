@@ -19,20 +19,28 @@ var output = document.getElementById('output');
 var settings = document.getElementById('Settings');
 var betterBuffsBar = document.getElementById('BetterBuffsBar');
 
+/* Buffs */
+let OverloadBuff = document.getElementById('OverloadBuff');
+let WeaponPoisonBuff = document.getElementById('WeaponPoisonBuff');
+let DarknessBuff = document.getElementById('DarknessBuff');
+let AnimateDeadBuff = document.getElementById('AnimateDeadBuff');
+let BolgStacksBuff = document.getElementById('BolgStacksBuff');
+let TimeRiftBuff = document.getElementById('TimeRiftBuff');
+
 // loads all images as raw pixel data async, images have to be saved as *.data.png
 // this also takes care of metadata headers in the image that make browser load the image
 // with slightly wrong colors
 // this function is async, so you cant acccess the images instantly but generally takes <20ms
 // use `await imgs.promise` if you want to use the images as soon as they are loaded
 var buffImages = a1lib.webpackImages({
-	animateDead: require('./asset/data/Animate_Dead.data.png'),
+	animateDead: require('./asset/data/Animate_Dead-top.data.png'),
 	antifireActive: require('./asset/data/Anti-Fire_Active.data.png'),
 	antipoisonActive: require('./asset/data/Anti-poison_Active.data.png'),
 	chronicleAttraction: require('./asset/data/Chronicle_Attraction.data.png'),
 	darkness: require('./asset/data/Darkness_top.data.png'),
 	overloaded: require('./asset/data/Overloaded.data.png'),
 	perfectEquilibrium: require('./asset/data/Perfect_Equilibrium.data.png'),
-	poisonous: require('./asset/data/Poisonous.data.png'),
+	poisonous: require('./asset/data/Poisonous-top.data.png'),
 	prayerRenewActive: require('./asset/data/Prayer_Renew_Active.data.png'),
 	superAntifireActive: require('./asset/data/Super_Anti-Fire_Active.data.png'),
 	supremeOverloadActive: require('./asset/data/Supreme_Overload_Potion_Active.data.png'),
@@ -129,10 +137,13 @@ function watchBuffs() {
 		let buffs = getActiveBuffs();
 		if (buffs) {
 			findOverloaded(buffs);
-			findPrayerRenewal(buffs);
-			findAntipoison(buffs);
+			findPoisonous(buffs);
+			// findPrayerRenewal(buffs);
+			// findAntipoison(buffs);
 			findDarkness(buffs);
 			findAnimateDead(buffs);
+			findJasProc(buffs);
+			findBolgStacks(buffs);
 			// If we succesfully found buffs - restart our retries
 			maxAttempts = 10;
 		} else {
@@ -161,51 +172,90 @@ async function findOverloaded(buffs: BuffReader.Buff[]) {
 		let overloadedBuff = value.countMatch(buffImages.overloaded, false);
 		if (overloadedBuff.passed > 300) {
 			overloadData = value.readArg('timearg');
+			if (overloadData.time > 59) {
+				OverloadBuff.dataset.time = (value.readArg('timearg').time / 60).toString() + "m";
+				await new Promise((done) => setTimeout(done, 10000));
+			} else if (overloadData.time == 11) {
+				OverloadBuff.dataset.time = '<10s'
+				await new Promise((done) => setTimeout(done, 10000));
+				OverloadBuff.dataset.time = '';
+			}else {
+				OverloadBuff.dataset.time = value
+					.readArg('timearg')
+					.time.toString();
+			}
 		}
 	}
-	await new Promise((done) => setTimeout(done, 100));
+	if (overloadData == undefined) {
+		OverloadBuff.classList.add('inactive');
+	} else {
+		OverloadBuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
 	return overloadData;
 }
 
-async function findPrayerRenewal(buffs: BuffReader.Buff[]) {
-	let prayerRenewalData;
+async function findPoisonous(buffs: BuffReader.Buff[]) {
+	let poisonousData;
 	for (let [_key, value] of Object.entries(buffs)) {
-		let prayerRenewalBuff = value.countMatch(buffImages.prayerRenewActive, false);
-		if (prayerRenewalBuff.passed > 300) {
-			prayerRenewalData = value.readArg('timearg');
+		let poisonousBuff = value.countMatch(buffImages.poisonous, false);
+		console.log(poisonousBuff);
+		if (poisonousBuff.passed > 161) {
+			poisonousData = value.readArg('timearg');
+			if (poisonousData.time > 59) {
+				WeaponPoisonBuff.dataset.time =
+					(value.readArg('timearg').time / 60).toString() + 'm';
+				await new Promise((done) => setTimeout(done, 10000));
+			} else if (poisonousData.time == 11) {
+				WeaponPoisonBuff.dataset.time = '<10s';
+				await new Promise((done) => setTimeout(done, 10000));
+				WeaponPoisonBuff.dataset.time = '';
+			} else {
+				WeaponPoisonBuff.dataset.time = value
+					.readArg('timearg')
+					.time.toString();
+			}
 		}
 	}
-	await new Promise((done) => setTimeout(done, 100));
-	return prayerRenewalData;
-}
-
-async function findAntipoison(buffs: BuffReader.Buff[]) {
-	let antipoisonData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let antipoisonBuff = value.countMatch(
-			buffImages.antipoisonActive,
-			false
-		);
-		if (antipoisonBuff.passed > 300) {
-			antipoisonData = value.readArg('timearg');
-		}
+	if (poisonousData == undefined) {
+		WeaponPoisonBuff.classList.add('inactive');
+	} else {
+		WeaponPoisonBuff.classList.remove('inactive');
 	}
-	await new Promise((done) => setTimeout(done, 100));
-	return antipoisonData;
+	await new Promise((done) => setTimeout(done, 10));
+	return poisonousData;
 }
 
 async function findDarkness(buffs: BuffReader.Buff[]) {
 	let darknessData;
 	for (let [_key, value] of Object.entries(buffs)) {
-		let darknessBuff = value.countMatch(
-			buffImages.darkness,
-			false
-		);
-		if (darknessBuff.passed > 150) {
+		let darknessBuff = value.countMatch(buffImages.darkness, false);
+		console.log(darknessBuff);
+		if (darknessBuff.passed > 120) {
 			darknessData = value.readArg('timearg');
+			if (darknessData.time > 59) {
+				DarknessBuff.dataset.time =
+					(value.readArg('timearg').time / 60).toString() + 'm';
+				await new Promise((done) => setTimeout(done, 10000));
+			} else if (darknessData.time == 11) {
+				DarknessBuff.dataset.time = '<10s';
+				await new Promise((done) => setTimeout(done, 10000));
+				DarknessBuff.dataset.time = '';
+			} else {
+				DarknessBuff.dataset.time = value
+					.readArg('timearg')
+					.time.toString();
+			}
 		}
 	}
-	await new Promise((done) => setTimeout(done, 100));
+	if (darknessData == undefined) {
+		DarknessBuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 10000));
+		DarknessBuff.dataset.time = '';
+	} else {
+		DarknessBuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
 	return darknessData;
 }
 
@@ -215,12 +265,109 @@ async function findAnimateDead(buffs: BuffReader.Buff[]) {
 		let animeDeadBuff = value.countMatch(buffImages.animateDead, false);
 		if (animeDeadBuff.passed > 50) {
 			animateDeadData = value.readArg('timearg');
+			if (animateDeadData.time > 59) {
+				AnimateDeadBuff.dataset.time =
+					(value.readArg('timearg').time / 60).toString() + 'm';
+				await new Promise((done) => setTimeout(done, 10000));
+			} else if (animateDeadData.time == 11) {
+				AnimateDeadBuff.dataset.time = '<10s';
+				await new Promise((done) => setTimeout(done, 10000));
+				AnimateDeadBuff.dataset.time = '';
+			} else {
+				AnimateDeadBuff.dataset.time = value
+					.readArg('timearg')
+					.time.toString();
+			}
 		}
 	}
-	await new Promise((done) => setTimeout(done, 100));
+	if (animateDeadData == undefined) {
+		AnimateDeadBuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 10000));
+		AnimateDeadBuff.dataset.time = '';
+	} else {
+		AnimateDeadBuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
 	return animateDeadData;
 }
 
+async function findJasProc(buffs: BuffReader.Buff[]) {
+	let jasProcData;
+	for (let [_key, value] of Object.entries(buffs)) {
+		let jasProcBuff = value.countMatch(buffImages.timeRift, false);
+		if (jasProcBuff.passed > 50) {
+			jasProcData = value.readArg('timearg');
+			TimeRiftBuff.dataset.time = value
+				.readArg('timearg')
+				.time.toString();
+			await new Promise((done) => setTimeout(done, 600));
+		}
+	}
+	if (jasProcData == undefined) {
+		TimeRiftBuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 1000));
+		TimeRiftBuff.dataset.time = '';
+	} else {
+		TimeRiftBuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return jasProcData;
+}
+
+// async function findFsoaBuff(buffs: BuffReader.Buff[]) {
+// 	let fsoaBuffData;
+// 	for (let [_key, value] of Object.entries(buffs)) {
+// 		let fsoaBuff = value.countMatch(buffImages.fsoaWeaponSpec, false);
+// 		if (fsoaBuff.passed > 50) {
+// 			fsoaBuffData = value.readArg('timearg');
+// 			if (fsoaBuffData.time > 59) {
+// 				TimeRiftBuff.dataset.time =
+// 					(value.readArg('timearg').time / 60).toString() + 'm';
+// 				await new Promise((done) => setTimeout(done, 10000));
+// 			} else if (fsoaBuffData.time == 11) {
+// 				TimeRiftBuff.dataset.time = '<10s';
+// 				await new Promise((done) => setTimeout(done, 10000));
+// 				TimeRiftBuff.dataset.time = '';
+// 			} else {
+// 				TimeRiftBuff.dataset.time = value
+// 					.readArg('timearg')
+// 					.time.toString();
+// 			}
+// 		}
+// 	}
+// 	if (fsoaBuffData == undefined) {
+// 		TimeRiftBuff.classList.add('inactive');
+// 		await new Promise((done) => setTimeout(done, 10000));
+// 		TimeRiftBuff.dataset.time = '';
+// 	} else {
+// 		TimeRiftBuff.classList.remove('inactive');
+// 	}
+// 	await new Promise((done) => setTimeout(done, 10));
+// 	return fsoaBuffData;
+// }
+
+async function findBolgStacks(buffs: BuffReader.Buff[]) {
+	let bolgStacksData;
+	for (let [_key, value] of Object.entries(buffs)) {
+		let bolgStacksBuff = value.countMatch(buffImages.perfectEquilibrium, false);
+		console.log(bolgStacksBuff);
+		if (bolgStacksBuff.passed > 100) {
+			bolgStacksData = value.readArg('timearg');
+			BolgStacksBuff.dataset.time = value
+				.readArg('timearg')
+				.time.toString();
+		}
+	}
+	if (bolgStacksData == undefined) {
+		BolgStacksBuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 600));
+		BolgStacksBuff.dataset.time = '';
+	} else {
+		BolgStacksBuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return bolgStacksData;
+}
 
 let posBtn = document.getElementById('OverlayPosition');
 posBtn.addEventListener('click', setOverlayPosition);
@@ -319,6 +466,7 @@ function setDefaultSettings() {
 		JSON.stringify({
 			activeOverlay: true,
 			buffsLocation: findPlayerBuffs,
+			buffsPerRow: 5,
 			uiScale: 100,
 			updatingOverlayPosition: false,
 		})
@@ -327,7 +475,9 @@ function setDefaultSettings() {
 
 function loadSettings() {
 	setSortables();
+	setBuffsPerRow();
 	setFadeInactiveBuffs();
+	setCustomScale();
 	setOverlay();
 	setLoopSpeed();
 }
@@ -342,6 +492,7 @@ function setSortables() {
 		Sortable.create(el, {
 			group: 'trackedBuffs',
 			dataIdAttr: 'id',
+			swapThreshold: 0.85,
 			store: {
 				set: function (sortable) {
 					var order = sortable.toArray();
@@ -374,24 +525,41 @@ function setSortables() {
 			prevItem = item;
 		});
 	});
-
 }
 
+function setBuffsPerRow() {
+	let buffsTracker = document.getElementById('Buffs');
+	buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+	let buffsPerRow = getSetting('buffsPerRow');
+	let buffsPerRowInput = <HTMLInputElement>document.getElementById('BuffsPerRow');
+	buffsPerRowInput.value = buffsPerRow;
+	buffsPerRowInput.addEventListener('change', (e) => {
+		buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+		updateSetting('buffsPerRow', buffsPerRowInput.value);
+	});
+
+}
 function setFadeInactiveBuffs() {
 	let buff = <HTMLInputElement>document.querySelectorAll('.fade-inactive')[0];
 	setCheckboxChecked(buff);
 }
 
+function setCustomScale() {
+	let buffsTracker = document.getElementById('Buffs');
+	buffsTracker.style.setProperty('--scale', getSetting('uiScale'));
+
+	document
+		.getElementById('UIScale')
+		.setAttribute('value', getSetting('uiScale'));
+
+	let UIScaleValue = document.querySelector('#UIScaleOutput');
+	let UIScaleInput: any = document.querySelector('#UIScale');
+	UIScaleValue.textContent = UIScaleInput.value;
+}
+
 function setCheckboxChecked(el: HTMLInputElement) {
 	el.checked = Boolean(getSetting(el.dataset.setting));
 }
-
-let priorityInputs = document.querySelectorAll('.priority');
-priorityInputs.forEach((input: HTMLInputElement) => {
-	input.addEventListener('change', (e) => {
-		updateSetting(input.dataset.setting, input.value.toString());
-	})
-});
 
 function setOverlay() {
 	let showOverlay = <HTMLInputElement>document.getElementById('ShowOverlay');
@@ -488,6 +656,14 @@ checkboxFields.forEach((checkbox) => {
 		})
 });
 
+var scaleSliderFields: any = document.querySelectorAll(
+	'input[type="range"].scale'
+);
+scaleSliderFields.forEach((scaleSlider) => {
+	scaleSlider.addEventListener('input', (event) => {
+		updateSetting(scaleSlider.dataset.setting, event.target.value);
+	});
+});
 
 var loopSpeed: any = document.querySelector('#LoopSpeed');
 loopSpeed.addEventListener('change', (event) => {
