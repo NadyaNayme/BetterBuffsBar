@@ -1,0 +1,16 @@
+{
+	"appName": "BetterBuffBar",
+	"description": "The bfufs that matter",
+	"appUrl": "./index.html",
+	"configUrl": "./appconfig.json",
+	"iconUrl": "./icon.png",
+	"defaultWidth": 400,
+	"defaultHeight": 400,
+	"minWidth": 300,
+	"minHeight": 300,
+	"maxWidth": 1000,
+	"maxHeight": 1000,
+	"requestHandlers": [ ],
+	"activators": [	],
+	"permissions": "pixel, gamestate, overlay"
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#Settings,
+			body {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="output"></div>
+		<div id="Settings">
+			<div class="container">
+				<h2>Settings</h2>
+				<p>Select which buffs you would like to track and give them a priority.</p><p>Lower number is higher priority. This means a priority of 0 will always appear first and a priority of 100 will always appear last.</p>
+				<h3>General</h3>
+				<div class="flex setting"><input class="fade-inactive" type="checkbox" id="FadeInactiveBuffs" data-setting="fadeInactiveBuffs"> Fade Inactive Buffs - Will set inactive buffs to be desaturated instead of removing them from the buffs bar.</div>
+				<h3>Tracked Buffs</h3>
+				<div class="flex setting"><input class="buff" type="checkbox" id="Overload" data-setting="overload"> Overloads <input class="priority" id="OverloadPriority" data-setting="overloadPriority" type="number" min="0" max="100"> Priority</div>
+				<hr>
+				<div class="flex setting"><input class="buff" type="checkbox" id="WeaponPoison" data-setting="weaponPoison"> Weapon Poison <input class="priority" id="WeaponPoisonPriority" data-setting="weaponPoisonPriority" type="number" min="0" max="100"> Priority</div>
+				<hr>
+				<div class="flex setting"><input class="buff" type="checkbox" id="AnimateDead" data-setting="animatedead"> Animate Dead <input class="priority" id="AnimateDeadPriority" data-setting="animateDeadPriority" type="number" min="0" max="100"> Priority</div>
+				<hr>
+				<div class="flex setting"><input class="buff" type="checkbox" id="Darkness" data-setting="darkess"> Darkness <input class="priority" id="DarknessPriority" data-setting="darknessPriority" type="number" min="0" max="100"> Priority</div>
+				<hr>
+				<div class="flex setting"><input class="buff" type="checkbox" id="JasBookProc" data-setting="jasBookProc"> Jas Book (Proc) <input class="priority" id="JasBookProcPriority" data-setting="jasBookProcPriority" type="number" min="0" max="100"> Priority</div>
+				<hr>
+				<div class="flex setting inactive"><input class="buff" disabled type="checkbox" id="FulBookProc" data-setting="fulBookProc"> Ful Book (Proc) <input class="priority" id="FulBookProcPriority" data-setting="fulBookProcPriority" disabled type="number" min="0" max="100"> Priority</div>
+				<hr>
+				<div class="flex setting"><input class="buff" type="checkbox" id="BolgStacks" data-setting="bolgStacks"> Bow of the Last Guardian Stacks <input class="priority" id="BolgStacksriority" data-setting="bolgStacksriority" type="number" min="0" max="100"> Priority</div>
+				<hr>
+				<div class="flex setting inactive"><input class="buff" disabled type="checkbox" id="FsoaSpec" data-setting="fsoaSpec"> Fractured Staff of Armadyl Special Attack Time <input class="priority" id="FsoaSpecPriority" data-setting="fsoaSpecPriority" disabled type="number" min="0" max="100"> Priority</div>
+				<small>Certain bufs cannot be tracked as I need better icons from the game's cache as RS Wiki did not have them available. If you know someone who can help - give them a poke. I need transparent icons without the active cooldown/stacks number in order to reliably track the buff.</small>
+				<h3>Overlay (Beta / Experimental)</h3>
+				<small>Make sure to enable "Show Overlay" for this app in your Alt1 settings.</small><br><br>
+				<div class="flex setting"><input type="checkbox" id="ShowOverlay" data-setting="activeOverlay">Enable Overlay - App will refresh when toggled. After overlay position has been set - you must leave this app open but you may 'Minimize' it by pressing the _ icon in the top right corner and move it out of the way.</div>
+				<p>The Overlay currently has a small delay. I'm working on improving this.</p>
+				<button id="OverlayPosition" data-setting="overlayPosition">Set Overlay Position</button>
+				<br><small>After clicking the button - move your mouse to where you want the overlay to appear then press alt+1 to set overlay to that position.</small>
+				<h3>Interface Search Speed</h3>
+				<p>Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - although if it causes any issues you can always slow it back down. It is heavily recommended to set this as low as you can without encountering performance issues.
+					</p><p><strong>**Requires a MANUAL RESTART of the app after adjusting.**</strong></p>
+				<div class="flex setting"><input class="speed" type="range" min="10" max="300" value="125" step="5" id="LoopSpeed" data-setting="loopSpeed"><output for="LoopSpeed" id="LoopSpeedOutput"></output>ms</div>
+				<h3>Hard Reset</h3>
+				<p>Sometimes I break localStorage. This will clear local storage, reset all settings to default, and reload the app in an attempt to fix things.</p>
+				<div class="flex"><button id="ResetAllSettings">Reset All Settings</button></div>
+			</div>
+		</div>
+		<div id="SettingsButton" class="nisimgbutton"><span>⚙︎</span></div>
+		<div id="BetterBuffsBar">
+			<ul id="TrackedBuffs">
+				<img src="./resource/Overloaded.png" data-tracked="1" data-priority="1" data-active="1">
+				<img src="./resource/Poisonous.png" data-tracked="1" data-priority="2" data-active="1">
+				<img src="./resource/Darkness.png" data-tracked="1" data-priority="3" data-active="1">
+				<img src="./resource/Animate_Dead.png" data-tracked="1" data-priority="3" data-active="1">
+				<img src="./resource/Perfect_Equilibrium.png" data-tracked="1" data-priority="4" data-active="1">
+				<img src="./resource/Time_rift.png" data-tracked="1" data-priority="5" data-active="1">
+			</ul>
+		</div>
+		<div id="OverlayCanvasOutput">
+			<canvas willReadFrequently="true" width="500" height="300"></canvas>
+		</div>
+		<script src="./main.js" defer></script>
+	</body>
+</html>
