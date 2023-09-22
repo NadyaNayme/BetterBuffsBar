@@ -2,6 +2,8 @@
 
 Track only the buffs that actually matter.
 
+![Better Buffs Bar](./BetterBuffsBar.png)
+
 ## Installation
 
 To install Better Buff Bar copy & paste this link into your browser:

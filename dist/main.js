@@ -16643,7 +16643,7 @@ function findAnimateDead(buffs) {
                     if (!(_i < _a.length)) return [3 /*break*/, 7];
                     _b = _a[_i], _key = _b[0], value = _b[1];
                     animeDeadBuff = value.countMatch(buffImages.animateDead, false);
-                    if (!(animeDeadBuff.passed > 50)) return [3 /*break*/, 6];
+                    if (!(animeDeadBuff.passed > 45)) return [3 /*break*/, 6];
                     animateDeadData = value.readArg('timearg');
                     if (!(animateDeadData.time > 59)) return [3 /*break*/, 3];
                     AnimateDeadBuff.dataset.time =

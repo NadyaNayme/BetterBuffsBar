@@ -264,7 +264,7 @@ async function findAnimateDead(buffs: BuffReader.Buff[]) {
 	let animateDeadData;
 	for (let [_key, value] of Object.entries(buffs)) {
 		let animeDeadBuff = value.countMatch(buffImages.animateDead, false);
-		if (animeDeadBuff.passed > 50) {
+		if (animeDeadBuff.passed > 45) {
 			animateDeadData = value.readArg('timearg');
 			if (animateDeadData.time > 59) {
 				AnimateDeadBuff.dataset.time =
