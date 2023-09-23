@@ -16955,7 +16955,7 @@ function updateLocation(e) {
 }
 function startOverlay() {
     return __awaiter(this, void 0, void 0, function () {
-        var cnv, ctx, overlay, overlayPosition, bbb, overlayWidth, overlayHeight, data;
+        var cnv, ctx, overlay, overlayPosition, bbb, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -16968,15 +16968,11 @@ function startOverlay() {
                     overlay = document.getElementsByTagName('canvas')[0];
                     overlayPosition = getSetting('overlayPosition');
                     bbb = document.getElementById('Buffs');
-                    overlayWidth = bbb.offsetWidth;
-                    overlayHeight = bbb.offsetHeight;
                     alt1.overLaySetGroup('betterBuffsBar');
                     alt1.overLayFreezeGroup('betterBuffsBar');
-                    cnv.width = overlayWidth;
-                    cnv.height = overlayHeight;
                     /* If I try and use the overlay instead of copying the overlay it doesn't work. No idea why. */
                     ctx.drawImage(overlay, 0, 0);
-                    data = ctx.getImageData(0, 0, cnv.width, cnv.height);
+                    data = ctx.getImageData(0, 0, bbb.offsetWidth, bbb.offsetHeight);
                     alt1.overLayClearGroup('betterBuffsBar');
                     alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_7__.encodeImageString(data), data.width, 125);
                     alt1.overLayRefreshGroup('betterBuffsBar');
@@ -17165,6 +17161,7 @@ var scaleSliderFields = document.querySelectorAll('input[type="range"].scale');
 scaleSliderFields.forEach(function (scaleSlider) {
     scaleSlider.addEventListener('input', function (event) {
         updateSetting(scaleSlider.dataset.setting, event.target.value);
+        loadSettings();
     });
 });
 var loopSpeed = document.querySelector('#LoopSpeed');

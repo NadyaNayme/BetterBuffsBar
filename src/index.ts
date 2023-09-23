@@ -117,7 +117,12 @@ function paintCanvas(canvas: HTMLCanvasElement) {
 		let overlayCanvasContext = overlayCanvasOutput
 			.querySelector('canvas')
 			.getContext('2d', {'willReadFrequently': true});
-		overlayCanvasContext.clearRect(0, 0, canvas.width, canvas.height);
+		overlayCanvasContext.clearRect(
+			0,
+			0,
+			canvas.width,
+			canvas.height
+		);
 		overlayCanvasContext.drawImage(canvas, 0, 0);
 		let overlay = overlayCanvasOutput.querySelector('canvas');
 		updateSetting('overlayImage', overlay.toDataURL());
@@ -468,17 +473,13 @@ export async function startOverlay() {
 		let overlayPosition = getSetting('overlayPosition');
 
 		let bbb = document.getElementById('Buffs');
-		let overlayWidth = bbb.offsetWidth;
-		let overlayHeight = bbb.offsetHeight;
 
 		alt1.overLaySetGroup('betterBuffsBar');
 		alt1.overLayFreezeGroup('betterBuffsBar');
-		cnv.width = overlayWidth;
-		cnv.height = overlayHeight;
 		/* If I try and use the overlay instead of copying the overlay it doesn't work. No idea why. */
 		ctx.drawImage(overlay, 0, 0);
 
-		let data = ctx.getImageData(0, 0, cnv.width, cnv.height);
+		let data = ctx.getImageData(0, 0, bbb.offsetWidth, bbb.offsetHeight);
 
 		alt1.overLayClearGroup('betterBuffsBar');
 		alt1.overLayImage(
@@ -717,6 +718,7 @@ var scaleSliderFields: any = document.querySelectorAll(
 scaleSliderFields.forEach((scaleSlider) => {
 	scaleSlider.addEventListener('input', (event) => {
 		updateSetting(scaleSlider.dataset.setting, event.target.value);
+		loadSettings();
 	});
 });
 
