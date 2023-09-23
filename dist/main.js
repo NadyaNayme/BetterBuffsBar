@@ -17263,10 +17263,10 @@ function findAdrenalinePotionDebuff(debuffs) {
                     _i = 0, _a = Object.entries(debuffs);
                     _c.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 5];
+                    if (!(_i < _a.length)) return [3 /*break*/, 7];
                     _b = _a[_i], _key = _b[0], value = _b[1];
                     AdrenalinePotionImage = value.countMatch(debuffImages.adrenalinePotion, false);
-                    if (!(AdrenalinePotionImage.passed > 50)) return [3 /*break*/, 4];
+                    if (!(AdrenalinePotionImage.passed > 50)) return [3 /*break*/, 6];
                     AdrenalinePotionData = value.readArg('timearg');
                     if (!(AdrenalinePotionData.time > 59)) return [3 /*break*/, 3];
                     AdrenalinePotionDebuff.dataset.time =
@@ -17274,28 +17274,36 @@ function findAdrenalinePotionDebuff(debuffs) {
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 2:
                     _c.sent();
-                    return [3 /*break*/, 4];
+                    return [3 /*break*/, 6];
                 case 3:
+                    if (!(AdrenalinePotionData.time == 11)) return [3 /*break*/, 5];
+                    AdrenalinePotionDebuff.dataset.time = '<10s';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                case 4:
+                    _c.sent();
+                    AdrenalinePotionDebuff.dataset.time = '';
+                    return [3 /*break*/, 6];
+                case 5:
                     AdrenalinePotionDebuff.dataset.time = value
                         .readArg('timearg')
                         .time.toString();
-                    _c.label = 4;
-                case 4:
+                    _c.label = 6;
+                case 6:
                     _i++;
                     return [3 /*break*/, 1];
-                case 5:
-                    if (!(AdrenalinePotionData == undefined)) return [3 /*break*/, 7];
+                case 7:
+                    if (!(AdrenalinePotionData == undefined)) return [3 /*break*/, 9];
                     AdrenalinePotionDebuff.classList.add('inactive');
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 6:
+                case 8:
                     _c.sent();
                     AdrenalinePotionDebuff.dataset.time = '';
-                    return [3 /*break*/, 8];
-                case 7:
-                    AdrenalinePotionDebuff.classList.remove('inactive');
-                    _c.label = 8;
-                case 8: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
+                    return [3 /*break*/, 10];
                 case 9:
+                    AdrenalinePotionDebuff.classList.remove('inactive');
+                    _c.label = 10;
+                case 10: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
+                case 11:
                     _c.sent();
                     return [2 /*return*/, AdrenalinePotionData];
             }

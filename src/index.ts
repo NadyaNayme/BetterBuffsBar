@@ -559,6 +559,10 @@ async function findAdrenalinePotionDebuff(debuffs: BuffReader.Buff[]) {
 				AdrenalinePotionDebuff.dataset.time =
 					(value.readArg('timearg').time / 60).toString() + 'm';
 				await new Promise((done) => setTimeout(done, 600));
+			} else if (AdrenalinePotionData.time == 11) {
+				AdrenalinePotionDebuff.dataset.time = '<10s';
+				await new Promise((done) => setTimeout(done, 10000));
+				AdrenalinePotionDebuff.dataset.time = '';
 			} else {
 				AdrenalinePotionDebuff.dataset.time = value
 					.readArg('timearg')
