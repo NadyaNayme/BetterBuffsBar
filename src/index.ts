@@ -28,6 +28,7 @@ let AnimateDeadBuff = document.getElementById('AnimateDeadBuff');
 let BolgStacksBuff = document.getElementById('BolgStacksBuff');
 let TimeRiftBuff = document.getElementById('TimeRiftBuff');
 let FsoaSpecBuff = document.getElementById('FsoaSpecBuff');
+let GladiatorsRageBuff = document.getElementById('GladiatorsRageBuff');
 
 // loads all images as raw pixel data async, images have to be saved as *.data.png
 // this also takes care of metadata headers in the image that make browser load the image
@@ -49,6 +50,7 @@ var buffImages = a1lib.webpackImages({
 	superAntifireActive: require('./asset/data/Super_Anti-Fire_Active.data.png'),
 	supremeOverloadActive: require('./asset/data/Supreme_Overload_Potion_Active.data.png'),
 	timeRift: require('./asset/data/Time_Rift.data.png'),
+	gladiatorsRage: require('./asset/data/Gladiators_Rage.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -170,6 +172,9 @@ function watchBuffs() {
 			}
 			if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
 				findBolgStacks(buffs);
+			}
+			if (document.querySelectorAll('#Buffs #GladiatorsRageBuff').length) {
+				findFulProc(buffs);
 			}
 			// If we succesfully found buffs - restart our retries
 			maxAttempts = 10;
@@ -414,6 +419,32 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return bolgStacksData;
+}
+
+async function findFulProc(buffs: BuffReader.Buff[]) {
+	let fulProcData;
+	for (let [_key, value] of Object.entries(buffs)) {
+		let fulProcBuff = value.countMatch(buffImages.gladiatorsRage, false);
+		console.log(fulProcBuff);
+		if (fulProcBuff.passed > 50) {
+			if (value.readArg('timearg').time < 11) {
+				fulProcData = value.readArg('timearg');
+				GladiatorsRageBuff.dataset.time = value
+					.readArg('timearg')
+					.time.toString();
+			await new Promise((done) => setTimeout(done, 600));
+			}
+		}
+	}
+	if (fulProcData == undefined) {
+		GladiatorsRageBuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 1000));
+		GladiatorsRageBuff.dataset.time = '';
+	} else {
+		GladiatorsRageBuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return fulProcData;
 }
 
 let posBtn = document.getElementById('OverlayPosition');
