@@ -435,6 +435,9 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 				'url("data:image/png;base64,' +
 				bolgBuffImage.toPngBase64() +
 				'")';
+		} else {
+			BolgStacksBuff.style.backgroundImage =
+				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAAAAACov6uJAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAatJREFUKM91ktlO4zAUhnkQUi9ZnHg5ThzKfUVFq6DM9IIiECIwaXJ4/zcYxwmBG+zLT5b/7Wr3+7naXUfRZkMI5apIRFpoTgjZbKLo2rOZUKpV0b78kVpTRgMNzBPGuBV/8ePzVFjOGKUeehZQzBNr3i79pYMy4XF4GRgrwFbGySe84JOqTWVtTgMjJAdltNsWdzjgnbx12ijICZkYBbXrDpkzDhFrU6fHbic1DYwb/Y54SJTssJM6OSJ+GG9lYszq/Yh4z+LzeObsgDjuDTDqGWWyUmXTY8PasWUP2DeVruTCuHKQQzOeT8PpPDZQ2FrHXyxOobbCPQ/j8OzysoYs4V8siVlab4l4HV4Fvb3JWPzN4gwcpMs7YWtI45VpB8I046P/73FsjIBaxatO+a2z8TpLtegkDPR+mP2h93f/w9+SyzHRsvuccvHm342Zc6FmylNUc57gskO3U2bOc+oBoLrJ5x62zqw9+G5zj0y19OdMCbD059dCpt5LeOv/9Z0NvZOZRdOUvP8y93vBk7Sch71E686YVyTbl1aqnztb96ml8FctJOzz9/Mfd5CYrVsZ8isAAAAASUVORK5CYII=';
 		}
 	}
 	for (let [_key, value] of Object.entries(buffs).reverse()) {
