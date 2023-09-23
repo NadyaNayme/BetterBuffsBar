@@ -81,26 +81,6 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
-/***/ "./asset/data/Enhanced_Excalibur-scuffed.data.png":
-/*!********************************************************!*\
-  !*** ./asset/data/Enhanced_Excalibur-scuffed.data.png ***!
-  \********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAIpQTFRFzAAAAAAAW2RkR09PV2JlTlZWVmJnWGFhGiUtXGRkV2BgEBMUVl5eKzY7WWFhMjo/WmJiLzMzNzw9WGJiLDAxWmNjV2FhQklLQEdHVmNnQUhIU2RsTVVVVmRpGSQsU2VtVV1dExcaVFxcKzY9AAAAWmBcLjg7QCsUMjAmT1dcPSkSW0YcAgEBDgkF93Ke9wAAAC50Uk5T/wD//////////////////////////////////////////////////////////9cYbMIAAAB9SURBVHicpdI5EoIAEERRWlQQFRFl3MVlANf7X8+IRP0mdvpqqjuYIPgVUcA6IVq3h3f9KCYbJEPsG41xSzrBndlUZFkuslk6JytsIbDClgJb2VpgG9sKbGfJHqy0w1Fg0eksMK9qgTV+eafWrn67k/njQ1rz5xeiX/rXOC/VAQeEXeh3swAAAABJRU5ErkJggg==")
-
-/***/ }),
-
-/***/ "./asset/data/Enhanced_Excalibur.data.png":
-/*!************************************************!*\
-  !*** ./asset/data/Enhanced_Excalibur.data.png ***!
-  \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAMAAABhTZc9AAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAVZQTFRFzAAAAAAAAAg4EREAJysAREcAOj4ABQAGHyQAU1toVFtbEREAAAgFCQoAT1dpXGNjDhAuBQEAERkAXmZmW2JiDxAVBwUAAAABWWBgIyY9AgIAAgoAAAABXGRkLTA/AQAMXGVlMDQ1SU8AOT4+AwMAMzYAW2NlTVRUAgIAERkAGR0AXWRkQkZLAQACGh0AXWVlXGJiRElKAAEIGhkAT1ZoBgcACBAARUxuUFdXDg4AAAgWTVRrCAkABQA4EQBERUxvWF9fDhAbY0oAEQgAAAhaVl5eICQ/AQEAEQ4AJh0AMiYAOz4AWmJiKS09AAEFAgADKCAldGZBZ2NRLDAxAAITNiY5ZUchSz0fAgQALx0AVTgdVDcbQTMVFxMAGxIAUDUaDQonAAEGZkwAHiAAWzscLB0PAAILCwwAU1paKhsOMSAPCwcABQEANTk5AAACDQoABAQACAcAaUKYKgAAAHJ0Uk5T/wAPIlNqkRRH//+eDyL///8VBP///xmX//8iEVz//1L//3b/XWH//4QCPv//cDz///+WOf+QG///nQ//0BQK////lh4P//8hGHlmaP//SzP/////Wv///1V2////Kkz//7SbTv//LSj///8qKv/hRoj2XOfjswAAAOZJREFUeJxjYMAPGHEDXLJMzHhkWVjZ2HHKcnBycfPgkuXl4xcQxGWykLCIKE5XiYlLSErhkpWWkZWTZ8QlK6OgKMOIS1ZJQVmFEZesqpq6hiYuWS1tWR1dRhyyevoGhkaMOGSNTQwMTRlxyJqZG1hYWuGStTYQsbFlxJRlAmI7ewMHR0ZGLLJOzowuMvyubu5YZT08vbz5fXz9GLHKMvoHBAYFh6BLwl0VGhYegSEJk42Mio6JxSUbF5+QyJiYhE2WJzk5JTUNUyNENj0jIzMrG5dsTm5GXj4TLlmhgkJ2rHJgWXwAALUnHu3MYKe7AAAAAElFTkSuQmCC")
-
-/***/ }),
-
 /***/ "./asset/data/Gladiators_Rage.data.png":
 /*!*********************************************!*\
   !*** ./asset/data/Gladiators_Rage.data.png ***!
@@ -16607,8 +16587,6 @@ var buffImages = alt1__WEBPACK_IMPORTED_MODULE_7__.webpackImages({
 });
 var debuffImages = alt1__WEBPACK_IMPORTED_MODULE_7__.webpackImages({
     elvenRitualShard: __webpack_require__(/*! ./asset/data/Ancient_Elven_Ritual_Shard.data.png */ "./asset/data/Ancient_Elven_Ritual_Shard.data.png"),
-    enhancedExcalibur: __webpack_require__(/*! ./asset/data/Enhanced_Excalibur.data.png */ "./asset/data/Enhanced_Excalibur.data.png"),
-    enhancedExcaliburScuffed: __webpack_require__(/*! ./asset/data/Enhanced_Excalibur-scuffed.data.png */ "./asset/data/Enhanced_Excalibur-scuffed.data.png"),
 });
 function startBetterBuffsBar() {
     if (!window.alt1) {
@@ -16714,10 +16692,6 @@ function watchBuffs() {
             if (debuffs) {
                 if (document.querySelectorAll('#Buffs #AncientElvenRitualShardDebuff').length) {
                     findAncientElvenRitualShardDebuff(debuffs);
-                }
-                if (document.querySelectorAll('#Buffs #EnhancedExcaliburDebuff')
-                    .length) {
-                    findEnhancedExcaliburDebuff(debuffs);
                 }
             }
             // If we succesfully found buffs - restart our retries
@@ -17220,55 +17194,6 @@ function findAncientElvenRitualShardDebuff(debuffs) {
                 case 9:
                     _c.sent();
                     return [2 /*return*/, ElvenRitualShardData];
-            }
-        });
-    });
-}
-function findEnhancedExcaliburDebuff(debuffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var EnhancedExcaliburData, _i, _a, _b, _key, value, EnhancedExcaliburBuffImage;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(debuffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 5];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    EnhancedExcaliburBuffImage = value.countMatch(debuffImages.enhancedExcaliburScuffed, false);
-                    console.log(EnhancedExcaliburBuffImage);
-                    if (!(EnhancedExcaliburBuffImage.passed > 50)) return [3 /*break*/, 4];
-                    EnhancedExcaliburData = value.readArg('timearg');
-                    if (!(EnhancedExcaliburData.time > 59)) return [3 /*break*/, 3];
-                    EnhancedExcaliburDebuff.dataset.time =
-                        (value.readArg('timearg').time / 60).toString() + 'm';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    return [3 /*break*/, 4];
-                case 3:
-                    EnhancedExcaliburDebuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    _c.label = 4;
-                case 4:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 5:
-                    if (!(EnhancedExcaliburData == undefined)) return [3 /*break*/, 7];
-                    EnhancedExcaliburDebuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 6:
-                    _c.sent();
-                    EnhancedExcaliburDebuff.dataset.time = '';
-                    return [3 /*break*/, 8];
-                case 7:
-                    EnhancedExcaliburDebuff.classList.remove('inactive');
-                    _c.label = 8;
-                case 8: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 9:
-                    _c.sent();
-                    return [2 /*return*/, EnhancedExcaliburData];
             }
         });
     });
