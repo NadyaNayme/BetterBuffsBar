@@ -25,6 +25,7 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 
 ## Known Issues
 
+- BOLG tracking is apparently a mess. Sorry didn't know the same buff was used to track timer + buffs...
 - Rapid movement of camera can cause FSOA Buff to be detected with 120s time. FSOA detection is super fragile (matching on 15 pixels...). If someone can make a better transparent buff icon this can be improved.
 - Overloads with <10s remaining can't be tracked due to the buff fading in and out. Ask a Jmod to please stop expiring buffs from doing that. Alt 1 can't track them properly. :)
 
