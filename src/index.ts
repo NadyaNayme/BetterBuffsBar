@@ -402,7 +402,7 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 			bolgStacksData = value.readArg('timearg');
 			BolgStacksBuff.dataset.time = value
 				.readArg('timearg')
-				.time.toString();
+				.arg.toString();
 		}
 	}
 	if (bolgStacksData == undefined) {

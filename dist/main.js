@@ -16892,7 +16892,7 @@ function findBolgStacks(buffs) {
                             bolgStacksData = value.readArg('timearg');
                             BolgStacksBuff.dataset.time = value
                                 .readArg('timearg')
-                                .time.toString();
+                                .arg.toString();
                         }
                     }
                     if (!(bolgStacksData == undefined)) return [3 /*break*/, 2];
