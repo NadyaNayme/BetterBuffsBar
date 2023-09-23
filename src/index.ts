@@ -293,7 +293,7 @@ async function findDarkness(buffs: BuffReader.Buff[]) {
 	let darknessData;
 	for (let [_key, value] of Object.entries(buffs)) {
 		let darknessBuff = value.countMatch(buffImages.darkness, false);
-		if (darknessBuff.passed > 120) {
+		if (darknessBuff.passed > 120 && value.readArg('timearg').time > 0) {
 			darknessData = value.readArg('timearg');
 			if (darknessData.time > 59) {
 				DarknessBuff.dataset.time =

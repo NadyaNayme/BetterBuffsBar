@@ -16773,7 +16773,7 @@ function findDarkness(buffs) {
                     if (!(_i < _a.length)) return [3 /*break*/, 7];
                     _b = _a[_i], _key = _b[0], value = _b[1];
                     darknessBuff = value.countMatch(buffImages.darkness, false);
-                    if (!(darknessBuff.passed > 120)) return [3 /*break*/, 6];
+                    if (!(darknessBuff.passed > 120 && value.readArg('timearg').time > 0)) return [3 /*break*/, 6];
                     darknessData = value.readArg('timearg');
                     if (!(darknessData.time > 59)) return [3 /*break*/, 3];
                     DarknessBuff.dataset.time =
