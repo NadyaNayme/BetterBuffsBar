@@ -19,7 +19,7 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 
 ## Features
 
-- Track important buffs (if it isn't listed it wasn't important enough - but more seriously DM me @ NadyaNayme on Discord if you'd like to add a buff to bet racked)
+- Track important buffs (if it isn't listed it wasn't important enough - but more seriously DM me @ NadyaNayme on Discord if you'd like to add a buff to be tracked)
 - Select order that buffs should be displayed and which should be tracked. Faded buffs must first be enabled to sort them.
 - Choose between fading the buff out when inactive or hiding it from the better buff bar.
 
