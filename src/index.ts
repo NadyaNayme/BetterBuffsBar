@@ -21,6 +21,7 @@ var betterBuffsBar = document.getElementById('BetterBuffsBar');
 
 /* Buffs */
 let OverloadBuff = document.getElementById('OverloadBuff');
+let ElderOverloadBuff = document.getElementById('ElderOverloadBuff');
 let WeaponPoisonBuff = document.getElementById('WeaponPoisonBuff');
 let DarknessBuff = document.getElementById('DarknessBuff');
 let AnimateDeadBuff = document.getElementById('AnimateDeadBuff');
@@ -39,6 +40,7 @@ var buffImages = a1lib.webpackImages({
 	antipoisonActive: require('./asset/data/Anti-poison_Active.data.png'),
 	chronicleAttraction: require('./asset/data/Chronicle_Attraction.data.png'),
 	darkness: require('./asset/data/Darkness_top.data.png'),
+	elderOverload: require('./asset/data/Elder_Overload.data.png'),
 	fsoaWeaponSpec: require('./asset/data/fsoaSpecBuff.data.png'),
 	overloaded: require('./asset/data/Overloaded.data.png'),
 	perfectEquilibrium: require('./asset/data/Perfect_Equilibrium.data.png'),
@@ -139,6 +141,7 @@ function watchBuffs() {
 		let buffs = getActiveBuffs();
 		if (buffs) {
 			findOverloaded(buffs);
+			findElderOverloaded(buffs);
 			findPoisonous(buffs);
 			// findPrayerRenewal(buffs);
 			// findAntipoison(buffs);
@@ -180,7 +183,7 @@ async function findOverloaded(buffs: BuffReader.Buff[]) {
 				await new Promise((done) => setTimeout(done, 600));
 			} else if (overloadData.time == 11) {
 				OverloadBuff.dataset.time = '<10s'
-				await new Promise((done) => setTimeout(done, 600));
+				await new Promise((done) => setTimeout(done, 10000));
 				OverloadBuff.dataset.time = '';
 			}else {
 				OverloadBuff.dataset.time = value
@@ -198,6 +201,37 @@ async function findOverloaded(buffs: BuffReader.Buff[]) {
 	return overloadData;
 }
 
+async function findElderOverloaded(buffs: BuffReader.Buff[]) {
+	let elderOverloadData;
+	for (let [_key, value] of Object.entries(buffs)) {
+		let elderOverloadedBuff = value.countMatch(buffImages.elderOverload, false);
+		console.log(elderOverloadedBuff);
+		if (elderOverloadedBuff.passed > 50) {
+			elderOverloadData = value.readArg('timearg');
+			if (elderOverloadData.time > 59) {
+				ElderOverloadBuff.dataset.time =
+					(value.readArg('timearg').time / 60).toString() + 'm';
+				await new Promise((done) => setTimeout(done, 600));
+			} else if (elderOverloadData.time == 11) {
+				ElderOverloadBuff.dataset.time = '<10s';
+				await new Promise((done) => setTimeout(done, 10000));
+				ElderOverloadBuff.dataset.time = '';
+			} else {
+				ElderOverloadBuff.dataset.time = value
+					.readArg('timearg')
+					.time.toString();
+			}
+		}
+	}
+	if (elderOverloadData == undefined) {
+		ElderOverloadBuff.classList.add('inactive');
+	} else {
+		ElderOverloadBuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return elderOverloadData;
+}
+
 async function findPoisonous(buffs: BuffReader.Buff[]) {
 	let poisonousData;
 	for (let [_key, value] of Object.entries(buffs)) {
@@ -210,7 +244,7 @@ async function findPoisonous(buffs: BuffReader.Buff[]) {
 				await new Promise((done) => setTimeout(done, 600));
 			} else if (poisonousData.time == 11) {
 				WeaponPoisonBuff.dataset.time = '<10s';
-				await new Promise((done) => setTimeout(done, 600));
+				await new Promise((done) => setTimeout(done, 10000));
 				WeaponPoisonBuff.dataset.time = '';
 			} else {
 				WeaponPoisonBuff.dataset.time = value
@@ -240,7 +274,7 @@ async function findDarkness(buffs: BuffReader.Buff[]) {
 				await new Promise((done) => setTimeout(done, 600));
 			} else if (darknessData.time == 11) {
 				DarknessBuff.dataset.time = '<10s';
-				await new Promise((done) => setTimeout(done, 600));
+				await new Promise((done) => setTimeout(done, 10000));
 				DarknessBuff.dataset.time = '';
 			} else {
 				DarknessBuff.dataset.time = value
@@ -272,7 +306,7 @@ async function findAnimateDead(buffs: BuffReader.Buff[]) {
 				await new Promise((done) => setTimeout(done, 600));
 			} else if (animateDeadData.time == 11) {
 				AnimateDeadBuff.dataset.time = '<10s';
-				await new Promise((done) => setTimeout(done, 600));
+				await new Promise((done) => setTimeout(done, 10000));
 				AnimateDeadBuff.dataset.time = '';
 			} else {
 				AnimateDeadBuff.dataset.time = value
