@@ -380,7 +380,12 @@ async function findFsoaBuff(buffs: BuffReader.Buff[]) {
 	let fsoaBuffData;
 	for (let [_key, value] of Object.entries(buffs)) {
 		let fsoaBuff = value.countMatch(buffImages.fsoaWeaponSpec, false);
-		if (fsoaBuff.passed >= 15) {
+		console.log(fsoaBuff);
+		if (
+			fsoaBuff.passed >= 12 &&
+			value.readArg('time').time < 31 &&
+			value.readArg('time').time > 0
+		) {
 			fsoaBuffData = value.readArg('timearg');
 			FsoaSpecBuff.dataset.time = value
 				.readArg('timearg')
@@ -467,7 +472,7 @@ async function findFulProc(buffs: BuffReader.Buff[]) {
 		let fulProcBuff = value.countMatch(buffImages.gladiatorsRage, false);
 		//console.log(fulProcBuff);
 		if (fulProcBuff.passed > 50) {
-			if (value.readArg('timearg').time < 11) {
+			if (value.readArg('timearg').time < 16) {
 				fulProcData = value.readArg('timearg');
 				GladiatorsRageBuff.dataset.time = value
 					.readArg('timearg')

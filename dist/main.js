@@ -16925,7 +16925,10 @@ function findFsoaBuff(buffs) {
                     for (_i = 0, _a = Object.entries(buffs); _i < _a.length; _i++) {
                         _b = _a[_i], _key = _b[0], value = _b[1];
                         fsoaBuff = value.countMatch(buffImages.fsoaWeaponSpec, false);
-                        if (fsoaBuff.passed >= 15) {
+                        console.log(fsoaBuff);
+                        if (fsoaBuff.passed >= 12 &&
+                            value.readArg('time').time < 31 &&
+                            value.readArg('time').time > 0) {
                             fsoaBuffData = value.readArg('timearg');
                             FsoaSpecBuff.dataset.time = value
                                 .readArg('timearg')
@@ -17012,7 +17015,7 @@ function findFulProc(buffs) {
                     _b = _a[_i], _key = _b[0], value = _b[1];
                     fulProcBuff = value.countMatch(buffImages.gladiatorsRage, false);
                     if (!(fulProcBuff.passed > 50)) return [3 /*break*/, 3];
-                    if (!(value.readArg('timearg').time < 11)) return [3 /*break*/, 3];
+                    if (!(value.readArg('timearg').time < 16)) return [3 /*break*/, 3];
                     fulProcData = value.readArg('timearg');
                     GladiatorsRageBuff.dataset.time = value
                         .readArg('timearg')
