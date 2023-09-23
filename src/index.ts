@@ -15,6 +15,9 @@ import './icon.png';
 import './css/betterbuffsbar.css';
 
 var buffs = new BuffReader.default();
+var debuffs = new BuffReader.default();
+debuffs.debuffs = true;
+
 var output = document.getElementById('output');
 var settings = document.getElementById('Settings');
 var betterBuffsBar = document.getElementById('BetterBuffsBar');
@@ -29,6 +32,7 @@ let BolgStacksBuff = document.getElementById('BolgStacksBuff');
 let TimeRiftBuff = document.getElementById('TimeRiftBuff');
 let FsoaSpecBuff = document.getElementById('FsoaSpecBuff');
 let GladiatorsRageBuff = document.getElementById('GladiatorsRageBuff');
+let AncientElvenRitualShardBuff = document.getElementById('AncientElvenRitualShardBuff');
 
 // loads all images as raw pixel data async, images have to be saved as *.data.png
 // this also takes care of metadata headers in the image that make browser load the image
@@ -53,6 +57,10 @@ var buffImages = a1lib.webpackImages({
 	supremeOverloadActive: require('./asset/data/Supreme_Overload_Potion_Active.data.png'),
 	timeRift: require('./asset/data/Time_Rift.data.png'),
 	gladiatorsRage: require('./asset/data/Gladiators_Rage.data.png'),
+});
+
+var debuffImages = a1lib.webpackImages({
+	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -148,6 +156,7 @@ function watchBuffs() {
 	}
 	const interval = setInterval(() => {
 		let buffs = getActiveBuffs();
+		let debuffs = getActiveDebuffs();
 		if (buffs) {
 			if (document.querySelectorAll('#Buffs #OverloadBuff').length) {
 				findOverloaded(buffs);
@@ -178,6 +187,11 @@ function watchBuffs() {
 			if (document.querySelectorAll('#Buffs #GladiatorsRageBuff').length) {
 				findFulProc(buffs);
 			}
+		if (debuffs) {
+			if (document.querySelectorAll('#Buffs #AncientElvenRitualShardBuff').length) {
+				findAncientElvenRitualShardBuff(debuffs);
+			}
+		}
 			// If we succesfully found buffs - restart our retries
 			maxAttempts = 10;
 		} else {
@@ -380,7 +394,6 @@ async function findFsoaBuff(buffs: BuffReader.Buff[]) {
 	let fsoaBuffData;
 	for (let [_key, value] of Object.entries(buffs)) {
 		let fsoaBuff = value.countMatch(buffImages.fsoaWeaponSpec, false);
-		console.log(fsoaBuff);
 		if (
 			fsoaBuff.passed >= 12 &&
 			value.readArg('time').time < 31 &&
@@ -470,7 +483,6 @@ async function findFulProc(buffs: BuffReader.Buff[]) {
 	let fulProcData;
 	for (let [_key, value] of Object.entries(buffs)) {
 		let fulProcBuff = value.countMatch(buffImages.gladiatorsRage, false);
-		//console.log(fulProcBuff);
 		if (fulProcBuff.passed > 50) {
 			if (value.readArg('timearg').time < 16) {
 				fulProcData = value.readArg('timearg');
@@ -490,6 +502,34 @@ async function findFulProc(buffs: BuffReader.Buff[]) {
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return fulProcData;
+}
+
+async function findAncientElvenRitualShardBuff(debuffs: BuffReader.Buff[]) {
+	let ElvenRitualShardData;
+	for (let [_key, value] of Object.entries(debuffs)) {
+		let ElvenRitualShardBuff = value.countMatch(debuffImages.elvenRitualShard, false);
+		if (ElvenRitualShardBuff.passed > 50) {
+			ElvenRitualShardData = value.readArg('timearg');
+			if (ElvenRitualShardData.time > 59) {
+				AncientElvenRitualShardBuff.dataset.time =
+					(value.readArg('timearg').time / 60).toString() + 'm';
+				await new Promise((done) => setTimeout(done, 600));
+			} else {
+				AncientElvenRitualShardBuff.dataset.time = value
+					.readArg('timearg')
+					.time.toString();
+			}
+		}
+	}
+	if (ElvenRitualShardData == undefined) {
+		AncientElvenRitualShardBuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 600));
+		AncientElvenRitualShardBuff.dataset.time = '';
+	} else {
+		AncientElvenRitualShardBuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return ElvenRitualShardData;
 }
 
 let posBtn = document.getElementById('OverlayPosition');
@@ -741,6 +781,7 @@ function updateSetting(setting, value) {
 }
 
 let foundBuffs = false;
+let foundDebuffs = false;
 function findPlayerBuffs() {
 	if (buffs.find()) {
 		foundBuffs = true;
@@ -756,6 +797,21 @@ function findPlayerBuffs() {
 			);
 		}
 		return updateSetting('buffsLocation', [buffs.pos.x, buffs.pos.y]);
+	}
+}
+
+function findPlayerDebuffs() {
+	if (debuffs.find()) {
+		foundDebuffs = true;
+		return updateSetting('debuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
+	}
+}
+
+function getActiveDebuffs() {
+	if (foundDebuffs && getSetting('debuffsLocation')) {
+		return debuffs.read();
+	} else {
+		findPlayerDebuffs();
 	}
 }
 
