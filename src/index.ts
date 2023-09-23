@@ -44,6 +44,7 @@ var buffImages = a1lib.webpackImages({
 	elderOverload: require('./asset/data/Elder_Overload.data.png'),
 	fsoaWeaponSpec: require('./asset/data/fsoaSpecBuff.data.png'),
 	overloaded: require('./asset/data/Overloaded.data.png'),
+	overloadedNoBorder: require('./asset/data/Overloaded-noborder.data.png'),
 	perfectEquilibrium: require('./asset/data/Perfect_Equilibrium.data.png'),
 	perfectEquilibriumNoBorder: require('./asset/data/Perfect_Equilibrium-noborder.data.png'),
 	poisonous: require('./asset/data/Poisonous-top.data.png'),
@@ -411,7 +412,7 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 			canvas.width,
 			canvas.height
 		);
-	for (let a in buffs) {
+	for (let a in buffs.reverse()) {
 		if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
 			let buffsImage = buffs[a].buffer.toImage();
 			ctx.drawImage(

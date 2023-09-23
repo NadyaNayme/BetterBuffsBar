@@ -81,6 +81,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
+/***/ "./asset/data/Overloaded-noborder.data.png":
+/*!*************************************************!*\
+  !*** ./asset/data/Overloaded-noborder.data.png ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAAW5vUEUAYtdMlAAAAARub1BFAAAAAEEgjiIAAAAJbm9QRQAAAAAAAAAAAKGKctUAAAEvSURBVEhL3da9agJBGIXhtReFNKZJYaNdEpsYtogiopVpLSKIIGIlgoVXYJFiG8ll5B6VM3CWb76Z2V1/ULB4m3XmPCyIGDXGtUN78ezU2b6cnG8H+5F+qC9+7+qmKCo54fmi/+Tc0ZspIg9xWAL7TWy1nMYpxOQGCiLyEpr+Nc3Yf9I1Jb8TC8HnSN7xIhrgRUaEgA9BISgXwdBg/GPVGY5Mo95nLmSQLABhZD6fWBFqfX04CMpE9GGEkdl6ZdLI2+u7F0HY4zcvF0EYqlbKTiEAybcxCB/4DqPHQEIAykJQISQLYHlvc3+kCMBC0P2RUwCmIW6mCKFrI9x2kHMAJiEL0b/ClyLYYNj0/tRfgiBC3EyRa0E+wIucC2kAOQiTh3CxaPIekps3+N9VOxwBgFEP7QxMBnUAAAAASUVORK5CYII=")
+
+/***/ }),
+
 /***/ "./asset/data/Overloaded.data.png":
 /*!****************************************!*\
   !*** ./asset/data/Overloaded.data.png ***!
@@ -16469,6 +16479,7 @@ var buffImages = alt1__WEBPACK_IMPORTED_MODULE_7__.webpackImages({
     elderOverload: __webpack_require__(/*! ./asset/data/Elder_Overload.data.png */ "./asset/data/Elder_Overload.data.png"),
     fsoaWeaponSpec: __webpack_require__(/*! ./asset/data/fsoaSpecBuff.data.png */ "./asset/data/fsoaSpecBuff.data.png"),
     overloaded: __webpack_require__(/*! ./asset/data/Overloaded.data.png */ "./asset/data/Overloaded.data.png"),
+    overloadedNoBorder: __webpack_require__(/*! ./asset/data/Overloaded-noborder.data.png */ "./asset/data/Overloaded-noborder.data.png"),
     perfectEquilibrium: __webpack_require__(/*! ./asset/data/Perfect_Equilibrium.data.png */ "./asset/data/Perfect_Equilibrium.data.png"),
     perfectEquilibriumNoBorder: __webpack_require__(/*! ./asset/data/Perfect_Equilibrium-noborder.data.png */ "./asset/data/Perfect_Equilibrium-noborder.data.png"),
     poisonous: __webpack_require__(/*! ./asset/data/Poisonous-top.data.png */ "./asset/data/Poisonous-top.data.png"),
@@ -16948,7 +16959,7 @@ function findBolgStacks(buffs) {
                     canvas = document.getElementById('canvas');
                     ctx = canvas.getContext('2d');
                     ctx.drawImage(buffImages.perfectEquilibriumNoBorder.toImage(), 0, 0, canvas.width, canvas.height);
-                    for (a in buffs) {
+                    for (a in buffs.reverse()) {
                         if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
                             buffsImage = buffs[a].buffer.toImage();
                             ctx.drawImage(buffsImage, buffs[a].bufferx, buffs[a].buffery, 27, 27, 0, 0, canvas.width, canvas.height);
