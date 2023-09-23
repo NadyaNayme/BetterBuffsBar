@@ -32,7 +32,10 @@ let BolgStacksBuff = document.getElementById('BolgStacksBuff');
 let TimeRiftBuff = document.getElementById('TimeRiftBuff');
 let FsoaSpecBuff = document.getElementById('FsoaSpecBuff');
 let GladiatorsRageBuff = document.getElementById('GladiatorsRageBuff');
-let AncientElvenRitualShardBuff = document.getElementById('AncientElvenRitualShardBuff');
+let AncientElvenRitualShardDebuff = document.getElementById('AncientElvenRitualShardDebuff');
+let EnhancedExcaliburDebuff = document.getElementById(
+	'EnhancedExcaliburDebuff'
+);
 
 // loads all images as raw pixel data async, images have to be saved as *.data.png
 // this also takes care of metadata headers in the image that make browser load the image
@@ -61,6 +64,8 @@ var buffImages = a1lib.webpackImages({
 
 var debuffImages = a1lib.webpackImages({
 	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard.data.png'),
+	enhancedExcalibur: require('./asset/data/Enhanced_Excalibur.data.png'),
+	enhancedExcaliburScuffed: require('./asset/data/Enhanced_Excalibur-scuffed.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -188,8 +193,14 @@ function watchBuffs() {
 				findFulProc(buffs);
 			}
 		if (debuffs) {
-			if (document.querySelectorAll('#Buffs #AncientElvenRitualShardBuff').length) {
-				findAncientElvenRitualShardBuff(debuffs);
+			if (document.querySelectorAll('#Buffs #AncientElvenRitualShardDebuff').length) {
+				findAncientElvenRitualShardDebuff(debuffs);
+			}
+			if (
+				document.querySelectorAll('#Buffs #EnhancedExcaliburDebuff')
+					.length
+			) {
+				findEnhancedExcaliburDebuff(debuffs);
 			}
 		}
 			// If we succesfully found buffs - restart our retries
@@ -504,32 +515,64 @@ async function findFulProc(buffs: BuffReader.Buff[]) {
 	return fulProcData;
 }
 
-async function findAncientElvenRitualShardBuff(debuffs: BuffReader.Buff[]) {
+async function findAncientElvenRitualShardDebuff(debuffs: BuffReader.Buff[]) {
 	let ElvenRitualShardData;
 	for (let [_key, value] of Object.entries(debuffs)) {
 		let ElvenRitualShardBuff = value.countMatch(debuffImages.elvenRitualShard, false);
 		if (ElvenRitualShardBuff.passed > 50) {
 			ElvenRitualShardData = value.readArg('timearg');
 			if (ElvenRitualShardData.time > 59) {
-				AncientElvenRitualShardBuff.dataset.time =
+				AncientElvenRitualShardDebuff.dataset.time =
 					(value.readArg('timearg').time / 60).toString() + 'm';
 				await new Promise((done) => setTimeout(done, 600));
 			} else {
-				AncientElvenRitualShardBuff.dataset.time = value
+				AncientElvenRitualShardDebuff.dataset.time = value
 					.readArg('timearg')
 					.time.toString();
 			}
 		}
 	}
 	if (ElvenRitualShardData == undefined) {
-		AncientElvenRitualShardBuff.classList.add('inactive');
+		AncientElvenRitualShardDebuff.classList.add('inactive');
 		await new Promise((done) => setTimeout(done, 600));
-		AncientElvenRitualShardBuff.dataset.time = '';
+		AncientElvenRitualShardDebuff.dataset.time = '';
 	} else {
-		AncientElvenRitualShardBuff.classList.remove('inactive');
+		AncientElvenRitualShardDebuff.classList.remove('inactive');
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return ElvenRitualShardData;
+}
+
+async function findEnhancedExcaliburDebuff(debuffs: BuffReader.Buff[]) {
+	let EnhancedExcaliburData;
+	for (let [_key, value] of Object.entries(debuffs)) {
+		let EnhancedExcaliburBuffImage = value.countMatch(
+			debuffImages.enhancedExcaliburScuffed,
+			false
+		);
+		console.log(EnhancedExcaliburBuffImage);
+		if (EnhancedExcaliburBuffImage.passed > 50) {
+			EnhancedExcaliburData = value.readArg('timearg');
+			if (EnhancedExcaliburData.time > 59) {
+				EnhancedExcaliburDebuff.dataset.time =
+					(value.readArg('timearg').time / 60).toString() + 'm';
+				await new Promise((done) => setTimeout(done, 600));
+			} else {
+				EnhancedExcaliburDebuff.dataset.time = value
+					.readArg('timearg')
+					.time.toString();
+			}
+		}
+	}
+	if (EnhancedExcaliburData == undefined) {
+		EnhancedExcaliburDebuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 600));
+		EnhancedExcaliburDebuff.dataset.time = '';
+	} else {
+		EnhancedExcaliburDebuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return EnhancedExcaliburData;
 }
 
 let posBtn = document.getElementById('OverlayPosition');
