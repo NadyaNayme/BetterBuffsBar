@@ -16586,13 +16586,10 @@ function watchBuffs() {
 }
 function findOverloaded(buffs) {
     return __awaiter(this, void 0, void 0, function () {
-        var overloadData, a, _i, _a, _b, _key, value, overloadedBuff;
+        var overloadData, _i, _a, _b, _key, value, overloadedBuff;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
-                    for (a in Object.entries(buffs).reverse()) {
-                        console.log(Object.entries(buffs)[a]);
-                    }
                     _i = 0, _a = Object.entries(buffs);
                     _c.label = 1;
                 case 1:
@@ -16946,8 +16943,9 @@ function findBolgStacks(buffs) {
                         if (bolgStacksBuff.passed > 100) {
                             bolgStacksData = value.readArg('timearg');
                             BolgStacksBuff.dataset.time = value
-                                .readArg('time')
-                                .arg.toString();
+                                .readArg('timearg')
+                                .time.toString();
+                            console.log(value.readArg('timearg'));
                         }
                     }
                     if (!(bolgStacksData == undefined)) return [3 /*break*/, 2];
@@ -16980,7 +16978,6 @@ function findFulProc(buffs) {
                     if (!(_i < _a.length)) return [3 /*break*/, 4];
                     _b = _a[_i], _key = _b[0], value = _b[1];
                     fulProcBuff = value.countMatch(buffImages.gladiatorsRage, false);
-                    console.log(fulProcBuff);
                     if (!(fulProcBuff.passed > 50)) return [3 /*break*/, 3];
                     if (!(value.readArg('timearg').time < 11)) return [3 /*break*/, 3];
                     fulProcData = value.readArg('timearg');

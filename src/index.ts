@@ -200,9 +200,6 @@ function watchBuffs() {
 
 async function findOverloaded(buffs: BuffReader.Buff[]) {
 	let overloadData;
-	for (let a in Object.entries(buffs).reverse()) {
-		console.log(Object.entries(buffs)[a]);
-	}
 	for (let [_key, value] of Object.entries(buffs)) {
 		let overloadedBuff = value.countMatch(buffImages.overloaded, false);
 		if (overloadedBuff.passed > 300) {
@@ -412,8 +409,9 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 		if (bolgStacksBuff.passed > 100) {
 			bolgStacksData = value.readArg('timearg');
 			BolgStacksBuff.dataset.time = value
-				.readArg('time')
-				.arg.toString();
+				.readArg('timearg')
+				.time.toString();
+			console.log(value.readArg('timearg'));
 		}
 	}
 	if (bolgStacksData == undefined) {
@@ -431,7 +429,7 @@ async function findFulProc(buffs: BuffReader.Buff[]) {
 	let fulProcData;
 	for (let [_key, value] of Object.entries(buffs)) {
 		let fulProcBuff = value.countMatch(buffImages.gladiatorsRage, false);
-		console.log(fulProcBuff);
+		//console.log(fulProcBuff);
 		if (fulProcBuff.passed > 50) {
 			if (value.readArg('timearg').time < 11) {
 				fulProcData = value.readArg('timearg');
