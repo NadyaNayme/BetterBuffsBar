@@ -519,8 +519,8 @@ function setDefaultSettings() {
 }
 
 function loadSettings() {
-	setSortables();
 	setBuffsPerRow();
+	setSortables();
 	setFadeInactiveBuffs();
 	setCustomScale();
 	setOverlay();
@@ -574,15 +574,15 @@ function setSortables() {
 
 function setBuffsPerRow() {
 	let buffsTracker = document.getElementById('Buffs');
-	buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
-	let buffsPerRow = getSetting('buffsPerRow');
 	let buffsPerRowInput = <HTMLInputElement>document.getElementById('BuffsPerRow');
+	let buffsPerRow = getSetting('buffsPerRow');
+	buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+
 	buffsPerRowInput.value = buffsPerRow;
 	buffsPerRowInput.addEventListener('change', (e) => {
-		buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
 		updateSetting('buffsPerRow', buffsPerRowInput.value);
+		buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
 	});
-
 }
 function setFadeInactiveBuffs() {
 	let fadeInactiveBuffs = <HTMLInputElement>document.querySelectorAll('.fade-inactive')[0];
@@ -660,7 +660,7 @@ function updateSetting(setting, value) {
 	var save_data = JSON.parse(localStorage.getItem('betterBuffBar'));
 	save_data[setting] = value;
 	localStorage.setItem('betterBuffBar', JSON.stringify(save_data));
-	loadSettings();
+	//loadSettings();
 }
 
 let foundBuffs = false;

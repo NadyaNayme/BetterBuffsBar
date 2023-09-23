@@ -17011,8 +17011,8 @@ function setDefaultSettings() {
     }));
 }
 function loadSettings() {
-    setSortables();
     setBuffsPerRow();
+    setSortables();
     setFadeInactiveBuffs();
     setCustomScale();
     setOverlay();
@@ -17061,13 +17061,13 @@ function setSortables() {
 }
 function setBuffsPerRow() {
     var buffsTracker = document.getElementById('Buffs');
-    buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
-    var buffsPerRow = getSetting('buffsPerRow');
     var buffsPerRowInput = document.getElementById('BuffsPerRow');
+    var buffsPerRow = getSetting('buffsPerRow');
+    buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
     buffsPerRowInput.value = buffsPerRow;
     buffsPerRowInput.addEventListener('change', function (e) {
-        buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
         updateSetting('buffsPerRow', buffsPerRowInput.value);
+        buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
     });
 }
 function setFadeInactiveBuffs() {
@@ -17125,7 +17125,7 @@ function updateSetting(setting, value) {
     var save_data = JSON.parse(localStorage.getItem('betterBuffBar'));
     save_data[setting] = value;
     localStorage.setItem('betterBuffBar', JSON.stringify(save_data));
-    loadSettings();
+    //loadSettings();
 }
 var foundBuffs = false;
 function findPlayerBuffs() {
