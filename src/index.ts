@@ -200,6 +200,9 @@ function watchBuffs() {
 
 async function findOverloaded(buffs: BuffReader.Buff[]) {
 	let overloadData;
+	for (let a in Object.entries(buffs).reverse()) {
+		console.log(Object.entries(buffs)[a]);
+	}
 	for (let [_key, value] of Object.entries(buffs)) {
 		let overloadedBuff = value.countMatch(buffImages.overloaded, false);
 		if (overloadedBuff.passed > 300) {
@@ -377,10 +380,7 @@ async function findJasProc(buffs: BuffReader.Buff[]) {
 async function findFsoaBuff(buffs: BuffReader.Buff[]) {
 	let fsoaBuffData;
 	for (let [_key, value] of Object.entries(buffs)) {
-		let fsoaBuff = value.countMatch(
-			buffImages.fsoaWeaponSpec,
-			false
-		);
+		let fsoaBuff = value.countMatch(buffImages.fsoaWeaponSpec, false);
 		if (fsoaBuff.passed >= 15) {
 			fsoaBuffData = value.readArg('timearg');
 			FsoaSpecBuff.dataset.time = value
@@ -401,12 +401,18 @@ async function findFsoaBuff(buffs: BuffReader.Buff[]) {
 
 async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	let bolgStacksData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let bolgStacksBuff = value.countMatch(buffImages.perfectEquilibrium, false);
+	/* Taking from the BOLG Plugin <https://holycoil.nl/alt1/bolg/index.bundle.js>
+	   the Zamorak mechanic is always the first so we need to reverse the buffs first
+	 */
+	for (let [_key, value] of Object.entries(buffs).reverse()) {
+		let bolgStacksBuff = value.countMatch(
+			buffImages.perfectEquilibrium,
+			false
+		);
 		if (bolgStacksBuff.passed > 100) {
 			bolgStacksData = value.readArg('timearg');
 			BolgStacksBuff.dataset.time = value
-				.readArg('timearg')
+				.readArg('time')
 				.arg.toString();
 		}
 	}

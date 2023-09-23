@@ -16586,10 +16586,13 @@ function watchBuffs() {
 }
 function findOverloaded(buffs) {
     return __awaiter(this, void 0, void 0, function () {
-        var overloadData, _i, _a, _b, _key, value, overloadedBuff;
+        var overloadData, a, _i, _a, _b, _key, value, overloadedBuff;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
+                    for (a in Object.entries(buffs).reverse()) {
+                        console.log(Object.entries(buffs)[a]);
+                    }
                     _i = 0, _a = Object.entries(buffs);
                     _c.label = 1;
                 case 1:
@@ -16934,13 +16937,16 @@ function findBolgStacks(buffs) {
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
-                    for (_i = 0, _a = Object.entries(buffs); _i < _a.length; _i++) {
+                    /* Taking from the BOLG Plugin <https://holycoil.nl/alt1/bolg/index.bundle.js>
+                       the Zamorak mechanic is always the first so we need to reverse the buffs first
+                     */
+                    for (_i = 0, _a = Object.entries(buffs).reverse(); _i < _a.length; _i++) {
                         _b = _a[_i], _key = _b[0], value = _b[1];
                         bolgStacksBuff = value.countMatch(buffImages.perfectEquilibrium, false);
                         if (bolgStacksBuff.passed > 100) {
                             bolgStacksData = value.readArg('timearg');
                             BolgStacksBuff.dataset.time = value
-                                .readArg('timearg')
+                                .readArg('time')
                                 .arg.toString();
                         }
                     }
