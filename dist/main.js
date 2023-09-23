@@ -16492,16 +16492,32 @@ function watchBuffs() {
     var interval = setInterval(function () {
         var buffs = getActiveBuffs();
         if (buffs) {
-            findOverloaded(buffs);
-            findElderOverloaded(buffs);
-            findPoisonous(buffs);
+            if (document.querySelectorAll('#Buffs #OverloadBuff').length) {
+                findOverloaded(buffs);
+            }
+            if (document.querySelectorAll('#Buffs #ElderOverloadBuff').length) {
+                findElderOverloaded(buffs);
+            }
+            if (document.querySelectorAll('#Buffs #WeaponPoisonBuff').length) {
+                findPoisonous(buffs);
+            }
             // findPrayerRenewal(buffs);
             // findAntipoison(buffs);
-            findFsoaBuff(buffs);
-            findDarkness(buffs);
-            findAnimateDead(buffs);
-            findJasProc(buffs);
-            findBolgStacks(buffs);
+            if (document.querySelectorAll('#Buffs #FsoaSpecBuff').length) {
+                findFsoaBuff(buffs);
+            }
+            if (document.querySelectorAll('#Buffs #DarknessBuff').length) {
+                findDarkness(buffs);
+            }
+            if (document.querySelectorAll('#Buffs #AnimateDeadBuff').length) {
+                findAnimateDead(buffs);
+            }
+            if (document.querySelectorAll('#Buffs #TimeRiftBuff').length) {
+                findJasProc(buffs);
+            }
+            if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
+                findBolgStacks(buffs);
+            }
             // If we succesfully found buffs - restart our retries
             maxAttempts = 10;
         }
@@ -16582,7 +16598,6 @@ function findElderOverloaded(buffs) {
                     if (!(_i < _a.length)) return [3 /*break*/, 7];
                     _b = _a[_i], _key = _b[0], value = _b[1];
                     elderOverloadedBuff = value.countMatch(buffImages.elderOverload, false);
-                    console.log(elderOverloadedBuff);
                     if (!(elderOverloadedBuff.passed > 50)) return [3 /*break*/, 6];
                     elderOverloadData = value.readArg('timearg');
                     if (!(elderOverloadData.time > 59)) return [3 /*break*/, 3];
