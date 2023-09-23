@@ -45,6 +45,7 @@ var buffImages = a1lib.webpackImages({
 	fsoaWeaponSpec: require('./asset/data/fsoaSpecBuff.data.png'),
 	overloaded: require('./asset/data/Overloaded.data.png'),
 	perfectEquilibrium: require('./asset/data/Perfect_Equilibrium.data.png'),
+	perfectEquilibriumNoBorder: require('./asset/data/Perfect_Equilibrium-noborder.data.png'),
 	poisonous: require('./asset/data/Poisonous-top.data.png'),
 	prayerRenewActive: require('./asset/data/Prayer_Renew_Active.data.png'),
 	superAntifireActive: require('./asset/data/Super_Anti-Fire_Active.data.png'),
@@ -401,6 +402,41 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	/* Taking from the BOLG Plugin <https://holycoil.nl/alt1/bolg/index.bundle.js>
 	   the Zamorak mechanic is always the first so we need to reverse the buffs first
 	 */
+    let canvas = <HTMLCanvasElement>document.getElementById('canvas');
+	let ctx = canvas.getContext('2d');
+	 ctx.drawImage(
+			buffImages.perfectEquilibriumNoBorder.toImage(),
+			0,
+			0,
+			canvas.width,
+			canvas.height
+		);
+	for (let a in buffs) {
+		if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
+			let buffsImage = buffs[a].buffer.toImage();
+			ctx.drawImage(
+				buffsImage,
+				buffs[a].bufferx,
+				buffs[a].buffery,
+				27,
+				27,
+				0,
+				0,
+				canvas.width,
+				canvas.height
+			);
+			let bolgBuffImage = ctx.getImageData(
+				0,
+				0,
+				canvas.width,
+				canvas.height
+			);
+			BolgStacksBuff.style.backgroundImage =
+				'url("data:image/png;base64,' +
+				bolgBuffImage.toPngBase64() +
+				'")';
+		}
+	}
 	for (let [_key, value] of Object.entries(buffs).reverse()) {
 		let bolgStacksBuff = value.countMatch(
 			buffImages.perfectEquilibrium,
@@ -408,10 +444,6 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 		);
 		if (bolgStacksBuff.passed > 100) {
 			bolgStacksData = value.readArg('timearg');
-			BolgStacksBuff.dataset.time = value
-				.readArg('timearg')
-				.time.toString();
-			console.log(value.readArg('timearg'));
 		}
 	}
 	if (bolgStacksData == undefined) {

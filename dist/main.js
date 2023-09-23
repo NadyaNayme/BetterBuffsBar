@@ -91,6 +91,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
+/***/ "./asset/data/Perfect_Equilibrium-noborder.data.png":
+/*!**********************************************************!*\
+  !*** ./asset/data/Perfect_Equilibrium-noborder.data.png ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAAW5vUEUAYtdMlAAAAARub1BFAAAAAEEgjiIAAAAJbm9QRQAAAAAAAAAAAKGKctUAAAW+SURBVEhLbVZLd1NVFO4/kObVJG2SUmhy7819ljSPtumLQpukebSF1fKypai4/AksfwBDXY4Ups7AmToBu3QGS8CRTh2oXQuYoMgCBD+/fe5tGiqDk3Nv7t77O3vvb+99+mwnA9vLwDmWgsvlFbhKXGV/OZPD0Btl6LVx5KdHYFZS3I9Cr5dgLJfVdzeQVXrUFztiz/bSsO0M+hRA8MEr+sLuxBDcSa7qEKzFPPRWAdZUEunfosjsRpH+PQprehB6pwTrZF7JKXnqKX3a6QK5BOl6sAcgwlNcM1SYpaGNSZgnhzH6MIzsoyi0xzHkHsXUs7l0RH33ZkV+cB/sDaA0+noBPBr3RJBK3nwS3kIS2uYU7NoQzL9CcJ+G4T2NwOFuy2qkoG1NKzlvniCi9xagPpUDBUDXFrLInypBPzcF48w47DZPemkSVjON8X/CqDwPY+JFGGXuxVdhWK1haJd4iM4RJW+cp96pMuzjWQIFdscFRLxgLO35Ubo+g3wjC6uWgbnK94sT0N6b4nMWY9djmHsd4gqrfexajAfSCVKlXAXW6lF6nKF+Dtr6DKw5AlXoGe33KTS6Z6yUYdYo8F3ED809npQeaOeKMNYtOM0BNBBCC2HUucu7vmHz9AXYywzPA+o9DSl9o6ZDbxe7RPBBmAt9vQp7cRjGkxAKfzM0L/pR+CbKuDMfa1k4ywlcoPHLXLI7jQTMUznugyh8G2UYKU+9/BOCLR2Gdrrq51hAlEtMlrFWRL7FUN0Jo/Q8hJlX/Tj5bz8qN2JwluJwuT58FcJV9OMyv8m7U4ujcjOm5Kb5X+l5P6y7YRhterJaVHY92u+TfHjkvE06CpPM9lE49ThK9yNo88QfcDVuDzA8KWz+lMCXBJHdaQ6hdiuG9/m9yVVieJ3GAMzOqGKc2HOnaZv2uyDeAoHaIxSYgH52DBafRal9J4rPaPjKLnPylYYf8A4aNzV8/Edc/d++G/VDR4bpzI+QxSErxZ4CYb73QY4n4NIDt5aERQXtXVJZkto5zFPHcY3UvUeAX3AIP3K/zne3NQB7VWSL0LdI3c6I0vdox1tI+Ha7IKxWb4EAAhLE360NwtiwFJBTJ8VXhrG9o+NXgmzvaHBW0iqE+gXmct2GSwJ0dRUI1xsgKlyBJ/UkDQaenPVgtzJw6cnnL0LKg58DT75QnsSVp/r5Y9A3S74nS8kA5KAnCmRQxVLfqkA/48JuMkz1ATTvRvApDV/ZjatcfC85uZHDFebkE+akJTmhUatFMOZSciJgb82JXRN2sYWohJNd93rYdYvsYsFtBeyS3WH91AN2tVmgZcrbil0+S7vsUiA9dWK2RlWdFMn3Knl/gvyfkDpZZCgZ64/Yr67S6GXWi7vIOllKYCKoE6krqS9b6qSlQae9/TrpqXiLLV1nxY89C7HiD7HiI7AaafYuqewENgWApz5Hb5w6abumwVpOofB1BJWXlH8WQf7PMMzFgxXPH2nNRqeMfF1D7nbQux5I78qwd7G7nraYowHVs/Z6l7xL79LOjxMoDfc+5aV37RCozorvsHfRrt+7ul04y+45y5GqwawPI7+WQ257CrmLVZgro/DYdWdf92OeHXiWoRm7FqWMxi5dhcZk59mpTXZhY5mdeX3uQBdmvxc06f8CZKyWePq9eTICfZtskZC8DHGOhIJ5EuqZJz5ZjI1xaGcn2bNIZY4NNU+Cmd+djHth86rBhOOk804kSWmZjCkVQofhkOkok1Haus18aVuMvUzGub3JyF0YS3vKrkzG3hnvlv3RqVghM36Oudpg02QiRx9GONtlRZF7HPVnfI23Fn73Z3ygF+RhD0Ds87bC9hAAyUxWAnKSYN6r2woHkM1aSvG2kuZtRXZrhi2Fg05uKyInlw+ldwBAbkP+vYvXlq5HMvN77l0u71Vyv9IaJZgznDeTh5GfJUmW2a15H5N7l5IT+f/du2jbyeA/yoVQj12B1RUAAAAASUVORK5CYII=")
+
+/***/ }),
+
 /***/ "./asset/data/Perfect_Equilibrium.data.png":
 /*!*************************************************!*\
   !*** ./asset/data/Perfect_Equilibrium.data.png ***!
@@ -16460,6 +16470,7 @@ var buffImages = alt1__WEBPACK_IMPORTED_MODULE_7__.webpackImages({
     fsoaWeaponSpec: __webpack_require__(/*! ./asset/data/fsoaSpecBuff.data.png */ "./asset/data/fsoaSpecBuff.data.png"),
     overloaded: __webpack_require__(/*! ./asset/data/Overloaded.data.png */ "./asset/data/Overloaded.data.png"),
     perfectEquilibrium: __webpack_require__(/*! ./asset/data/Perfect_Equilibrium.data.png */ "./asset/data/Perfect_Equilibrium.data.png"),
+    perfectEquilibriumNoBorder: __webpack_require__(/*! ./asset/data/Perfect_Equilibrium-noborder.data.png */ "./asset/data/Perfect_Equilibrium-noborder.data.png"),
     poisonous: __webpack_require__(/*! ./asset/data/Poisonous-top.data.png */ "./asset/data/Poisonous-top.data.png"),
     prayerRenewActive: __webpack_require__(/*! ./asset/data/Prayer_Renew_Active.data.png */ "./asset/data/Prayer_Renew_Active.data.png"),
     superAntifireActive: __webpack_require__(/*! ./asset/data/Super_Anti-Fire_Active.data.png */ "./asset/data/Super_Anti-Fire_Active.data.png"),
@@ -16930,22 +16941,29 @@ function findFsoaBuff(buffs) {
 }
 function findBolgStacks(buffs) {
     return __awaiter(this, void 0, void 0, function () {
-        var bolgStacksData, _i, _a, _b, _key, value, bolgStacksBuff;
+        var bolgStacksData, canvas, ctx, a, buffsImage, bolgBuffImage, _i, _a, _b, _key, value, bolgStacksBuff;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
-                    /* Taking from the BOLG Plugin <https://holycoil.nl/alt1/bolg/index.bundle.js>
-                       the Zamorak mechanic is always the first so we need to reverse the buffs first
-                     */
+                    canvas = document.getElementById('canvas');
+                    ctx = canvas.getContext('2d');
+                    ctx.drawImage(buffImages.perfectEquilibriumNoBorder.toImage(), 0, 0, canvas.width, canvas.height);
+                    for (a in buffs) {
+                        if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
+                            buffsImage = buffs[a].buffer.toImage();
+                            ctx.drawImage(buffsImage, buffs[a].bufferx, buffs[a].buffery, 27, 27, 0, 0, canvas.width, canvas.height);
+                            bolgBuffImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                            BolgStacksBuff.style.backgroundImage =
+                                'url("data:image/png;base64,' +
+                                    bolgBuffImage.toPngBase64() +
+                                    '")';
+                        }
+                    }
                     for (_i = 0, _a = Object.entries(buffs).reverse(); _i < _a.length; _i++) {
                         _b = _a[_i], _key = _b[0], value = _b[1];
                         bolgStacksBuff = value.countMatch(buffImages.perfectEquilibrium, false);
                         if (bolgStacksBuff.passed > 100) {
                             bolgStacksData = value.readArg('timearg');
-                            BolgStacksBuff.dataset.time = value
-                                .readArg('timearg')
-                                .time.toString();
-                            console.log(value.readArg('timearg'));
                         }
                     }
                     if (!(bolgStacksData == undefined)) return [3 /*break*/, 2];
