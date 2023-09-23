@@ -36,6 +36,9 @@ let AncientElvenRitualShardDebuff = document.getElementById('AncientElvenRitualS
 let EnhancedExcaliburDebuff = document.getElementById(
 	'EnhancedExcaliburDebuff'
 );
+let AdrenalinePotionDebuff = document.getElementById(
+	'AdrenalinePotionDebuff'
+);
 
 // loads all images as raw pixel data async, images have to be saved as *.data.png
 // this also takes care of metadata headers in the image that make browser load the image
@@ -64,6 +67,7 @@ var buffImages = a1lib.webpackImages({
 
 var debuffImages = a1lib.webpackImages({
 	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard.data.png'),
+	adrenalinePotion: require('./asset/data/Adrenaline_Potion.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -193,6 +197,13 @@ function watchBuffs() {
 		if (debuffs) {
 			if (document.querySelectorAll('#Buffs #AncientElvenRitualShardDebuff').length) {
 				findAncientElvenRitualShardDebuff(debuffs);
+			}
+			if (
+				document.querySelectorAll(
+					'#Buffs #AdrenalinePotionDebuff'
+				).length
+			) {
+				findAdrenalinePotionDebuff(debuffs);
 			}
 		}
 			// If we succesfully found buffs - restart our retries
@@ -533,6 +544,37 @@ async function findAncientElvenRitualShardDebuff(debuffs: BuffReader.Buff[]) {
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return ElvenRitualShardData;
+}
+
+async function findAdrenalinePotionDebuff(debuffs: BuffReader.Buff[]) {
+	let AdrenalinePotionData;
+	for (let [_key, value] of Object.entries(debuffs)) {
+		let AdrenalinePotionImage = value.countMatch(
+			debuffImages.adrenalinePotion,
+			false
+		);
+		if (AdrenalinePotionImage.passed > 50) {
+			AdrenalinePotionData = value.readArg('timearg');
+			if (AdrenalinePotionData.time > 59) {
+				AdrenalinePotionDebuff.dataset.time =
+					(value.readArg('timearg').time / 60).toString() + 'm';
+				await new Promise((done) => setTimeout(done, 600));
+			} else {
+				AdrenalinePotionDebuff.dataset.time = value
+					.readArg('timearg')
+					.time.toString();
+			}
+		}
+	}
+	if (AdrenalinePotionData == undefined) {
+		AdrenalinePotionDebuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 600));
+		AdrenalinePotionDebuff.dataset.time = '';
+	} else {
+		AdrenalinePotionDebuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return AdrenalinePotionData;
 }
 
 let posBtn = document.getElementById('OverlayPosition');
