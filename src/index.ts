@@ -38,6 +38,7 @@ let NecrosisBuff = document.getElementById('NecrosisBuff');
 let LimitlessBuff = document.getElementById('LimitlessBuff');
 let DeathGuardDebuff = document.getElementById('DeathGuardDebuff');
 let OmniGuardDebuff = document.getElementById('OmniGuardDebuff');
+let CrystalRainDebuff = document.getElementById('CrystalRainDebuff');
 
 
 /* Debuffs */
@@ -83,6 +84,7 @@ var debuffImages = a1lib.webpackImages({
 	adrenalinePotion: require('./asset/data/Adrenaline_Potion.data.png'),
 	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top.data.png'),
 	deathEssenceDebuff: require('./asset/data/Omni_Guard_Special-top.data.png'),
+	crystalRainDebuff: require('./asset/data/Seren_Godbow_Special-top.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -232,6 +234,9 @@ function watchBuffs() {
 			}
 			if (document.getElementById('OmniGuardDebuff')) {
 				findOmniGuardDebuff(debuffs);
+			}
+			if (document.getElementById('CrystalRainDebuff')) {
+				findCrystalRainDebuff(debuffs);
 			}
 		}
 			// If we succesfully found buffs - restart our retries
@@ -487,7 +492,6 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 		);
 		if (bolgStacksBuff.passed > 200) {
 			bolgStacksData = value.readArg('timearg');
-			console.log(bolgStacksData);
 			if (
 				value.readArg('timearg').time > 0 &&
 				value.readArg('timearg').time
@@ -689,7 +693,6 @@ async function findOmniGuardDebuff(debuffs: BuffReader.Buff[]) {
 			debuffImages.deathEssenceDebuff,
 			false
 		);
-		console.log(OmniGuardImage);
 		if (OmniGuardImage.passed > 19) {
 			OmniGuardData = value.readArg('timearg');
 			OmniGuardDebuff.dataset.time = value
@@ -707,6 +710,33 @@ async function findOmniGuardDebuff(debuffs: BuffReader.Buff[]) {
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return OmniGuardData;
+}
+
+async function findCrystalRainDebuff(debuffs: BuffReader.Buff[]) {
+	let CrystalRainData;
+	for (let [_key, value] of Object.entries(debuffs)) {
+		let CrystalRainImage = value.countMatch(
+			debuffImages.crystalRainDebuff,
+			false
+		);
+		console.log(CrystalRainImage);
+		if (CrystalRainImage.passed > 19) {
+			CrystalRainData = value.readArg('timearg');
+			CrystalRainDebuff.dataset.time = value
+				.readArg('timearg')
+				.time.toString();
+			await new Promise((done) => setTimeout(done, 600));
+		}
+	}
+	if (CrystalRainData == undefined) {
+		CrystalRainDebuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 600));
+		CrystalRainDebuff.dataset.time = '';
+	} else {
+		CrystalRainDebuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return CrystalRainData;
 }
 
 let posBtn = document.getElementById('OverlayPosition');
