@@ -17426,6 +17426,8 @@ function startOverlay() {
                     _a.label = 1;
                 case 1:
                     if (false) {}
+                    cnv.width = 1000;
+                    cnv.height = 1000;
                     captureOverlay();
                     overlay = document.getElementsByTagName('canvas')[0];
                     overlayPosition = getSetting('overlayPosition');

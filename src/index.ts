@@ -632,6 +632,8 @@ export async function startOverlay() {
 	let ctx = cnv.getContext('2d', {"willReadFrequently": true});
 
 	while (true) {
+        cnv.width = 1000;
+		cnv.height = 1000;
 		captureOverlay();
 		let overlay = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0];
 
