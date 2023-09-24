@@ -316,8 +316,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   display: grid;
   width: 100%;
   grid-template-areas:
-    "first first second third fourth fifth sixth"
-    "first first seventh eighth ninth tenth eleventh"
+    "first first . . . . . "
+    "first first . . . . . "
 }
 
 #BetterBuffsBar.big-head-mode #Buffs li:nth-child(1) {
@@ -325,46 +325,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   width: 58px;
   height: 58px;
   background-size: cover;
-}
-
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(2) {
-  grid-area: second;
-}
-
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(3) {
-  grid-area: third;
-}
-
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(4) {
-  grid-area: fourth;
-}
-
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(5) {
-  grid-area: fifth;
-}
-
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(6) {
-  grid-area: sixth;
-}
-
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(7) {
-  grid-area: seventh;
-}
-
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(8) {
-  grid-area: eighth;
-}
-
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(9) {
-  grid-area: ninth;
-}
-
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(10) {
-  grid-area: tenth;
-}
-
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(11) {
-  grid-area: eleventh;
 }
 
 #Buffs,
