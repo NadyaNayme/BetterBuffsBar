@@ -229,6 +229,13 @@ function watchBuffs() {
 	``;
 }
 
+async function showTooltip(msg: string, duration: number) {
+	alt1.setTooltip(msg);
+	await new Promise((done) => setTimeout(done, duration));
+	alt1.clearTooltip();
+	return
+}
+
 async function findOverloaded(buffs: BuffReader.Buff[]) {
 	let overloadData;
 	for (let [_key, value] of Object.entries(buffs)) {
@@ -242,6 +249,7 @@ async function findOverloaded(buffs: BuffReader.Buff[]) {
 				OverloadBuff.dataset.time = '<10s'
 				await new Promise((done) => setTimeout(done, 10000));
 				OverloadBuff.dataset.time = '';
+				showTooltip("Overload expired", 3000);
 			}else {
 				OverloadBuff.dataset.time = value
 					.readArg('timearg')
@@ -272,6 +280,7 @@ async function findElderOverloaded(buffs: BuffReader.Buff[]) {
 				ElderOverloadBuff.dataset.time = '<10s';
 				await new Promise((done) => setTimeout(done, 10000));
 				ElderOverloadBuff.dataset.time = '';
+				showTooltip('Overload expired', 3000);
 			} else {
 				ElderOverloadBuff.dataset.time = value
 					.readArg('timearg')
@@ -682,6 +691,7 @@ function setDefaultSettings() {
 			fadeInactiveBuffs: true,
 			loopSpeed: 150,
 			showBuffNames: false,
+			showTooltipReminders: true,
 			overlayPosition: {x: 100, y: 100},
 			uiScale: 100,
 			updatingOverlayPosition: false,
@@ -693,6 +703,7 @@ function loadSettings() {
 	setBuffsPerRow();
 	setBigHeadMode();
 	setBuffNames();
+	showTooltipReminders();
 	setSortables();
 	setFadeInactiveBuffs();
 	setCustomScale();
@@ -801,6 +812,13 @@ function setBuffNames() {
 			Boolean(getSetting('showBuffNames'))
 		);
 	});
+}
+
+function showTooltipReminders() {
+	let showTooltipReminders = <HTMLInputElement>(
+		document.querySelectorAll('.show-tooltip-reminders')[0]
+	);
+	setCheckboxChecked(showTooltipReminders);
 }
 
 function setFadeInactiveBuffs() {

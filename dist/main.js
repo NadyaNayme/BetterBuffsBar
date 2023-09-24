@@ -16849,6 +16849,21 @@ function watchBuffs() {
     }, getSetting('loopSpeed'));
     "";
 }
+function showTooltip(msg, duration) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    alt1.setTooltip(msg);
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, duration); })];
+                case 1:
+                    _a.sent();
+                    alt1.clearTooltip();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
 function findOverloaded(buffs) {
     return __awaiter(this, void 0, void 0, function () {
         var overloadData, _i, _a, _b, _key, value, overloadedBuff;
@@ -16876,6 +16891,7 @@ function findOverloaded(buffs) {
                 case 4:
                     _c.sent();
                     OverloadBuff.dataset.time = '';
+                    showTooltip("Overload expired", 3000);
                     return [3 /*break*/, 6];
                 case 5:
                     OverloadBuff.dataset.time = value
@@ -16928,6 +16944,7 @@ function findElderOverloaded(buffs) {
                 case 4:
                     _c.sent();
                     ElderOverloadBuff.dataset.time = '';
+                    showTooltip('Overload expired', 3000);
                     return [3 /*break*/, 6];
                 case 5:
                     ElderOverloadBuff.dataset.time = value
@@ -17484,6 +17501,7 @@ function setDefaultSettings() {
         fadeInactiveBuffs: true,
         loopSpeed: 150,
         showBuffNames: false,
+        showTooltipReminders: true,
         overlayPosition: { x: 100, y: 100 },
         uiScale: 100,
         updatingOverlayPosition: false,
@@ -17493,6 +17511,7 @@ function loadSettings() {
     setBuffsPerRow();
     setBigHeadMode();
     setBuffNames();
+    showTooltipReminders();
     setSortables();
     setFadeInactiveBuffs();
     setCustomScale();
@@ -17570,6 +17589,10 @@ function setBuffNames() {
     showBuffNames.addEventListener('change', function () {
         betterBuffsBar.classList.toggle('show-labels', Boolean(getSetting('showBuffNames')));
     });
+}
+function showTooltipReminders() {
+    var showTooltipReminders = (document.querySelectorAll('.show-tooltip-reminders')[0]);
+    setCheckboxChecked(showTooltipReminders);
 }
 function setFadeInactiveBuffs() {
     var fadeInactiveBuffs = document.querySelectorAll('.fade-inactive')[0];
