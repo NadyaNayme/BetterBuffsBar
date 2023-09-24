@@ -33,7 +33,14 @@ let BolgStacksBuff = document.getElementById('BolgStacksBuff');
 let TimeRiftBuff = document.getElementById('TimeRiftBuff');
 let FsoaSpecBuff = document.getElementById('FsoaSpecBuff');
 let GladiatorsRageBuff = document.getElementById('GladiatorsRageBuff');
-let AncientElvenRitualShardDebuff = document.getElementById('AncientElvenRitualShardDebuff');
+let NecrosisBuff = document.getElementById('NecrosisBuff');
+let LimitlessBuff = document.getElementById('LimitlessBuff');
+
+
+/* Debuffs */
+let AncientElvenRitualShardDebuff = document.getElementById(
+	'AncientElvenRitualShardDebuff'
+);
 let EnhancedExcaliburDebuff = document.getElementById(
 	'EnhancedExcaliburDebuff'
 );
@@ -64,6 +71,8 @@ var buffImages = a1lib.webpackImages({
 	supremeOverloadActive: require('./asset/data/Supreme_Overload_Potion_Active.data.png'),
 	timeRift: require('./asset/data/Time_Rift.data.png'),
 	gladiatorsRage: require('./asset/data/Gladiators_Rage.data.png'),
+	necrosis: require('./asset/data/Necrosis.data.png'),
+	limitless: require('./asset/data/Limitless.data.png'),
 });
 
 var debuffImages = a1lib.webpackImages({
@@ -195,6 +204,12 @@ function watchBuffs() {
 			}
 			if (document.querySelectorAll('#Buffs #GladiatorsRageBuff').length) {
 				findFulProc(buffs);
+			}
+			if (document.querySelectorAll('#Buffs #NecrosisBuff').length) {
+				findNecrosis(buffs);
+			}
+			if (document.querySelectorAll('#Buffs #LimitlessBuff').length) {
+				findLimitless(buffs);
 			}
 		if (debuffs) {
 			if (document.querySelectorAll('#Buffs #AncientElvenRitualShardDebuff').length) {
@@ -535,6 +550,60 @@ async function findFulProc(buffs: BuffReader.Buff[]) {
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return fulProcData;
+}
+
+async function findNecrosis(buffs: BuffReader.Buff[]) {
+	let necrosisData;
+	for (let [_key, value] of Object.entries(buffs)) {
+		let necrosisImage = value.countMatch(buffImages.necrosis, false);
+		if (necrosisImage.passed > 150) {
+			necrosisData = value.readArg('timearg');
+			NecrosisBuff.dataset.time = value
+				.readArg('timearg')
+				.time.toString();
+			NecrosisBuff.classList.remove('inactive');
+			await new Promise((done) => setTimeout(done, 50));
+		}
+	}
+	if (necrosisData == undefined) {
+		NecrosisBuff.classList.add('inactive');
+		NecrosisBuff.dataset.time = '';
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return necrosisData;
+}
+
+async function findLimitless(buffs: BuffReader.Buff[]) {
+	let limitlessData;
+	let limitlessCooldown;
+	for (let [_key, value] of Object.entries(buffs)) {
+		let limitlessImage = value.countMatch(buffImages.limitless, false);
+		if (limitlessImage.passed > 250) {
+			limitlessData = value.readArg('timearg');
+			LimitlessBuff.dataset.time = value
+				.readArg('timearg')
+				.time.toString();
+		} else if (
+			LimitlessBuff.dataset.time == '1'
+		) {
+			limitlessCooldown = true
+		} else {
+			if (limitlessCooldown) {
+				await new Promise((done) => setTimeout(done, 1000));
+				LimitlessBuff.dataset.time = '';
+				LimitlessBuff.classList.remove('inactive');
+				LimitlessBuff.classList.add('cooldown');
+				await new Promise((done) => setTimeout(done, 83000));
+				LimitlessBuff.dataset.time = ' ';
+				LimitlessBuff.classList.add('inactive');
+				await new Promise((done) => setTimeout(done, 1000));
+				LimitlessBuff.classList.remove('cooldown');
+			}
+			limitlessCooldown = false;
+		}
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return limitlessData;
 }
 
 async function findAncientElvenRitualShardDebuff(debuffs: BuffReader.Buff[]) {
