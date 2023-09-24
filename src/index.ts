@@ -166,6 +166,7 @@ function watchBuffs() {
 		let buffs = getActiveBuffs();
 		let debuffs = getActiveDebuffs();
 		if (buffs) {
+			// TODO: These if() checks can all go in the refactored function as an argument that gets passed
 			if (document.querySelectorAll('#Buffs #OverloadBuff').length) {
 				findOverloaded(buffs);
 			}
@@ -235,6 +236,10 @@ async function showTooltip(msg: string, duration: number) {
 	alt1.clearTooltip();
 	return
 }
+
+//TODO: Clean up this repetive code by breaking each check (60s, 30s, 10s, etc.) into their own functions
+// The only things that really change are threshold: number, tooltipMsg: string, and inactiveMsg: string
+// except for BOLG which is special
 
 async function findOverloaded(buffs: BuffReader.Buff[]) {
 	let overloadData;
