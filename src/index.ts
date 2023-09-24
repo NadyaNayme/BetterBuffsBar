@@ -899,13 +899,6 @@ function roundedToFixed(input, digits) {
 
 /* Settings */
 
-function toggleSettings() {
-	settings.classList.toggle('visible');
-}
-
-let settingsButton = document.getElementById('SettingsButton');
-settingsButton.addEventListener('click', toggleSettings);
-
 let checkboxFields: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"]');
 checkboxFields.forEach((checkbox) => {
 	checkbox.addEventListener('click', (e) => {

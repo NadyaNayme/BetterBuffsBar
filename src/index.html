@@ -10,6 +10,25 @@
 	</head>
 	<body>
 		<div id="output"></div>
+		<div id="BetterBuffsBar">
+			<h2>Tracked Buffs</h2>
+			<p>Drag & drop buffs into the desired tracking order. Drop the buff into the Untracked Buffs region to stop tracking it.</p>
+			<ul id="Buffs">
+				<li id="OverloadBuff" data-id="8" data-time=""><span class="buff-name">Overload</span></li>
+				<li id="ElderOverloadBuff" data-id="1" data-time=""><span class="buff-name">Elder Overload</span></li>
+				<li id="WeaponPoisonBuff" data-id="2" data-time=""><span class="buff-name">Weapon Poison</span></li>
+				<li id="DarknessBuff" data-id="3" data-time=""><span class="buff-name">Darkness</span></li>
+				<li id="AnimateDeadBuff" data-id="4" data-time=""><span class="buff-name">Animate Dead</span></li>
+				<li id="BolgStacksBuff" data-id="5" data-stacks=""><span class="buff-name">Perfect Equilibrium (BOLG Stacks)</span></li>
+				<li id="TimeRiftBuff" data-id="6" data-time=""><span class="buff-name">Time Rift (Jas Book Proc)</span></li>
+				<li id="FsoaSpecBuff" data-id="7" data-time=""><span class="buff-name">Instability (FSOA Weapon Special)</span></li>
+				<li id="GladiatorsRageBuff" data-id="9" data-time=""><span class="buff-name">Gladiator's Rage (Ful Book Proc)</span></li>
+				<li id="AncientElvenRitualShardDebuff" data-id="10" data-time="" class="inactive"><span class="buff-name">Ancient Elven Ritual Shard</span></li>
+				<li id="AdrenalinePotionDebuff" data-id="11" data-time="" class="inactive"><span class="buff-name">Adrenaline Potion Cooldown</span></li>
+			</ul>
+			<h2>Untracked Buffs</h2>
+			<ul id="UntrackedBuffs"></ul>
+		</div>
 		<div id="Settings">
 			<div class="container">
 				<h2>Settings</h2>
@@ -36,26 +55,6 @@
 				<p>Sometimes I break localStorage. This will clear local storage, reset all settings to default, and reload the app in an attempt to fix things.</p>
 				<div class="flex"><button id="ResetAllSettings">Reset All Settings</button></div>
 			</div>
-		</div>
-		<div id="SettingsButton" class="nisimgbutton"><span>⚙︎</span></div>
-		<div id="BetterBuffsBar">
-			<h2>Tracked Buffs</h2>
-			<p>Drag & drop buffs into the desired tracking order. Drop the buff into the Untracked Buffs region to stop tracking it.</p>
-			<ul id="Buffs">
-				<li id="OverloadBuff" data-id="8" data-time=""><span class="buff-name">Overload</span></li>
-				<li id="ElderOverloadBuff" data-id="1" data-time=""><span class="buff-name">Elder Overload</span></li>
-				<li id="WeaponPoisonBuff" data-id="2" data-time=""><span class="buff-name">Weapon Poison</span></li>
-				<li id="DarknessBuff" data-id="3" data-time=""><span class="buff-name">Darkness</span></li>
-				<li id="AnimateDeadBuff" data-id="4" data-time=""><span class="buff-name">Animate Dead</span></li>
-				<li id="BolgStacksBuff" data-id="5" data-stacks=""><span class="buff-name">Perfect Equilibrium (BOLG Stacks)</span></li>
-				<li id="TimeRiftBuff" data-id="6" data-time=""><span class="buff-name">Time Rift (Jas Book Proc)</span></li>
-				<li id="FsoaSpecBuff" data-id="7" data-time=""><span class="buff-name">Instability (FSOA Weapon Special)</span></li>
-				<li id="GladiatorsRageBuff" data-id="9" data-time=""><span class="buff-name">Gladiator's Rage (Ful Book Proc)</span></li>
-				<li id="AncientElvenRitualShardDebuff" data-id="10" data-time="" class="inactive"><span class="buff-name">Ancient Elven Ritual Shard</span></li>
-				<li id="AdrenalinePotionDebuff" data-id="11" data-time="" class="inactive"><span class="buff-name">Adrenaline Potion Cooldown</span></li>
-			</ul>
-			<h2>Untracked Buffs</h2>
-			<ul id="UntrackedBuffs"></ul>
 		</div>
 		<div id="OverlayCanvasOutput">
 			<canvas willReadFrequently="true" width="1000" height="1000"></canvas>
