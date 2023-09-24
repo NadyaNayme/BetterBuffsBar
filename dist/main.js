@@ -17703,6 +17703,7 @@ function setDefaultSettings() {
     localStorage.setItem('betterBuffBar', JSON.stringify({
         activeOverlay: true,
         bigHeadMode: false,
+        bigHeadPosition: "start",
         buffsLocation: findPlayerBuffs,
         buffsPerRow: 5,
         fadeInactiveBuffs: true,

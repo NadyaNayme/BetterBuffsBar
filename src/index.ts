@@ -764,6 +764,7 @@ function setDefaultSettings() {
 		JSON.stringify({
 			activeOverlay: true,
 			bigHeadMode: false,
+			bigHeadPosition: "start",
 			buffsLocation: findPlayerBuffs,
 			buffsPerRow: 5,
 			fadeInactiveBuffs: true,
