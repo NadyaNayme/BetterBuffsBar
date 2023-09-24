@@ -37,6 +37,7 @@ let GladiatorsRageBuff = document.getElementById('GladiatorsRageBuff');
 let NecrosisBuff = document.getElementById('NecrosisBuff');
 let LimitlessBuff = document.getElementById('LimitlessBuff');
 let DeathGuardDebuff = document.getElementById('DeathGuardDebuff');
+let OmniGuardDebuff = document.getElementById('OmniGuardDebuff');
 
 
 /* Debuffs */
@@ -81,6 +82,7 @@ var debuffImages = a1lib.webpackImages({
 	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard.data.png'),
 	adrenalinePotion: require('./asset/data/Adrenaline_Potion.data.png'),
 	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top.data.png'),
+	deathEssenceDebuff: require('./asset/data/Omni_Guard_Special-top.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -227,6 +229,9 @@ function watchBuffs() {
 			}
 			if (document.getElementById('DeathGuardDebuff')) {
 				findDeathGuardDebuff(debuffs);
+			}
+			if (document.getElementById('OmniGuardDebuff')) {
+				findOmniGuardDebuff(debuffs);
 			}
 		}
 			// If we succesfully found buffs - restart our retries
@@ -675,6 +680,33 @@ async function findDeathGuardDebuff(debuffs: BuffReader.Buff[]) {
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return DeathGuardData;
+}
+
+async function findOmniGuardDebuff(debuffs: BuffReader.Buff[]) {
+	let OmniGuardData;
+	for (let [_key, value] of Object.entries(debuffs)) {
+		let OmniGuardImage = value.countMatch(
+			debuffImages.deathEssenceDebuff,
+			false
+		);
+		console.log(OmniGuardImage);
+		if (OmniGuardImage.passed > 19) {
+			OmniGuardData = value.readArg('timearg');
+			OmniGuardDebuff.dataset.time = value
+				.readArg('timearg')
+				.time.toString();
+			await new Promise((done) => setTimeout(done, 600));
+		}
+	}
+	if (OmniGuardData == undefined) {
+		OmniGuardDebuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 600));
+		OmniGuardDebuff.dataset.time = '';
+	} else {
+		OmniGuardDebuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return OmniGuardData;
 }
 
 let posBtn = document.getElementById('OverlayPosition');
