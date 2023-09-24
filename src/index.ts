@@ -85,6 +85,7 @@ var debuffImages = a1lib.webpackImages({
 	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top.data.png'),
 	deathEssenceDebuff: require('./asset/data/Omni_Guard_Special-top.data.png'),
 	crystalRainDebuff: require('./asset/data/Seren_Godbow_Special-top.data.png'),
+	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -237,6 +238,9 @@ function watchBuffs() {
 			}
 			if (document.getElementById('CrystalRainDebuff')) {
 				findCrystalRainDebuff(debuffs);
+			}
+			if (document.getElementById('EnhancedExcaliburDebuff')) {
+				findEnhancedExcaliburDebuff(debuffs);
 			}
 		}
 			// If we succesfully found buffs - restart our retries
@@ -719,7 +723,6 @@ async function findCrystalRainDebuff(debuffs: BuffReader.Buff[]) {
 			debuffImages.crystalRainDebuff,
 			false
 		);
-		console.log(CrystalRainImage);
 		if (CrystalRainImage.passed > 19) {
 			CrystalRainData = value.readArg('timearg');
 			CrystalRainDebuff.dataset.time = value
@@ -737,6 +740,33 @@ async function findCrystalRainDebuff(debuffs: BuffReader.Buff[]) {
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return CrystalRainData;
+}
+
+async function findEnhancedExcaliburDebuff(debuffs: BuffReader.Buff[]) {
+	let EnhancedExcaliburData;
+	for (let [_key, value] of Object.entries(debuffs)) {
+		let EnhancedExcaliburImage = value.countMatch(
+			debuffImages.enhancedExcaliburDebuff,
+			false
+		);
+		console.log(EnhancedExcaliburImage);
+		if (EnhancedExcaliburImage.passed > 19) {
+			EnhancedExcaliburData = value.readArg('timearg');
+			EnhancedExcaliburDebuff.dataset.time = value
+				.readArg('timearg')
+				.time.toString();
+			await new Promise((done) => setTimeout(done, 600));
+		}
+	}
+	if (EnhancedExcaliburData == undefined) {
+		EnhancedExcaliburDebuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 600));
+		EnhancedExcaliburDebuff.dataset.time = '';
+	} else {
+		EnhancedExcaliburDebuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return EnhancedExcaliburData;
 }
 
 let posBtn = document.getElementById('OverlayPosition');
