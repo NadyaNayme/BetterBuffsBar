@@ -22,9 +22,28 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 - Track important buffs (if it isn't listed it wasn't important enough - but more seriously DM me @ NadyaNayme on Discord if you'd like to add a buff to be tracked)
 - Select order that buffs should be displayed and which should be tracked. Faded buffs must first be enabled to sort them.
 - Choose between fading the buff out when inactive or hiding it from the better buff bar.
+- "Big Head Mode" to make the first buff x4 larger
+- 3s~ tooltip when Overloads expire
+
+### Tracked Buffs
+
+- Overloads & Elder Overloads (sorry Supreme Ovl. users)
+- Weapon Poison
+- Darkness
+- Animate Dead
+- Gladiator's Rage (Ful Book Proc)
+- Time Rift (Jas Book Proc)
+- BOLG Stacks / Spec
+- FSOA Spec
+- Ancient Elven Ritual Shard cooldown
+- Adrenaline Potion cooldown
 
 ## Known Issues
 
 - Overloads with <10s remaining can't be tracked due to the buff fading in and out. Ask a Jmod to please stop expiring buffs from doing that. Alt 1 can't track them properly. :)
+
+## Can't Add
+
+- EE tracking. Sorry the debuff isn't able to be reliably detected. The icon the wiki doesn't work for detection.
 
 If you encounter any other bugs - please submit an issue and I'll investigate it.
