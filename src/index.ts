@@ -30,11 +30,13 @@ let WeaponPoisonBuff = document.getElementById('WeaponPoisonBuff');
 let DarknessBuff = document.getElementById('DarknessBuff');
 let AnimateDeadBuff = document.getElementById('AnimateDeadBuff');
 let BolgStacksBuff = document.getElementById('BolgStacksBuff');
+let BalanceByForceBuff = document.getElementById('BalanceByForceBuff');
 let TimeRiftBuff = document.getElementById('TimeRiftBuff');
 let FsoaSpecBuff = document.getElementById('FsoaSpecBuff');
 let GladiatorsRageBuff = document.getElementById('GladiatorsRageBuff');
 let NecrosisBuff = document.getElementById('NecrosisBuff');
 let LimitlessBuff = document.getElementById('LimitlessBuff');
+let DeathGuardDebuff = document.getElementById('DeathGuardDebuff');
 
 
 /* Debuffs */
@@ -78,6 +80,7 @@ var buffImages = a1lib.webpackImages({
 var debuffImages = a1lib.webpackImages({
 	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard.data.png'),
 	adrenalinePotion: require('./asset/data/Adrenaline_Potion.data.png'),
+	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -221,6 +224,9 @@ function watchBuffs() {
 				).length
 			) {
 				findAdrenalinePotionDebuff(debuffs);
+			}
+			if (document.getElementById('DeathGuardDebuff')) {
+				findDeathGuardDebuff(debuffs);
 			}
 		}
 			// If we succesfully found buffs - restart our retries
@@ -469,59 +475,35 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	/* Taking from the BOLG Plugin <https://holycoil.nl/alt1/bolg/index.bundle.js>
 	   the Zamorak mechanic is always the first so we need to reverse the buffs first
 	 */
-    let canvas = <HTMLCanvasElement>document.getElementById('canvas');
-	let ctx = canvas.getContext('2d');
-	 ctx.drawImage(
-			buffImages.perfectEquilibriumNoBorder.toImage(),
-			0,
-			0,
-			canvas.width,
-			canvas.height
-		);
-	for (let a in buffs.reverse()) {
-		if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
-			let buffsImage = buffs[a].buffer.toImage();
-			ctx.drawImage(
-				buffsImage,
-				buffs[a].bufferx,
-				buffs[a].buffery,
-				27,
-				27,
-				0,
-				0,
-				canvas.width,
-				canvas.height
-			);
-			let bolgBuffImage = ctx.getImageData(
-				0,
-				0,
-				canvas.width,
-				canvas.height
-			);
-			BolgStacksBuff.style.backgroundImage =
-				'url("data:image/png;base64,' +
-				bolgBuffImage.toPngBase64() +
-				'")';
-		} else {
-			BolgStacksBuff.style.backgroundImage =
-				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAAAAACov6uJAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAatJREFUKM91ktlO4zAUhnkQUi9ZnHg5ThzKfUVFq6DM9IIiECIwaXJ4/zcYxwmBG+zLT5b/7Wr3+7naXUfRZkMI5apIRFpoTgjZbKLo2rOZUKpV0b78kVpTRgMNzBPGuBV/8ePzVFjOGKUeehZQzBNr3i79pYMy4XF4GRgrwFbGySe84JOqTWVtTgMjJAdltNsWdzjgnbx12ijICZkYBbXrDpkzDhFrU6fHbic1DYwb/Y54SJTssJM6OSJ+GG9lYszq/Yh4z+LzeObsgDjuDTDqGWWyUmXTY8PasWUP2DeVruTCuHKQQzOeT8PpPDZQ2FrHXyxOobbCPQ/j8OzysoYs4V8siVlab4l4HV4Fvb3JWPzN4gwcpMs7YWtI45VpB8I046P/73FsjIBaxatO+a2z8TpLtegkDPR+mP2h93f/w9+SyzHRsvuccvHm342Zc6FmylNUc57gskO3U2bOc+oBoLrJ5x62zqw9+G5zj0y19OdMCbD059dCpt5LeOv/9Z0NvZOZRdOUvP8y93vBk7Sch71E686YVyTbl1aqnztb96ml8FctJOzz9/Mfd5CYrVsZ8isAAAAASUVORK5CYII=';
-		}
-	}
 	for (let [_key, value] of Object.entries(buffs).reverse()) {
 		let bolgStacksBuff = value.countMatch(
 			buffImages.perfectEquilibrium,
 			false
 		);
-		if (bolgStacksBuff.passed > 100) {
+		if (bolgStacksBuff.passed > 200) {
 			bolgStacksData = value.readArg('timearg');
+			console.log(bolgStacksData);
+			if (
+				value.readArg('timearg').time > 0 &&
+				value.readArg('timearg').time
+			 < 31 && value.readArg('timearg').arg != "") {
+				BalanceByForceBuff.dataset.time = value
+					.readArg('timearg')
+					.time.toString();
+			 }
+			BolgStacksBuff.dataset.time = value.readArg('timearg').arg.toString();
+			await new Promise((done) => setTimeout(done, 600));
 		}
 	}
 	if (bolgStacksData == undefined) {
 		BolgStacksBuff.classList.add('inactive');
+		BalanceByForceBuff.classList.add('inactive');
 		await new Promise((done) => setTimeout(done, 600));
 		BolgStacksBuff.dataset.time = '';
+		BalanceByForceBuff.dataset.time = '';
 	} else {
 		BolgStacksBuff.classList.remove('inactive');
+		BalanceByForceBuff.classList.remove('inactive');
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return bolgStacksData;
@@ -609,8 +591,8 @@ async function findLimitless(buffs: BuffReader.Buff[]) {
 async function findAncientElvenRitualShardDebuff(debuffs: BuffReader.Buff[]) {
 	let ElvenRitualShardData;
 	for (let [_key, value] of Object.entries(debuffs)) {
-		let ElvenRitualShardBuff = value.countMatch(debuffImages.elvenRitualShard, false);
-		if (ElvenRitualShardBuff.passed > 50) {
+		let ElvenRitualShardDebuff = value.countMatch(debuffImages.elvenRitualShard, false);
+		if (ElvenRitualShardDebuff.passed > 50) {
 			ElvenRitualShardData = value.readArg('timearg');
 			if (ElvenRitualShardData.time > 59) {
 				AncientElvenRitualShardDebuff.dataset.time =
@@ -667,6 +649,32 @@ async function findAdrenalinePotionDebuff(debuffs: BuffReader.Buff[]) {
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return AdrenalinePotionData;
+}
+
+async function findDeathGuardDebuff(debuffs: BuffReader.Buff[]) {
+	let DeathGuardData;
+	for (let [_key, value] of Object.entries(debuffs)) {
+		let DeathGuardImage = value.countMatch(
+			debuffImages.deathGraspDebuff,
+			false
+		);
+		if (DeathGuardImage.passed > 34) {
+			DeathGuardData = value.readArg('timearg');
+			DeathGuardDebuff.dataset.time = value
+				.readArg('timearg')
+				.time.toString();
+			await new Promise((done) => setTimeout(done, 600));
+		}
+	}
+	if (DeathGuardData == undefined) {
+		DeathGuardDebuff.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 600));
+		DeathGuardDebuff.dataset.time = '';
+	} else {
+		DeathGuardDebuff.classList.remove('inactive');
+	}
+	await new Promise((done) => setTimeout(done, 10));
+	return DeathGuardData;
 }
 
 let posBtn = document.getElementById('OverlayPosition');
