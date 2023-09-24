@@ -33,7 +33,7 @@ body {
   width: 100%;
   grid-template-areas:
     "first first second third fourth fifth sixth"
-    "first first seventh eight ninth tenth eleventh"
+    "first first seventh eighth ninth tenth eleventh"
 }
 
 #BetterBuffsBar.big-head-mode #Buffs li:nth-child(1) {
