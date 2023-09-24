@@ -17775,19 +17775,30 @@ function setBuffsPerRow() {
     buffsPerRowInput.addEventListener('change', function (e) {
         updateSetting('buffsPerRow', buffsPerRowInput.value);
         buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
-        if (getSetting('bigHeadMode')) {
-            trackedBuffs.style.gridTemplateAreas = "\n\t\t\t\"first first ".concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\t\"first first ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\t");
-        }
+        setBigHeadGrid();
     });
 }
 function setBigHeadMode() {
     var setBigHeadMode = document.getElementById('SetBigHeadMode');
+    var bigHeadPosition = (document.getElementById('BigHeadPosition'));
     setCheckboxChecked(setBigHeadMode);
     betterBuffsBar.classList.toggle('big-head-mode', Boolean(getSetting('bigHeadMode')));
     setBigHeadMode.addEventListener('change', function () {
         betterBuffsBar.classList.toggle('big-head-mode', Boolean(getSetting('bigHeadMode')));
-        trackedBuffs.style.gridTemplateAreas = "\n\t\t\"first first ".concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\"first first ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t");
+        setBigHeadGrid();
     });
+    bigHeadPosition.addEventListener('change', function (e) {
+        updateSetting('bigHeadPosition', bigHeadPosition.value);
+        setBigHeadGrid();
+    });
+}
+function setBigHeadGrid() {
+    if (getSetting('bigHeadMode') && getSetting('bigHeadPosition') == "start") {
+        trackedBuffs.style.gridTemplateAreas = "\n\t\t\"first first ".concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\"first first ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t");
+    }
+    if (getSetting('bigHeadMode') && getSetting('bigHeadPosition') == 'end') {
+        trackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(getSetting('buffsPerRow')), "first first\"\n\t\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "first first\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t");
+    }
 }
 function setBuffNames() {
     var showBuffNames = (document.querySelectorAll('.show-labels')[0]);

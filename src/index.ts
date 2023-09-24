@@ -844,19 +844,16 @@ function setBuffsPerRow() {
 	buffsPerRowInput.addEventListener('change', (e) => {
 		updateSetting('buffsPerRow', buffsPerRowInput.value);
 		buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
-		if (getSetting('bigHeadMode')) {
-			trackedBuffs.style.gridTemplateAreas = `
-			"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
-			"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
-			". . ${'. '.repeat(getSetting('buffsPerRow'))}"
-			`;
-		}
+		setBigHeadGrid();
 	});
 }
 
 function setBigHeadMode() {
 	let setBigHeadMode = <HTMLInputElement>
 		document.getElementById('SetBigHeadMode');
+		let bigHeadPosition = <HTMLSelectElement>(
+			document.getElementById('BigHeadPosition')
+		);
 	setCheckboxChecked(setBigHeadMode);
 	betterBuffsBar.classList.toggle(
 		'big-head-mode',
@@ -867,12 +864,31 @@ function setBigHeadMode() {
 			'big-head-mode',
 			Boolean(getSetting('bigHeadMode'))
 		);
+		setBigHeadGrid();
+	});
+	bigHeadPosition.addEventListener('change', (e) => {
+		updateSetting('bigHeadPosition', bigHeadPosition.value);
+		setBigHeadGrid();
+	});
+}
+
+function setBigHeadGrid() {
+	if (getSetting('bigHeadMode') && getSetting('bigHeadPosition') == "start") {
 		trackedBuffs.style.gridTemplateAreas = `
 		"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
 		"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
 		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
 		`;
-	});
+	}
+	if (
+		getSetting('bigHeadMode') && getSetting('bigHeadPosition') == 'end'
+	) {
+		trackedBuffs.style.gridTemplateAreas = `
+		"${'. '.repeat(getSetting('buffsPerRow'))}first first"
+		"${'. '.repeat(getSetting('buffsPerRow'))}first first"
+		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
+		`;
+	}
 }
 
 function setBuffNames() {
