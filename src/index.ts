@@ -249,7 +249,9 @@ async function findOverloaded(buffs: BuffReader.Buff[]) {
 				OverloadBuff.dataset.time = '<10s'
 				await new Promise((done) => setTimeout(done, 10000));
 				OverloadBuff.dataset.time = '';
-				showTooltip("Overload expired", 3000);
+				if (getSetting('showTooltipReminders')) {
+					showTooltip('Overload expired', 3000);
+				}
 			}else {
 				OverloadBuff.dataset.time = value
 					.readArg('timearg')
@@ -280,7 +282,9 @@ async function findElderOverloaded(buffs: BuffReader.Buff[]) {
 				ElderOverloadBuff.dataset.time = '<10s';
 				await new Promise((done) => setTimeout(done, 10000));
 				ElderOverloadBuff.dataset.time = '';
-				showTooltip('Overload expired', 3000);
+				if (getSetting('showTooltipReminders')) {
+					showTooltip('Overload expired', 3000);
+				}
 			} else {
 				ElderOverloadBuff.dataset.time = value
 					.readArg('timearg')

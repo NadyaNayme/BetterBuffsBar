@@ -16891,7 +16891,9 @@ function findOverloaded(buffs) {
                 case 4:
                     _c.sent();
                     OverloadBuff.dataset.time = '';
-                    showTooltip("Overload expired", 3000);
+                    if (getSetting('showTooltipReminders')) {
+                        showTooltip('Overload expired', 3000);
+                    }
                     return [3 /*break*/, 6];
                 case 5:
                     OverloadBuff.dataset.time = value
@@ -16944,7 +16946,9 @@ function findElderOverloaded(buffs) {
                 case 4:
                     _c.sent();
                     ElderOverloadBuff.dataset.time = '';
-                    showTooltip('Overload expired', 3000);
+                    if (getSetting('showTooltipReminders')) {
+                        showTooltip('Overload expired', 3000);
+                    }
                     return [3 /*break*/, 6];
                 case 5:
                     ElderOverloadBuff.dataset.time = value
