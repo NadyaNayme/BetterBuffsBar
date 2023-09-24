@@ -318,6 +318,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   grid-template-areas:
     "first first . . . . . "
     "first first . . . . . "
+    ". . . . . . ."
 }
 
 #BetterBuffsBar.big-head-mode #Buffs li:nth-child(1) {
