@@ -388,7 +388,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-repeat: no-repeat;
 }
 
-#Buffs li::after {
+#Buffs li::after,
+#UntrackedBuffs li::after {
   display: block;
   content: attr(data-time);
   z-index: 3;
@@ -401,7 +402,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   font-weight: 300;
 }
 
-#Buffs li::before {
+#Buffs li::before,
+#UntrackedBuffs li::before {
   display: block;
   content: attr(data-time);
   z-index: 3;

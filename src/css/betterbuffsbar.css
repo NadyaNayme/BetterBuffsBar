@@ -76,7 +76,8 @@ body {
   background-repeat: no-repeat;
 }
 
-#Buffs li::after {
+#Buffs li::after,
+#UntrackedBuffs li::after {
   display: block;
   content: attr(data-time);
   z-index: 3;
@@ -89,7 +90,8 @@ body {
   font-weight: 300;
 }
 
-#Buffs li::before {
+#Buffs li::before,
+#UntrackedBuffs li::before {
   display: block;
   content: attr(data-time);
   z-index: 3;
