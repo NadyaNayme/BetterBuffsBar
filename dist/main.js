@@ -312,6 +312,61 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   width: 100%;
 }
 
+#BetterBuffsBar.big-head-mode #Buffs {
+  display: grid;
+  width: 100%;
+  grid-template-areas:
+    "first first second third fourth fifth sixth"
+    "first first seventh eight ninth tenth eleventh"
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(1) {
+  grid-area: first;
+  width: 58px;
+  height: 58px;
+  background-size: cover;
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(2) {
+  grid-area: second;
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(3) {
+  grid-area: third;
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(4) {
+  grid-area: fourth;
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(5) {
+  grid-area: fifth;
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(6) {
+  grid-area: sixth;
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(7) {
+  grid-area: seventh;
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(8) {
+  grid-area: eighth;
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(9) {
+  grid-area: ninth;
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(10) {
+  grid-area: tenth;
+}
+
+#BetterBuffsBar.big-head-mode #Buffs li:nth-child(11) {
+  grid-area: eleventh;
+}
+
 #Buffs,
 #UntrackedBuffs {
   --maxcount: 5;
@@ -17461,6 +17516,7 @@ function initSettings() {
 function setDefaultSettings() {
     localStorage.setItem('betterBuffBar', JSON.stringify({
         activeOverlay: true,
+        bigHeadMode: false,
         buffsLocation: findPlayerBuffs,
         buffsPerRow: 5,
         fadeInactiveBuffs: true,
@@ -17473,6 +17529,7 @@ function setDefaultSettings() {
 }
 function loadSettings() {
     setBuffsPerRow();
+    setBigHeadMode();
     setBuffNames();
     setSortables();
     setFadeInactiveBuffs();
@@ -17530,6 +17587,14 @@ function setBuffsPerRow() {
     buffsPerRowInput.addEventListener('change', function (e) {
         updateSetting('buffsPerRow', buffsPerRowInput.value);
         buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+    });
+}
+function setBigHeadMode() {
+    var setBigHeadMode = document.getElementById('SetBigHeadMode');
+    setCheckboxChecked(setBigHeadMode);
+    betterBuffsBar.classList.toggle('big-head-mode', Boolean(getSetting('bigHeadMode')));
+    setBigHeadMode.addEventListener('change', function () {
+        betterBuffsBar.classList.toggle('big-head-mode', Boolean(getSetting('bigHeadMode')));
     });
 }
 function setBuffNames() {

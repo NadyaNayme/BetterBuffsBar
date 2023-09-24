@@ -675,6 +675,7 @@ function setDefaultSettings() {
 		'betterBuffBar',
 		JSON.stringify({
 			activeOverlay: true,
+			bigHeadMode: false,
 			buffsLocation: findPlayerBuffs,
 			buffsPerRow: 5,
 			fadeInactiveBuffs: true,
@@ -689,6 +690,7 @@ function setDefaultSettings() {
 
 function loadSettings() {
 	setBuffsPerRow();
+	setBigHeadMode();
 	setBuffNames();
 	setSortables();
 	setFadeInactiveBuffs();
@@ -752,6 +754,22 @@ function setBuffsPerRow() {
 	buffsPerRowInput.addEventListener('change', (e) => {
 		updateSetting('buffsPerRow', buffsPerRowInput.value);
 		buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+	});
+}
+
+function setBigHeadMode() {
+	let setBigHeadMode = <HTMLInputElement>
+		document.getElementById('SetBigHeadMode');
+	setCheckboxChecked(setBigHeadMode);
+	betterBuffsBar.classList.toggle(
+		'big-head-mode',
+		Boolean(getSetting('bigHeadMode'))
+	);
+	setBigHeadMode.addEventListener('change', function () {
+		betterBuffsBar.classList.toggle(
+			'big-head-mode',
+			Boolean(getSetting('bigHeadMode'))
+		);
 	});
 }
 
