@@ -686,6 +686,7 @@ function setDefaultSettings() {
 
 function loadSettings() {
 	setBuffsPerRow();
+	setBuffNames();
 	setSortables();
 	setFadeInactiveBuffs();
 	setCustomScale();
@@ -750,6 +751,24 @@ function setBuffsPerRow() {
 		buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
 	});
 }
+
+function setBuffNames() {
+	let showBuffNames = <HTMLInputElement>(
+		document.querySelectorAll('.show-labels')[0]
+	);
+	setCheckboxChecked(showBuffNames);
+	betterBuffsBar.classList.toggle(
+		'show-labels',
+		Boolean(getSetting('showBuffNames'))
+	);
+	showBuffNames.addEventListener('change', function () {
+		betterBuffsBar.classList.toggle(
+			'show-labels',
+			Boolean(getSetting('showBuffNames'))
+		);
+	});
+}
+
 function setFadeInactiveBuffs() {
 	let fadeInactiveBuffs = <HTMLInputElement>document.querySelectorAll('.fade-inactive')[0];
 	setCheckboxChecked(fadeInactiveBuffs);

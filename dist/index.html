@@ -15,7 +15,8 @@
 				<h2>Settings</h2>
 				<h3>General</h3>
 				<div class="flex setting"><input class="per-row" type="number" id="BuffsPerRow" data-setting="buffsPerRow" min="1" max="20"> Number of buffs per row</div>
-				<div class="flex setting"><input class="fade-inactive" type="checkbox" id="FadeInactiveBuffs" data-setting="fadeInactiveBuffs"> Fade Inactive Buffs - Will set inactive buffs to be desaturated instead of removing them from the buffs bar.</div>
+				<div class="flex setting"><input class="fade-inactive" type="checkbox" id="FadeInactiveBuffs" data-setting="fadeInactiveBuffs"> Fade Inactive Buffs - Will set inactive buffs to be desaturated instead of removing them from</div>
+				<div class="flex setting"><input class="show-labels" type="checkbox" id="ShowBuffNames" data-setting="showBuffNames"> Show names of buffs/debuffs - only use this setting if you don't recognize the buff/debuff icons</div>
 				<h3>Overlay</h3>
 				<small>Make sure to enable "Show Overlay" for this app in your Alt1 settings.</small><br><br>
 				<div class="flex setting"><input type="checkbox" id="ShowOverlay" data-setting="activeOverlay">Enable Overlay - App will refresh when toggled. After overlay position has been set - you must leave this app open but you may 'Minimize' it by pressing the _ icon in the top right corner and move it out of the way.</div>
@@ -41,17 +42,17 @@
 			<h2>Tracked Buffs</h2>
 			<p>Drag & drop buffs into the desired tracking order. Drop the buff into the Untracked Buffs region to stop tracking it.</p>
 			<ul id="Buffs">
-				<li id="OverloadBuff" data-id="8" data-time=""></li>
-				<li id="ElderOverloadBuff" data-id="1" data-time=""></li>
-				<li id="WeaponPoisonBuff" data-id="2" data-time=""></li>
-				<li id="DarknessBuff" data-id="3" data-time=""></li>
-				<li id="AnimateDeadBuff" data-id="4" data-time=""></li>
-				<li id="BolgStacksBuff" data-id="5" data-stacks=""></li>
-				<li id="TimeRiftBuff" data-id="6" data-time=""></li>
-				<li id="FsoaSpecBuff" data-id="7" data-time=""></li>
-				<li id="GladiatorsRageBuff" data-id="9" data-time=""></li>
-				<li id="AncientElvenRitualShardDebuff" data-id="10" data-time="" class="inactive"></li>
-				<li id="AdrenalinePotionDebuff" data-id="11" data-time="" class="inactive"></li>
+				<li id="OverloadBuff" data-id="8" data-time=""><span class="buff-name">Overload</span></li>
+				<li id="ElderOverloadBuff" data-id="1" data-time=""><span class="buff-name">Elder Overload</span></li>
+				<li id="WeaponPoisonBuff" data-id="2" data-time=""><span class="buff-name">Weapon Poison</span></li>
+				<li id="DarknessBuff" data-id="3" data-time=""><span class="buff-name">Darkness</span></li>
+				<li id="AnimateDeadBuff" data-id="4" data-time=""><span class="buff-name">Animate Dead</span></li>
+				<li id="BolgStacksBuff" data-id="5" data-stacks=""><span class="buff-name">Perfect Equilibrium (BOLG Stacks)</span></li>
+				<li id="TimeRiftBuff" data-id="6" data-time=""><span class="buff-name">Time Rift (Jas Book Proc)</span></li>
+				<li id="FsoaSpecBuff" data-id="7" data-time=""><span class="buff-name">Instability (FSOA Weapon Special)</span></li>
+				<li id="GladiatorsRageBuff" data-id="9" data-time=""><span class="buff-name">Gladiator's Rage (Ful Book Proc)</span></li>
+				<li id="AncientElvenRitualShardDebuff" data-id="10" data-time="" class="inactive"><span class="buff-name">Ancient Elven Ritual Shard</span></li>
+				<li id="AdrenalinePotionDebuff" data-id="11" data-time="" class="inactive"><span class="buff-name">Adrenaline Potion Cooldown</span></li>
 			</ul>
 			<h2>Untracked Buffs</h2>
 			<ul id="UntrackedBuffs"></ul>

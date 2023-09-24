@@ -363,6 +363,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   height: 27px;
   margin: 2px;
   background-color: #3e3e3e;
+  background-repeat: no-repeat;
 }
 
 #Buffs li::after {
@@ -516,6 +517,29 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   border: solid 1px red;
   min-height: 10px;
   padding: 4px;
+}
+
+#BetterBuffsBar:not(.show-labels) #Buffs .buff-name,
+#BetterBuffsBar:not(.show-labels) #UntrackedBuffs .buff-name {
+  display: none;
+}
+
+#BetterBuffsBar.show-labels #Buffs,
+#BetterBuffsBar.show-labels #UntrackedBuffs {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+}
+
+#BetterBuffsBar.show-labels #Buffs li,
+#BetterBuffsBar.show-labels #UntrackedBuffs li {
+  width: 100%;
+}
+
+#BetterBuffsBar.show-labels #Buffs .buff-name,
+#BetterBuffsBar.show-labels #UntrackedBuffs .buff-name {
+  padding-left: 35px;
+  align-self: center;
 }
 
 hr {
@@ -17405,6 +17429,7 @@ function setDefaultSettings() {
 }
 function loadSettings() {
     setBuffsPerRow();
+    setBuffNames();
     setSortables();
     setFadeInactiveBuffs();
     setCustomScale();
@@ -17461,6 +17486,14 @@ function setBuffsPerRow() {
     buffsPerRowInput.addEventListener('change', function (e) {
         updateSetting('buffsPerRow', buffsPerRowInput.value);
         buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+    });
+}
+function setBuffNames() {
+    var showBuffNames = (document.querySelectorAll('.show-labels')[0]);
+    setCheckboxChecked(showBuffNames);
+    betterBuffsBar.classList.toggle('show-labels', Boolean(getSetting('showBuffNames')));
+    showBuffNames.addEventListener('change', function () {
+        betterBuffsBar.classList.toggle('show-labels', Boolean(getSetting('showBuffNames')));
     });
 }
 function setFadeInactiveBuffs() {
