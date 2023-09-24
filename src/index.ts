@@ -21,6 +21,7 @@ debuffs.debuffs = true;
 var output = document.getElementById('output');
 var settings = document.getElementById('Settings');
 var betterBuffsBar = document.getElementById('BetterBuffsBar');
+var trackedBuffs = document.getElementById('Buffs');
 
 /* Buffs */
 let OverloadBuff = document.getElementById('OverloadBuff');
@@ -754,6 +755,13 @@ function setBuffsPerRow() {
 	buffsPerRowInput.addEventListener('change', (e) => {
 		updateSetting('buffsPerRow', buffsPerRowInput.value);
 		buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+		if (getSetting('bigHeadMode')) {
+			trackedBuffs.style.gridTemplateAreas = `
+			"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
+			"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
+			". . ${'. '.repeat(getSetting('buffsPerRow'))}"
+			`;
+		}
 	});
 }
 
@@ -770,6 +778,11 @@ function setBigHeadMode() {
 			'big-head-mode',
 			Boolean(getSetting('bigHeadMode'))
 		);
+		trackedBuffs.style.gridTemplateAreas = `
+		"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
+		"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
+		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
+		`;
 	});
 }
 
