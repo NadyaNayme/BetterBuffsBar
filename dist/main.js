@@ -17358,10 +17358,24 @@ function setActive(element) {
 }
 function findBolgStacks(buffs) {
     return __awaiter(this, void 0, void 0, function () {
-        var bolgStacksData, _i, _a, _b, _key, value, bolgStacksBuff;
+        var bolgStacksData, canvas, ctx, a, buffsImage, bolgBuffImage, _i, _a, _b, _key, value, bolgStacksBuff;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
+                    canvas = document.getElementById('canvas');
+                    ctx = canvas.getContext('2d');
+                    ctx.drawImage(buffImages.perfectEquilibriumNoBorder.toImage(), 0, 0, canvas.width, canvas.height);
+                    for (a in buffs) {
+                        if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
+                            buffsImage = buffs[a].buffer.toImage();
+                            ctx.drawImage(buffsImage, buffs[a].bufferx, buffs[a].buffery, 27, 27, 0, 0, canvas.width, canvas.height);
+                            bolgBuffImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                            buffsList.BolgStacksBuff.style.backgroundImage =
+                                'url("data:image/png;base64,' +
+                                    bolgBuffImage.toPngBase64() +
+                                    '")';
+                        }
+                    }
                     _i = 0, _a = Object.entries(buffs).reverse();
                     _c.label = 1;
                 case 1:
