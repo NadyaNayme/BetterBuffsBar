@@ -16956,6 +16956,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
+sortablejs__WEBPACK_IMPORTED_MODULE_0__.Sortable.mount(new sortablejs__WEBPACK_IMPORTED_MODULE_0__.MultiDrag());
 // tell webpack that this file relies index.html, appconfig.json and icon.png, this makes webpack
 // add these files to the output directory
 // this works because in /webpack.config.js we told webpack to treat all html, json and imageimports
@@ -17485,6 +17486,8 @@ function startOverlay() {
                     _a.label = 1;
                 case 1:
                     if (false) {}
+                    cnv.width = 1000;
+                    cnv.height = 1000;
                     captureOverlay();
                     overlayPosition = getSetting('overlayPosition');
                     alt1.overLaySetGroup('betterBuffsBar');
@@ -17542,7 +17545,6 @@ function loadSettings() {
 }
 function setSortables() {
     var sortables = ['Buffs', 'UntrackedBuffs'];
-    sortablejs__WEBPACK_IMPORTED_MODULE_0__.Sortable.mount(new sortablejs__WEBPACK_IMPORTED_MODULE_0__.MultiDrag());
     // Create the sortables
     sortables.forEach(function (sortable) {
         var el = getByID(sortable);

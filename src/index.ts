@@ -5,6 +5,8 @@ import * as BuffReader from 'alt1/buffs';
 import { Sortable, MultiDrag }  from 'sortablejs';
 import html2canvas from 'html2canvas';
 
+Sortable.mount(new MultiDrag());
+
 // tell webpack that this file relies index.html, appconfig.json and icon.png, this makes webpack
 // add these files to the output directory
 // this works because in /webpack.config.js we told webpack to treat all html, json and imageimports
@@ -499,6 +501,9 @@ export async function startOverlay() {
 	let overlay = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0];
 
 	while (true) {
+		cnv.width = 1000;
+		cnv.height = 1000;
+
 		captureOverlay();
 
 		let overlayPosition = getSetting('overlayPosition');
@@ -571,8 +576,6 @@ function loadSettings() {
 
 function setSortables() {
 	const sortables = ['Buffs', 'UntrackedBuffs'];
-	Sortable.mount(new MultiDrag())
-
 	// Create the sortables
 	sortables.forEach((sortable) => {
 		const el = getByID(sortable);
