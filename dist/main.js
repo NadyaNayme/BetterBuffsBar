@@ -17115,9 +17115,9 @@ function watchBuffs() {
             maxAttempts = 10;
             //TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
             findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
-            findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 50, true);
+            findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 44, true);
             findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 161, true);
-            findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 120);
+            findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 120, false, 0, 43260);
             findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 45);
             findStatus(buffs, buffImages.fsoaWeaponSpec, buffsList.FsoaSpecBuff, 12, false, 0, 31);
             findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 50);
