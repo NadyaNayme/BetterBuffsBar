@@ -520,6 +520,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_12___});
 }
 
+#BolgStacksBuff::before,
+#BolgStacksBuff::after {
+  display: none !important;
+}
+
 #BalanceByForceBuff {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_13___});
 }
