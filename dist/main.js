@@ -439,7 +439,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   display: flex;
   width: 27px;
   height: 27px;
-  margin: 2px;
+  margin: 1px;
   background-color: #3e3e3e;
   background-repeat: no-repeat;
 }
@@ -685,6 +685,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 #BetterBuffsBar.show-labels #UntrackedBuffs .buff-name {
   padding-left: 35px;
   align-self: center;
+}
+
+li:not(.sortable-selected) {
+  border: solid 1px transparent;
+}
+
+li.sortable-selected {
+  border: solid 1px #92cefe;
 }
 
 hr {
@@ -17217,7 +17225,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     _c.sent();
                     return [2 /*return*/];
                 case 4:
-                    if (!(timearg.time > 59 && !onCooldown)) return [3 /*break*/, 6];
+                    if (!(timearg.time > 59 && !onCooldown && timearg.time < maxRange)) return [3 /*break*/, 6];
                     if (getSetting('debugMode')) {
                         console.log("".concat(element.id, " has >60s remaining"));
                     }
@@ -17520,8 +17528,6 @@ function setDefaultSettings() {
     }));
 }
 function loadSettings() {
-    findPlayerBuffs();
-    findPlayerDebuffs();
     setBuffsPerRow();
     setBigHeadMode();
     setBuffNames();
@@ -17531,14 +17537,18 @@ function loadSettings() {
     setCustomScale();
     setOverlay();
     setLoopSpeed();
+    findPlayerBuffs();
+    findPlayerDebuffs();
 }
 function setSortables() {
     var sortables = ['Buffs', 'UntrackedBuffs'];
+    sortablejs__WEBPACK_IMPORTED_MODULE_0__.Sortable.mount(new sortablejs__WEBPACK_IMPORTED_MODULE_0__.MultiDrag());
     // Create the sortables
     sortables.forEach(function (sortable) {
         var el = getByID(sortable);
-        sortablejs__WEBPACK_IMPORTED_MODULE_0__["default"].create(el, {
+        sortablejs__WEBPACK_IMPORTED_MODULE_0__.Sortable.create(el, {
             group: 'trackedBuffs',
+            multiDrag: true,
             dataIdAttr: 'id',
             swapThreshold: 0.85,
             store: {

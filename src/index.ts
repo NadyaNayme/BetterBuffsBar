@@ -2,7 +2,7 @@
 // also gives your editor info about the window.alt1 api
 import * as a1lib from 'alt1';
 import * as BuffReader from 'alt1/buffs';
-import Sortable from 'sortablejs';
+import { Sortable, MultiDrag }  from 'sortablejs';
 import html2canvas from 'html2canvas';
 
 // tell webpack that this file relies index.html, appconfig.json and icon.png, this makes webpack
@@ -290,7 +290,7 @@ async function findStatus(
 				onCooldown = true;
 				await startCooldownTimer(element, cooldownTimer);
 				return
-			} else if (timearg.time > 59 && !onCooldown) {
+			} else if (timearg.time > 59 && !onCooldown && timearg.time < maxRange) {
 				if (getSetting('debugMode')) {
 					console.log(`${element.id} has >60s remaining`);
 				}
@@ -556,8 +556,6 @@ function setDefaultSettings() {
 }
 
 function loadSettings() {
-	findPlayerBuffs();
-	findPlayerDebuffs();
 	setBuffsPerRow();
 	setBigHeadMode();
 	setBuffNames();
@@ -567,10 +565,13 @@ function loadSettings() {
 	setCustomScale();
 	setOverlay();
 	setLoopSpeed();
+	findPlayerBuffs();
+	findPlayerDebuffs();
 }
 
 function setSortables() {
 	const sortables = ['Buffs', 'UntrackedBuffs'];
+	Sortable.mount(new MultiDrag())
 
 	// Create the sortables
 	sortables.forEach((sortable) => {
@@ -578,6 +579,7 @@ function setSortables() {
 
 		Sortable.create(el, {
 			group: 'trackedBuffs',
+			multiDrag: true,
 			dataIdAttr: 'id',
 			swapThreshold: 0.85,
 			store: {

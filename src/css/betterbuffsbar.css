@@ -71,7 +71,7 @@ body {
   display: flex;
   width: 27px;
   height: 27px;
-  margin: 2px;
+  margin: 1px;
   background-color: #3e3e3e;
   background-repeat: no-repeat;
 }
@@ -317,6 +317,14 @@ body {
 #BetterBuffsBar.show-labels #UntrackedBuffs .buff-name {
   padding-left: 35px;
   align-self: center;
+}
+
+li:not(.sortable-selected) {
+  border: solid 1px transparent;
+}
+
+li.sortable-selected {
+  border: solid 1px #92cefe;
 }
 
 hr {
