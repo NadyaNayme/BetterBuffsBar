@@ -18,39 +18,41 @@ var buffs = new BuffReader.default();
 var debuffs = new BuffReader.default();
 debuffs.debuffs = true;
 
-var output = document.getElementById('output');
-var settings = document.getElementById('Settings');
-var betterBuffsBar = document.getElementById('BetterBuffsBar');
-var trackedBuffs = document.getElementById('Buffs');
+function getByID(id: string) {
+	return document.getElementById(id);
+}
 
-/* Buffs */
-let OverloadBuff = document.getElementById('OverloadBuff');
-let ElderOverloadBuff = document.getElementById('ElderOverloadBuff');
-let WeaponPoisonBuff = document.getElementById('WeaponPoisonBuff');
-let DarknessBuff = document.getElementById('DarknessBuff');
-let AnimateDeadBuff = document.getElementById('AnimateDeadBuff');
-let BolgStacksBuff = document.getElementById('BolgStacksBuff');
-let BalanceByForceBuff = document.getElementById('BalanceByForceBuff');
-let TimeRiftBuff = document.getElementById('TimeRiftBuff');
-let FsoaSpecBuff = document.getElementById('FsoaSpecBuff');
-let GladiatorsRageBuff = document.getElementById('GladiatorsRageBuff');
-let NecrosisBuff = document.getElementById('NecrosisBuff');
-let LimitlessBuff = document.getElementById('LimitlessBuff');
-let DeathGuardDebuff = document.getElementById('DeathGuardDebuff');
-let OmniGuardDebuff = document.getElementById('OmniGuardDebuff');
-let CrystalRainDebuff = document.getElementById('CrystalRainDebuff');
+let helperItems = {
+	Output: getByID('output'),
+	settings: getByID('Settings'),
+	BetterBuffsBar: getByID('BetterBuffsBar'),
+	TrackedBuffs: getByID('Buffs'),
+	UntrackedBuffs: getByID('UntrackedBuffs'),
+}
 
+let buffsList = {
+	OverloadBuff: getByID('OverloadBuff'),
+	ElderOverloadBuff: getByID('ElderOverloadBuff'),
+	WeaponPoisonBuff: getByID('WeaponPoisonBuff'),
+	DarknessBuff: getByID('DarknessBuff'),
+	AnimateDeadBuff: getByID('AnimateDeadBuff'),
+	BolgStacksBuff: getByID('BolgStacksBuff'),
+	BalanceByForceBuff: getByID('BalanceByForceBuff'),
+	TimeRiftBuff: getByID('TimeRiftBuff'),
+	FsoaSpecBuff: getByID('FsoaSpecBuff'),
+	GladiatorsRageBuff: getByID('GladiatorsRageBuff'),
+	NecrosisBuff: getByID('NecrosisBuff'),
+	LimitlessBuff: getByID('LimitlessBuff'),
+};
 
-/* Debuffs */
-let AncientElvenRitualShardDebuff = document.getElementById(
-	'AncientElvenRitualShardDebuff'
-);
-let EnhancedExcaliburDebuff = document.getElementById(
-	'EnhancedExcaliburDebuff'
-);
-let AdrenalinePotionDebuff = document.getElementById(
-	'AdrenalinePotionDebuff'
-);
+let debuffsList = {
+	DeathGuardDebuff: getByID('DeathGuardDebuff'),
+	OmniGuardDebuff: getByID('OmniGuardDebuff'),
+	CrystalRainDebuff: getByID('CrystalRainDebuff'),
+	AncientElvenRitualShardDebuff: getByID('AncientElvenRitualShardDebuff'),
+	EnhancedExcaliburDebuff: getByID('EnhancedExcaliburDebuff'),
+	AdrenalinePotionDebuff: getByID('AdrenalinePotionDebuff'),
+};
 
 // loads all images as raw pixel data async, images have to be saved as *.data.png
 // this also takes care of metadata headers in the image that make browser load the image
@@ -90,21 +92,21 @@ var debuffImages = a1lib.webpackImages({
 
 export function startBetterBuffsBar() {
 	if (!window.alt1) {
-		output.insertAdjacentHTML(
+		helperItems.Output.insertAdjacentHTML(
 			'beforeend',
 			`<div>You need to run this page in alt1 to capture the screen</div>`
 		);
 		return;
 	}
 	if (!alt1.permissionPixel) {
-		output.insertAdjacentHTML(
+		helperItems.Output.insertAdjacentHTML(
 			'beforeend',
 			`<div><p>Page is not installed as app or capture permission is not enabled</p></div>`
 		);
 		return;
 	}
 	if (!alt1.permissionOverlay && getSetting('activeOverlay')) {
-		output.insertAdjacentHTML(
+		helperItems.Output.insertAdjacentHTML(
 			'beforeend',
 			`<div><p>Attempted to use Overlay but app overlay permission is not enabled. Please enable "Show Overlay" permission in Alt1 settinsg (wrench icon in corner).</p></div>`
 		);
@@ -118,7 +120,7 @@ function createCanvas() {
 	let overlayCanvas = document.createElement('canvas');
 	overlayCanvas.id = 'OverlayCanvas';
 
-	let bbb = document.getElementById('Buffs');
+	let bbb = getByID('Buffs');
 	let overlayWidth = bbb.offsetWidth;
 	let overlayHeight = bbb.offsetHeight;
 	overlayCanvas.width = overlayWidth;
@@ -126,7 +128,7 @@ function createCanvas() {
 	return overlayCanvas;
 }
 
-function captureOverlay() {
+async function captureOverlay() {
 	let overlayCanvas = createCanvas();
 	html2canvas(document.querySelector('#Buffs'), {
 		allowTaint: true,
@@ -148,7 +150,7 @@ function captureOverlay() {
 }
 
 function paintCanvas(canvas: HTMLCanvasElement) {
-		let overlayCanvasOutput = document.getElementById(
+		let overlayCanvasOutput = getByID(
 			'OverlayCanvasOutput'
 		);
 		let overlayCanvasContext = overlayCanvasOutput
@@ -157,8 +159,8 @@ function paintCanvas(canvas: HTMLCanvasElement) {
 		overlayCanvasContext.clearRect(
 			0,
 			0,
-			canvas.width,
-			canvas.height
+			overlayCanvasContext.canvas.width,
+			overlayCanvasContext.canvas.height
 		);
 		overlayCanvasContext.drawImage(canvas, 0, 0);
 		let overlay = overlayCanvasOutput.querySelector('canvas');
@@ -168,6 +170,7 @@ function paintCanvas(canvas: HTMLCanvasElement) {
 
 let maxAttempts = 10;
 function watchBuffs() {
+	let loopSpeed = getSetting('loopSpeed');
 	updateSetting(
 		'firstFrame',
 		false
@@ -182,87 +185,56 @@ function watchBuffs() {
 	const interval = setInterval(() => {
 		let buffs = getActiveBuffs();
 		let debuffs = getActiveDebuffs();
-		if (buffs) {
-			// TODO: These if() checks can all go in the refactored function as an argument that gets passed
-			if (document.querySelectorAll('#Buffs #OverloadBuff').length) {
-				findOverloaded(buffs);
-			}
-			if (document.querySelectorAll('#Buffs #ElderOverloadBuff').length) {
-				findElderOverloaded(buffs);
-			}
-			if (document.querySelectorAll('#Buffs #WeaponPoisonBuff').length) {
-				findPoisonous(buffs);
-			}
-			// findPrayerRenewal(buffs);
-			// findAntipoison(buffs);
-			if (document.querySelectorAll('#Buffs #FsoaSpecBuff').length) {
-				findFsoaBuff(buffs);
-			}
-			if (document.querySelectorAll('#Buffs #DarknessBuff').length) {
-				findDarkness(buffs);
-			}
-			if (document.querySelectorAll('#Buffs #AnimateDeadBuff').length) {
-				findAnimateDead(buffs);
-			}
-			if (document.querySelectorAll('#Buffs #TimeRiftBuff').length) {
-				findJasProc(buffs);
-			}
+		if (getSetting('buffsLocation')) {
+			maxAttempts = 10;
+
+			//TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
+			findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
+			findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 50, true);
+			findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 161, true);
+			findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 120);
+			findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 45);
+			findStatus(buffs, buffImages.fsoaWeaponSpec, buffsList.FsoaSpecBuff, 12, false, 0, 31);
+			findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 50);
+			findStatus(buffs, buffImages.gladiatorsRage, buffsList.GladiatorsRageBuff, 50, false, 0, 16);
+			findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, 150);
+			findStatus(buffs, buffImages.limitless, buffsList.LimitlessBuff, 250, false, 0, Infinity, true, 83);
+
+			/* BOLG is currently still special */
 			if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
 				findBolgStacks(buffs);
 			}
-			if (document.querySelectorAll('#Buffs #GladiatorsRageBuff').length) {
-				findFulProc(buffs);
-			}
-			if (document.querySelectorAll('#Buffs #NecrosisBuff').length) {
-				findNecrosis(buffs);
-			}
-			if (document.querySelectorAll('#Buffs #LimitlessBuff').length) {
-				findLimitless(buffs);
-			}
-		if (debuffs) {
-			if (document.querySelectorAll('#Buffs #AncientElvenRitualShardDebuff').length) {
-				findAncientElvenRitualShardDebuff(debuffs);
-			}
-			if (
-				document.querySelectorAll(
-					'#Buffs #AdrenalinePotionDebuff'
-				).length
-			) {
-				findAdrenalinePotionDebuff(debuffs);
-			}
-			if (document.getElementById('DeathGuardDebuff')) {
-				findDeathGuardDebuff(debuffs);
-			}
-			if (document.getElementById('OmniGuardDebuff')) {
-				findOmniGuardDebuff(debuffs);
-			}
-			if (document.getElementById('CrystalRainDebuff')) {
-				findCrystalRainDebuff(debuffs);
-			}
-			if (document.getElementById('EnhancedExcaliburDebuff')) {
-				findEnhancedExcaliburDebuff(debuffs);
-			}
-		}
-			// If we succesfully found buffs - restart our retries
-			maxAttempts = 10;
 		} else {
-			if (maxAttempts == 0) {
-				output.insertAdjacentHTML(
-					'beforeend',
-					`<p>Unable to find buff bar location.\nPlease login to the game or make sure that Alt1 can detect your buffs then reload the app.\nRemember - the Buffs Bar must be set to "Small". \nTo reload, right click this interface and select Reload.</p>`
-				);
-				clearInterval(interval);
-				return;
-			}
-			if (maxAttempts > -0) {
-				maxAttempts--;
-			}
-			console.log(
-				`Failed to read buffs - attempting again. Attempts left: ${maxAttempts}.`
-			);
+			noDetection(maxAttempts, interval, "buff");
 		}
-	}, getSetting('loopSpeed'));
-	``;
+		if (getSetting('debuffsLocation')) {
+			maxAttempts = 10;
+			findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 50);
+			findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 50);
+			findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 30);
+			findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 19);
+			findStatus(debuffs, debuffImages.crystalRainDebuff, debuffsList.CrystalRainDebuff, 19);
+		} else {
+			noDetection(maxAttempts, interval, "debuff");
+		}
+	}, loopSpeed);
+}
+
+async function noDetection(maxAttempts: number, interval: any, bar: string) {
+	if (maxAttempts == 0) {
+		helperItems.Output.insertAdjacentHTML(
+			'beforeend',
+			`<p>Unable to find ${bar} bar location.\nPlease login to the game or make sure that Alt1 can detect your ${bar} bar then reload the app.\nRemember - the Buffs setting must be set to "Small" and you must have at least 1 ${bar}. \nTo reload, right click this interface and select Reload.</p>`
+		);
+		clearInterval(interval);
+		return;
+	}
+	if (maxAttempts > -0) {
+		maxAttempts--;
+	}
+	console.log(
+		`Failed to read buffs - attempting again. Attempts left: ${maxAttempts}.`
+	);
 }
 
 async function showTooltip(msg: string, duration: number) {
@@ -272,217 +244,137 @@ async function showTooltip(msg: string, duration: number) {
 	return
 }
 
-//TODO: Clean up this repetive code by breaking each check (60s, 30s, 10s, etc.) into their own functions
-// The only things that really change are threshold: number, tooltipMsg: string, and inactiveMsg: string
-// except for BOLG which is special
+/*
+ * I'm usually against argument flags and believe they should generally be a separate function
+ * but of the buffs we currently check it's really only Overloads & Weapon Poison that do this.
+ * If more get added in the future then we can revisit and maybe extract it out into its own function.
+ *
+ * "The everything function"
+ * coolDownTimer should be the remaining cooldown in SECONDS after Active Duration & 1s have elapsed
+ */
+async function findStatus(
+	buffsReader: BuffReader.Buff[],
+	buffImage: ImageData,
+	element: HTMLElement,
+	threshold: number,
+	expirationPulse: boolean = false,
+	minRange: number = 0,
+	maxRange: number = Infinity,
+	showCooldown: boolean = false,
+	cooldownTimer?: number
+) {
+	// Exit early if our buff isn't in the Tracked Buffs list
+	if (!getByID('Buffs').contains(element) || !buffsReader) {
+		return;
+	}
+	// Declared outside of the loop so that it can be checked to be Undefined if no buffs are found
+	let timearg;
+	let foundBuff = false;
+	let onCooldown = false;
+	for (let [_key, value] of Object.entries(buffsReader)) {
+		if (foundBuff) {
+			return;
+		}
 
-async function findOverloaded(buffs: BuffReader.Buff[]) {
-	let overloadData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let overloadedBuff = value.countMatch(buffImages.overloaded, false);
-		if (overloadedBuff.passed > 300) {
-			overloadData = value.readArg('timearg');
-			if (overloadData.time > 59) {
-				OverloadBuff.dataset.time = (value.readArg('timearg').time / 60).toString() + "m";
+		let findBuffImage = value.countMatch(buffImage, false);
+		// If we find a match for the buff it will always exceed the threshold
+		// the threshold depends largely on which buff is being matched against
+		if (findBuffImage.passed > threshold) {
+			foundBuff = true;
+			await setActive(element);
+			timearg = value.readArg('timearg');
+			if (element.dataset.time == '1' && showCooldown && !onCooldown) {
+				if (getSetting('debugMode')) {
+					console.log(`Starting cooldown timer for ${element.id}`)
+				}
+				onCooldown = true;
+				await startCooldownTimer(element, cooldownTimer);
+				return
+			} else if (timearg.time > 59 && !onCooldown) {
+				if (getSetting('debugMode')) {
+					console.log(`${element.id} has >60s remaining`);
+				}
+				element.dataset.time =
+					(value.readArg('timearg').time / 60).toString() + 'm';
+
+				// Pause the check for a tick since we don't need to rapidly update
+				//a buff that won't have a more precise value for 1 minute
 				await new Promise((done) => setTimeout(done, 600));
-			} else if (overloadData.time == 11) {
-				OverloadBuff.dataset.time = '<10s'
+			} else if (expirationPulse && timearg.time == 11 && !onCooldown) {
+				if (getSetting('debugMode')) {
+					console.log(`${element.id} has <10s remaining - starting 10s countdown`);
+				}
+				element.dataset.time = '<10s';
+				await setActive(element);
+				// This can be desynced from in-game 10s but it's accurate enough
 				await new Promise((done) => setTimeout(done, 10000));
-				OverloadBuff.dataset.time = '';
+				await removeActive(element);
 				if (getSetting('showTooltipReminders')) {
 					showTooltip('Overload expired', 3000);
 				}
-			}else {
-				OverloadBuff.dataset.time = value
-					.readArg('timearg')
-					.time.toString();
-			}
-		}
-	}
-	if (overloadData == undefined) {
-		OverloadBuff.classList.add('inactive');
-	} else {
-		OverloadBuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return overloadData;
-}
-
-async function findElderOverloaded(buffs: BuffReader.Buff[]) {
-	let elderOverloadData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let elderOverloadedBuff = value.countMatch(buffImages.elderOverload, false);
-		if (elderOverloadedBuff.passed > 50) {
-			elderOverloadData = value.readArg('timearg');
-			if (elderOverloadData.time > 59) {
-				ElderOverloadBuff.dataset.time =
-					(value.readArg('timearg').time / 60).toString() + 'm';
-				await new Promise((done) => setTimeout(done, 600));
-			} else if (elderOverloadData.time == 11) {
-				ElderOverloadBuff.dataset.time = '<10s';
-				await new Promise((done) => setTimeout(done, 10000));
-				ElderOverloadBuff.dataset.time = '';
-				if (getSetting('showTooltipReminders')) {
-					showTooltip('Overload expired', 3000);
+			} else if (timearg.time > minRange && timearg.time < maxRange) {
+				if (getSetting('debugMode')) {
+					console.log(`Cooldown for ${element.id} is between ${minRange} and ${maxRange}`);
+				}
+				element.dataset.time = timearg.time.toString();
+				if (timearg.time - 1 == 0 && !showCooldown) {
+					await removeActive(element);
 				}
 			} else {
-				ElderOverloadBuff.dataset.time = value
-					.readArg('timearg')
-					.time.toString();
+				if (getSetting('debugMode')) {
+					console.log(`${element.id} is no longer active - setting inactive.`);
+				}
+				await removeActive(element);
 			}
-		}
-	}
-	if (elderOverloadData == undefined) {
-		ElderOverloadBuff.classList.add('inactive');
-	} else {
-		ElderOverloadBuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return elderOverloadData;
-}
-
-async function findPoisonous(buffs: BuffReader.Buff[]) {
-	let poisonousData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let poisonousBuff = value.countMatch(buffImages.poisonous, false);
-		if (poisonousBuff.passed > 161) {
-			poisonousData = value.readArg('timearg');
-			if (poisonousData.time > 59) {
-				WeaponPoisonBuff.dataset.time =
-					(value.readArg('timearg').time / 60).toString() + 'm';
-				await new Promise((done) => setTimeout(done, 600));
-			} else if (poisonousData.time == 11) {
-				WeaponPoisonBuff.dataset.time = '<10s';
-				await new Promise((done) => setTimeout(done, 10000));
-				WeaponPoisonBuff.dataset.time = '';
-			} else {
-				WeaponPoisonBuff.dataset.time = value
-					.readArg('timearg')
-					.time.toString();
+		} else if (!showCooldown) {
+			if (getSetting('debugMode')) {
+				console.log(`${element.id} is no longer active - setting inactive.`);
 			}
+			await removeActive(element);
 		}
 	}
-	if (poisonousData == undefined) {
-		WeaponPoisonBuff.classList.add('inactive');
-	} else {
-		WeaponPoisonBuff.classList.remove('inactive');
+	// If we didn't find the buff try again after a brief timeout
+	if (timearg == undefined && foundBuff) {
+		// The FoundBuff ensures we don't wait 10s to add inactive when BBB first loads
+		if (expirationPulse) {
+			await new Promise((done) => setTimeout(done, 10000));
+		}
+		await removeActive(element);
 	}
+	// Give a very brief pause before checking again
 	await new Promise((done) => setTimeout(done, 10));
-	return poisonousData;
-}
+	return timearg;
+};
 
-async function findDarkness(buffs: BuffReader.Buff[]) {
-	let darknessData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let darknessBuff = value.countMatch(buffImages.darkness, false);
-		if (darknessBuff.passed > 120 && value.readArg('timearg').time > 0) {
-			darknessData = value.readArg('timearg');
-			if (darknessData.time > 59) {
-				DarknessBuff.dataset.time =
-					(value.readArg('timearg').time / 60).toString() + 'm';
-				await new Promise((done) => setTimeout(done, 600));
-			} else if (darknessData.time == 11) {
-				DarknessBuff.dataset.time = '<10s';
-				await new Promise((done) => setTimeout(done, 10000));
-				DarknessBuff.dataset.time = '';
-			} else {
-				DarknessBuff.dataset.time = value
-					.readArg('timearg')
-					.time.toString();
-			}
-		}
-	}
-	if (darknessData == undefined) {
-		DarknessBuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 600));
-		DarknessBuff.dataset.time = '';
-	} else {
-		DarknessBuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return darknessData;
-}
-
-async function findAnimateDead(buffs: BuffReader.Buff[]) {
-	let animateDeadData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let animeDeadBuff = value.countMatch(buffImages.animateDead, false);
-		if (animeDeadBuff.passed > 45) {
-			animateDeadData = value.readArg('timearg');
-			if (animateDeadData.time > 59) {
-				AnimateDeadBuff.dataset.time =
-					(value.readArg('timearg').time / 60).toString() + 'm';
-				await new Promise((done) => setTimeout(done, 600));
-			} else if (animateDeadData.time == 11) {
-				AnimateDeadBuff.dataset.time = '<10s';
-				await new Promise((done) => setTimeout(done, 10000));
-				AnimateDeadBuff.dataset.time = '';
-			} else {
-				AnimateDeadBuff.dataset.time = value
-					.readArg('timearg')
-					.time.toString();
-			}
-		}
-	}
-	if (animateDeadData == undefined) {
-		AnimateDeadBuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 600));
-		AnimateDeadBuff.dataset.time = '';
-	} else {
-		AnimateDeadBuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return animateDeadData;
-}
-
-async function findJasProc(buffs: BuffReader.Buff[]) {
-	let jasProcData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let jasProcBuff = value.countMatch(buffImages.timeRift, false);
-		if (jasProcBuff.passed > 50) {
-			jasProcData = value.readArg('timearg');
-			TimeRiftBuff.dataset.time = value
-				.readArg('timearg')
-				.time.toString();
-			await new Promise((done) => setTimeout(done, 600));
-		}
-	}
-	if (jasProcData == undefined) {
-		TimeRiftBuff.classList.add('inactive');
+async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
+		/*
+		* Wait the final 1s then set buff to 'cooldown' state
+		* After its cooldown has finished set it back to 'inactive' state (actually 'readyToBeUsed')
+		*/
 		await new Promise((done) => setTimeout(done, 1000));
-		TimeRiftBuff.dataset.time = '';
-	} else {
-		TimeRiftBuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return jasProcData;
+		element.dataset.time = '';
+		element.classList.remove('inactive');
+		element.classList.add('cooldown');
+		await new Promise((done) => setTimeout(done, cooldownTimer * 1000));
+		element.dataset.time = '';
+		element.classList.add('inactive');
+		await new Promise((done) => setTimeout(done, 1000));
+		element.classList.remove('cooldown');
+		// Since cooldown has ended - we are no longer onCooldown
+		return false;
 }
 
-async function findFsoaBuff(buffs: BuffReader.Buff[]) {
-	let fsoaBuffData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let fsoaBuff = value.countMatch(buffImages.fsoaWeaponSpec, false);
-		if (
-			fsoaBuff.passed >= 12 &&
-			value.readArg('time').time < 31 &&
-			value.readArg('time').time > 0
-		) {
-			fsoaBuffData = value.readArg('timearg');
-			FsoaSpecBuff.dataset.time = value
-				.readArg('timearg')
-				.time.toString();
-		}
-	}
-	if (fsoaBuffData == undefined) {
-		FsoaSpecBuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 600));
-		FsoaSpecBuff.dataset.time = '';
-	} else {
-		FsoaSpecBuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return fsoaBuffData;
+async function removeActive(element: HTMLElement) {
+	element.classList.add('inactive');
+	element.classList.remove('active');
+	element.dataset.time = '';
 }
+
+async function setActive(element: HTMLElement) {
+	element.classList.remove('inactive');
+	element.classList.add('active');
+}
+
 
 async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	let bolgStacksData;
@@ -496,286 +388,39 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 		);
 		if (bolgStacksBuff.passed > 200) {
 			bolgStacksData = value.readArg('timearg');
+			console.log(bolgStacksData);
 			if (
 				value.readArg('timearg').time > 0 &&
 				value.readArg('timearg').time
 			 < 31 && value.readArg('timearg').arg != "") {
-				BalanceByForceBuff.dataset.time = value
+				buffsList.BalanceByForceBuff.dataset.time = value
 					.readArg('timearg')
 					.time.toString();
 			 }
-			BolgStacksBuff.dataset.time = value.readArg('timearg').arg.toString();
+			buffsList.BolgStacksBuff.dataset.time = value
+				.readArg('timearg')
+				.arg.toString();
 			await new Promise((done) => setTimeout(done, 600));
 		}
 	}
 	if (bolgStacksData == undefined) {
-		BolgStacksBuff.classList.add('inactive');
-		BalanceByForceBuff.classList.add('inactive');
+		buffsList.BolgStacksBuff.classList.add('inactive');
+		buffsList.BalanceByForceBuff.classList.add('inactive');
 		await new Promise((done) => setTimeout(done, 600));
-		BolgStacksBuff.dataset.time = '';
-		BalanceByForceBuff.dataset.time = '';
+		buffsList.BolgStacksBuff.dataset.time = '';
+		buffsList.BalanceByForceBuff.dataset.time = '';
 	} else {
-		BolgStacksBuff.classList.remove('inactive');
-		BalanceByForceBuff.classList.remove('inactive');
+		buffsList.BolgStacksBuff.classList.remove('inactive');
+		buffsList.BalanceByForceBuff.classList.remove('inactive');
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return bolgStacksData;
 }
 
-async function findFulProc(buffs: BuffReader.Buff[]) {
-	let fulProcData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let fulProcBuff = value.countMatch(buffImages.gladiatorsRage, false);
-		if (fulProcBuff.passed > 50) {
-			if (value.readArg('timearg').time < 16) {
-				fulProcData = value.readArg('timearg');
-				GladiatorsRageBuff.dataset.time = value
-					.readArg('timearg')
-					.time.toString();
-			await new Promise((done) => setTimeout(done, 600));
-			}
-		}
-	}
-	if (fulProcData == undefined) {
-		GladiatorsRageBuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 1000));
-		GladiatorsRageBuff.dataset.time = '';
-	} else {
-		GladiatorsRageBuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return fulProcData;
-}
-
-async function findNecrosis(buffs: BuffReader.Buff[]) {
-	let necrosisData;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let necrosisImage = value.countMatch(buffImages.necrosis, false);
-		if (necrosisImage.passed > 150) {
-			necrosisData = value.readArg('timearg');
-			NecrosisBuff.dataset.time = value
-				.readArg('timearg')
-				.time.toString();
-			NecrosisBuff.classList.remove('inactive');
-			await new Promise((done) => setTimeout(done, 50));
-		}
-	}
-	if (necrosisData == undefined) {
-		NecrosisBuff.classList.add('inactive');
-		NecrosisBuff.dataset.time = '';
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return necrosisData;
-}
-
-async function findLimitless(buffs: BuffReader.Buff[]) {
-	let limitlessData;
-	let limitlessCooldown;
-	for (let [_key, value] of Object.entries(buffs)) {
-		let limitlessImage = value.countMatch(buffImages.limitless, false);
-		if (limitlessImage.passed > 250) {
-			limitlessData = value.readArg('timearg');
-			LimitlessBuff.dataset.time = value
-				.readArg('timearg')
-				.time.toString();
-		} else if (
-			LimitlessBuff.dataset.time == '1'
-		) {
-			limitlessCooldown = true
-		} else {
-			if (limitlessCooldown) {
-				await new Promise((done) => setTimeout(done, 1000));
-				LimitlessBuff.dataset.time = '';
-				LimitlessBuff.classList.remove('inactive');
-				LimitlessBuff.classList.add('cooldown');
-				await new Promise((done) => setTimeout(done, 83000));
-				LimitlessBuff.dataset.time = ' ';
-				LimitlessBuff.classList.add('inactive');
-				await new Promise((done) => setTimeout(done, 1000));
-				LimitlessBuff.classList.remove('cooldown');
-			}
-			limitlessCooldown = false;
-		}
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return limitlessData;
-}
-
-async function findAncientElvenRitualShardDebuff(debuffs: BuffReader.Buff[]) {
-	let ElvenRitualShardData;
-	for (let [_key, value] of Object.entries(debuffs)) {
-		let ElvenRitualShardDebuff = value.countMatch(debuffImages.elvenRitualShard, false);
-		if (ElvenRitualShardDebuff.passed > 50) {
-			ElvenRitualShardData = value.readArg('timearg');
-			if (ElvenRitualShardData.time > 59) {
-				AncientElvenRitualShardDebuff.dataset.time =
-					(value.readArg('timearg').time / 60).toString() + 'm';
-				await new Promise((done) => setTimeout(done, 600));
-			} else {
-				AncientElvenRitualShardDebuff.dataset.time = value
-					.readArg('timearg')
-					.time.toString();
-			}
-		}
-	}
-	if (ElvenRitualShardData == undefined) {
-		AncientElvenRitualShardDebuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 600));
-		AncientElvenRitualShardDebuff.dataset.time = '';
-	} else {
-		AncientElvenRitualShardDebuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return ElvenRitualShardData;
-}
-
-async function findAdrenalinePotionDebuff(debuffs: BuffReader.Buff[]) {
-	let AdrenalinePotionData;
-	for (let [_key, value] of Object.entries(debuffs)) {
-		let AdrenalinePotionImage = value.countMatch(
-			debuffImages.adrenalinePotion,
-			false
-		);
-		if (AdrenalinePotionImage.passed > 50) {
-			AdrenalinePotionData = value.readArg('timearg');
-			if (AdrenalinePotionData.time > 59) {
-				AdrenalinePotionDebuff.dataset.time =
-					(value.readArg('timearg').time / 60).toString() + 'm';
-				await new Promise((done) => setTimeout(done, 600));
-			} else if (AdrenalinePotionData.time == 11) {
-				AdrenalinePotionDebuff.dataset.time = '<10s';
-				await new Promise((done) => setTimeout(done, 10000));
-				AdrenalinePotionDebuff.dataset.time = '';
-			} else {
-				AdrenalinePotionDebuff.dataset.time = value
-					.readArg('timearg')
-					.time.toString();
-			}
-		}
-	}
-	if (AdrenalinePotionData == undefined) {
-		AdrenalinePotionDebuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 600));
-		AdrenalinePotionDebuff.dataset.time = '';
-	} else {
-		AdrenalinePotionDebuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return AdrenalinePotionData;
-}
-
-async function findDeathGuardDebuff(debuffs: BuffReader.Buff[]) {
-	let DeathGuardData;
-	for (let [_key, value] of Object.entries(debuffs)) {
-		let DeathGuardImage = value.countMatch(
-			debuffImages.deathGraspDebuff,
-			false
-		);
-		if (DeathGuardImage.passed > 34) {
-			DeathGuardData = value.readArg('timearg');
-			DeathGuardDebuff.dataset.time = value
-				.readArg('timearg')
-				.time.toString();
-			await new Promise((done) => setTimeout(done, 600));
-		}
-	}
-	if (DeathGuardData == undefined) {
-		DeathGuardDebuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 600));
-		DeathGuardDebuff.dataset.time = '';
-	} else {
-		DeathGuardDebuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return DeathGuardData;
-}
-
-async function findOmniGuardDebuff(debuffs: BuffReader.Buff[]) {
-	let OmniGuardData;
-	for (let [_key, value] of Object.entries(debuffs)) {
-		let OmniGuardImage = value.countMatch(
-			debuffImages.deathEssenceDebuff,
-			false
-		);
-		if (OmniGuardImage.passed > 19) {
-			OmniGuardData = value.readArg('timearg');
-			OmniGuardDebuff.dataset.time = value
-				.readArg('timearg')
-				.time.toString();
-			await new Promise((done) => setTimeout(done, 600));
-		}
-	}
-	if (OmniGuardData == undefined) {
-		OmniGuardDebuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 600));
-		OmniGuardDebuff.dataset.time = '';
-	} else {
-		OmniGuardDebuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return OmniGuardData;
-}
-
-async function findCrystalRainDebuff(debuffs: BuffReader.Buff[]) {
-	let CrystalRainData;
-	for (let [_key, value] of Object.entries(debuffs)) {
-		let CrystalRainImage = value.countMatch(
-			debuffImages.crystalRainDebuff,
-			false
-		);
-		if (CrystalRainImage.passed > 19) {
-			CrystalRainData = value.readArg('timearg');
-			CrystalRainDebuff.dataset.time = value
-				.readArg('timearg')
-				.time.toString();
-			await new Promise((done) => setTimeout(done, 600));
-		}
-	}
-	if (CrystalRainData == undefined) {
-		CrystalRainDebuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 600));
-		CrystalRainDebuff.dataset.time = '';
-	} else {
-		CrystalRainDebuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return CrystalRainData;
-}
-
-async function findEnhancedExcaliburDebuff(debuffs: BuffReader.Buff[]) {
-	let EnhancedExcaliburData;
-	for (let [_key, value] of Object.entries(debuffs)) {
-		let EnhancedExcaliburImage = value.countMatch(
-			debuffImages.enhancedExcaliburDebuff,
-			false
-		);
-		console.log(EnhancedExcaliburImage);
-		if (EnhancedExcaliburImage.passed > 19) {
-			EnhancedExcaliburData = value.readArg('timearg');
-			EnhancedExcaliburDebuff.dataset.time = value
-				.readArg('timearg')
-				.time.toString();
-			await new Promise((done) => setTimeout(done, 600));
-		}
-	}
-	if (EnhancedExcaliburData == undefined) {
-		EnhancedExcaliburDebuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 600));
-		EnhancedExcaliburDebuff.dataset.time = '';
-	} else {
-		EnhancedExcaliburDebuff.classList.remove('inactive');
-	}
-	await new Promise((done) => setTimeout(done, 10));
-	return EnhancedExcaliburData;
-}
-
-let posBtn = document.getElementById('OverlayPosition');
+let posBtn = getByID('OverlayPosition');
 posBtn.addEventListener('click', setOverlayPosition);
 async function setOverlayPosition() {
-	let bbb = document.getElementById('Buffs');
-	let overlayWidth = bbb.offsetWidth;
-	let overlayHeight = bbb.offsetHeight;
-
+	let bbb = getByID('Buffs');
 	a1lib.once('alt1pressed', updateLocation);
 	updateSetting('updatingOverlayPosition', true);
 	while (getSetting('updatingOverlayPosition')) {
@@ -784,14 +429,14 @@ async function setOverlayPosition() {
 			a1lib.mixColor(255, 255, 255),
 			Math.floor(
 				a1lib.getMousePosition().x -
-					((getSetting('uiScale') / 100) * overlayWidth) / 2
+					((getSetting('uiScale') / 100) * bbb.offsetWidth) / 2
 			),
 			Math.floor(
 				a1lib.getMousePosition().y -
-					((getSetting('uiScale') / 100) * overlayHeight) / 2
+					((getSetting('uiScale') / 100) * bbb.offsetHeight) / 2
 			),
-			Math.floor((getSetting('uiScale') / 100) * overlayWidth),
-			Math.floor((getSetting('uiScale') / 100) * overlayHeight),
+			Math.floor((getSetting('uiScale') / 100) * bbb.offsetWidth),
+			Math.floor((getSetting('uiScale') / 100) * bbb.offsetHeight),
 			200,
 			2
 		);
@@ -800,15 +445,13 @@ async function setOverlayPosition() {
 }
 
 function updateLocation(e) {
-	let bbb = document.getElementById('Buffs');
-	let overlayWidth = bbb.offsetWidth;
-	let overlayHeight = bbb.offsetHeight;
+	let bbb = getByID('Buffs');
 	updateSetting('overlayPosition', {
 		x: Math.floor(
-			e.x - (getSetting('uiScale') / 100) * (overlayWidth / 2)
+			e.x - (getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)
 		),
 		y: Math.floor(
-			e.y - (getSetting('uiScale') / 100) * (overlayHeight / 2)
+			e.y - (getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
 		),
 	});
 	updateSetting('updatingOverlayPosition', false);
@@ -818,24 +461,24 @@ function updateLocation(e) {
 export async function startOverlay() {
     let cnv = document.createElement('canvas');
 	let ctx = cnv.getContext('2d', {"willReadFrequently": true});
+	let overlay = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0];
 
 	while (true) {
-        cnv.width = 1000;
-		cnv.height = 1000;
 		captureOverlay();
-		let overlay = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0];
 
 		let overlayPosition = getSetting('overlayPosition');
-
-		let bbb = document.getElementById('Buffs');
 
 		alt1.overLaySetGroup('betterBuffsBar');
 		alt1.overLayFreezeGroup('betterBuffsBar');
 		/* If I try and use the overlay instead of copying the overlay it doesn't work. No idea why. */
 		ctx.drawImage(overlay, 0, 0);
 
-		let data = ctx.getImageData(0, 0, bbb.offsetWidth, bbb.offsetHeight);
-
+		let data = ctx.getImageData(
+			0,
+			0,
+			helperItems.BetterBuffsBar.offsetWidth,
+			helperItems.BetterBuffsBar.offsetHeight
+		);
 		alt1.overLayClearGroup('betterBuffsBar');
 		alt1.overLayImage(
 			overlayPosition.x,
@@ -852,10 +495,8 @@ export async function startOverlay() {
 function initSettings() {
 	if (!localStorage.betterBuffBar) {
 		setDefaultSettings();
-		loadSettings();
-	} else {
-		loadSettings();
 	}
+	loadSettings();
 }
 
 function setDefaultSettings() {
@@ -864,14 +505,15 @@ function setDefaultSettings() {
 		JSON.stringify({
 			activeOverlay: true,
 			bigHeadMode: false,
-			bigHeadPosition: "start",
+			bigHeadPosition: 'start',
 			buffsLocation: findPlayerBuffs,
 			buffsPerRow: 5,
+			debuffsLocation: findPlayerDebuffs,
 			fadeInactiveBuffs: true,
 			loopSpeed: 150,
 			showBuffNames: false,
 			showTooltipReminders: true,
-			overlayPosition: {x: 100, y: 100},
+			overlayPosition: { x: 100, y: 100 },
 			uiScale: 100,
 			updatingOverlayPosition: false,
 		})
@@ -879,6 +521,8 @@ function setDefaultSettings() {
 }
 
 function loadSettings() {
+	findPlayerBuffs();
+	findPlayerDebuffs();
 	setBuffsPerRow();
 	setBigHeadMode();
 	setBuffNames();
@@ -895,7 +539,7 @@ function setSortables() {
 
 	// Create the sortables
 	sortables.forEach((sortable) => {
-		const el = document.getElementById(sortable);
+		const el = getByID(sortable);
 
 		Sortable.create(el, {
 			group: 'trackedBuffs',
@@ -917,17 +561,17 @@ function setSortables() {
 
 	// Re-sort into their saved areas on load
 	sortables.forEach((sortable) => {
-		const parent = document.getElementById(sortable);
+		const parent = getByID(sortable);
 		const itemOrder = localStorage.getItem(sortable);
 		const itemOrderArr = itemOrder ? itemOrder.split('|') : [];
 
 		let prevItem;
 		itemOrderArr.forEach((item) => {
-			const child = document.getElementById(item);
+			const child = getByID(item);
 			if (!prevItem) {
 				parent.insertBefore(child, parent.firstChild);
 			} else {
-				const prevChild = document.getElementById(prevItem);
+				const prevChild = getByID(prevItem);
 				prevChild.parentNode.insertBefore(child, prevChild.nextSibling);
 			}
 			prevItem = item;
@@ -936,8 +580,8 @@ function setSortables() {
 }
 
 function setBuffsPerRow() {
-	let buffsTracker = document.getElementById('Buffs');
-	let buffsPerRowInput = <HTMLInputElement>document.getElementById('BuffsPerRow');
+	let buffsTracker = getByID('Buffs');
+	let buffsPerRowInput = <HTMLInputElement>getByID('BuffsPerRow');
 	let buffsPerRow = getSetting('buffsPerRow');
 	buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
 
@@ -951,22 +595,24 @@ function setBuffsPerRow() {
 
 function setBigHeadMode() {
 	let setBigHeadMode = <HTMLInputElement>
-		document.getElementById('SetBigHeadMode');
+		getByID('SetBigHeadMode');
 		let bigHeadPosition = <HTMLSelectElement>(
-			document.getElementById('BigHeadPosition')
+			getByID('BigHeadPosition')
 		);
 	setCheckboxChecked(setBigHeadMode);
-	betterBuffsBar.classList.toggle(
+	helperItems.BetterBuffsBar.classList.toggle(
 		'big-head-mode',
 		Boolean(getSetting('bigHeadMode'))
 	);
+	setBigHeadGrid();
 	setBigHeadMode.addEventListener('change', function () {
-		betterBuffsBar.classList.toggle(
+		helperItems.BetterBuffsBar.classList.toggle(
 			'big-head-mode',
 			Boolean(getSetting('bigHeadMode'))
 		);
 		setBigHeadGrid();
 	});
+	bigHeadPosition.value = getSetting('bigHeadPosition');
 	bigHeadPosition.addEventListener('change', (e) => {
 		updateSetting('bigHeadPosition', bigHeadPosition.value);
 		setBigHeadGrid();
@@ -975,18 +621,22 @@ function setBigHeadMode() {
 
 function setBigHeadGrid() {
 	if (getSetting('bigHeadMode') && getSetting('bigHeadPosition') == "start") {
-		trackedBuffs.style.gridTemplateAreas = `
+		helperItems.TrackedBuffs.style.gridTemplateAreas = `
 		"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
 		"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
+		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
+		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
 		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
 		`;
 	}
 	if (
 		getSetting('bigHeadMode') && getSetting('bigHeadPosition') == 'end'
 	) {
-		trackedBuffs.style.gridTemplateAreas = `
+		helperItems.TrackedBuffs.style.gridTemplateAreas = `
 		"${'. '.repeat(getSetting('buffsPerRow'))}first first"
 		"${'. '.repeat(getSetting('buffsPerRow'))}first first"
+		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
+		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
 		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
 		`;
 	}
@@ -997,12 +647,12 @@ function setBuffNames() {
 		document.querySelectorAll('.show-labels')[0]
 	);
 	setCheckboxChecked(showBuffNames);
-	betterBuffsBar.classList.toggle(
+	helperItems.BetterBuffsBar.classList.toggle(
 		'show-labels',
 		Boolean(getSetting('showBuffNames'))
 	);
 	showBuffNames.addEventListener('change', function () {
-		betterBuffsBar.classList.toggle(
+		helperItems.BetterBuffsBar.classList.toggle(
 			'show-labels',
 			Boolean(getSetting('showBuffNames'))
 		);
@@ -1019,12 +669,12 @@ function showTooltipReminders() {
 function setFadeInactiveBuffs() {
 	let fadeInactiveBuffs = <HTMLInputElement>document.querySelectorAll('.fade-inactive')[0];
 	setCheckboxChecked(fadeInactiveBuffs);
-	betterBuffsBar.classList.toggle(
+	helperItems.BetterBuffsBar.classList.toggle(
 		'fade',
 		Boolean(getSetting('fadeInactiveBuffs'))
 	);
 	fadeInactiveBuffs.addEventListener('change', function () {
-		betterBuffsBar.classList.toggle(
+		helperItems.BetterBuffsBar.classList.toggle(
 			'fade',
 			Boolean(getSetting('fadeInactiveBuffs'))
 		);
@@ -1032,7 +682,7 @@ function setFadeInactiveBuffs() {
 }
 
 function setCustomScale() {
-	let buffsTracker = document.getElementById('Buffs');
+	let buffsTracker = getByID('Buffs');
 	buffsTracker.style.setProperty('--scale', getSetting('uiScale'));
 
 	document
@@ -1049,9 +699,9 @@ function setCheckboxChecked(el: HTMLInputElement) {
 }
 
 function setOverlay() {
-	let showOverlay = <HTMLInputElement>document.getElementById('ShowOverlay');
+	let showOverlay = <HTMLInputElement>getByID('ShowOverlay');
 	setCheckboxChecked(showOverlay);
-	betterBuffsBar.classList.toggle(
+	helperItems.BetterBuffsBar.classList.toggle(
 		'overlay',
 		Boolean(getSetting('activeOverlay'))
 	);
@@ -1066,7 +716,7 @@ function setLoopSpeed() {
 		updateSetting('loopSpeed', 125);
 	}
 
-	let loopSpeed = <HTMLInputElement>document.getElementById('LoopSpeed');
+	let loopSpeed = <HTMLInputElement>getByID('LoopSpeed');
 	loopSpeed.value = getSetting('loopSpeed');
 
 	document
@@ -1092,36 +742,27 @@ function updateSetting(setting, value) {
 	var save_data = JSON.parse(localStorage.getItem('betterBuffBar'));
 	save_data[setting] = value;
 	localStorage.setItem('betterBuffBar', JSON.stringify(save_data));
-	//loadSettings();
 }
 
+
 let foundBuffs = false;
-let foundDebuffs = false;
+function getActiveBuffs() {
+	if (foundBuffs && getSetting('buffsLocation')) {
+		return buffs.read();
+	} else {
+		findPlayerBuffs();
+	}
+}
+
+
 function findPlayerBuffs() {
 	if (buffs.find()) {
 		foundBuffs = true;
-		if (getSetting('debugMode')) {
-			alt1.overLayRect(
-				a1lib.mixColor(255, 255, 255),
-				getSetting('buffsLocation')[0],
-				getSetting('buffsLocation')[1],
-				250,
-				100,
-				50,
-				1
-			);
-		}
 		return updateSetting('buffsLocation', [buffs.pos.x, buffs.pos.y]);
 	}
 }
 
-function findPlayerDebuffs() {
-	if (debuffs.find()) {
-		foundDebuffs = true;
-		return updateSetting('debuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
-	}
-}
-
+let foundDebuffs = false;
 function getActiveDebuffs() {
 	if (foundDebuffs && getSetting('debuffsLocation')) {
 		return debuffs.read();
@@ -1130,11 +771,10 @@ function getActiveDebuffs() {
 	}
 }
 
-function getActiveBuffs() {
-	if (foundBuffs && getSetting('buffsLocation')) {
-		return buffs.read();
-	} else {
-		findPlayerBuffs();
+function findPlayerDebuffs() {
+	if (debuffs.find()) {
+		foundDebuffs = true;
+		return updateSetting('debuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
 	}
 }
 
@@ -1167,7 +807,7 @@ loopSpeed.addEventListener('change', (event) => {
 	updateSetting('loopSpeed', event.target.value);
 });
 
-let resetAllSettingsButton = document.getElementById('ResetAllSettings');
+let resetAllSettingsButton = getByID('ResetAllSettings');
 resetAllSettingsButton.addEventListener('click', () => {
 	localStorage.removeItem('betterBuffBar');
 	localStorage.clear();
@@ -1190,7 +830,7 @@ window.onload = function () {
 		let addappurl = `alt1://addapp/${
 			new URL('./appconfig.json', document.location.href).href
 		}`;
-		output.insertAdjacentHTML(
+		helperItems.Output.insertAdjacentHTML(
 			'beforeend',
 			`
 			Alt1 not detected, click <a href='${addappurl}'>here</a> to add this app to Alt1

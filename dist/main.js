@@ -570,7 +570,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   content: '';
 }
 
-#LimitlessBuff.inactive {
+#LimitlessBuff:not(.cooldown) {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_24___});
 }
 
@@ -16954,30 +16954,38 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 var buffs = new (alt1_buffs__WEBPACK_IMPORTED_MODULE_6___default())();
 var debuffs = new (alt1_buffs__WEBPACK_IMPORTED_MODULE_6___default())();
 debuffs.debuffs = true;
-var output = document.getElementById('output');
-var settings = document.getElementById('Settings');
-var betterBuffsBar = document.getElementById('BetterBuffsBar');
-var trackedBuffs = document.getElementById('Buffs');
-/* Buffs */
-var OverloadBuff = document.getElementById('OverloadBuff');
-var ElderOverloadBuff = document.getElementById('ElderOverloadBuff');
-var WeaponPoisonBuff = document.getElementById('WeaponPoisonBuff');
-var DarknessBuff = document.getElementById('DarknessBuff');
-var AnimateDeadBuff = document.getElementById('AnimateDeadBuff');
-var BolgStacksBuff = document.getElementById('BolgStacksBuff');
-var BalanceByForceBuff = document.getElementById('BalanceByForceBuff');
-var TimeRiftBuff = document.getElementById('TimeRiftBuff');
-var FsoaSpecBuff = document.getElementById('FsoaSpecBuff');
-var GladiatorsRageBuff = document.getElementById('GladiatorsRageBuff');
-var NecrosisBuff = document.getElementById('NecrosisBuff');
-var LimitlessBuff = document.getElementById('LimitlessBuff');
-var DeathGuardDebuff = document.getElementById('DeathGuardDebuff');
-var OmniGuardDebuff = document.getElementById('OmniGuardDebuff');
-var CrystalRainDebuff = document.getElementById('CrystalRainDebuff');
-/* Debuffs */
-var AncientElvenRitualShardDebuff = document.getElementById('AncientElvenRitualShardDebuff');
-var EnhancedExcaliburDebuff = document.getElementById('EnhancedExcaliburDebuff');
-var AdrenalinePotionDebuff = document.getElementById('AdrenalinePotionDebuff');
+function getByID(id) {
+    return document.getElementById(id);
+}
+var helperItems = {
+    Output: getByID('output'),
+    settings: getByID('Settings'),
+    BetterBuffsBar: getByID('BetterBuffsBar'),
+    TrackedBuffs: getByID('Buffs'),
+    UntrackedBuffs: getByID('UntrackedBuffs'),
+};
+var buffsList = {
+    OverloadBuff: getByID('OverloadBuff'),
+    ElderOverloadBuff: getByID('ElderOverloadBuff'),
+    WeaponPoisonBuff: getByID('WeaponPoisonBuff'),
+    DarknessBuff: getByID('DarknessBuff'),
+    AnimateDeadBuff: getByID('AnimateDeadBuff'),
+    BolgStacksBuff: getByID('BolgStacksBuff'),
+    BalanceByForceBuff: getByID('BalanceByForceBuff'),
+    TimeRiftBuff: getByID('TimeRiftBuff'),
+    FsoaSpecBuff: getByID('FsoaSpecBuff'),
+    GladiatorsRageBuff: getByID('GladiatorsRageBuff'),
+    NecrosisBuff: getByID('NecrosisBuff'),
+    LimitlessBuff: getByID('LimitlessBuff'),
+};
+var debuffsList = {
+    DeathGuardDebuff: getByID('DeathGuardDebuff'),
+    OmniGuardDebuff: getByID('OmniGuardDebuff'),
+    CrystalRainDebuff: getByID('CrystalRainDebuff'),
+    AncientElvenRitualShardDebuff: getByID('AncientElvenRitualShardDebuff'),
+    EnhancedExcaliburDebuff: getByID('EnhancedExcaliburDebuff'),
+    AdrenalinePotionDebuff: getByID('AdrenalinePotionDebuff'),
+};
 // loads all images as raw pixel data async, images have to be saved as *.data.png
 // this also takes care of metadata headers in the image that make browser load the image
 // with slightly wrong colors
@@ -17014,15 +17022,15 @@ var debuffImages = alt1__WEBPACK_IMPORTED_MODULE_7__.webpackImages({
 });
 function startBetterBuffsBar() {
     if (!window.alt1) {
-        output.insertAdjacentHTML('beforeend', "<div>You need to run this page in alt1 to capture the screen</div>");
+        helperItems.Output.insertAdjacentHTML('beforeend', "<div>You need to run this page in alt1 to capture the screen</div>");
         return;
     }
     if (!alt1.permissionPixel) {
-        output.insertAdjacentHTML('beforeend', "<div><p>Page is not installed as app or capture permission is not enabled</p></div>");
+        helperItems.Output.insertAdjacentHTML('beforeend', "<div><p>Page is not installed as app or capture permission is not enabled</p></div>");
         return;
     }
     if (!alt1.permissionOverlay && getSetting('activeOverlay')) {
-        output.insertAdjacentHTML('beforeend', "<div><p>Attempted to use Overlay but app overlay permission is not enabled. Please enable \"Show Overlay\" permission in Alt1 settinsg (wrench icon in corner).</p></div>");
+        helperItems.Output.insertAdjacentHTML('beforeend', "<div><p>Attempted to use Overlay but app overlay permission is not enabled. Please enable \"Show Overlay\" permission in Alt1 settinsg (wrench icon in corner).</p></div>");
         return;
     }
     watchBuffs();
@@ -17030,7 +17038,7 @@ function startBetterBuffsBar() {
 function createCanvas() {
     var overlayCanvas = document.createElement('canvas');
     overlayCanvas.id = 'OverlayCanvas';
-    var bbb = document.getElementById('Buffs');
+    var bbb = getByID('Buffs');
     var overlayWidth = bbb.offsetWidth;
     var overlayHeight = bbb.offsetHeight;
     overlayCanvas.width = overlayWidth;
@@ -17038,32 +17046,38 @@ function createCanvas() {
     return overlayCanvas;
 }
 function captureOverlay() {
-    var overlayCanvas = createCanvas();
-    html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(document.querySelector('#Buffs'), {
-        allowTaint: true,
-        canvas: overlayCanvas,
-        backgroundColor: 'transparent',
-        useCORS: true,
-        removeContainer: true,
-    })
-        .then(function (canvas) {
-        try {
-            paintCanvas(canvas);
-        }
-        catch (e) {
-            console.log('Error saving image? ' + e);
-        }
-    })
-        .catch(function () {
-        console.log('Overlay failed to capture.');
+    return __awaiter(this, void 0, void 0, function () {
+        var overlayCanvas;
+        return __generator(this, function (_a) {
+            overlayCanvas = createCanvas();
+            html2canvas__WEBPACK_IMPORTED_MODULE_1___default()(document.querySelector('#Buffs'), {
+                allowTaint: true,
+                canvas: overlayCanvas,
+                backgroundColor: 'transparent',
+                useCORS: true,
+                removeContainer: true,
+            })
+                .then(function (canvas) {
+                try {
+                    paintCanvas(canvas);
+                }
+                catch (e) {
+                    console.log('Error saving image? ' + e);
+                }
+            })
+                .catch(function () {
+                console.log('Overlay failed to capture.');
+            });
+            return [2 /*return*/];
+        });
     });
 }
 function paintCanvas(canvas) {
-    var overlayCanvasOutput = document.getElementById('OverlayCanvasOutput');
+    var overlayCanvasOutput = getByID('OverlayCanvasOutput');
     var overlayCanvasContext = overlayCanvasOutput
         .querySelector('canvas')
         .getContext('2d', { 'willReadFrequently': true });
-    overlayCanvasContext.clearRect(0, 0, canvas.width, canvas.height);
+    overlayCanvasContext.clearRect(0, 0, overlayCanvasContext.canvas.width, overlayCanvasContext.canvas.height);
     overlayCanvasContext.drawImage(canvas, 0, 0);
     var overlay = overlayCanvasOutput.querySelector('canvas');
     updateSetting('overlayImage', overlay.toDataURL());
@@ -17071,6 +17085,7 @@ function paintCanvas(canvas) {
 }
 var maxAttempts = 10;
 function watchBuffs() {
+    var loopSpeed = getSetting('loopSpeed');
     updateSetting('firstFrame', false); /* We haven't captured a new frame yet */
     if (getSetting('activeOverlay')) {
         startOverlay();
@@ -17083,79 +17098,55 @@ function watchBuffs() {
     var interval = setInterval(function () {
         var buffs = getActiveBuffs();
         var debuffs = getActiveDebuffs();
-        if (buffs) {
-            // TODO: These if() checks can all go in the refactored function as an argument that gets passed
-            if (document.querySelectorAll('#Buffs #OverloadBuff').length) {
-                findOverloaded(buffs);
-            }
-            if (document.querySelectorAll('#Buffs #ElderOverloadBuff').length) {
-                findElderOverloaded(buffs);
-            }
-            if (document.querySelectorAll('#Buffs #WeaponPoisonBuff').length) {
-                findPoisonous(buffs);
-            }
-            // findPrayerRenewal(buffs);
-            // findAntipoison(buffs);
-            if (document.querySelectorAll('#Buffs #FsoaSpecBuff').length) {
-                findFsoaBuff(buffs);
-            }
-            if (document.querySelectorAll('#Buffs #DarknessBuff').length) {
-                findDarkness(buffs);
-            }
-            if (document.querySelectorAll('#Buffs #AnimateDeadBuff').length) {
-                findAnimateDead(buffs);
-            }
-            if (document.querySelectorAll('#Buffs #TimeRiftBuff').length) {
-                findJasProc(buffs);
-            }
+        if (getSetting('buffsLocation')) {
+            maxAttempts = 10;
+            //TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
+            findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
+            findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 50, true);
+            findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 161, true);
+            findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 120);
+            findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 45);
+            findStatus(buffs, buffImages.fsoaWeaponSpec, buffsList.FsoaSpecBuff, 12, false, 0, 31);
+            findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 50);
+            findStatus(buffs, buffImages.gladiatorsRage, buffsList.GladiatorsRageBuff, 50, false, 0, 16);
+            findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, 150);
+            findStatus(buffs, buffImages.limitless, buffsList.LimitlessBuff, 250, false, 0, Infinity, true, 83);
+            /* BOLG is currently still special */
             if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
                 findBolgStacks(buffs);
             }
-            if (document.querySelectorAll('#Buffs #GladiatorsRageBuff').length) {
-                findFulProc(buffs);
-            }
-            if (document.querySelectorAll('#Buffs #NecrosisBuff').length) {
-                findNecrosis(buffs);
-            }
-            if (document.querySelectorAll('#Buffs #LimitlessBuff').length) {
-                findLimitless(buffs);
-            }
-            if (debuffs) {
-                if (document.querySelectorAll('#Buffs #AncientElvenRitualShardDebuff').length) {
-                    findAncientElvenRitualShardDebuff(debuffs);
-                }
-                if (document.querySelectorAll('#Buffs #AdrenalinePotionDebuff').length) {
-                    findAdrenalinePotionDebuff(debuffs);
-                }
-                if (document.getElementById('DeathGuardDebuff')) {
-                    findDeathGuardDebuff(debuffs);
-                }
-                if (document.getElementById('OmniGuardDebuff')) {
-                    findOmniGuardDebuff(debuffs);
-                }
-                if (document.getElementById('CrystalRainDebuff')) {
-                    findCrystalRainDebuff(debuffs);
-                }
-                if (document.getElementById('EnhancedExcaliburDebuff')) {
-                    findEnhancedExcaliburDebuff(debuffs);
-                }
-            }
-            // If we succesfully found buffs - restart our retries
-            maxAttempts = 10;
         }
         else {
+            noDetection(maxAttempts, interval, "buff");
+        }
+        if (getSetting('debuffsLocation')) {
+            maxAttempts = 10;
+            findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 50);
+            findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 50);
+            findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 30);
+            findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 19);
+            findStatus(debuffs, debuffImages.crystalRainDebuff, debuffsList.CrystalRainDebuff, 19);
+        }
+        else {
+            noDetection(maxAttempts, interval, "debuff");
+        }
+    }, loopSpeed);
+}
+function noDetection(maxAttempts, interval, bar) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
             if (maxAttempts == 0) {
-                output.insertAdjacentHTML('beforeend', "<p>Unable to find buff bar location.\nPlease login to the game or make sure that Alt1 can detect your buffs then reload the app.\nRemember - the Buffs Bar must be set to \"Small\". \nTo reload, right click this interface and select Reload.</p>");
+                helperItems.Output.insertAdjacentHTML('beforeend', "<p>Unable to find ".concat(bar, " bar location.\nPlease login to the game or make sure that Alt1 can detect your ").concat(bar, " bar then reload the app.\nRemember - the Buffs setting must be set to \"Small\" and you must have at least 1 ").concat(bar, ". \nTo reload, right click this interface and select Reload.</p>"));
                 clearInterval(interval);
-                return;
+                return [2 /*return*/];
             }
             if (maxAttempts > -0) {
                 maxAttempts--;
             }
             console.log("Failed to read buffs - attempting again. Attempts left: ".concat(maxAttempts, "."));
-        }
-    }, getSetting('loopSpeed'));
-    "";
+            return [2 /*return*/];
+        });
+    });
 }
 function showTooltip(msg, duration) {
     return __awaiter(this, void 0, void 0, function () {
@@ -17172,358 +17163,196 @@ function showTooltip(msg, duration) {
         });
     });
 }
-//TODO: Clean up this repetive code by breaking each check (60s, 30s, 10s, etc.) into their own functions
-// The only things that really change are threshold: number, tooltipMsg: string, and inactiveMsg: string
-// except for BOLG which is special
-function findOverloaded(buffs) {
+/*
+ * I'm usually against argument flags and believe they should generally be a separate function
+ * but of the buffs we currently check it's really only Overloads & Weapon Poison that do this.
+ * If more get added in the future then we can revisit and maybe extract it out into its own function.
+ *
+ * "The everything function"
+ * coolDownTimer should be the remaining cooldown in SECONDS after Active Duration & 1s have elapsed
+ */
+function findStatus(buffsReader, buffImage, element, threshold, expirationPulse, minRange, maxRange, showCooldown, cooldownTimer) {
+    if (expirationPulse === void 0) { expirationPulse = false; }
+    if (minRange === void 0) { minRange = 0; }
+    if (maxRange === void 0) { maxRange = Infinity; }
+    if (showCooldown === void 0) { showCooldown = false; }
     return __awaiter(this, void 0, void 0, function () {
-        var overloadData, _i, _a, _b, _key, value, overloadedBuff;
+        var timearg, foundBuff, onCooldown, _i, _a, _b, _key, value, findBuffImage;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
-                    _i = 0, _a = Object.entries(buffs);
+                    // Exit early if our buff isn't in the Tracked Buffs list
+                    if (!getByID('Buffs').contains(element) || !buffsReader) {
+                        return [2 /*return*/];
+                    }
+                    foundBuff = false;
+                    onCooldown = false;
+                    _i = 0, _a = Object.entries(buffsReader);
                     _c.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 7];
+                    if (!(_i < _a.length)) return [3 /*break*/, 19];
                     _b = _a[_i], _key = _b[0], value = _b[1];
-                    overloadedBuff = value.countMatch(buffImages.overloaded, false);
-                    if (!(overloadedBuff.passed > 300)) return [3 /*break*/, 6];
-                    overloadData = value.readArg('timearg');
-                    if (!(overloadData.time > 59)) return [3 /*break*/, 3];
-                    OverloadBuff.dataset.time = (value.readArg('timearg').time / 60).toString() + "m";
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
+                    if (foundBuff) {
+                        return [2 /*return*/];
+                    }
+                    findBuffImage = value.countMatch(buffImage, false);
+                    if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 16];
+                    foundBuff = true;
+                    return [4 /*yield*/, setActive(element)];
                 case 2:
                     _c.sent();
-                    return [3 /*break*/, 6];
+                    timearg = value.readArg('timearg');
+                    if (!(element.dataset.time == '1' && showCooldown && !onCooldown)) return [3 /*break*/, 4];
+                    if (getSetting('debugMode')) {
+                        console.log("Starting cooldown timer for ".concat(element.id));
+                    }
+                    onCooldown = true;
+                    return [4 /*yield*/, startCooldownTimer(element, cooldownTimer)];
                 case 3:
-                    if (!(overloadData.time == 11)) return [3 /*break*/, 5];
-                    OverloadBuff.dataset.time = '<10s';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
-                case 4:
                     _c.sent();
-                    OverloadBuff.dataset.time = '';
+                    return [2 /*return*/];
+                case 4:
+                    if (!(timearg.time > 59 && !onCooldown)) return [3 /*break*/, 6];
+                    if (getSetting('debugMode')) {
+                        console.log("".concat(element.id, " has >60s remaining"));
+                    }
+                    element.dataset.time =
+                        (value.readArg('timearg').time / 60).toString() + 'm';
+                    // Pause the check for a tick since we don't need to rapidly update
+                    //a buff that won't have a more precise value for 1 minute
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
+                case 5:
+                    // Pause the check for a tick since we don't need to rapidly update
+                    //a buff that won't have a more precise value for 1 minute
+                    _c.sent();
+                    return [3 /*break*/, 15];
+                case 6:
+                    if (!(expirationPulse && timearg.time == 11 && !onCooldown)) return [3 /*break*/, 10];
+                    if (getSetting('debugMode')) {
+                        console.log("".concat(element.id, " has <10s remaining - starting 10s countdown"));
+                    }
+                    element.dataset.time = '<10s';
+                    return [4 /*yield*/, setActive(element)];
+                case 7:
+                    _c.sent();
+                    // This can be desynced from in-game 10s but it's accurate enough
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                case 8:
+                    // This can be desynced from in-game 10s but it's accurate enough
+                    _c.sent();
+                    return [4 /*yield*/, removeActive(element)];
+                case 9:
+                    _c.sent();
                     if (getSetting('showTooltipReminders')) {
                         showTooltip('Overload expired', 3000);
                     }
-                    return [3 /*break*/, 6];
-                case 5:
-                    OverloadBuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    _c.label = 6;
-                case 6:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 7:
-                    if (overloadData == undefined) {
-                        OverloadBuff.classList.add('inactive');
+                    return [3 /*break*/, 15];
+                case 10:
+                    if (!(timearg.time > minRange && timearg.time < maxRange)) return [3 /*break*/, 13];
+                    if (getSetting('debugMode')) {
+                        console.log("Cooldown for ".concat(element.id, " is between ").concat(minRange, " and ").concat(maxRange));
                     }
-                    else {
-                        OverloadBuff.classList.remove('inactive');
-                    }
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 8:
-                    _c.sent();
-                    return [2 /*return*/, overloadData];
-            }
-        });
-    });
-}
-function findElderOverloaded(buffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var elderOverloadData, _i, _a, _b, _key, value, elderOverloadedBuff;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(buffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 7];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    elderOverloadedBuff = value.countMatch(buffImages.elderOverload, false);
-                    if (!(elderOverloadedBuff.passed > 50)) return [3 /*break*/, 6];
-                    elderOverloadData = value.readArg('timearg');
-                    if (!(elderOverloadData.time > 59)) return [3 /*break*/, 3];
-                    ElderOverloadBuff.dataset.time =
-                        (value.readArg('timearg').time / 60).toString() + 'm';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    return [3 /*break*/, 6];
-                case 3:
-                    if (!(elderOverloadData.time == 11)) return [3 /*break*/, 5];
-                    ElderOverloadBuff.dataset.time = '<10s';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
-                case 4:
-                    _c.sent();
-                    ElderOverloadBuff.dataset.time = '';
-                    if (getSetting('showTooltipReminders')) {
-                        showTooltip('Overload expired', 3000);
-                    }
-                    return [3 /*break*/, 6];
-                case 5:
-                    ElderOverloadBuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    _c.label = 6;
-                case 6:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 7:
-                    if (elderOverloadData == undefined) {
-                        ElderOverloadBuff.classList.add('inactive');
-                    }
-                    else {
-                        ElderOverloadBuff.classList.remove('inactive');
-                    }
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 8:
-                    _c.sent();
-                    return [2 /*return*/, elderOverloadData];
-            }
-        });
-    });
-}
-function findPoisonous(buffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var poisonousData, _i, _a, _b, _key, value, poisonousBuff;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(buffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 7];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    poisonousBuff = value.countMatch(buffImages.poisonous, false);
-                    if (!(poisonousBuff.passed > 161)) return [3 /*break*/, 6];
-                    poisonousData = value.readArg('timearg');
-                    if (!(poisonousData.time > 59)) return [3 /*break*/, 3];
-                    WeaponPoisonBuff.dataset.time =
-                        (value.readArg('timearg').time / 60).toString() + 'm';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    return [3 /*break*/, 6];
-                case 3:
-                    if (!(poisonousData.time == 11)) return [3 /*break*/, 5];
-                    WeaponPoisonBuff.dataset.time = '<10s';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
-                case 4:
-                    _c.sent();
-                    WeaponPoisonBuff.dataset.time = '';
-                    return [3 /*break*/, 6];
-                case 5:
-                    WeaponPoisonBuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    _c.label = 6;
-                case 6:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 7:
-                    if (poisonousData == undefined) {
-                        WeaponPoisonBuff.classList.add('inactive');
-                    }
-                    else {
-                        WeaponPoisonBuff.classList.remove('inactive');
-                    }
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 8:
-                    _c.sent();
-                    return [2 /*return*/, poisonousData];
-            }
-        });
-    });
-}
-function findDarkness(buffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var darknessData, _i, _a, _b, _key, value, darknessBuff;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(buffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 7];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    darknessBuff = value.countMatch(buffImages.darkness, false);
-                    if (!(darknessBuff.passed > 120 && value.readArg('timearg').time > 0)) return [3 /*break*/, 6];
-                    darknessData = value.readArg('timearg');
-                    if (!(darknessData.time > 59)) return [3 /*break*/, 3];
-                    DarknessBuff.dataset.time =
-                        (value.readArg('timearg').time / 60).toString() + 'm';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    return [3 /*break*/, 6];
-                case 3:
-                    if (!(darknessData.time == 11)) return [3 /*break*/, 5];
-                    DarknessBuff.dataset.time = '<10s';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
-                case 4:
-                    _c.sent();
-                    DarknessBuff.dataset.time = '';
-                    return [3 /*break*/, 6];
-                case 5:
-                    DarknessBuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    _c.label = 6;
-                case 6:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 7:
-                    if (!(darknessData == undefined)) return [3 /*break*/, 9];
-                    DarknessBuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 8:
-                    _c.sent();
-                    DarknessBuff.dataset.time = '';
-                    return [3 /*break*/, 10];
-                case 9:
-                    DarknessBuff.classList.remove('inactive');
-                    _c.label = 10;
-                case 10: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
+                    element.dataset.time = timearg.time.toString();
+                    if (!(timearg.time - 1 == 0 && !showCooldown)) return [3 /*break*/, 12];
+                    return [4 /*yield*/, removeActive(element)];
                 case 11:
                     _c.sent();
-                    return [2 /*return*/, darknessData];
-            }
-        });
-    });
-}
-function findAnimateDead(buffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var animateDeadData, _i, _a, _b, _key, value, animeDeadBuff;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(buffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 7];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    animeDeadBuff = value.countMatch(buffImages.animateDead, false);
-                    if (!(animeDeadBuff.passed > 45)) return [3 /*break*/, 6];
-                    animateDeadData = value.readArg('timearg');
-                    if (!(animateDeadData.time > 59)) return [3 /*break*/, 3];
-                    AnimateDeadBuff.dataset.time =
-                        (value.readArg('timearg').time / 60).toString() + 'm';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
+                    _c.label = 12;
+                case 12: return [3 /*break*/, 15];
+                case 13:
+                    if (getSetting('debugMode')) {
+                        console.log("".concat(element.id, " is no longer active - setting inactive."));
+                    }
+                    return [4 /*yield*/, removeActive(element)];
+                case 14:
                     _c.sent();
-                    return [3 /*break*/, 6];
-                case 3:
-                    if (!(animateDeadData.time == 11)) return [3 /*break*/, 5];
-                    AnimateDeadBuff.dataset.time = '<10s';
+                    _c.label = 15;
+                case 15: return [3 /*break*/, 18];
+                case 16:
+                    if (!!showCooldown) return [3 /*break*/, 18];
+                    if (getSetting('debugMode')) {
+                        console.log("".concat(element.id, " is no longer active - setting inactive."));
+                    }
+                    return [4 /*yield*/, removeActive(element)];
+                case 17:
+                    _c.sent();
+                    _c.label = 18;
+                case 18:
+                    _i++;
+                    return [3 /*break*/, 1];
+                case 19:
+                    if (!(timearg == undefined && foundBuff)) return [3 /*break*/, 23];
+                    if (!expirationPulse) return [3 /*break*/, 21];
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
-                case 4:
+                case 20:
                     _c.sent();
-                    AnimateDeadBuff.dataset.time = '';
-                    return [3 /*break*/, 6];
-                case 5:
-                    AnimateDeadBuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    _c.label = 6;
-                case 6:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 7:
-                    if (!(animateDeadData == undefined)) return [3 /*break*/, 9];
-                    AnimateDeadBuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 8:
+                    _c.label = 21;
+                case 21: return [4 /*yield*/, removeActive(element)];
+                case 22:
                     _c.sent();
-                    AnimateDeadBuff.dataset.time = '';
-                    return [3 /*break*/, 10];
-                case 9:
-                    AnimateDeadBuff.classList.remove('inactive');
-                    _c.label = 10;
-                case 10: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 11:
+                    _c.label = 23;
+                case 23: 
+                // Give a very brief pause before checking again
+                return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
+                case 24:
+                    // Give a very brief pause before checking again
                     _c.sent();
-                    return [2 /*return*/, animateDeadData];
+                    return [2 /*return*/, timearg];
             }
         });
     });
 }
-function findJasProc(buffs) {
+;
+function startCooldownTimer(element, cooldownTimer) {
     return __awaiter(this, void 0, void 0, function () {
-        var jasProcData, _i, _a, _b, _key, value, jasProcBuff;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(buffs);
-                    _c.label = 1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: 
+                /*
+                * Wait the final 1s then set buff to 'cooldown' state
+                * After its cooldown has finished set it back to 'inactive' state (actually 'readyToBeUsed')
+                */
+                return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 4];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    jasProcBuff = value.countMatch(buffImages.timeRift, false);
-                    if (!(jasProcBuff.passed > 50)) return [3 /*break*/, 3];
-                    jasProcData = value.readArg('timearg');
-                    TimeRiftBuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
+                    /*
+                    * Wait the final 1s then set buff to 'cooldown' state
+                    * After its cooldown has finished set it back to 'inactive' state (actually 'readyToBeUsed')
+                    */
+                    _a.sent();
+                    element.dataset.time = '';
+                    element.classList.remove('inactive');
+                    element.classList.add('cooldown');
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, cooldownTimer * 1000); })];
                 case 2:
-                    _c.sent();
-                    _c.label = 3;
-                case 3:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 4:
-                    if (!(jasProcData == undefined)) return [3 /*break*/, 6];
-                    TimeRiftBuff.classList.add('inactive');
+                    _a.sent();
+                    element.dataset.time = '';
+                    element.classList.add('inactive');
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
-                case 5:
-                    _c.sent();
-                    TimeRiftBuff.dataset.time = '';
-                    return [3 /*break*/, 7];
-                case 6:
-                    TimeRiftBuff.classList.remove('inactive');
-                    _c.label = 7;
-                case 7: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 8:
-                    _c.sent();
-                    return [2 /*return*/, jasProcData];
+                case 3:
+                    _a.sent();
+                    element.classList.remove('cooldown');
+                    // Since cooldown has ended - we are no longer onCooldown
+                    return [2 /*return*/, false];
             }
         });
     });
 }
-function findFsoaBuff(buffs) {
+function removeActive(element) {
     return __awaiter(this, void 0, void 0, function () {
-        var fsoaBuffData, _i, _a, _b, _key, value, fsoaBuff;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    for (_i = 0, _a = Object.entries(buffs); _i < _a.length; _i++) {
-                        _b = _a[_i], _key = _b[0], value = _b[1];
-                        fsoaBuff = value.countMatch(buffImages.fsoaWeaponSpec, false);
-                        if (fsoaBuff.passed >= 12 &&
-                            value.readArg('time').time < 31 &&
-                            value.readArg('time').time > 0) {
-                            fsoaBuffData = value.readArg('timearg');
-                            FsoaSpecBuff.dataset.time = value
-                                .readArg('timearg')
-                                .time.toString();
-                        }
-                    }
-                    if (!(fsoaBuffData == undefined)) return [3 /*break*/, 2];
-                    FsoaSpecBuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 1:
-                    _c.sent();
-                    FsoaSpecBuff.dataset.time = '';
-                    return [3 /*break*/, 3];
-                case 2:
-                    FsoaSpecBuff.classList.remove('inactive');
-                    _c.label = 3;
-                case 3: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 4:
-                    _c.sent();
-                    return [2 /*return*/, fsoaBuffData];
-            }
+        return __generator(this, function (_a) {
+            element.classList.add('inactive');
+            element.classList.remove('active');
+            element.dataset.time = '';
+            return [2 /*return*/];
+        });
+    });
+}
+function setActive(element) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            element.classList.remove('inactive');
+            element.classList.add('active');
+            return [2 /*return*/];
         });
     });
 }
@@ -17541,14 +17370,17 @@ function findBolgStacks(buffs) {
                     bolgStacksBuff = value.countMatch(buffImages.perfectEquilibrium, false);
                     if (!(bolgStacksBuff.passed > 200)) return [3 /*break*/, 3];
                     bolgStacksData = value.readArg('timearg');
+                    console.log(bolgStacksData);
                     if (value.readArg('timearg').time > 0 &&
                         value.readArg('timearg').time
                             < 31 && value.readArg('timearg').arg != "") {
-                        BalanceByForceBuff.dataset.time = value
+                        buffsList.BalanceByForceBuff.dataset.time = value
                             .readArg('timearg')
                             .time.toString();
                     }
-                    BolgStacksBuff.dataset.time = value.readArg('timearg').arg.toString();
+                    buffsList.BolgStacksBuff.dataset.time = value
+                        .readArg('timearg')
+                        .arg.toString();
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 2:
                     _c.sent();
@@ -17558,17 +17390,17 @@ function findBolgStacks(buffs) {
                     return [3 /*break*/, 1];
                 case 4:
                     if (!(bolgStacksData == undefined)) return [3 /*break*/, 6];
-                    BolgStacksBuff.classList.add('inactive');
-                    BalanceByForceBuff.classList.add('inactive');
+                    buffsList.BolgStacksBuff.classList.add('inactive');
+                    buffsList.BalanceByForceBuff.classList.add('inactive');
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 5:
                     _c.sent();
-                    BolgStacksBuff.dataset.time = '';
-                    BalanceByForceBuff.dataset.time = '';
+                    buffsList.BolgStacksBuff.dataset.time = '';
+                    buffsList.BalanceByForceBuff.dataset.time = '';
                     return [3 /*break*/, 7];
                 case 6:
-                    BolgStacksBuff.classList.remove('inactive');
-                    BalanceByForceBuff.classList.remove('inactive');
+                    buffsList.BolgStacksBuff.classList.remove('inactive');
+                    buffsList.BalanceByForceBuff.classList.remove('inactive');
                     _c.label = 7;
                 case 7: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
                 case 8:
@@ -17578,430 +17410,15 @@ function findBolgStacks(buffs) {
         });
     });
 }
-function findFulProc(buffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var fulProcData, _i, _a, _b, _key, value, fulProcBuff;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(buffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 4];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    fulProcBuff = value.countMatch(buffImages.gladiatorsRage, false);
-                    if (!(fulProcBuff.passed > 50)) return [3 /*break*/, 3];
-                    if (!(value.readArg('timearg').time < 16)) return [3 /*break*/, 3];
-                    fulProcData = value.readArg('timearg');
-                    GladiatorsRageBuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    _c.label = 3;
-                case 3:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 4:
-                    if (!(fulProcData == undefined)) return [3 /*break*/, 6];
-                    GladiatorsRageBuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
-                case 5:
-                    _c.sent();
-                    GladiatorsRageBuff.dataset.time = '';
-                    return [3 /*break*/, 7];
-                case 6:
-                    GladiatorsRageBuff.classList.remove('inactive');
-                    _c.label = 7;
-                case 7: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 8:
-                    _c.sent();
-                    return [2 /*return*/, fulProcData];
-            }
-        });
-    });
-}
-function findNecrosis(buffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var necrosisData, _i, _a, _b, _key, value, necrosisImage;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(buffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 4];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    necrosisImage = value.countMatch(buffImages.necrosis, false);
-                    if (!(necrosisImage.passed > 150)) return [3 /*break*/, 3];
-                    necrosisData = value.readArg('timearg');
-                    NecrosisBuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    NecrosisBuff.classList.remove('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 50); })];
-                case 2:
-                    _c.sent();
-                    _c.label = 3;
-                case 3:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 4:
-                    if (necrosisData == undefined) {
-                        NecrosisBuff.classList.add('inactive');
-                        NecrosisBuff.dataset.time = '';
-                    }
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 5:
-                    _c.sent();
-                    return [2 /*return*/, necrosisData];
-            }
-        });
-    });
-}
-function findLimitless(buffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var limitlessData, limitlessCooldown, _i, _a, _b, _key, value, limitlessImage;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(buffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 9];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    limitlessImage = value.countMatch(buffImages.limitless, false);
-                    if (!(limitlessImage.passed > 250)) return [3 /*break*/, 2];
-                    limitlessData = value.readArg('timearg');
-                    LimitlessBuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    return [3 /*break*/, 8];
-                case 2:
-                    if (!(LimitlessBuff.dataset.time == '1')) return [3 /*break*/, 3];
-                    limitlessCooldown = true;
-                    return [3 /*break*/, 8];
-                case 3:
-                    if (!limitlessCooldown) return [3 /*break*/, 7];
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
-                case 4:
-                    _c.sent();
-                    LimitlessBuff.dataset.time = '';
-                    LimitlessBuff.classList.remove('inactive');
-                    LimitlessBuff.classList.add('cooldown');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 83000); })];
-                case 5:
-                    _c.sent();
-                    LimitlessBuff.dataset.time = ' ';
-                    LimitlessBuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
-                case 6:
-                    _c.sent();
-                    LimitlessBuff.classList.remove('cooldown');
-                    _c.label = 7;
-                case 7:
-                    limitlessCooldown = false;
-                    _c.label = 8;
-                case 8:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 9: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 10:
-                    _c.sent();
-                    return [2 /*return*/, limitlessData];
-            }
-        });
-    });
-}
-function findAncientElvenRitualShardDebuff(debuffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var ElvenRitualShardData, _i, _a, _b, _key, value, ElvenRitualShardDebuff;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(debuffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 5];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    ElvenRitualShardDebuff = value.countMatch(debuffImages.elvenRitualShard, false);
-                    if (!(ElvenRitualShardDebuff.passed > 50)) return [3 /*break*/, 4];
-                    ElvenRitualShardData = value.readArg('timearg');
-                    if (!(ElvenRitualShardData.time > 59)) return [3 /*break*/, 3];
-                    AncientElvenRitualShardDebuff.dataset.time =
-                        (value.readArg('timearg').time / 60).toString() + 'm';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    return [3 /*break*/, 4];
-                case 3:
-                    AncientElvenRitualShardDebuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    _c.label = 4;
-                case 4:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 5:
-                    if (!(ElvenRitualShardData == undefined)) return [3 /*break*/, 7];
-                    AncientElvenRitualShardDebuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 6:
-                    _c.sent();
-                    AncientElvenRitualShardDebuff.dataset.time = '';
-                    return [3 /*break*/, 8];
-                case 7:
-                    AncientElvenRitualShardDebuff.classList.remove('inactive');
-                    _c.label = 8;
-                case 8: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 9:
-                    _c.sent();
-                    return [2 /*return*/, ElvenRitualShardData];
-            }
-        });
-    });
-}
-function findAdrenalinePotionDebuff(debuffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var AdrenalinePotionData, _i, _a, _b, _key, value, AdrenalinePotionImage;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(debuffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 7];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    AdrenalinePotionImage = value.countMatch(debuffImages.adrenalinePotion, false);
-                    if (!(AdrenalinePotionImage.passed > 50)) return [3 /*break*/, 6];
-                    AdrenalinePotionData = value.readArg('timearg');
-                    if (!(AdrenalinePotionData.time > 59)) return [3 /*break*/, 3];
-                    AdrenalinePotionDebuff.dataset.time =
-                        (value.readArg('timearg').time / 60).toString() + 'm';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    return [3 /*break*/, 6];
-                case 3:
-                    if (!(AdrenalinePotionData.time == 11)) return [3 /*break*/, 5];
-                    AdrenalinePotionDebuff.dataset.time = '<10s';
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
-                case 4:
-                    _c.sent();
-                    AdrenalinePotionDebuff.dataset.time = '';
-                    return [3 /*break*/, 6];
-                case 5:
-                    AdrenalinePotionDebuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    _c.label = 6;
-                case 6:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 7:
-                    if (!(AdrenalinePotionData == undefined)) return [3 /*break*/, 9];
-                    AdrenalinePotionDebuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 8:
-                    _c.sent();
-                    AdrenalinePotionDebuff.dataset.time = '';
-                    return [3 /*break*/, 10];
-                case 9:
-                    AdrenalinePotionDebuff.classList.remove('inactive');
-                    _c.label = 10;
-                case 10: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 11:
-                    _c.sent();
-                    return [2 /*return*/, AdrenalinePotionData];
-            }
-        });
-    });
-}
-function findDeathGuardDebuff(debuffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var DeathGuardData, _i, _a, _b, _key, value, DeathGuardImage;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(debuffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 4];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    DeathGuardImage = value.countMatch(debuffImages.deathGraspDebuff, false);
-                    if (!(DeathGuardImage.passed > 34)) return [3 /*break*/, 3];
-                    DeathGuardData = value.readArg('timearg');
-                    DeathGuardDebuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    _c.label = 3;
-                case 3:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 4:
-                    if (!(DeathGuardData == undefined)) return [3 /*break*/, 6];
-                    DeathGuardDebuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 5:
-                    _c.sent();
-                    DeathGuardDebuff.dataset.time = '';
-                    return [3 /*break*/, 7];
-                case 6:
-                    DeathGuardDebuff.classList.remove('inactive');
-                    _c.label = 7;
-                case 7: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 8:
-                    _c.sent();
-                    return [2 /*return*/, DeathGuardData];
-            }
-        });
-    });
-}
-function findOmniGuardDebuff(debuffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var OmniGuardData, _i, _a, _b, _key, value, OmniGuardImage;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(debuffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 4];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    OmniGuardImage = value.countMatch(debuffImages.deathEssenceDebuff, false);
-                    if (!(OmniGuardImage.passed > 19)) return [3 /*break*/, 3];
-                    OmniGuardData = value.readArg('timearg');
-                    OmniGuardDebuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    _c.label = 3;
-                case 3:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 4:
-                    if (!(OmniGuardData == undefined)) return [3 /*break*/, 6];
-                    OmniGuardDebuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 5:
-                    _c.sent();
-                    OmniGuardDebuff.dataset.time = '';
-                    return [3 /*break*/, 7];
-                case 6:
-                    OmniGuardDebuff.classList.remove('inactive');
-                    _c.label = 7;
-                case 7: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 8:
-                    _c.sent();
-                    return [2 /*return*/, OmniGuardData];
-            }
-        });
-    });
-}
-function findCrystalRainDebuff(debuffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var CrystalRainData, _i, _a, _b, _key, value, CrystalRainImage;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(debuffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 4];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    CrystalRainImage = value.countMatch(debuffImages.crystalRainDebuff, false);
-                    if (!(CrystalRainImage.passed > 19)) return [3 /*break*/, 3];
-                    CrystalRainData = value.readArg('timearg');
-                    CrystalRainDebuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    _c.label = 3;
-                case 3:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 4:
-                    if (!(CrystalRainData == undefined)) return [3 /*break*/, 6];
-                    CrystalRainDebuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 5:
-                    _c.sent();
-                    CrystalRainDebuff.dataset.time = '';
-                    return [3 /*break*/, 7];
-                case 6:
-                    CrystalRainDebuff.classList.remove('inactive');
-                    _c.label = 7;
-                case 7: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 8:
-                    _c.sent();
-                    return [2 /*return*/, CrystalRainData];
-            }
-        });
-    });
-}
-function findEnhancedExcaliburDebuff(debuffs) {
-    return __awaiter(this, void 0, void 0, function () {
-        var EnhancedExcaliburData, _i, _a, _b, _key, value, EnhancedExcaliburImage;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _i = 0, _a = Object.entries(debuffs);
-                    _c.label = 1;
-                case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 4];
-                    _b = _a[_i], _key = _b[0], value = _b[1];
-                    EnhancedExcaliburImage = value.countMatch(debuffImages.enhancedExcaliburDebuff, false);
-                    console.log(EnhancedExcaliburImage);
-                    if (!(EnhancedExcaliburImage.passed > 19)) return [3 /*break*/, 3];
-                    EnhancedExcaliburData = value.readArg('timearg');
-                    EnhancedExcaliburDebuff.dataset.time = value
-                        .readArg('timearg')
-                        .time.toString();
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 2:
-                    _c.sent();
-                    _c.label = 3;
-                case 3:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 4:
-                    if (!(EnhancedExcaliburData == undefined)) return [3 /*break*/, 6];
-                    EnhancedExcaliburDebuff.classList.add('inactive');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 5:
-                    _c.sent();
-                    EnhancedExcaliburDebuff.dataset.time = '';
-                    return [3 /*break*/, 7];
-                case 6:
-                    EnhancedExcaliburDebuff.classList.remove('inactive');
-                    _c.label = 7;
-                case 7: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 8:
-                    _c.sent();
-                    return [2 /*return*/, EnhancedExcaliburData];
-            }
-        });
-    });
-}
-var posBtn = document.getElementById('OverlayPosition');
+var posBtn = getByID('OverlayPosition');
 posBtn.addEventListener('click', setOverlayPosition);
 function setOverlayPosition() {
     return __awaiter(this, void 0, void 0, function () {
-        var bbb, overlayWidth, overlayHeight;
+        var bbb;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    bbb = document.getElementById('Buffs');
-                    overlayWidth = bbb.offsetWidth;
-                    overlayHeight = bbb.offsetHeight;
+                    bbb = getByID('Buffs');
                     alt1__WEBPACK_IMPORTED_MODULE_7__.once('alt1pressed', updateLocation);
                     updateSetting('updatingOverlayPosition', true);
                     _a.label = 1;
@@ -18009,8 +17426,8 @@ function setOverlayPosition() {
                     if (!getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
                     alt1.overLaySetGroup('overlayPositionHelper');
                     alt1.overLayRect(alt1__WEBPACK_IMPORTED_MODULE_7__.mixColor(255, 255, 255), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_7__.getMousePosition().x -
-                        ((getSetting('uiScale') / 100) * overlayWidth) / 2), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_7__.getMousePosition().y -
-                        ((getSetting('uiScale') / 100) * overlayHeight) / 2), Math.floor((getSetting('uiScale') / 100) * overlayWidth), Math.floor((getSetting('uiScale') / 100) * overlayHeight), 200, 2);
+                        ((getSetting('uiScale') / 100) * bbb.offsetWidth) / 2), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_7__.getMousePosition().y -
+                        ((getSetting('uiScale') / 100) * bbb.offsetHeight) / 2), Math.floor((getSetting('uiScale') / 100) * bbb.offsetWidth), Math.floor((getSetting('uiScale') / 100) * bbb.offsetHeight), 200, 2);
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 200); })];
                 case 2:
                     _a.sent();
@@ -18021,38 +17438,33 @@ function setOverlayPosition() {
     });
 }
 function updateLocation(e) {
-    var bbb = document.getElementById('Buffs');
-    var overlayWidth = bbb.offsetWidth;
-    var overlayHeight = bbb.offsetHeight;
+    var bbb = getByID('Buffs');
     updateSetting('overlayPosition', {
-        x: Math.floor(e.x - (getSetting('uiScale') / 100) * (overlayWidth / 2)),
-        y: Math.floor(e.y - (getSetting('uiScale') / 100) * (overlayHeight / 2)),
+        x: Math.floor(e.x - (getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
+        y: Math.floor(e.y - (getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
     });
     updateSetting('updatingOverlayPosition', false);
     alt1.overLayClearGroup('overlayPositionHelper');
 }
 function startOverlay() {
     return __awaiter(this, void 0, void 0, function () {
-        var cnv, ctx, overlay, overlayPosition, bbb, data;
+        var cnv, ctx, overlay, overlayPosition, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     cnv = document.createElement('canvas');
                     ctx = cnv.getContext('2d', { "willReadFrequently": true });
+                    overlay = document.getElementsByTagName('canvas')[0];
                     _a.label = 1;
                 case 1:
                     if (false) {}
-                    cnv.width = 1000;
-                    cnv.height = 1000;
                     captureOverlay();
-                    overlay = document.getElementsByTagName('canvas')[0];
                     overlayPosition = getSetting('overlayPosition');
-                    bbb = document.getElementById('Buffs');
                     alt1.overLaySetGroup('betterBuffsBar');
                     alt1.overLayFreezeGroup('betterBuffsBar');
                     /* If I try and use the overlay instead of copying the overlay it doesn't work. No idea why. */
                     ctx.drawImage(overlay, 0, 0);
-                    data = ctx.getImageData(0, 0, bbb.offsetWidth, bbb.offsetHeight);
+                    data = ctx.getImageData(0, 0, helperItems.BetterBuffsBar.offsetWidth, helperItems.BetterBuffsBar.offsetHeight);
                     alt1.overLayClearGroup('betterBuffsBar');
                     alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_7__.encodeImageString(data), data.width, 125);
                     alt1.overLayRefreshGroup('betterBuffsBar');
@@ -18068,19 +17480,17 @@ function startOverlay() {
 function initSettings() {
     if (!localStorage.betterBuffBar) {
         setDefaultSettings();
-        loadSettings();
     }
-    else {
-        loadSettings();
-    }
+    loadSettings();
 }
 function setDefaultSettings() {
     localStorage.setItem('betterBuffBar', JSON.stringify({
         activeOverlay: true,
         bigHeadMode: false,
-        bigHeadPosition: "start",
+        bigHeadPosition: 'start',
         buffsLocation: findPlayerBuffs,
         buffsPerRow: 5,
+        debuffsLocation: findPlayerDebuffs,
         fadeInactiveBuffs: true,
         loopSpeed: 150,
         showBuffNames: false,
@@ -18091,6 +17501,8 @@ function setDefaultSettings() {
     }));
 }
 function loadSettings() {
+    findPlayerBuffs();
+    findPlayerDebuffs();
     setBuffsPerRow();
     setBigHeadMode();
     setBuffNames();
@@ -18105,7 +17517,7 @@ function setSortables() {
     var sortables = ['Buffs', 'UntrackedBuffs'];
     // Create the sortables
     sortables.forEach(function (sortable) {
-        var el = document.getElementById(sortable);
+        var el = getByID(sortable);
         sortablejs__WEBPACK_IMPORTED_MODULE_0__["default"].create(el, {
             group: 'trackedBuffs',
             dataIdAttr: 'id',
@@ -18125,17 +17537,17 @@ function setSortables() {
     });
     // Re-sort into their saved areas on load
     sortables.forEach(function (sortable) {
-        var parent = document.getElementById(sortable);
+        var parent = getByID(sortable);
         var itemOrder = localStorage.getItem(sortable);
         var itemOrderArr = itemOrder ? itemOrder.split('|') : [];
         var prevItem;
         itemOrderArr.forEach(function (item) {
-            var child = document.getElementById(item);
+            var child = getByID(item);
             if (!prevItem) {
                 parent.insertBefore(child, parent.firstChild);
             }
             else {
-                var prevChild = document.getElementById(prevItem);
+                var prevChild = getByID(prevItem);
                 prevChild.parentNode.insertBefore(child, prevChild.nextSibling);
             }
             prevItem = item;
@@ -18143,8 +17555,8 @@ function setSortables() {
     });
 }
 function setBuffsPerRow() {
-    var buffsTracker = document.getElementById('Buffs');
-    var buffsPerRowInput = document.getElementById('BuffsPerRow');
+    var buffsTracker = getByID('Buffs');
+    var buffsPerRowInput = getByID('BuffsPerRow');
     var buffsPerRow = getSetting('buffsPerRow');
     buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
     buffsPerRowInput.value = buffsPerRow;
@@ -18155,14 +17567,16 @@ function setBuffsPerRow() {
     });
 }
 function setBigHeadMode() {
-    var setBigHeadMode = document.getElementById('SetBigHeadMode');
-    var bigHeadPosition = (document.getElementById('BigHeadPosition'));
+    var setBigHeadMode = getByID('SetBigHeadMode');
+    var bigHeadPosition = (getByID('BigHeadPosition'));
     setCheckboxChecked(setBigHeadMode);
-    betterBuffsBar.classList.toggle('big-head-mode', Boolean(getSetting('bigHeadMode')));
+    helperItems.BetterBuffsBar.classList.toggle('big-head-mode', Boolean(getSetting('bigHeadMode')));
+    setBigHeadGrid();
     setBigHeadMode.addEventListener('change', function () {
-        betterBuffsBar.classList.toggle('big-head-mode', Boolean(getSetting('bigHeadMode')));
+        helperItems.BetterBuffsBar.classList.toggle('big-head-mode', Boolean(getSetting('bigHeadMode')));
         setBigHeadGrid();
     });
+    bigHeadPosition.value = getSetting('bigHeadPosition');
     bigHeadPosition.addEventListener('change', function (e) {
         updateSetting('bigHeadPosition', bigHeadPosition.value);
         setBigHeadGrid();
@@ -18170,18 +17584,18 @@ function setBigHeadMode() {
 }
 function setBigHeadGrid() {
     if (getSetting('bigHeadMode') && getSetting('bigHeadPosition') == "start") {
-        trackedBuffs.style.gridTemplateAreas = "\n\t\t\"first first ".concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\"first first ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t");
+        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"first first ".concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\"first first ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t");
     }
     if (getSetting('bigHeadMode') && getSetting('bigHeadPosition') == 'end') {
-        trackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(getSetting('buffsPerRow')), "first first\"\n\t\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "first first\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t");
+        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(getSetting('buffsPerRow')), "first first\"\n\t\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "first first\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t");
     }
 }
 function setBuffNames() {
     var showBuffNames = (document.querySelectorAll('.show-labels')[0]);
     setCheckboxChecked(showBuffNames);
-    betterBuffsBar.classList.toggle('show-labels', Boolean(getSetting('showBuffNames')));
+    helperItems.BetterBuffsBar.classList.toggle('show-labels', Boolean(getSetting('showBuffNames')));
     showBuffNames.addEventListener('change', function () {
-        betterBuffsBar.classList.toggle('show-labels', Boolean(getSetting('showBuffNames')));
+        helperItems.BetterBuffsBar.classList.toggle('show-labels', Boolean(getSetting('showBuffNames')));
     });
 }
 function showTooltipReminders() {
@@ -18191,13 +17605,13 @@ function showTooltipReminders() {
 function setFadeInactiveBuffs() {
     var fadeInactiveBuffs = document.querySelectorAll('.fade-inactive')[0];
     setCheckboxChecked(fadeInactiveBuffs);
-    betterBuffsBar.classList.toggle('fade', Boolean(getSetting('fadeInactiveBuffs')));
+    helperItems.BetterBuffsBar.classList.toggle('fade', Boolean(getSetting('fadeInactiveBuffs')));
     fadeInactiveBuffs.addEventListener('change', function () {
-        betterBuffsBar.classList.toggle('fade', Boolean(getSetting('fadeInactiveBuffs')));
+        helperItems.BetterBuffsBar.classList.toggle('fade', Boolean(getSetting('fadeInactiveBuffs')));
     });
 }
 function setCustomScale() {
-    var buffsTracker = document.getElementById('Buffs');
+    var buffsTracker = getByID('Buffs');
     buffsTracker.style.setProperty('--scale', getSetting('uiScale'));
     document
         .getElementById('UIScale')
@@ -18210,9 +17624,9 @@ function setCheckboxChecked(el) {
     el.checked = Boolean(getSetting(el.dataset.setting));
 }
 function setOverlay() {
-    var showOverlay = document.getElementById('ShowOverlay');
+    var showOverlay = getByID('ShowOverlay');
     setCheckboxChecked(showOverlay);
-    betterBuffsBar.classList.toggle('overlay', Boolean(getSetting('activeOverlay')));
+    helperItems.BetterBuffsBar.classList.toggle('overlay', Boolean(getSetting('activeOverlay')));
     showOverlay.addEventListener('change', function () {
         location.reload();
     });
@@ -18221,7 +17635,7 @@ function setLoopSpeed() {
     if (getSetting('loopSpeed') == '') {
         updateSetting('loopSpeed', 125);
     }
-    var loopSpeed = document.getElementById('LoopSpeed');
+    var loopSpeed = getByID('LoopSpeed');
     loopSpeed.value = getSetting('loopSpeed');
     document
         .getElementById('LoopSpeed')
@@ -18243,25 +17657,23 @@ function updateSetting(setting, value) {
     var save_data = JSON.parse(localStorage.getItem('betterBuffBar'));
     save_data[setting] = value;
     localStorage.setItem('betterBuffBar', JSON.stringify(save_data));
-    //loadSettings();
 }
 var foundBuffs = false;
-var foundDebuffs = false;
+function getActiveBuffs() {
+    if (foundBuffs && getSetting('buffsLocation')) {
+        return buffs.read();
+    }
+    else {
+        findPlayerBuffs();
+    }
+}
 function findPlayerBuffs() {
     if (buffs.find()) {
         foundBuffs = true;
-        if (getSetting('debugMode')) {
-            alt1.overLayRect(alt1__WEBPACK_IMPORTED_MODULE_7__.mixColor(255, 255, 255), getSetting('buffsLocation')[0], getSetting('buffsLocation')[1], 250, 100, 50, 1);
-        }
         return updateSetting('buffsLocation', [buffs.pos.x, buffs.pos.y]);
     }
 }
-function findPlayerDebuffs() {
-    if (debuffs.find()) {
-        foundDebuffs = true;
-        return updateSetting('debuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
-    }
-}
+var foundDebuffs = false;
 function getActiveDebuffs() {
     if (foundDebuffs && getSetting('debuffsLocation')) {
         return debuffs.read();
@@ -18270,12 +17682,10 @@ function getActiveDebuffs() {
         findPlayerDebuffs();
     }
 }
-function getActiveBuffs() {
-    if (foundBuffs && getSetting('buffsLocation')) {
-        return buffs.read();
-    }
-    else {
-        findPlayerBuffs();
+function findPlayerDebuffs() {
+    if (debuffs.find()) {
+        foundDebuffs = true;
+        return updateSetting('debuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
     }
 }
 function roundedToFixed(input, digits) {
@@ -18300,7 +17710,7 @@ var loopSpeed = document.querySelector('#LoopSpeed');
 loopSpeed.addEventListener('change', function (event) {
     updateSetting('loopSpeed', event.target.value);
 });
-var resetAllSettingsButton = document.getElementById('ResetAllSettings');
+var resetAllSettingsButton = getByID('ResetAllSettings');
 resetAllSettingsButton.addEventListener('click', function () {
     localStorage.removeItem('betterBuffBar');
     localStorage.clear();
@@ -18320,7 +17730,7 @@ window.onload = function () {
     }
     else {
         var addappurl = "alt1://addapp/".concat(new URL('./appconfig.json', document.location.href).href);
-        output.insertAdjacentHTML('beforeend', "\n\t\t\tAlt1 not detected, click <a href='".concat(addappurl, "'>here</a> to add this app to Alt1\n\t\t"));
+        helperItems.Output.insertAdjacentHTML('beforeend', "\n\t\t\tAlt1 not detected, click <a href='".concat(addappurl, "'>here</a> to add this app to Alt1\n\t\t"));
     }
 };
 
