@@ -17210,6 +17210,9 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
+                    if (buffImage == debuffImages.crystalRainDebuff) {
+                        console.log(findBuffImage);
+                    }
                     if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 16];
                     foundBuff = true;
                     return [4 /*yield*/, setActive(element)];

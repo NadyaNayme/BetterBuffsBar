@@ -279,6 +279,9 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
+		if (buffImage == debuffImages.crystalRainDebuff) {
+			console.log(findBuffImage);
+		}
 		// If we find a match for the buff it will always exceed the threshold
 		// the threshold depends largely on which buff is being matched against
 		if (findBuffImage.passed > threshold) {
