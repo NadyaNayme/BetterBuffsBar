@@ -412,25 +412,37 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-size: cover;
 }
 
-#Buffs,
-#UntrackedBuffs {
+#Buffs {
   --maxcount: 5;
-  width: calc(27px * var(--maxcount) + (4px * var(--maxcount)));
-  display: flex;
-  flex-wrap: wrap;
+  --scale: 100;
+  --totalitems: 16;
+  width: 100%;
+  max-width: calc((var(--maxcount) * 34px) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
+  max-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * 34px) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
+  display: grid;
   justify-content: flex-start;
+  align-items: flex-start;
   list-style: none;
   margin:0;
   padding:0;
-}
-
-#Buffs {
-  --scale: 100;
+  gap: 2px;
   transform: scale(calc(var(--scale) / 100));
   transform-origin: top;
-  min-height: 1px;
-  min-width: 1px;
-  width: calc(27px * var(--maxcount) + (4px * var(--maxcount)));
+  grid-template-columns: repeat(var(--maxcount), calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)));
+  grid-template-rows: repeat(8, calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)));
+  position: relative;
+  left: calc(var(--scale) * 2px);
+}
+
+#UntrackedBuffs {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 350px;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 #Buffs li,
@@ -696,6 +708,7 @@ li.sortable-selected {
 }
 
 li.disabled {
+  display: none !important;
   height: 0 !important;
   width: 0 !important;
   visibility: hidden;
@@ -17599,12 +17612,17 @@ function setBuffsPerRow() {
     var buffsPerRowInput = getByID('BuffsPerRow');
     var buffsPerRow = getSetting('buffsPerRow');
     buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+    setGridSize();
     buffsPerRowInput.value = buffsPerRow;
     buffsPerRowInput.addEventListener('change', function (e) {
         updateSetting('buffsPerRow', buffsPerRowInput.value);
         buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+        setGridSize();
         setBigHeadGrid();
     });
+}
+function setGridSize() {
+    helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\"".concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t");
 }
 function setBigHeadMode() {
     var setBigHeadMode = getByID('SetBigHeadMode');

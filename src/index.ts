@@ -624,13 +624,25 @@ function setBuffsPerRow() {
 	let buffsPerRowInput = <HTMLInputElement>getByID('BuffsPerRow');
 	let buffsPerRow = getSetting('buffsPerRow');
 	buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+	setGridSize();
 
 	buffsPerRowInput.value = buffsPerRow;
 	buffsPerRowInput.addEventListener('change', (e) => {
 		updateSetting('buffsPerRow', buffsPerRowInput.value);
 		buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+		setGridSize();
 		setBigHeadGrid();
 	});
+}
+
+function setGridSize() {
+	helperItems.TrackedBuffs.style.gridTemplateAreas = `
+	"${'. '.repeat(getSetting('buffsPerRow'))}"
+	"${'. '.repeat(getSetting('buffsPerRow'))}"
+	"${'. '.repeat(getSetting('buffsPerRow'))}"
+	"${'. '.repeat(getSetting('buffsPerRow'))}"
+	"${'. '.repeat(getSetting('buffsPerRow'))}"
+	`;
 }
 
 function setBigHeadMode() {
