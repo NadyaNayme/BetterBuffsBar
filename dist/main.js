@@ -394,6 +394,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 
 #BetterBuffsBar {
   width: 100%;
+  text-align: center;
 }
 
 #BetterBuffsBar.big-head-mode #Buffs {
@@ -441,7 +442,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   width: 350px;
   max-width: 100%;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
   list-style: none;
 }
 
