@@ -1,6 +1,6 @@
 {
 	"appName": "BetterBuffBar",
-	"description": "The bfufs that matter",
+	"description": "Track the buffs that matter",
 	"appUrl": "./index.html",
 	"configUrl": "./appconfig.json",
 	"iconUrl": "./icon.png",
@@ -11,6 +11,6 @@
 	"maxWidth": 1000,
 	"maxHeight": 1000,
 	"requestHandlers": [ ],
-	"activators": [	],
+	"activators": [],
 	"permissions": "pixel, gamestate, overlay"
 }
