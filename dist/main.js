@@ -696,10 +696,12 @@ li.sortable-selected {
 }
 
 li.disabled {
-  height: 0;
-  width: 0;
+  height: 0 !important;
+  width: 0 !important;
   visibility: hidden;
   opacity: 0;
+  border: none !important;
+  pointer-events: none;
 }
 
 hr {
