@@ -695,6 +695,13 @@ li.sortable-selected {
   border: solid 1px #92cefe;
 }
 
+li.disabled {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+
 hr {
   opacity: .5;
 }
@@ -17139,7 +17146,7 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 50);
             findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 30);
             findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 19);
-            findStatus(debuffs, debuffImages.crystalRainDebuff, debuffsList.CrystalRainDebuff, 19);
+            // findStatus(debuffs, debuffImages.crystalRainDebuff, debuffsList.CrystalRainDebuff, 19); // Suffers from EE problem
         }
         else {
             noDetection(maxAttempts, interval, "debuff");
@@ -17210,9 +17217,6 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (buffImage == debuffImages.crystalRainDebuff) {
-                        console.log(findBuffImage);
-                    }
                     if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 16];
                     foundBuff = true;
                     return [4 /*yield*/, setActive(element)];

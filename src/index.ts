@@ -215,7 +215,7 @@ function watchBuffs() {
 			findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 50);
 			findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 30);
 			findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 19);
-			findStatus(debuffs, debuffImages.crystalRainDebuff, debuffsList.CrystalRainDebuff, 19);
+			// findStatus(debuffs, debuffImages.crystalRainDebuff, debuffsList.CrystalRainDebuff, 19); // Suffers from EE problem
 		} else {
 			noDetection(maxAttempts, interval, "debuff");
 		}
@@ -279,9 +279,6 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-		if (buffImage == debuffImages.crystalRainDebuff) {
-			console.log(findBuffImage);
-		}
 		// If we find a match for the buff it will always exceed the threshold
 		// the threshold depends largely on which buff is being matched against
 		if (findBuffImage.passed > threshold) {

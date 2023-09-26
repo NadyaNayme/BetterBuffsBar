@@ -327,6 +327,13 @@ li.sortable-selected {
   border: solid 1px #92cefe;
 }
 
+li.disabled {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+
 hr {
   opacity: .5;
 }

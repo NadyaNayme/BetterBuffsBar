@@ -41,7 +41,6 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 - Adrenaline Potion cooldown
 - Necrosis stacks
 - Limitless*
-- SGB Spec cooldown (maybe? needs to be tested)
 
 \* An attempt is made to track Limitless 84s~ cooldown. It can drift and become inaccurate when the server drops ticks/lags. Outside of DXPW on very laggy worlds it typically shouldn't be off by more than a second or two.
 
