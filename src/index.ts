@@ -217,8 +217,8 @@ function watchBuffs() {
 			findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 50);
 			findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 30);
 			findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 14);
-			findStatus(debuffs, debuffImages.crystalRainReduced, debuffsList.CrystalRainDebuff, 19); // Suffers from EE problem
-			findStatus(debuffs, debuffImages.crystalRain, debuffsList.CrystalRainDebuff, 19); // Suffers from EE problem
+			findStatus(debuffs, debuffImages.crystalRainReduced, debuffsList.CrystalRainDebuff, 14); // Suffers from EE problem
+			findStatus(debuffs, debuffImages.crystalRain, debuffsList.CrystalRainDebuff, 14); // Suffers from EE problem
 		} else {
 			noDetection(maxAttempts, interval, "debuff");
 		}
@@ -283,10 +283,10 @@ async function findStatus(
 
 		let findBuffImage = value.countMatch(buffImage, false);
 			if (buffImage == debuffImages.crystalRain) {
-				console.log('Thresholds for normal SGB:' + findBuffImage);
+				console.log(`Thresholds for normal SGB: ${findBuffImage}`);
 			}
 			if (buffImage == debuffImages.crystalRainReduced) {
-				console.log('Thresholds for minimal SGB:' + findBuffImage);
+				console.log(`Thresholds for minimal SGB: ${findBuffImage}`);
 			}
 		// If we find a match for the buff it will always exceed the threshold
 		// the threshold depends largely on which buff is being matched against

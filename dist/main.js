@@ -17184,8 +17184,8 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 50);
             findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 30);
             findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 14);
-            findStatus(debuffs, debuffImages.crystalRainReduced, debuffsList.CrystalRainDebuff, 19); // Suffers from EE problem
-            findStatus(debuffs, debuffImages.crystalRain, debuffsList.CrystalRainDebuff, 19); // Suffers from EE problem
+            findStatus(debuffs, debuffImages.crystalRainReduced, debuffsList.CrystalRainDebuff, 14); // Suffers from EE problem
+            findStatus(debuffs, debuffImages.crystalRain, debuffsList.CrystalRainDebuff, 14); // Suffers from EE problem
         }
         else {
             noDetection(maxAttempts, interval, "debuff");
@@ -17257,10 +17257,10 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     }
                     findBuffImage = value.countMatch(buffImage, false);
                     if (buffImage == debuffImages.crystalRain) {
-                        console.log('Thresholds for normal SGB:' + findBuffImage);
+                        console.log("Thresholds for normal SGB: ".concat(findBuffImage));
                     }
                     if (buffImage == debuffImages.crystalRainReduced) {
-                        console.log('Thresholds for minimal SGB:' + findBuffImage);
+                        console.log("Thresholds for minimal SGB: ".concat(findBuffImage));
                     }
                     if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 16];
                     if (buffImage == debuffImages.crystalRain) {
