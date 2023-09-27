@@ -71,23 +71,13 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
-/***/ "./asset/data/Crystal_Rain-new.data.png":
-/*!**********************************************!*\
-  !*** ./asset/data/Crystal_Rain-new.data.png ***!
-  \**********************************************/
+/***/ "./asset/data/Crystal_Rain-minimal.data.png":
+/*!**************************************************!*\
+  !*** ./asset/data/Crystal_Rain-minimal.data.png ***!
+  \**************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAyFJREFUeJy91dlPG0ccwHEeqkpFamgCBCkHSKV1AsGkHLGNMRiWNbvxtesDH2u2PklJQuoCCbEFLkegapMmESiBtlR9bx6jqm889bXqv/StcSWrCDsFahhpVqP5zf4+O8dq6v6sq+Osal3pUYOSDLzArefwuR4RVZZJBL4/kPfEWNT/lExkh6noDqPiA6aK7f1+VXyI6rxHMruCN/WMTHinnPvImCgtlMaIcpYh4T5+7TGKmqXP8QVXe0aJqd+Vc+jRHB8b7UzcXSagFY6PBTxPMNwUcKcKDCvTXDZaueZMMq7nae2wFLFnxIMvsbrnCHlWsAy5ONdwgfPNlxDFOEfCZNciieg28YlN+lz3sQkR3qtv4IpJ5v36D7H4JhkMzeL5aotuexrTZ37sgq9ivndiich2uT8T+wnZEUALSRjabdyWH2GUNJRMni7zOI0tl2lubKOre4jExNbxML+6juB8jFv+Z6+U4Cojgkb9B/XlseaeAA4pTdsnPVhFpXhYdgm6ClVXqSrmK2I3OiU82jxjIwlMhVWU1ec8nPv60NiRgRR2S+I/9/2dy9gfztM76OZ6Rz/TSzOYF9fY2/uLToNwov+yKmaWkgzIOpb+cCnW1NjEYFTn99/+oPFCa20xyfcAs9WF1aSVY+Nj9+jS0wSXf8WrfXNssCLm8uYJZta54tAPYPvlWreD4eevUd/u4ZDnjgVWxER5llYpwU3PHUxC8kBMGL6D7ckLIq9+IZyI/X9MKH5xh5xC0mZR5rfoNDrKcW9kDad/kQH3JLlvd+npdh8ZPIRNxXcZLc7sYsunjITn8c29pOHi1VI8MLGBHt0stW/1BvHG8wQSayfH0vqPNBvMZGLbLBRW6OgTOHe+pWJCsy1EenoGm2XySGDV05iKvSKbW6XXqtDebqma7Mb1sZPNLBjYKL/o0hbosznxurI1uVgPYWORPKp/iWjoKaqyhCR8STy8eTpYMvaa5MYbRDXF7eR6zZCK2H5R7q5gj+X4qKXt9DHRP0PTJQOf13D5qmLJ2A8Yb9nPBtsvQ/YI8X/d0qeKpSd/rjl0ADur+jfW0DAl8vHZ2gAAAABJRU5ErkJggg==")
-
-/***/ }),
-
-/***/ "./asset/data/Crystal_Rain-reduced-purple.data.png":
-/*!*********************************************************!*\
-  !*** ./asset/data/Crystal_Rain-reduced-purple.data.png ***!
-  \*********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAjBJREFUeJy91c9v0mAYB3AOxkQShxswkv2ARJSNCSzARhmUdXZ0xQF2bAjYQUZhURYxc2AmRHEwZ+Jlmix6MvGuR2O8cfJq/Je+Jj2QkNJtZdA3eZu3z/O+zyd98zav5q9GA7W6Rnyo0IaGCftNSc2+sU3+lbjGyzzFtPu+ZP1tJ4VHe0ddcUWYbZ5GrNDAMlfCpDOAmXUBa7k6zHZ/Z30gVhHH/lAUI7oxjBonEA7vQDHmjT4DSWdwTavDlC+C69qb8CeyCKYOEH9xBhdVFOtQdKJnPUVYhNkCn2Jhs5LifCfLg9utw0GsQW+ahFFvgcMVkq2lCFuheWhvaLvmMmwRljtuBMLchTUuxOJ8Vcz5Gi1wrVO8rLzt++Seiy2k6/AEY5i1L6D0pgzi9THa7X+Ys9F9gbIYwQpYiuQ6cYPegODjHH7/+gP9mHmwGJt4DiIQlcQduSKSR98HiyV3TzDF5CTxGReD5dMv2PjZVgzKYmY2j/n4E/hoQZIj331E5vM3pPPbikBZzB4pgOUPwFXPMOdkJPmlWBa1D1/hdsUuDcpi46a7WElXkah8gm58WpJf9CTxcKeOrfzx1TCjjRDfDxtN2L00RkZNPQsSZArFUhmkP3sp8Nz/bL/WgifAwWr1yxa7N7t69W2M8ofwkusDvee6sNVMfag3tuTLhPc/EN4o4IFwMnBYgnF7TVDbNdwyWYaPhTfLMEzYhrKdPQ+Ic5FSDwtRGfWwYbUOplb/D4dSjTR6CiNsAAAAAElFTkSuQmCC")
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAcVJREFUeJzF1c1LwmAcB3APUSRo2oygLCmikBQpM01Ny0pDXSuwLHWoJaG9UGmE9qrVoUsFUaegW4euEd08dY3+pW8kJMTmaDbXD57Bfs+e72fPNpjkXSKBWENSOohQNcPiW3lGpiBYx8A4Y3233on51MmPPm/MF9+Hg0qiXW9FnzcON51Dp9bCWG8Z9UHe1AxlS1t5jhdm9K3D7lpEnVQOtcmDeqkMlrkIbAs7ILdvyhkOF8Wax3tnoQVP+Vqdex5UIged2Q2itR0KhZQzhzcmbWQGanoGYJ1k3w0vjAxlSnPDRwVQhUvspo+r/pg4saFgDoM2f2kuebgB88EpisUPdKjlVYGc2Mg0Xe6rCBVsSzReX94gkzUIj5mtPka/n44hcPIkLBZInEM9RTP6XVo9HJd3mH0u8gYrYp2eGAzkKmug/ewKi7cPCMbCvMCKmHZ6GZ7QDqjMDfv79EeQvbgXBlMSSowFM5hLX1cMnInmQIbXfg2yYkSPoXS+d5SH1ujiDFtJ/hH7rq1sQdBfDydmtHvFw4QuBhY9f8QYGcBEZFPwG2BgVCoPZzgLRaum9thXqdp6a/JYWTG9ySkeVqv6H0ys8Qk3wVjJQV4oxQAAAABJRU5ErkJggg==")
 
 /***/ }),
 
@@ -228,16 +218,6 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAAIG5vUEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMQ6ThMAAAFrUExURQAAAFqWGQAAAGF9lFt+m2CBnZzF44q63Fpyi5LD5Ov4/+L0/o3D5VVwhN3y/oW63F15lFx2kFtug2F/mE9ofY610DJEWEJbdXOkxZvB3FmGqTxKYEFeeZO82prK6rXa9HeYtDVMXlJthMnn+oa/4m6buJG10Ljc9PP7//3+/6fQ7Zi82YGfuUFIXD1TaGKXt5bJ6c3o+r3h+Hyy11N+mCk2RmqEnENVZ0JVa3mbuYm84HSTryg0STNDU2yPqB8pOCw+VWyUtFJ2lS04Sl2Don2pyEVkfiMtQoaqxWR4j3Cnz6TO6oOy1GWZv05cbajS7sTk+aDJ5YquyjVPVzZLY16Mq26pzdXu/en2/77g9Xq020tshUBDSpOzzXuVrHCPrIOtzqnW8oClwzE1SVN+lGulycDg9dnv/TdZaRgeKi1CU4uxzoS32xsjM0ROY2udw4Gv0UlTaJq81XukwT1RZyYyQh8jLmh7jf///2W60mkAAAABdFJOUwBA5thmAAAAAW5vUEUAYtdMlAAAAAdub1BFAAAAAAAAAFrm3tAAAAABbm9QRQBi10yUAAAAJW5vUEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHMNHTQAAACVub1BFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABzDR00AAAAobm9QRQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6Vo1VAAAAWm5vUEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADQh2OxAAABSUlEQVQoz3XS+TsCURQG4PpapxiVrSgRykSklLFEiGKSkTYl+0725d9X08zUHU/np3vu+9zlnHtV6s6hUqvaAtBoATEhDdDpDUYJFaajTOau7k5mpnsspKG5D2ClDBZyT8AmoaaXvAvQ1z8goUyCAYN2x9Bwa7JlgNM14qZGx5TYMI99hDaNT0x6FFg3m1fvm2Jo//RMgDyysW52LjhPh8ILEWEOiC42UTiPXVr2h1dWRYp519aFYfOe8Q3X5pZECcf2TrKRiPWxKYl2tXtcet8YqKdSXzIixRMHFM8dZp1HANFPIJcvBIsl83G5UDkB8Q6IVh0cX2KYottRPc2Qxp6dGy7MDMNT6UvrFWmIXN9wt3d8qJy/f4DyTzxan8o+6jmbqwH//tKL81X/lmff5RraMVn5+PyqybWT+J3S/Mg9U+JvTO515/gDvx4qsWKz8xwAAAAASUVORK5CYII=")
-
-/***/ }),
-
-/***/ "./asset/data/Seren_Godbow_Special-top.data.png":
-/*!******************************************************!*\
-  !*** ./asset/data/Seren_Godbow_Special-top.data.png ***!
-  \******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABsAAAAOCAYAAADez2d9AAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAlNJREFUeJy91E9I02Ecx3EPEWSUlOuvBFEeNJ2kYDr7swR1OTW11KHONklXeTB1TXPqXEaigYvG5iywoRgmBGYk6BCMrEMQdZmzDjryIJUb7uqh3m2DBMNlM+kD39/v8Hz5vvg9PM8vxCEI539ViP+xCfk8P4/iRjtDT4eZev2G2Tnnqrkbxt6+e4/L5WJx0YXhwSP/2xebzYbJbKH8uh6NYcDfEzTWbnjo72m/b6G6sYMqzR20rZ3I6/REHD+LfXqaX+kfeMyR2DMUXNOh67AEj43bJjidmUeuqhVx7lUOCEUczVSSUdbIoagk7HY7s7NzFKj0TL58RbJYys6w3ezac5C6+mb+CjP09OOY+YTDMUOCtIpTqTK2bA8j4sQ5tobuIDGvFFFhDdIaI+nFteh0OlIlF9ac90fMPvOR795t+eEtp9OJrKCMkiIpRUUyrAODxGfLyam4SUxSOuH7IhAK4zgpzmDut4OxLvZs1EZLZw993qHupSX6R0aoqlUTui10pdf3FRqtnsOR8YjSzrOwsMDYuC3gLgXEhoZfUKa8TE6JGk1DM5EteiS3uqhXt6zqdbvdGI1GfwVC1sV8iZc1kJCSxbHoRK40VxPd1Mbk5AcUCuWG7mVA7KKqjmSJHK22CY/Hg0AgILn4EmOjU8TExG4e5l7yUFLZQJIoi1a9fmXN3G0hSllJvm6Qu71PWF5eDgpdE7vXY6Wwoo29afJVmC9iST7CLjMpzyfotlr/Hevw/iX2ZyiIza5EplLz5eu3lXWTyUTc7S7yzL3IykuDxn4CJNzGl5OA8HwAAAAASUVORK5CYII=")
 
 /***/ }),
 
@@ -17072,11 +17052,9 @@ var buffImages = alt1__WEBPACK_IMPORTED_MODULE_7__.webpackImages({
 var debuffImages = alt1__WEBPACK_IMPORTED_MODULE_7__.webpackImages({
     elvenRitualShard: __webpack_require__(/*! ./asset/data/Ancient_Elven_Ritual_Shard.data.png */ "./asset/data/Ancient_Elven_Ritual_Shard.data.png"),
     adrenalinePotion: __webpack_require__(/*! ./asset/data/Adrenaline_Potion.data.png */ "./asset/data/Adrenaline_Potion.data.png"),
-    crystalRain: __webpack_require__(/*! ./asset/data/Crystal_Rain-new.data.png */ "./asset/data/Crystal_Rain-new.data.png"),
-    crystalRainReduced: __webpack_require__(/*! ./asset/data/Crystal_Rain-reduced-purple.data.png */ "./asset/data/Crystal_Rain-reduced-purple.data.png"),
+    crystalRainMinimal: __webpack_require__(/*! ./asset/data/Crystal_Rain-minimal.data.png */ "./asset/data/Crystal_Rain-minimal.data.png"),
     deathGraspDebuff: __webpack_require__(/*! ./asset/data/Death_Guard_Special-top.data.png */ "./asset/data/Death_Guard_Special-top.data.png"),
     deathEssenceDebuff: __webpack_require__(/*! ./asset/data/Omni_Guard_Special-top.data.png */ "./asset/data/Omni_Guard_Special-top.data.png"),
-    crystalRainDebuff: __webpack_require__(/*! ./asset/data/Seren_Godbow_Special-top.data.png */ "./asset/data/Seren_Godbow_Special-top.data.png"),
     enhancedExcaliburDebuff: __webpack_require__(/*! ./asset/data/EE_scuffed-top.data.png */ "./asset/data/EE_scuffed-top.data.png"),
 });
 function startBetterBuffsBar() {
@@ -17184,8 +17162,7 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 50);
             findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 30);
             findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 14);
-            findStatus(debuffs, debuffImages.crystalRainReduced, debuffsList.CrystalRainDebuff, 14); // Suffers from EE problem
-            findStatus(debuffs, debuffImages.crystalRain, debuffsList.CrystalRainDebuff, 14); // Suffers from EE problem
+            findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 14); // Suffers from EE problem
         }
         else {
             noDetection(maxAttempts, interval, "debuff");
@@ -17256,15 +17233,12 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (buffImage == debuffImages.crystalRain) {
+                    if (buffImage == debuffImages.crystalRainMinimal) {
                         console.log(findBuffImage);
                     }
                     if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 16];
-                    if (buffImage == debuffImages.crystalRain) {
+                    if (buffImage == debuffImages.crystalRainMinimal) {
                         console.log('Matched on new SGB');
-                    }
-                    if (buffImage == debuffImages.crystalRainReduced) {
-                        console.log('Matched on minimal SGB');
                     }
                     foundBuff = true;
                     return [4 /*yield*/, setActive(element)];

@@ -86,11 +86,9 @@ var buffImages = a1lib.webpackImages({
 var debuffImages = a1lib.webpackImages({
 	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard.data.png'),
 	adrenalinePotion: require('./asset/data/Adrenaline_Potion.data.png'),
-	crystalRain: require('./asset/data/Crystal_Rain-new.data.png'),
-	crystalRainReduced: require('./asset/data/Crystal_Rain-reduced-purple.data.png'),
+	crystalRainMinimal: require('./asset/data/Crystal_Rain-minimal.data.png'),
 	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top.data.png'),
 	deathEssenceDebuff: require('./asset/data/Omni_Guard_Special-top.data.png'),
-	crystalRainDebuff: require('./asset/data/Seren_Godbow_Special-top.data.png'),
 	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top.data.png'),
 });
 
@@ -217,8 +215,7 @@ function watchBuffs() {
 			findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 50);
 			findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 30);
 			findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 14);
-			findStatus(debuffs, debuffImages.crystalRainReduced, debuffsList.CrystalRainDebuff, 14); // Suffers from EE problem
-			findStatus(debuffs, debuffImages.crystalRain, debuffsList.CrystalRainDebuff, 14); // Suffers from EE problem
+			findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 14); // Suffers from EE problem
 		} else {
 			noDetection(maxAttempts, interval, "debuff");
 		}
@@ -282,17 +279,14 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-			if (buffImage == debuffImages.crystalRain) {
+			if (buffImage == debuffImages.crystalRainMinimal) {
 				console.log(findBuffImage);
 			}
 		// If we find a match for the buff it will always exceed the threshold
 		// the threshold depends largely on which buff is being matched against
 		if (findBuffImage.passed > threshold) {
-			if (buffImage == debuffImages.crystalRain) {
+			if (buffImage == debuffImages.crystalRainMinimal) {
 				console.log('Matched on new SGB');
-			}
-			if (buffImage == debuffImages.crystalRainReduced) {
-				console.log('Matched on minimal SGB');
 			}
 			foundBuff = true;
 			await setActive(element);
