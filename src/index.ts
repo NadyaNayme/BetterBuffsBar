@@ -214,7 +214,7 @@ function watchBuffs() {
 			findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 50);
 			findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 50);
 			findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 30);
-			findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 19);
+			findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 14);
 			// findStatus(debuffs, debuffImages.crystalRainDebuff, debuffsList.CrystalRainDebuff, 19); // Suffers from EE problem
 		} else {
 			noDetection(maxAttempts, interval, "debuff");
