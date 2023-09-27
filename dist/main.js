@@ -17257,10 +17257,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     }
                     findBuffImage = value.countMatch(buffImage, false);
                     if (buffImage == debuffImages.crystalRain) {
-                        console.log("Thresholds for normal SGB: ".concat(findBuffImage));
-                    }
-                    if (buffImage == debuffImages.crystalRainReduced) {
-                        console.log("Thresholds for minimal SGB: ".concat(findBuffImage));
+                        console.log(findBuffImage);
                     }
                     if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 16];
                     if (buffImage == debuffImages.crystalRain) {
@@ -17456,7 +17453,6 @@ function findBolgStacks(buffs) {
                     bolgStacksBuff = value.countMatch(buffImages.perfectEquilibrium, false);
                     if (!(bolgStacksBuff.passed > 200)) return [3 /*break*/, 3];
                     bolgStacksData = value.readArg('timearg');
-                    console.log(bolgStacksData);
                     if (value.readArg('timearg').time > 0 &&
                         value.readArg('timearg').time
                             < 31 && value.readArg('timearg').arg != "") {

@@ -283,10 +283,7 @@ async function findStatus(
 
 		let findBuffImage = value.countMatch(buffImage, false);
 			if (buffImage == debuffImages.crystalRain) {
-				console.log(`Thresholds for normal SGB: ${findBuffImage}`);
-			}
-			if (buffImage == debuffImages.crystalRainReduced) {
-				console.log(`Thresholds for minimal SGB: ${findBuffImage}`);
+				console.log(findBuffImage);
 			}
 		// If we find a match for the buff it will always exceed the threshold
 		// the threshold depends largely on which buff is being matched against
@@ -440,7 +437,6 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 		);
 		if (bolgStacksBuff.passed > 200) {
 			bolgStacksData = value.readArg('timearg');
-			console.log(bolgStacksData);
 			if (
 				value.readArg('timearg').time > 0 &&
 				value.readArg('timearg').time
