@@ -386,6 +386,7 @@ async function setActive(element: HTMLElement) {
 
 async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	let bolgStacksData;
+	let bolgFound = false;
 	/* Taking from the BOLG Plugin <https://holycoil.nl/alt1/bolg/index.bundle.js>
 	   the Zamorak mechanic is always the first so we need to reverse the buffs first
 	 */
@@ -398,8 +399,12 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 		canvas.width,
 		canvas.height
    );
-   for (let a in buffs) {
+   for (let a in buffs.reverse()) {
+		if (bolgFound) {
+			return;
+		}
 		if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
+			bolgFound = true;
 			let buffsImage = buffs[a].buffer.toImage();
 			ctx.drawImage(
 				buffsImage,

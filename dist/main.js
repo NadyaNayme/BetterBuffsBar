@@ -17401,15 +17401,20 @@ function setActive(element) {
 }
 function findBolgStacks(buffs) {
     return __awaiter(this, void 0, void 0, function () {
-        var bolgStacksData, canvas, ctx, a, buffsImage, bolgBuffImage, _i, _a, _b, _key, value, bolgStacksBuff;
+        var bolgStacksData, bolgFound, canvas, ctx, a, buffsImage, bolgBuffImage, _i, _a, _b, _key, value, bolgStacksBuff;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
+                    bolgFound = false;
                     canvas = document.getElementById('canvas');
                     ctx = canvas.getContext('2d');
                     ctx.drawImage(buffImages.perfectEquilibriumNoBorder.toImage(), 0, 0, canvas.width, canvas.height);
-                    for (a in buffs) {
+                    for (a in buffs.reverse()) {
+                        if (bolgFound) {
+                            return [2 /*return*/];
+                        }
                         if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
+                            bolgFound = true;
                             buffsImage = buffs[a].buffer.toImage();
                             ctx.drawImage(buffsImage, buffs[a].bufferx, buffs[a].buffery, 27, 27, 0, 0, canvas.width, canvas.height);
                             bolgBuffImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
