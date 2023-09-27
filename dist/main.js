@@ -17254,7 +17254,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         console.log("".concat(element.id, " has >60s remaining"));
                     }
                     element.dataset.time =
-                        (value.readArg('timearg').time / 60).toString() + 'm';
+                        Math.floor((value.readArg('timearg').time / 60)).toString() + 'm';
                     // Pause the check for a tick since we don't need to rapidly update
                     //a buff that won't have a more precise value for 1 minute
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
