@@ -418,7 +418,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   --scale: 100;
   --totalitems: 16;
   width: 100%;
-  max-width: calc((var(--maxcount) * 34px) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
+  max-width: calc((var(--maxcount) * 72px) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
   max-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * 34px) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
   display: grid;
   justify-content: flex-start;
