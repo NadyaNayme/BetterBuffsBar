@@ -30,6 +30,7 @@ let helperItems = {
 	BetterBuffsBar: getByID('BetterBuffsBar'),
 	TrackedBuffs: getByID('Buffs'),
 	UntrackedBuffs: getByID('UntrackedBuffs'),
+	ToggleOverlayButton: getByID('ToggleOverlayButton')
 }
 
 let buffsList = {
@@ -279,15 +280,9 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-			if (buffImage == debuffImages.crystalRainMinimal) {
-				console.log(findBuffImage);
-			}
 		// If we find a match for the buff it will always exceed the threshold
 		// the threshold depends largely on which buff is being matched against
 		if (findBuffImage.passed > threshold) {
-			if (buffImage == debuffImages.crystalRainMinimal) {
-				console.log('Matched on new SGB');
-			}
 			foundBuff = true;
 			await setActive(element);
 			timearg = value.readArg('timearg');
@@ -400,11 +395,7 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 		canvas.height
    );
    for (let a in buffs.reverse()) {
-		if (bolgFound) {
-			return;
-		}
 		if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
-			bolgFound = true;
 			let buffsImage = buffs[a].buffer.toImage();
 			ctx.drawImage(
 				buffsImage,
@@ -435,7 +426,9 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 			false
 		);
 		if (bolgStacksBuff.passed > 200) {
+			bolgFound = true;
 			bolgStacksData = value.readArg('timearg');
+			console.log(bolgStacksData);
 			if (
 				value.readArg('timearg').time > 0 &&
 				value.readArg('timearg').time
@@ -770,6 +763,15 @@ function setOverlay() {
 	showOverlay.addEventListener('change', function () {
 		location.reload();
 	});
+	helperItems.ToggleOverlayButton.addEventListener('click', (e) => {
+		showOverlay.checked = !showOverlay.checked;
+		updateSetting('activeOverlay', showOverlay.checked);
+		helperItems.BetterBuffsBar.classList.toggle(
+			'overlay',
+			Boolean(getSetting('activeOverlay'))
+		);
+		location.reload();
+	})
 }
 
 function setLoopSpeed() {

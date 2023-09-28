@@ -175,7 +175,7 @@ body {
 }
 
 #BalanceByForceBuff.inactive {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAIRQTFRFAAAAAAAACAgICgoKCwsLDg4ODw8PEBAQEREREhISExMTFBQUFRUVFhYWFxcXGBgYGRkZGhoaGxsbHBwcHR0dHh4eHx8fICAgISEhIiIiJCQkJSUlJiYmJycnKCgoKSkpKioqKysrLCwsLS0tLi4uLy8vMDAwMjIyMzMzNTU1NjY2QEBAL78lCAAAAAF0Uk5TAEDm2GYAAADYSURBVCjPfdLbUsJAEITh/kUTlGAiMYdNNqyIBMi+//t5AZY50rdfdc1s7cgvR15L8fICxLyxiw84lnpZe3XzJmgOGfOmffVll3pN3dRLvaYzOdJo25vVXRkiYWfMXNMQSTA1yvQDkFKm9rlNtu6CMEwtCossixA5IxPHNQBI7Mb2GoBEBP8L/f0RBRIn675RxchWT4DLNwAxAxPP8Qu8bZL72L6JoAjy0KTrdwsSfROwr0xVGPfTwoW+CYDs3Jbu2J0tTG/p9k6KYW+A0VzvnuSBgbwe3PUvHz8bjKYRjckAAAAASUVORK5CYII=");
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAH5QTFRFAAAACAgICgoKCwsLDg4ODw8PEBAQEREREhISExMTFBQUFRUVFhYWFxcXGBgYGRkZGhoaGxsbHBwcHR0dHh4eHx8fICAgISEhIiIiJCQkJSUlJiYmJycnKCgoKSkpKioqKysrLCwsLS0tLi4uLy8vMDAwMjIyMzMzNTU1NjY2KUoQVAAAAAF0Uk5TAEDm2GYAAADVSURBVCjPfdLbUoMwFIXh5QF+LRUsBgiHxlolLe//gl4UR07puv1mzd6ZbPlw5BWKlxcgto1DesIR6pn+6rZN0J0M26Zj/dmGel3TNaFeN9gCabHtzZqhipFoN8xe8xhJsDaq/B2Qctb2sc/27oKwrC2JS2MSRMHCxJlbJA5Le4lAIoH/hf7+iBKJn9Z9oZqFPT4ArtgBpMxMPKXP8LrLxrFTE1EZFbHNeWtBYmoCjrWtS+u+e7gwNQFgfF+58+BbWN/S+NBy3pthstUbk90xkNedu/4FoTobpxhHx1cAAAAASUVORK5CYII=");
 }
 
 #TimeRiftBuff {
@@ -330,6 +330,21 @@ body {
 #BetterBuffsBar.show-labels #UntrackedBuffs .buff-name {
   padding-left: 35px;
   align-self: center;
+}
+
+#ToggleOverlayButton {
+  position: fixed;
+  top: 3px;
+  right: 0px;
+  font-size: 20px;
+}
+
+#ToggleOverlayButton:hover {
+  cursor: pointer;
+}
+
+#ToggleOverlayButton:hover::before {
+  content: 'Toggle Overlay';
 }
 
 li:not(.sortable-selected) {
