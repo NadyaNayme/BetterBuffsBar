@@ -17425,22 +17425,39 @@ function setActive(element) {
 var bolgSpecActive = false;
 function findBolgStacks(buffs) {
     return __awaiter(this, void 0, void 0, function () {
-        var bolgStacksData, bolgFound, _i, _a, _b, _key, value, bolgStacksBuff, bolgData, bolgTime, bolgStacks;
+        var bolgStacksData, bolgFound, canvas, ctx, a, buffsImage, bolgBuffImage, _i, _a, _b, _key, value, bolgStacksBuff, bolgData, bolgTime, bolgStacks;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
                     bolgFound = false;
-                    _i = 0, _a = Object.entries(buffs).reverse();
-                    _c.label = 1;
+                    if (!!getSetting('singleBOLG')) return [3 /*break*/, 1];
+                    canvas = document.getElementById('canvas');
+                    ctx = canvas.getContext('2d');
+                    ctx.drawImage(buffImages.perfectEquilibriumNoBorder.toImage(), 0, 0, canvas.width, canvas.height);
+                    for (a in buffs.reverse()) {
+                        if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
+                            buffsImage = buffs[a].buffer.toImage();
+                            ctx.drawImage(buffsImage, buffs[a].bufferx, buffs[a].buffery, 27, 27, 0, 0, canvas.width, canvas.height);
+                            bolgBuffImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                            buffsList.BolgStacksBuff.style.backgroundImage =
+                                'url("data:image/png;base64,' +
+                                    bolgBuffImage.toPngBase64() +
+                                    '")';
+                        }
+                    }
+                    return [3 /*break*/, 9];
                 case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 5];
+                    _i = 0, _a = Object.entries(buffs).reverse();
+                    _c.label = 2;
+                case 2:
+                    if (!(_i < _a.length)) return [3 /*break*/, 6];
                     _b = _a[_i], _key = _b[0], value = _b[1];
                     bolgStacksBuff = value.countMatch(buffImages.perfectEquilibrium, false);
-                    if (!(bolgStacksBuff.passed > 200)) return [3 /*break*/, 4];
+                    if (!(bolgStacksBuff.passed > 200)) return [3 /*break*/, 5];
                     bolgFound = true;
                     bolgStacksData = value.readArg('arg').arg;
                     return [4 /*yield*/, parseBolgBuff(bolgStacksData)];
-                case 2:
+                case 3:
                     bolgData = _c.sent();
                     console.log(bolgData);
                     bolgTime = bolgData[0];
@@ -17448,28 +17465,28 @@ function findBolgStacks(buffs) {
                     buffsList.BolgStacksBuff.dataset.time = bolgStacks;
                     buffsList.BalanceByForceBuff.dataset.time = bolgTime;
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 3:
-                    _c.sent();
-                    _c.label = 4;
                 case 4:
-                    _i++;
-                    return [3 /*break*/, 1];
+                    _c.sent();
+                    _c.label = 5;
                 case 5:
-                    if (!(bolgStacksData == undefined)) return [3 /*break*/, 7];
+                    _i++;
+                    return [3 /*break*/, 2];
+                case 6:
+                    if (!(bolgStacksData == undefined)) return [3 /*break*/, 8];
                     buffsList.BolgStacksBuff.classList.add('inactive');
                     buffsList.BalanceByForceBuff.classList.add('inactive');
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 6:
+                case 7:
                     _c.sent();
                     buffsList.BolgStacksBuff.dataset.time = '';
                     buffsList.BalanceByForceBuff.dataset.time = '';
-                    return [3 /*break*/, 8];
-                case 7:
+                    return [3 /*break*/, 9];
+                case 8:
                     buffsList.BolgStacksBuff.classList.remove('inactive');
                     buffsList.BalanceByForceBuff.classList.remove('inactive');
-                    _c.label = 8;
-                case 8: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 9:
+                    _c.label = 9;
+                case 9: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
+                case 10:
                     _c.sent();
                     return [2 /*return*/, bolgStacksData];
             }
@@ -17617,6 +17634,7 @@ function setDefaultSettings() {
         debuffsLocation: findPlayerDebuffs,
         fadeInactiveBuffs: true,
         loopSpeed: 150,
+        singleBOLG: false,
         showBuffNames: false,
         showTooltipReminders: true,
         overlayPosition: { x: 100, y: 100 },
@@ -17627,6 +17645,7 @@ function setDefaultSettings() {
 function loadSettings() {
     setBuffsPerRow();
     setBigHeadMode();
+    setSingleBolg();
     setBuffNames();
     showTooltipReminders();
     setSortables();
@@ -17719,6 +17738,15 @@ function setBigHeadGrid() {
     if (getSetting('bigHeadMode') && getSetting('bigHeadPosition') == 'end') {
         helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(getSetting('buffsPerRow')), "first first\"\n\t\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "first first\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\t");
     }
+}
+function setSingleBolg() {
+    var singleBolg = (document.querySelectorAll('.single-bolg')[0]);
+    setCheckboxChecked(singleBolg);
+    buffsList.BalanceByForceBuff.classList.toggle('disabled', !Boolean(getSetting('singleBOLG')));
+    singleBolg.addEventListener('change', function () {
+        buffsList.BalanceByForceBuff.classList.toggle('disabled', !Boolean(getSetting('singleBOLG')));
+        location.reload();
+    });
 }
 function setBuffNames() {
     var showBuffNames = (document.querySelectorAll('.show-labels')[0]);

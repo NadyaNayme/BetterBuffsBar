@@ -399,32 +399,71 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	/* Taking from the BOLG Plugin <https://holycoil.nl/alt1/bolg/index.bundle.js>
 	   the Zamorak mechanic is always the first so we need to reverse the buffs first
 	 */
-	for (let [_key, value] of Object.entries(buffs).reverse()) {
-		let bolgStacksBuff = value.countMatch(
-			buffImages.perfectEquilibrium,
-			false
+
+	if (!getSetting('singleBOLG')) {
+		let canvas = <HTMLCanvasElement>document.getElementById('canvas');
+		let ctx = canvas.getContext('2d');
+		ctx.drawImage(
+				buffImages.perfectEquilibriumNoBorder.toImage(),
+				0,
+				0,
+				canvas.width,
+				canvas.height
 		);
-		if (bolgStacksBuff.passed > 200) {
-			bolgFound = true;
-			bolgStacksData = value.readArg('arg').arg;
-			let bolgData = await parseBolgBuff(bolgStacksData);
-			console.log(bolgData);
-			let bolgTime = bolgData[0];
-			let bolgStacks = bolgData[1];
-			buffsList.BolgStacksBuff.dataset.time = bolgStacks;
-			buffsList.BalanceByForceBuff.dataset.time = bolgTime;
-			await new Promise((done) => setTimeout(done, 600));
+		for (let a in buffs.reverse()) {
+				if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
+					let buffsImage = buffs[a].buffer.toImage();
+					ctx.drawImage(
+						buffsImage,
+						buffs[a].bufferx,
+						buffs[a].buffery,
+						27,
+						27,
+						0,
+						0,
+						canvas.width,
+						canvas.height
+					);
+					let bolgBuffImage = ctx.getImageData(
+						0,
+						0,
+						canvas.width,
+						canvas.height
+					);
+					buffsList.BolgStacksBuff.style.backgroundImage =
+						'url("data:image/png;base64,' +
+						bolgBuffImage.toPngBase64() +
+						'")';
+				}
 		}
-	}
-	if (bolgStacksData == undefined) {
-		buffsList.BolgStacksBuff.classList.add('inactive');
-		buffsList.BalanceByForceBuff.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 600));
-		buffsList.BolgStacksBuff.dataset.time = '';
-		buffsList.BalanceByForceBuff.dataset.time = '';
 	} else {
-		buffsList.BolgStacksBuff.classList.remove('inactive');
-		buffsList.BalanceByForceBuff.classList.remove('inactive');
+		for (let [_key, value] of Object.entries(buffs).reverse()) {
+			let bolgStacksBuff = value.countMatch(
+				buffImages.perfectEquilibrium,
+				false
+			);
+			if (bolgStacksBuff.passed > 200) {
+				bolgFound = true;
+				bolgStacksData = value.readArg('arg').arg;
+				let bolgData = await parseBolgBuff(bolgStacksData);
+				console.log(bolgData);
+				let bolgTime = bolgData[0];
+				let bolgStacks = bolgData[1];
+				buffsList.BolgStacksBuff.dataset.time = bolgStacks;
+				buffsList.BalanceByForceBuff.dataset.time = bolgTime;
+				await new Promise((done) => setTimeout(done, 600));
+			}
+		}
+		if (bolgStacksData == undefined) {
+			buffsList.BolgStacksBuff.classList.add('inactive');
+			buffsList.BalanceByForceBuff.classList.add('inactive');
+			await new Promise((done) => setTimeout(done, 600));
+			buffsList.BolgStacksBuff.dataset.time = '';
+			buffsList.BalanceByForceBuff.dataset.time = '';
+		} else {
+			buffsList.BolgStacksBuff.classList.remove('inactive');
+			buffsList.BalanceByForceBuff.classList.remove('inactive');
+		}
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return bolgStacksData;
@@ -569,6 +608,7 @@ function setDefaultSettings() {
 			debuffsLocation: findPlayerDebuffs,
 			fadeInactiveBuffs: true,
 			loopSpeed: 150,
+			singleBOLG: false,
 			showBuffNames: false,
 			showTooltipReminders: true,
 			overlayPosition: { x: 100, y: 100 },
@@ -581,6 +621,7 @@ function setDefaultSettings() {
 function loadSettings() {
 	setBuffsPerRow();
 	setBigHeadMode();
+	setSingleBolg();
 	setBuffNames();
 	showTooltipReminders();
 	setSortables();
@@ -710,6 +751,24 @@ function setBigHeadGrid() {
 		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
 		`;
 	}
+}
+
+function setSingleBolg() {
+	let singleBolg = <HTMLInputElement>(
+		document.querySelectorAll('.single-bolg')[0]
+	);
+	setCheckboxChecked(singleBolg);
+	buffsList.BalanceByForceBuff.classList.toggle(
+		'disabled',
+		!Boolean(getSetting('singleBOLG'))
+	);
+	singleBolg.addEventListener('change', function () {
+		buffsList.BalanceByForceBuff.classList.toggle(
+			'disabled',
+			!Boolean(getSetting('singleBOLG'))
+		);
+		location.reload();
+	});
 }
 
 function setBuffNames() {
