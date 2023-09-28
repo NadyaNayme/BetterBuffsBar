@@ -299,6 +299,9 @@ async function findStatus(
 			foundBuff = true;
 			await setActive(element);
 			timearg = value.readArg('timearg');
+			if (buffImage == buffImages.gladiatorsRage) {
+				console.log(timearg);
+			}
 			if (element.dataset.time == '1' && showCooldown && !onCooldown) {
 				if (getSetting('debugMode')) {
 					console.log(`Starting cooldown timer for ${element.id}`)

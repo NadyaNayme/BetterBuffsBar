@@ -17268,6 +17268,9 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                 case 2:
                     _c.sent();
                     timearg = value.readArg('timearg');
+                    if (buffImage == buffImages.gladiatorsRage) {
+                        console.log(timearg);
+                    }
                     if (!(element.dataset.time == '1' && showCooldown && !onCooldown)) return [3 /*break*/, 4];
                     if (getSetting('debugMode')) {
                         console.log("Starting cooldown timer for ".concat(element.id));
