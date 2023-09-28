@@ -207,6 +207,9 @@ function watchBuffs() {
 			if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
 				findBolgStacks(buffs);
 			}
+
+			checkBuffsForHidingOverlay(buffs);
+
 		} else {
 			noDetection(maxAttempts, interval, "buff");
 		}
@@ -221,6 +224,15 @@ function watchBuffs() {
 			noDetection(maxAttempts, interval, "debuff");
 		}
 	}, loopSpeed);
+}
+
+async function checkBuffsForHidingOverlay(buffsReader: BuffReader.Buff[]) {
+	// Attempt to hide the overlay if we have 0 buffs
+	if (Object.entries(buffsReader).length == 0) {
+		helperItems.BetterBuffsBar.classList.add('hide-overlay');
+	} else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {
+		helperItems.BetterBuffsBar.classList.remove('hide-overlay');
+	}
 }
 
 async function noDetection(maxAttempts: number, interval: any, bar: string) {
@@ -271,12 +283,6 @@ async function findStatus(
 		return;
 	}
 
-	// Attempt to hide the overlay if we have 0 buffs
-	if (Object.entries(buffsReader).length == 0) {
-		helperItems.BetterBuffsBar.classList.add('hide-overlay');
-	} else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {
-		helperItems.BetterBuffsBar.classList.remove('hide-overlay');
-	}
 	// Declared outside of the loop so that it can be checked to be Undefined if no buffs are found
 	let timearg;
 	let foundBuff = false;
@@ -386,47 +392,13 @@ async function setActive(element: HTMLElement) {
 }
 
 
+let bolgSpecActive = false;
 async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	let bolgStacksData;
 	let bolgFound = false;
 	/* Taking from the BOLG Plugin <https://holycoil.nl/alt1/bolg/index.bundle.js>
 	   the Zamorak mechanic is always the first so we need to reverse the buffs first
 	 */
-   let canvas = <HTMLCanvasElement>document.getElementById('canvas');
-   let ctx = canvas.getContext('2d');
-   ctx.drawImage(
-		buffImages.perfectEquilibriumNoBorder.toImage(),
-		0,
-		0,
-		canvas.width,
-		canvas.height
-   );
-   for (let a in buffs.reverse()) {
-		if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
-			let buffsImage = buffs[a].buffer.toImage();
-			ctx.drawImage(
-				buffsImage,
-				buffs[a].bufferx,
-				buffs[a].buffery,
-				27,
-				27,
-				0,
-				0,
-				canvas.width,
-				canvas.height
-			);
-			let bolgBuffImage = ctx.getImageData(
-				0,
-				0,
-				canvas.width,
-				canvas.height
-			);
-			buffsList.BolgStacksBuff.style.backgroundImage =
-				'url("data:image/png;base64,' +
-				bolgBuffImage.toPngBase64() +
-				'")';
-		}
-   }
 	for (let [_key, value] of Object.entries(buffs).reverse()) {
 		let bolgStacksBuff = value.countMatch(
 			buffImages.perfectEquilibrium,
@@ -434,19 +406,13 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 		);
 		if (bolgStacksBuff.passed > 200) {
 			bolgFound = true;
-			bolgStacksData = value.readArg('timearg');
-			console.log(bolgStacksData);
-			if (
-				value.readArg('timearg').time > 0 &&
-				value.readArg('timearg').time
-			 < 31 && value.readArg('timearg').arg != "") {
-				buffsList.BalanceByForceBuff.dataset.time = value
-					.readArg('timearg')
-					.time.toString();
-			 }
-			buffsList.BolgStacksBuff.dataset.time = value
-				.readArg('timearg')
-				.arg.toString();
+			bolgStacksData = value.readArg('arg').arg;
+			let bolgData = await parseBolgBuff(bolgStacksData);
+			console.log(bolgData);
+			let bolgTime = bolgData[0];
+			let bolgStacks = bolgData[1];
+			buffsList.BolgStacksBuff.dataset.time = bolgStacks;
+			buffsList.BalanceByForceBuff.dataset.time = bolgTime;
 			await new Promise((done) => setTimeout(done, 600));
 		}
 	}
@@ -462,6 +428,46 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	}
 	await new Promise((done) => setTimeout(done, 10));
 	return bolgStacksData;
+}
+
+async function parseBolgBuff(data: string) {
+	let bolgSpecTime;
+	let bolgStacks;
+	let buffRegexp = /(?<time>\d{1,2})(.*\((?<stacks>\d)\))?/g;
+	let results = Array.from(data.matchAll(buffRegexp));
+	if (results[0]) {
+		console.log(`Results: ${data}`);
+		// We have stacks guaranteed
+		if (data.indexOf('(') > -1) {
+			bolgSpecActive = true;
+			bolgSpecTime = results[0].groups.time;
+			bolgStacks = results[0].groups.stacks;
+		} else if (parseInt(data, 10) == 30) {
+			bolgSpecActive = true;
+			bolgSpecTime = '30';
+			bolgStacks = results[0].groups.stacks;
+			await new Promise((done) => setTimeout(done, 30000));
+			bolgSpecActive = false;
+		} else if (bolgSpecActive) {
+			bolgSpecTime = results[0].groups.time || 0;
+			bolgStacks = '0';
+		} else if (!bolgSpecActive) {
+			if (parseInt(results[0].groups.time, 10) > 8) {
+				bolgSpecTime = results[0].groups.time;
+				bolgStacks = '0';
+				bolgSpecActive = true;
+				await new Promise((done) => setTimeout(done, 9000));
+				bolgSpecActive = false;
+			} else {
+				bolgSpecTime = '';
+				bolgStacks = results[0].groups.time || 0;
+			}
+		}
+	}
+	if (bolgSpecTime == undefined || bolgStacks == undefined) {
+		return ['', ''];
+	}
+	return [bolgSpecTime, bolgStacks];
 }
 
 let posBtn = getByID('OverlayPosition');

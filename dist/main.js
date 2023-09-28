@@ -536,11 +536,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_12___});
 }
 
-#BolgStacksBuff::before,
-#BolgStacksBuff::after {
-  display: none !important;
-}
-
 #BalanceByForceBuff {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_13___});
 }
@@ -17171,6 +17166,7 @@ function watchBuffs() {
             if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
                 findBolgStacks(buffs);
             }
+            checkBuffsForHidingOverlay(buffs);
         }
         else {
             noDetection(maxAttempts, interval, "buff");
@@ -17187,6 +17183,20 @@ function watchBuffs() {
             noDetection(maxAttempts, interval, "debuff");
         }
     }, loopSpeed);
+}
+function checkBuffsForHidingOverlay(buffsReader) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            // Attempt to hide the overlay if we have 0 buffs
+            if (Object.entries(buffsReader).length == 0) {
+                helperItems.BetterBuffsBar.classList.add('hide-overlay');
+            }
+            else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {
+                helperItems.BetterBuffsBar.classList.remove('hide-overlay');
+            }
+            return [2 /*return*/];
+        });
+    });
 }
 function noDetection(maxAttempts, interval, bar) {
     return __awaiter(this, void 0, void 0, function () {
@@ -17240,13 +17250,6 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     // Exit early if our buff isn't in the Tracked Buffs list
                     if (!getByID('Buffs').contains(element) || !buffsReader) {
                         return [2 /*return*/];
-                    }
-                    // Attempt to hide the overlay if we have 0 buffs
-                    if (Object.entries(buffsReader).length == 0) {
-                        helperItems.BetterBuffsBar.classList.add('hide-overlay');
-                    }
-                    else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {
-                        helperItems.BetterBuffsBar.classList.remove('hide-overlay');
                     }
                     foundBuff = false;
                     onCooldown = false;
@@ -17419,72 +17422,110 @@ function setActive(element) {
         });
     });
 }
+var bolgSpecActive = false;
 function findBolgStacks(buffs) {
     return __awaiter(this, void 0, void 0, function () {
-        var bolgStacksData, bolgFound, canvas, ctx, a, buffsImage, bolgBuffImage, _i, _a, _b, _key, value, bolgStacksBuff;
+        var bolgStacksData, bolgFound, _i, _a, _b, _key, value, bolgStacksBuff, bolgData, bolgTime, bolgStacks;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
                     bolgFound = false;
-                    canvas = document.getElementById('canvas');
-                    ctx = canvas.getContext('2d');
-                    ctx.drawImage(buffImages.perfectEquilibriumNoBorder.toImage(), 0, 0, canvas.width, canvas.height);
-                    for (a in buffs.reverse()) {
-                        if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
-                            buffsImage = buffs[a].buffer.toImage();
-                            ctx.drawImage(buffsImage, buffs[a].bufferx, buffs[a].buffery, 27, 27, 0, 0, canvas.width, canvas.height);
-                            bolgBuffImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                            buffsList.BolgStacksBuff.style.backgroundImage =
-                                'url("data:image/png;base64,' +
-                                    bolgBuffImage.toPngBase64() +
-                                    '")';
-                        }
-                    }
                     _i = 0, _a = Object.entries(buffs).reverse();
                     _c.label = 1;
                 case 1:
-                    if (!(_i < _a.length)) return [3 /*break*/, 4];
+                    if (!(_i < _a.length)) return [3 /*break*/, 5];
                     _b = _a[_i], _key = _b[0], value = _b[1];
                     bolgStacksBuff = value.countMatch(buffImages.perfectEquilibrium, false);
-                    if (!(bolgStacksBuff.passed > 200)) return [3 /*break*/, 3];
+                    if (!(bolgStacksBuff.passed > 200)) return [3 /*break*/, 4];
                     bolgFound = true;
-                    bolgStacksData = value.readArg('timearg');
-                    console.log(bolgStacksData);
-                    if (value.readArg('timearg').time > 0 &&
-                        value.readArg('timearg').time
-                            < 31 && value.readArg('timearg').arg != "") {
-                        buffsList.BalanceByForceBuff.dataset.time = value
-                            .readArg('timearg')
-                            .time.toString();
-                    }
-                    buffsList.BolgStacksBuff.dataset.time = value
-                        .readArg('timearg')
-                        .arg.toString();
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
+                    bolgStacksData = value.readArg('arg').arg;
+                    return [4 /*yield*/, parseBolgBuff(bolgStacksData)];
                 case 2:
-                    _c.sent();
-                    _c.label = 3;
+                    bolgData = _c.sent();
+                    console.log(bolgData);
+                    bolgTime = bolgData[0];
+                    bolgStacks = bolgData[1];
+                    buffsList.BolgStacksBuff.dataset.time = bolgStacks;
+                    buffsList.BalanceByForceBuff.dataset.time = bolgTime;
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
                 case 3:
+                    _c.sent();
+                    _c.label = 4;
+                case 4:
                     _i++;
                     return [3 /*break*/, 1];
-                case 4:
-                    if (!(bolgStacksData == undefined)) return [3 /*break*/, 6];
+                case 5:
+                    if (!(bolgStacksData == undefined)) return [3 /*break*/, 7];
                     buffsList.BolgStacksBuff.classList.add('inactive');
                     buffsList.BalanceByForceBuff.classList.add('inactive');
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 5:
+                case 6:
                     _c.sent();
                     buffsList.BolgStacksBuff.dataset.time = '';
                     buffsList.BalanceByForceBuff.dataset.time = '';
-                    return [3 /*break*/, 7];
-                case 6:
+                    return [3 /*break*/, 8];
+                case 7:
                     buffsList.BolgStacksBuff.classList.remove('inactive');
                     buffsList.BalanceByForceBuff.classList.remove('inactive');
-                    _c.label = 7;
-                case 7: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 8:
+                    _c.label = 8;
+                case 8: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
+                case 9:
                     _c.sent();
                     return [2 /*return*/, bolgStacksData];
+            }
+        });
+    });
+}
+function parseBolgBuff(data) {
+    return __awaiter(this, void 0, void 0, function () {
+        var bolgSpecTime, bolgStacks, buffRegexp, results;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    buffRegexp = /(?<time>\d{1,2})(.*\((?<stacks>\d)\))?/g;
+                    results = Array.from(data.matchAll(buffRegexp));
+                    if (!results[0]) return [3 /*break*/, 7];
+                    console.log("Results: ".concat(data));
+                    if (!(data.indexOf('(') > -1)) return [3 /*break*/, 1];
+                    bolgSpecActive = true;
+                    bolgSpecTime = results[0].groups.time;
+                    bolgStacks = results[0].groups.stacks;
+                    return [3 /*break*/, 7];
+                case 1:
+                    if (!(parseInt(data, 10) == 30)) return [3 /*break*/, 3];
+                    bolgSpecActive = true;
+                    bolgSpecTime = '30';
+                    bolgStacks = results[0].groups.stacks;
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 30000); })];
+                case 2:
+                    _a.sent();
+                    bolgSpecActive = false;
+                    return [3 /*break*/, 7];
+                case 3:
+                    if (!bolgSpecActive) return [3 /*break*/, 4];
+                    bolgSpecTime = results[0].groups.time || 0;
+                    bolgStacks = '0';
+                    return [3 /*break*/, 7];
+                case 4:
+                    if (!!bolgSpecActive) return [3 /*break*/, 7];
+                    if (!(parseInt(results[0].groups.time, 10) > 8)) return [3 /*break*/, 6];
+                    bolgSpecTime = results[0].groups.time;
+                    bolgStacks = '0';
+                    bolgSpecActive = true;
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 9000); })];
+                case 5:
+                    _a.sent();
+                    bolgSpecActive = false;
+                    return [3 /*break*/, 7];
+                case 6:
+                    bolgSpecTime = '';
+                    bolgStacks = results[0].groups.time || 0;
+                    _a.label = 7;
+                case 7:
+                    if (bolgSpecTime == undefined || bolgStacks == undefined) {
+                        return [2 /*return*/, ['', '']];
+                    }
+                    return [2 /*return*/, [bolgSpecTime, bolgStacks]];
             }
         });
     });
