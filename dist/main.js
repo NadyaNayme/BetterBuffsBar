@@ -434,6 +434,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   position: relative;
 }
 
+#BetterBuffsBar.hide-overlay #Buffs {
+  display: none;
+}
+
 #UntrackedBuffs {
   display: flex;
   align-items: flex-start;
@@ -17236,6 +17240,13 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     // Exit early if our buff isn't in the Tracked Buffs list
                     if (!getByID('Buffs').contains(element) || !buffsReader) {
                         return [2 /*return*/];
+                    }
+                    // Attempt to hide the overlay if we have 0 buffs
+                    if (Object.entries(buffsReader).length == 0) {
+                        helperItems.BetterBuffsBar.classList.add('hide-overlay');
+                    }
+                    else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {
+                        helperItems.BetterBuffsBar.classList.remove('hide-overlay');
                     }
                     foundBuff = false;
                     onCooldown = false;

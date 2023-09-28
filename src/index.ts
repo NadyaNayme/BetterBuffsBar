@@ -270,6 +270,13 @@ async function findStatus(
 	if (!getByID('Buffs').contains(element) || !buffsReader) {
 		return;
 	}
+
+	// Attempt to hide the overlay if we have 0 buffs
+	if (Object.entries(buffsReader).length == 0) {
+		helperItems.BetterBuffsBar.classList.add('hide-overlay');
+	} else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {
+		helperItems.BetterBuffsBar.classList.remove('hide-overlay');
+	}
 	// Declared outside of the loop so that it can be checked to be Undefined if no buffs are found
 	let timearg;
 	let foundBuff = false;

@@ -66,6 +66,10 @@ body {
   position: relative;
 }
 
+#BetterBuffsBar.hide-overlay #Buffs {
+  display: none;
+}
+
 #UntrackedBuffs {
   display: flex;
   align-items: flex-start;
