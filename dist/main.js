@@ -424,7 +424,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   justify-content: flex-start;
   align-items: flex-start;
   list-style: none;
-  margin:0;
+  margin:0 auto;
   padding:0;
   gap: 2px;
   transform: scale(calc(var(--scale) / 100));
@@ -432,7 +432,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   grid-template-columns: repeat(var(--maxcount), calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)));
   grid-template-rows: repeat(8, calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)));
   position: relative;
-  left: calc(var(--scale) * 2px);
 }
 
 #UntrackedBuffs {
