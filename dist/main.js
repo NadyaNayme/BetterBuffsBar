@@ -17269,7 +17269,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     _c.sent();
                     timearg = value.readArg('timearg');
                     if (buffImage == buffImages.gladiatorsRage) {
-                        console.log(timearg);
+                        console.log(value.readArg('time').time);
                     }
                     if (!(element.dataset.time == '1' && showCooldown && !onCooldown)) return [3 /*break*/, 4];
                     if (getSetting('debugMode')) {

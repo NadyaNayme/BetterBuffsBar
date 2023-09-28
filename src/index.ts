@@ -300,7 +300,7 @@ async function findStatus(
 			await setActive(element);
 			timearg = value.readArg('timearg');
 			if (buffImage == buffImages.gladiatorsRage) {
-				console.log(timearg);
+				console.log(value.readArg('time').time);
 			}
 			if (element.dataset.time == '1' && showCooldown && !onCooldown) {
 				if (getSetting('debugMode')) {
