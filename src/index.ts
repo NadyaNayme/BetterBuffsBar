@@ -456,7 +456,9 @@ async function parseBolgBuff(data: string) {
 				bolgSpecTime = results[0].groups.time;
 				bolgStacks = '0';
 				bolgSpecActive = true;
-				await new Promise((done) => setTimeout(done, 9000));
+				await new Promise((done) =>
+					setTimeout(done, parseInt(results[0].groups.time, 10) * 1000)
+				);
 				bolgSpecActive = false;
 			} else {
 				bolgSpecTime = '';

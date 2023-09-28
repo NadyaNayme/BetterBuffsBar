@@ -17512,7 +17512,9 @@ function parseBolgBuff(data) {
                     bolgSpecTime = results[0].groups.time;
                     bolgStacks = '0';
                     bolgSpecActive = true;
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 9000); })];
+                    return [4 /*yield*/, new Promise(function (done) {
+                            return setTimeout(done, parseInt(results[0].groups.time, 10) * 1000);
+                        })];
                 case 5:
                     _a.sent();
                     bolgSpecActive = false;
