@@ -17566,7 +17566,7 @@ function setOverlayPosition() {
                     alt1.overLaySetGroup('overlayPositionHelper');
                     alt1.overLayRect(alt1__WEBPACK_IMPORTED_MODULE_7__.mixColor(255, 255, 255), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_7__.getMousePosition().x -
                         ((getSetting('uiScale') / 100) * bbb.offsetWidth) / 2), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_7__.getMousePosition().y -
-                        ((getSetting('uiScale') / 100) * bbb.offsetHeight) / 2), Math.floor((getSetting('uiScale') / 100) * bbb.offsetWidth), Math.floor((getSetting('uiScale') / 100) * bbb.offsetHeight), 200, 2);
+                        ((getSetting('uiScale') / 100) * bbb.offsetHeight) / 2), Math.floor((getSetting('uiScale') / 100) * bbb.offsetWidth / 2), Math.floor((getSetting('uiScale') / 100) * bbb.offsetHeight / 1.5), 200, 2);
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 200); })];
                 case 2:
                     _a.sent();

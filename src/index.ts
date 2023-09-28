@@ -529,8 +529,8 @@ async function setOverlayPosition() {
 				a1lib.getMousePosition().y -
 					((getSetting('uiScale') / 100) * bbb.offsetHeight) / 2
 			),
-			Math.floor((getSetting('uiScale') / 100) * bbb.offsetWidth),
-			Math.floor((getSetting('uiScale') / 100) * bbb.offsetHeight),
+			Math.floor((getSetting('uiScale') / 100) * bbb.offsetWidth / 2),
+			Math.floor((getSetting('uiScale') / 100) * bbb.offsetHeight / 1.5),
 			200,
 			2
 		);

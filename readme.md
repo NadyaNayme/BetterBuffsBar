@@ -47,9 +47,13 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 ## Known Issues
 
 - Overloads with <10s remaining can't be tracked due to the buff fading in and out. Ask a Jmod to please stop expiring buffs from doing that. Alt 1 can't track them properly. :)
+- BOLG stacks split into Time + Stack buffs will occasionally report Time as Stacks until a Stack is gained if you use the Weapon Special while already under the effects of the Weapon Special. It fixes itself when you gain at least one stack again.
+- For buffs that are normally transparent (eg. Elder Overloads) tracking may briefly fail in some situations when the timer causes the buff to not be able to be read. This is only an issue on some backgrounds and generally not for more than 1 second.
 
 ## Can't Add
 
 - EE tracking. Sorry the debuff isn't able to be reliably detected. The icon the wiki doesn't work for detection.
+- Crystal Rain (SGB Spec) tracking. Same as EE - isn't reliable enough to avoid false positives for detection.
+- Supreme Overloads. Same issue - sorry. Ask Jmods to not let buffs/debuffs be transparent as that's the issue. :(
 
 If you encounter any other bugs - please submit an issue and I'll investigate it.
