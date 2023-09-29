@@ -17271,7 +17271,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (foundBuff) {
                         return [2 /*return*/];
                     }
-                    if (highlander.length != 2) {
+                    if (highlander.length != 2 && buffImage == buffImages.gladiatorsRage) {
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);

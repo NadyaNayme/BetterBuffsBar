@@ -302,7 +302,7 @@ async function findStatus(
 		if (foundBuff) {
 			return;
 		}
-		if (highlander.length != 2) {
+		if (highlander.length != 2 && buffImage == buffImages.gladiatorsRage) {
 			return;
 		}
 
