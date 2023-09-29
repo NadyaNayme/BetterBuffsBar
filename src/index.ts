@@ -366,7 +366,7 @@ async function findStatus(
 				await setActive(element);
 				// This can be desynced from in-game 10s but it's accurate enough
 				await new Promise((done) => setTimeout(done, 10000));
-				await removeActive(element);
+				await setInactive(element);
 				if (getSetting('showTooltipReminders')) {
 					showTooltip('Overload expired', 3000);
 				}
@@ -376,19 +376,19 @@ async function findStatus(
 				}
 				element.dataset.time = timearg.time.toString();
 				if (timearg.time - 1 == 0 && !showCooldown) {
-					await removeActive(element);
+					await setInactive(element);
 				}
 			} else {
 				if (getSetting('debugMode')) {
 					console.log(`${element.id} is no longer active - setting inactive.`);
 				}
-				await removeActive(element);
+				await setInactive(element);
 			}
 		} else if (!showCooldown) {
 			if (getSetting('debugMode')) {
 				console.log(`${element.id} is no longer active - setting inactive.`);
 			}
-			await removeActive(element);
+			await setInactive(element);
 		}
 	}
 	// If we didn't find the buff try again after a brief timeout
@@ -397,7 +397,7 @@ async function findStatus(
 		if (expirationPulse) {
 			await new Promise((done) => setTimeout(done, 10000));
 		}
-		await removeActive(element);
+		await setInactive(element);
 	}
 	// Give a very brief pause before checking again
 	await new Promise((done) => setTimeout(done, 10));
@@ -411,48 +411,52 @@ async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
 		* After its cooldown has finished set it back to 'inactive' state (actually 'readyToBeUsed')
 		*/
 		await new Promise((done) => setTimeout(done, 1000));
-		element.dataset.time = '';
-		element.classList.remove('inactive');
-		element.classList.add('cooldown');
-		var timer;
+		await setCooldown(element, cooldownTimer);
 		if (element.dataset.cooldown != '' && !runOnlyOnce) {
 			runOnlyOnce = true;
 			element.dataset.cooldown = (cooldownTimer).toString();
 			await new Promise((done) => setTimeout(done, 1000));
-			timer = setInterval(() => {
-				countdown(element, cooldownTimer);
+			let timer = setInterval(() => {
+				countdown(element, cooldownTimer, timer);
 			}, 1000);
 			await new Promise((done) => setTimeout(done, 3000));
 			runOnlyOnce = false;
-		}
-		if (element.dataset.cooldown == '0' || parseInt(element.dataset.cooldown, 10) < 0) {
+			await new Promise((done) => setTimeout(done, (cooldownTimer * 1000) - 3000));
 			clearInterval(timer);
-			element.dataset.cooldown = '';
-			element.classList.remove('cooldown');
-			element.classList.add('inactive');
 		}
 		return false;
 }
 
-function countdown(element: HTMLElement, cooldownTimer: number) {
+function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
 	if (parseInt(element.dataset.cooldown, 10) > 0) {
 		element.dataset.cooldown = (
 			parseInt(element.dataset.cooldown, 10) - 1
 		).toString();
 	} else {
-		element.dataset.cooldown = '';
-		element.classList.remove('cooldown');
-		element.classList.add('inactive');
+		clearInterval(timer);
+		runOnlyOnce = false;
+		setInactive(element);
 	}
 }
 
-async function removeActive(element: HTMLElement) {
+async function setCooldown(element: HTMLElement, cooldownTimer: number) {
+	element.classList.remove('inactive');
+	element.classList.remove('active');
+	element.classList.add('cooldown');
+	element.dataset.time = '';
+	element.dataset.cooldown = cooldownTimer.toString();
+}
+
+async function setInactive(element: HTMLElement) {
 	element.classList.add('inactive');
 	element.classList.remove('active');
+	element.classList.remove('cooldown');
 	element.dataset.time = '';
+	element.dataset.cooldown = '';
 }
 
 async function setActive(element: HTMLElement) {
+	element.classList.remove('cooldown');
 	element.classList.remove('inactive');
 	element.classList.add('active');
 }

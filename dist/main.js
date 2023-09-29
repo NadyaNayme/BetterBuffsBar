@@ -17614,7 +17614,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                 case 8:
                     // This can be desynced from in-game 10s but it's accurate enough
                     _f.sent();
-                    return [4 /*yield*/, removeActive(element)];
+                    return [4 /*yield*/, setInactive(element)];
                 case 9:
                     _f.sent();
                     if (getSetting('showTooltipReminders')) {
@@ -17628,7 +17628,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     }
                     element.dataset.time = timearg.time.toString();
                     if (!(timearg.time - 1 == 0 && !showCooldown)) return [3 /*break*/, 12];
-                    return [4 /*yield*/, removeActive(element)];
+                    return [4 /*yield*/, setInactive(element)];
                 case 11:
                     _f.sent();
                     _f.label = 12;
@@ -17637,7 +17637,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (getSetting('debugMode')) {
                         console.log("".concat(element.id, " is no longer active - setting inactive."));
                     }
-                    return [4 /*yield*/, removeActive(element)];
+                    return [4 /*yield*/, setInactive(element)];
                 case 14:
                     _f.sent();
                     _f.label = 15;
@@ -17647,7 +17647,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (getSetting('debugMode')) {
                         console.log("".concat(element.id, " is no longer active - setting inactive."));
                     }
-                    return [4 /*yield*/, removeActive(element)];
+                    return [4 /*yield*/, setInactive(element)];
                 case 17:
                     _f.sent();
                     _f.label = 18;
@@ -17661,7 +17661,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                 case 20:
                     _f.sent();
                     _f.label = 21;
-                case 21: return [4 /*yield*/, removeActive(element)];
+                case 21: return [4 /*yield*/, setInactive(element)];
                 case 22:
                     _f.sent();
                     _f.label = 23;
@@ -17680,7 +17680,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
 var runOnlyOnce;
 function startCooldownTimer(element, cooldownTimer) {
     return __awaiter(this, void 0, void 0, function () {
-        var timer;
+        var timer_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: 
@@ -17695,51 +17695,62 @@ function startCooldownTimer(element, cooldownTimer) {
                     * After its cooldown has finished set it back to 'inactive' state (actually 'readyToBeUsed')
                     */
                     _a.sent();
-                    element.dataset.time = '';
-                    element.classList.remove('inactive');
-                    element.classList.add('cooldown');
-                    if (!(element.dataset.cooldown != '' && !runOnlyOnce)) return [3 /*break*/, 4];
+                    return [4 /*yield*/, setCooldown(element, cooldownTimer)];
+                case 2:
+                    _a.sent();
+                    if (!(element.dataset.cooldown != '' && !runOnlyOnce)) return [3 /*break*/, 6];
                     runOnlyOnce = true;
                     element.dataset.cooldown = (cooldownTimer).toString();
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
-                case 2:
-                    _a.sent();
-                    timer = setInterval(function () {
-                        countdown(element, cooldownTimer);
-                    }, 1000);
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 3000); })];
                 case 3:
                     _a.sent();
-                    runOnlyOnce = false;
-                    _a.label = 4;
+                    timer_1 = setInterval(function () {
+                        countdown(element, cooldownTimer, timer_1);
+                    }, 1000);
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 3000); })];
                 case 4:
-                    if (element.dataset.cooldown == '0' || parseInt(element.dataset.cooldown, 10) < 0) {
-                        clearInterval(timer);
-                        element.dataset.cooldown = '';
-                        element.classList.remove('cooldown');
-                        element.classList.add('inactive');
-                    }
-                    return [2 /*return*/, false];
+                    _a.sent();
+                    runOnlyOnce = false;
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, (cooldownTimer * 1000) - 3000); })];
+                case 5:
+                    _a.sent();
+                    clearInterval(timer_1);
+                    _a.label = 6;
+                case 6: return [2 /*return*/, false];
             }
         });
     });
 }
-function countdown(element, cooldownTimer) {
+function countdown(element, cooldownTimer, timer) {
     if (parseInt(element.dataset.cooldown, 10) > 0) {
         element.dataset.cooldown = (parseInt(element.dataset.cooldown, 10) - 1).toString();
     }
     else {
-        element.dataset.cooldown = '';
-        element.classList.remove('cooldown');
-        element.classList.add('inactive');
+        clearInterval(timer);
+        runOnlyOnce = false;
+        setInactive(element);
     }
 }
-function removeActive(element) {
+function setCooldown(element, cooldownTimer) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            element.classList.remove('inactive');
+            element.classList.remove('active');
+            element.classList.add('cooldown');
+            element.dataset.time = '';
+            element.dataset.cooldown = cooldownTimer.toString();
+            return [2 /*return*/];
+        });
+    });
+}
+function setInactive(element) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             element.classList.add('inactive');
             element.classList.remove('active');
+            element.classList.remove('cooldown');
             element.dataset.time = '';
+            element.dataset.cooldown = '';
             return [2 /*return*/];
         });
     });
@@ -17747,6 +17758,7 @@ function removeActive(element) {
 function setActive(element) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
+            element.classList.remove('cooldown');
             element.classList.remove('inactive');
             element.classList.add('active');
             return [2 /*return*/];
