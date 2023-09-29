@@ -57,6 +57,15 @@ let debuffsList = {
 	AdrenalinePotionDebuff: getByID('AdrenalinePotionDebuff'),
 };
 
+let ultimatesList = {
+	Berserk: getByID('BerserkUltimate'),
+	DeathsSwiftness: getByID('DeathsSwiftnessUltimate'),
+	GreaterDeathsSwiftness: getByID('GreaterDeathsSwiftnessUltimate'),
+	Sunshine: getByID('SunshineUltimate'),
+	GreaterSunshine: getByID('GreaterSunshineUltimate'),
+	LivingDeath: getByID('LivingDeathUltimate'),
+};
+
 // loads all images as raw pixel data async, images have to be saved as *.data.png
 // this also takes care of metadata headers in the image that make browser load the image
 // with slightly wrong colors
@@ -91,6 +100,15 @@ var debuffImages = a1lib.webpackImages({
 	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top.data.png'),
 	deathEssenceDebuff: require('./asset/data/Omni_Guard_Special-top.data.png'),
 	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top.data.png'),
+});
+
+var ultimateImages = a1lib.webpackImages({
+	berserk: require('./asset/data/Berserk.data.png'),
+	deathsSwiftness: require("./asset/data/Death's_Swiftness.data.png"),
+	greaterDeathsSwiftness: require("./asset/data/Greater_Death's_Swiftness.data.png"),
+	sunshine: require('./asset/data/Sunshine.data.png'),
+	greaterSunshine: require('./asset/data/Greater_Sunshine.data.png'),
+	livingDeath: require('./asset/data/Living_Death.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -208,6 +226,13 @@ function watchBuffs() {
 				findBolgStacks(buffs);
 			}
 
+			findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 100, false, 0, Infinity, true, 30);
+			findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 100, false, 0, Infinity, true, 30);
+			findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 100, false, 0, Infinity, true, 23);
+			findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 19, false, 0, Infinity, true, 30);
+			findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, 100, false, 0, Infinity, true, 23);
+			findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 150, false, 0, Infinity, true, 60);
+
 			checkBuffsForHidingOverlay(buffs);
 
 		} else {
@@ -307,6 +332,9 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
+		if (ultimateImages.sunshine == buffImage) {
+			console.log(findBuffImage);
+		}
 		// If we find a match for the buff it will always exceed the threshold
 		// the threshold depends largely on which buff is being matched against
 		if (findBuffImage.passed > threshold) {
@@ -376,6 +404,7 @@ async function findStatus(
 	return timearg;
 };
 
+let runOnlyOnce;
 async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
 		/*
 		* Wait the final 1s then set buff to 'cooldown' state
@@ -385,13 +414,36 @@ async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
 		element.dataset.time = '';
 		element.classList.remove('inactive');
 		element.classList.add('cooldown');
-		await new Promise((done) => setTimeout(done, cooldownTimer * 1000));
-		element.dataset.time = '';
-		element.classList.add('inactive');
-		await new Promise((done) => setTimeout(done, 1000));
-		element.classList.remove('cooldown');
-		// Since cooldown has ended - we are no longer onCooldown
+		var timer;
+		if (element.dataset.cooldown != '' && !runOnlyOnce) {
+			runOnlyOnce = true;
+			element.dataset.cooldown = (cooldownTimer).toString();
+			await new Promise((done) => setTimeout(done, 1000));
+			timer = setInterval(() => {
+				countdown(element, cooldownTimer);
+			}, 1000);
+			await new Promise((done) => setTimeout(done, 3000));
+			runOnlyOnce = false;
+		}
+		if (element.dataset.cooldown == '0' || parseInt(element.dataset.cooldown, 10) < 0) {
+			clearInterval(timer);
+			element.dataset.cooldown = '';
+			element.classList.remove('cooldown');
+			element.classList.add('inactive');
+		}
 		return false;
+}
+
+function countdown(element: HTMLElement, cooldownTimer: number) {
+	if (parseInt(element.dataset.cooldown, 10) > 0) {
+		element.dataset.cooldown = (
+			parseInt(element.dataset.cooldown, 10) - 1
+		).toString();
+	} else {
+		element.dataset.cooldown = '';
+		element.classList.remove('cooldown');
+		element.classList.add('inactive');
+	}
 }
 
 async function removeActive(element: HTMLElement) {
