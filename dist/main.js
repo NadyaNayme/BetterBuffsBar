@@ -17452,7 +17452,7 @@ function watchBuffs() {
             if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
                 findBolgStacks(buffs);
             }
-            findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 100, false, 0, Infinity, true, 30);
+            findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 100, false, 0, Infinity, true, 40);
             findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 100, false, 0, Infinity, true, 30);
             findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 100, false, 0, Infinity, true, 23);
             findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 19, false, 0, Infinity, true, 30);
