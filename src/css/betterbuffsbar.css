@@ -79,6 +79,7 @@ body {
   padding: 0;
   margin: 0 auto;
   list-style: none;
+  flex-wrap: wrap;
 }
 
 #Buffs li,

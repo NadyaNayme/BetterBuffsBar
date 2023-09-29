@@ -531,6 +531,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   padding: 0;
   margin: 0 auto;
   list-style: none;
+  flex-wrap: wrap;
 }
 
 #Buffs li,
