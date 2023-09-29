@@ -287,8 +287,22 @@ async function findStatus(
 	let timearg;
 	let foundBuff = false;
 	let onCooldown = false;
+	let highlander = [];
+
+	if (buffImage == buffImages.gladiatorsRage) {
+		for (let [_key, value] of Object.entries(buffsReader)) {
+			let findBuffImage = value.countMatch(buffImage, false);
+			if (findBuffImage.passed > threshold) {
+				highlander.push(foundBuff);
+			}
+		}
+	}
+
 	for (let [_key, value] of Object.entries(buffsReader)) {
 		if (foundBuff) {
+			return;
+		}
+		if (highlander.length != 2) {
 			return;
 		}
 
@@ -299,9 +313,6 @@ async function findStatus(
 			foundBuff = true;
 			await setActive(element);
 			timearg = value.readArg('timearg');
-			if (buffImage == buffImages.gladiatorsRage) {
-				console.log(value.readArg('time').time);
-			}
 			if (element.dataset.time == '1' && showCooldown && !onCooldown) {
 				if (getSetting('debugMode')) {
 					console.log(`Starting cooldown timer for ${element.id}`)
