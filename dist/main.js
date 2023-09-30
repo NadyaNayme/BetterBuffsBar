@@ -17747,12 +17747,20 @@ function setCooldown(element, cooldownTimer) {
 function setInactive(element) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            element.classList.add('inactive');
-            element.classList.remove('active');
-            element.classList.remove('cooldown');
-            element.dataset.time = '';
-            element.dataset.cooldown = '';
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    element.classList.add('inactive');
+                    element.classList.remove('active');
+                    element.classList.remove('cooldown');
+                    element.dataset.time = '';
+                    element.dataset.cooldown = '';
+                    // Seeing if waiting a brief moment fixes the flickering bug
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 500); })];
+                case 1:
+                    // Seeing if waiting a brief moment fixes the flickering bug
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
     });
 }
@@ -17907,6 +17915,7 @@ function setOverlayPosition() {
                     _a.label = 1;
                 case 1:
                     if (!getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
+                    alt1.setTooltip('Press Alt+1 to set overlay position.');
                     alt1.overLaySetGroup('overlayPositionHelper');
                     alt1.overLayRect(alt1__WEBPACK_IMPORTED_MODULE_7__.mixColor(255, 255, 255), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_7__.getMousePosition().x -
                         ((getSetting('uiScale') / 100) * bbb.offsetWidth) / 2), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_7__.getMousePosition().y -
@@ -17915,7 +17924,9 @@ function setOverlayPosition() {
                 case 2:
                     _a.sent();
                     return [3 /*break*/, 1];
-                case 3: return [2 /*return*/];
+                case 3:
+                    alt1.clearTooltip();
+                    return [2 /*return*/];
             }
         });
     });

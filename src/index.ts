@@ -453,6 +453,8 @@ async function setInactive(element: HTMLElement) {
 	element.classList.remove('cooldown');
 	element.dataset.time = '';
 	element.dataset.cooldown = '';
+	// Seeing if waiting a brief moment fixes the flickering bug
+	await new Promise((done) => setTimeout(done, 500));
 }
 
 async function setActive(element: HTMLElement) {
@@ -588,6 +590,7 @@ async function setOverlayPosition() {
 	a1lib.once('alt1pressed', updateLocation);
 	updateSetting('updatingOverlayPosition', true);
 	while (getSetting('updatingOverlayPosition')) {
+		alt1.setTooltip('Press Alt+1 to set overlay position.')
 		alt1.overLaySetGroup('overlayPositionHelper');
 		alt1.overLayRect(
 			a1lib.mixColor(255, 255, 255),
@@ -606,6 +609,7 @@ async function setOverlayPosition() {
 		);
 			await new Promise((done) => setTimeout(done, 200));
 	}
+	alt1.clearTooltip();
 }
 
 function updateLocation(e) {
