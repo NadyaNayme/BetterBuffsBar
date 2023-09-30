@@ -211,7 +211,7 @@ function watchBuffs() {
 
 			//TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
 			findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
-			findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 44, true);
+			findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 40, true);
 			findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 161, true);
 			findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 120, false, 0, 43260);
 			findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 45);
@@ -332,7 +332,7 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-		if (ultimateImages.sunshine == buffImage) {
+		if (buffImages.elderOverload == buffImage) {
 			console.log(findBuffImage);
 		}
 		// If we find a match for the buff it will always exceed the threshold
@@ -453,8 +453,6 @@ async function setInactive(element: HTMLElement) {
 	element.classList.remove('cooldown');
 	element.dataset.time = '';
 	element.dataset.cooldown = '';
-	// Seeing if waiting a brief moment fixes the flickering bug
-	await new Promise((done) => setTimeout(done, 500));
 }
 
 async function setActive(element: HTMLElement) {

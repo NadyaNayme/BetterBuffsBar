@@ -17440,7 +17440,7 @@ function watchBuffs() {
             maxAttempts = 10;
             //TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
             findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
-            findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 44, true);
+            findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 40, true);
             findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 161, true);
             findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 120, false, 0, 43260);
             findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 45);
@@ -17568,7 +17568,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (ultimateImages.sunshine == buffImage) {
+                    if (buffImages.elderOverload == buffImage) {
                         console.log(findBuffImage);
                     }
                     if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 16];
@@ -17747,20 +17747,12 @@ function setCooldown(element, cooldownTimer) {
 function setInactive(element) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    element.classList.add('inactive');
-                    element.classList.remove('active');
-                    element.classList.remove('cooldown');
-                    element.dataset.time = '';
-                    element.dataset.cooldown = '';
-                    // Seeing if waiting a brief moment fixes the flickering bug
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 500); })];
-                case 1:
-                    // Seeing if waiting a brief moment fixes the flickering bug
-                    _a.sent();
-                    return [2 /*return*/];
-            }
+            element.classList.add('inactive');
+            element.classList.remove('active');
+            element.classList.remove('cooldown');
+            element.dataset.time = '';
+            element.dataset.cooldown = '';
+            return [2 /*return*/];
         });
     });
 }
