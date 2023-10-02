@@ -784,6 +784,32 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   content:  attr(data-cooldown) !important;
 }
 
+.blink-maintainables #Buffs li.inactive.maintainable::before,
+.blink-maintainables #Buffs li.inactive.maintainable::after {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  content:  '!!' !important;
+  color: red;
+  font-size: 20px;
+  top: 50%;
+  left: 50%;
+  right: auto !important;;
+  bottom: auto !important;
+  transform: translate(-50%, -50%);
+  animation: blink-animation 1.8s steps(3, start) infinite;
+  border: solid 1px red;
+}
+
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
 #BetterBuffsBar:not(.fade) #Buffs li.inactive {
   display: none;
 }
@@ -17961,6 +17987,7 @@ function setDefaultSettings() {
         loopSpeed: 150,
         singleBOLG: false,
         showBuffNames: false,
+        showMaintainableBlinking: false,
         showTooltipReminders: true,
         overlayPosition: { x: 100, y: 100 },
         uiScale: 100,
@@ -17972,6 +17999,7 @@ function loadSettings() {
     setBigHeadMode();
     setSingleBolg();
     setBuffNames();
+    showMaintainableBlinking();
     showTooltipReminders();
     setSortables();
     setFadeInactiveBuffs();
@@ -18079,6 +18107,14 @@ function setBuffNames() {
     helperItems.BetterBuffsBar.classList.toggle('show-labels', Boolean(getSetting('showBuffNames')));
     showBuffNames.addEventListener('change', function () {
         helperItems.BetterBuffsBar.classList.toggle('show-labels', Boolean(getSetting('showBuffNames')));
+    });
+}
+function showMaintainableBlinking() {
+    var showMaintainableBlinking = (document.querySelectorAll('.show-maintainable-blinking')[0]);
+    setCheckboxChecked(showMaintainableBlinking);
+    helperItems.BetterBuffsBar.classList.toggle('blink-maintainables', Boolean(getSetting('showMaintainableBlinking')));
+    showMaintainableBlinking.addEventListener('change', function () {
+        helperItems.BetterBuffsBar.classList.toggle('blink-maintainables', Boolean(getSetting('showMaintainableBlinking')));
     });
 }
 function showTooltipReminders() {

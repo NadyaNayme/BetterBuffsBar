@@ -681,6 +681,7 @@ function setDefaultSettings() {
 			loopSpeed: 150,
 			singleBOLG: false,
 			showBuffNames: false,
+			showMaintainableBlinking: false,
 			showTooltipReminders: true,
 			overlayPosition: { x: 100, y: 100 },
 			uiScale: 100,
@@ -694,6 +695,7 @@ function loadSettings() {
 	setBigHeadMode();
 	setSingleBolg();
 	setBuffNames();
+	showMaintainableBlinking();
 	showTooltipReminders();
 	setSortables();
 	setFadeInactiveBuffs();
@@ -855,6 +857,23 @@ function setBuffNames() {
 		helperItems.BetterBuffsBar.classList.toggle(
 			'show-labels',
 			Boolean(getSetting('showBuffNames'))
+		);
+	});
+}
+
+function showMaintainableBlinking() {
+	let showMaintainableBlinking = <HTMLInputElement>(
+		document.querySelectorAll('.show-maintainable-blinking')[0]
+	);
+	setCheckboxChecked(showMaintainableBlinking);
+	helperItems.BetterBuffsBar.classList.toggle(
+		'blink-maintainables',
+		Boolean(getSetting('showMaintainableBlinking'))
+	);
+	showMaintainableBlinking.addEventListener('change', function () {
+		helperItems.BetterBuffsBar.classList.toggle(
+			'blink-maintainables',
+			Boolean(getSetting('showMaintainableBlinking'))
 		);
 	});
 }

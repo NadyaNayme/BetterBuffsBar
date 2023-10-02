@@ -14,11 +14,11 @@
 			<h2>Tracked Buffs</h2>
 			<p>You can click to select multiple buffs at once. You can Drag & Drop buffs around to sort them or move them to the Untracked Buffs area.</p>
 			<ul id="Buffs">
-				<li id="OverloadBuff" data-id="8" data-time="" class="inactive"><span class="buff-name">Overload</span></li>
-				<li id="ElderOverloadBuff" data-id="1" data-time="" class="inactive"><span class="buff-name">Elder Overload</span></li>
-				<li id="WeaponPoisonBuff" data-id="2" data-time="" class="inactive"><span class="buff-name">Weapon Poison</span></li>
-				<li id="DarknessBuff" data-id="3" data-time="" class="inactive"><span class="buff-name">Darkness</span></li>
-				<li id="AnimateDeadBuff" data-id="4" data-time="" class="inactive"><span class="buff-name">Animate Dead</span></li>
+				<li id="OverloadBuff" data-id="8" data-time="" class="inactive maintainable"><span class="buff-name">Overload</span></li>
+				<li id="ElderOverloadBuff" data-id="1" data-time="" class="inactive maintainable"><span class="buff-name">Elder Overload</span></li>
+				<li id="WeaponPoisonBuff" data-id="2" data-time="" class="inactive maintainable"><span class="buff-name">Weapon Poison</span></li>
+				<li id="DarknessBuff" data-id="3" data-time="" class="inactive maintainable"><span class="buff-name">Darkness</span></li>
+				<li id="AnimateDeadBuff" data-id="4" data-time="" class="inactive maintainable"><span class="buff-name">Animate Dead</span></li>
 				<li id="BolgStacksBuff" data-id="5" data-stacks="" class="inactive"><span class="buff-name">Perfect Equilibrium (BOLG Stacks)</span></li>
 				<li id="TimeRiftBuff" data-id="6" data-time="" class="inactive"><span class="buff-name">Time Rift (Jas Book Proc)</span></li>
 				<li id="FsoaSpecBuff" data-id="7" data-time="" class="inactive"><span class="buff-name">Instability (FSOA Weapon Special)</span></li>
@@ -51,6 +51,7 @@
 				<div class="flex setting"><input class="fade-inactive" type="checkbox" id="FadeInactiveBuffs" data-setting="fadeInactiveBuffs"> Fade Inactive Buffs - If toggled off buffs will disappear instead of appearing grayed out.</div>
 				<div class="flex setting"><input class="big-head-mode" type="checkbox" id="SetBigHeadMode" data-setting="bigHeadMode"> Big Head Mode - The first buff will be made four times as large and take up two rows of buffs<select class="big-head-position" id="BigHeadPosition" data-setting="bigHeadPosition"><option value="start">Left Side</option><option value="end">Right Side</option></select></div>
 				<div class="flex setting"><input class="show-tooltip-reminders" type="checkbox" id="ShowTooltipReminders" data-setting="showTooltipReminders">Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire </div>
+				<div class="flex setting"><input class="show-maintainable-blinking" type="checkbox" id="ShowMaintainableBlinking" data-setting="showMaintainableBlinking">Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)</div>
 				<div class="flex setting"><input class="single-bolg" type="checkbox" id="SingleBolg" data-setting="singleBOLG">Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks</div>
 				<div class="flex setting"><input class="show-labels" type="checkbox" id="ShowBuffNames" data-setting="showBuffNames"> Show Names - Only use this if you don't recognize the icons</div>
 				<hr>
