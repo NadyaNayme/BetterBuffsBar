@@ -333,7 +333,7 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-		if (buffImage == buffImages.fsoaWeaponSpec) {
+		if (buffImage == debuffImages.crystalRainMinimal) {
 			console.log(findBuffImage);
 		}
 

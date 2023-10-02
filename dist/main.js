@@ -17549,7 +17549,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (buffImage == buffImages.fsoaWeaponSpec) {
+                    if (buffImage == debuffImages.crystalRainMinimal) {
                         console.log(findBuffImage);
                     }
                     if (!(findBuffImage.passed > threshold && findBuffImage.failed < 30 || findBuffImage.failed == 0)) return [3 /*break*/, 16];
