@@ -72,43 +72,43 @@ let ultimatesList = {
 // this function is async, so you cant acccess the images instantly but generally takes <20ms
 // use `await imgs.promise` if you want to use the images as soon as they are loaded
 var buffImages = a1lib.webpackImages({
-	animateDead: require('./asset/data/Animate_Dead-top.data.png'),
-	antifireActive: require('./asset/data/Anti-Fire_Active.data.png'),
-	antipoisonActive: require('./asset/data/Anti-poison_Active.data.png'),
-	chronicleAttraction: require('./asset/data/Chronicle_Attraction.data.png'),
-	darkness: require('./asset/data/Darkness_top.data.png'),
-	elderOverload: require('./asset/data/Elder_Overload.data.png'),
-	fsoaWeaponSpec: require('./asset/data/fsoaSpecBuff.data.png'),
-	overloaded: require('./asset/data/Overloaded.data.png'),
+	animateDead: require('./asset/data/Animate_Dead-noborder.data.png'),
+	antifireActive: require('./asset/data/Anti-Fire_Active-noborder.data.png'),
+	antipoisonActive: require('./asset/data/Anti-poison_Active-noborder.data.png'),
+	chronicleAttraction: require('./asset/data/Chronicle_Attraction-noborder.data.png'),
+	darkness: require('./asset/data/Darkness-noborder.data.png'),
+	elderOverload: require('./asset/data/Elder_Overload-noborder.data.png'),
+	fsoaWeaponSpec: require('./asset/data/fsoaSpecBuff-noborder.data.png'),
+	overloaded: require('./asset/data/Overloaded-noborder.data.png'),
 	overloadedNoBorder: require('./asset/data/Overloaded-noborder.data.png'),
-	perfectEquilibrium: require('./asset/data/Perfect_Equilibrium.data.png'),
+	perfectEquilibrium: require('./asset/data/Perfect_Equilibrium-noborder.data.png'),
 	perfectEquilibriumNoBorder: require('./asset/data/Perfect_Equilibrium-noborder.data.png'),
-	poisonous: require('./asset/data/Poisonous-top.data.png'),
-	prayerRenewActive: require('./asset/data/Prayer_Renew_Active.data.png'),
-	superAntifireActive: require('./asset/data/Super_Anti-Fire_Active.data.png'),
-	supremeOverloadActive: require('./asset/data/Supreme_Overload_Potion_Active.data.png'),
-	timeRift: require('./asset/data/Time_Rift.data.png'),
-	gladiatorsRage: require('./asset/data/Gladiators_Rage.data.png'),
-	necrosis: require('./asset/data/Necrosis.data.png'),
-	limitless: require('./asset/data/Limitless.data.png'),
+	poisonous: require('./asset/data/Poisonous-top-noborder.data.png'),
+	prayerRenewActive: require('./asset/data/Prayer_Renew_Active-noborder.data.png'),
+	superAntifireActive: require('./asset/data/Super_Anti-Fire_Active-noborder.data.png'),
+	supremeOverloadActive: require('./asset/data/Supreme_Overload_Potion_Active-noborder.data.png'),
+	timeRift: require('./asset/data/Time_Rift-noborder.data.png'),
+	gladiatorsRage: require('./asset/data/Gladiators_Rage-noborder.data.png'),
+	necrosis: require('./asset/data/Necrosis-noborder.data.png'),
+	limitless: require('./asset/data/Limitless-noborder.data.png'),
 });
 
 var debuffImages = a1lib.webpackImages({
-	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard.data.png'),
-	adrenalinePotion: require('./asset/data/Adrenaline_Potion.data.png'),
-	crystalRainMinimal: require('./asset/data/Crystal_Rain-minimal.data.png'),
-	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top.data.png'),
-	deathEssenceDebuff: require('./asset/data/Omni_Guard_Special-top.data.png'),
-	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top.data.png'),
+	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png'),
+	adrenalinePotion: require('./asset/data/Adrenaline_Potion-noborder.data.png'),
+	crystalRainMinimal: require('./asset/data/Crystal_Rain-minimal-noborder.data.png'),
+	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top-noborder.data.png'),
+	deathEssenceDebuff: require('./asset/data/Omni_Guard_Special-top-noborder.data.png'),
+	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top-noborder.data.png'),
 });
 
 var ultimateImages = a1lib.webpackImages({
-	berserk: require('./asset/data/Berserk.data.png'),
-	deathsSwiftness: require("./asset/data/Death's_Swiftness.data.png"),
-	greaterDeathsSwiftness: require("./asset/data/Greater_Death's_Swiftness.data.png"),
-	sunshine: require('./asset/data/Sunshine.data.png'),
-	greaterSunshine: require('./asset/data/Greater_Sunshine.data.png'),
-	livingDeath: require('./asset/data/Living_Death.data.png'),
+	berserk: require('./asset/data/Berserk-noborder.data.png'),
+	deathsSwiftness: require("./asset/data/Death's_Swiftness-noborder.data.png"),
+	greaterDeathsSwiftness: require("./asset/data/Greater_Death's_Swiftness-noborder.data.png"),
+	sunshine: require('./asset/data/Sunshine-noborder.data.png'),
+	greaterSunshine: require('./asset/data/Greater_Sunshine-noborder.data.png'),
+	livingDeath: require('./asset/data/Living_Death-noborder.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -211,12 +211,12 @@ function watchBuffs() {
 
 			//TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
 			findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
-			findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 40, true);
-			findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 161, true);
-			findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 120, false, 0, 43260);
-			findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 45);
-			findStatus(buffs, buffImages.fsoaWeaponSpec, buffsList.FsoaSpecBuff, 12, false, 0, 31);
-			findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 50);
+			findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 100, true);
+			findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 300, true);
+			findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 400, false, 0, 43260);
+			findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 90);
+			findStatus(buffs, buffImages.fsoaWeaponSpec, buffsList.FsoaSpecBuff, 80, false, 0, 31);
+			findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 450);
 			findStatus(buffs, buffImages.gladiatorsRage, buffsList.GladiatorsRageBuff, 50, false, 0, 16);
 			findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, 150);
 			findStatus(buffs, buffImages.limitless, buffsList.LimitlessBuff, 250, false, 0, Infinity, true, 83);
@@ -227,11 +227,11 @@ function watchBuffs() {
 			}
 
 			findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 100, false, 0, Infinity, true, 40);
-			findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 100, false, 0, Infinity, true, 30);
+			findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 110, false, 0, Infinity, true, 30);
 			findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 100, false, 0, Infinity, true, 23);
-			findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 150, false, 0, Infinity, true, 30);
+			findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 500, false, 0, Infinity, true, 30);
 			findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, 100, false, 0, Infinity, true, 23);
-			findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 150, false, 0, Infinity, true, 60);
+			findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 400, false, 0, Infinity, true, 60);
 
 			checkBuffsForHidingOverlay(buffs);
 
@@ -240,11 +240,12 @@ function watchBuffs() {
 		}
 		if (getSetting('debuffsLocation')) {
 			maxAttempts = 10;
-			findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 50);
-			findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 50);
-			findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 30);
-			findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 14);
-			//findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 6); // Suffers from EE problem
+			findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 90);
+			findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 300);
+			findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 90);
+			findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 60);
+			findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
+			findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 30);
 		} else {
 			noDetection(maxAttempts, interval, "debuff");
 		}
@@ -332,12 +333,13 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-		if (buffImages.elderOverload == buffImage) {
+		if (buffImage == buffImages.fsoaWeaponSpec) {
 			console.log(findBuffImage);
 		}
+
 		// If we find a match for the buff it will always exceed the threshold
 		// the threshold depends largely on which buff is being matched against
-		if (findBuffImage.passed > threshold) {
+		if (findBuffImage.passed > threshold && findBuffImage.failed < 30 || findBuffImage.failed == 0) {
 			foundBuff = true;
 			await setActive(element);
 			timearg = value.readArg('timearg');
