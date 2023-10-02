@@ -24,6 +24,7 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 - Choose between fading the buff out when inactive or hiding it from the better buff bar.
 - "Big Head Mode" to make the first buff x4 larger
 - 3s~ tooltip when Overloads expire
+- Blink "!!" over maintainable buffs that have expired (eg. Overloads, Weapon Poison, Darkness, Animate Dead)
 
 ### Tracked Buffs
 
@@ -37,10 +38,16 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 - FSOA Spec
 - Death Guard Spec cooldown
 - Omni Guard Spec cooldown
+- Seren Godbow spec cooldown
+- Enhanced Excalibur cooldown
 - Ancient Elven Ritual Shard cooldown
 - Adrenaline Potion cooldown
 - Necrosis stacks
 - Limitless*
+- Berserk cooldown
+- (Greater) Sunshine cooldown
+- (Greater) Death's Swiftness cooldown
+- Living Dead cooldown
 
 \* An attempt is made to track Limitless 84s~ cooldown. It can drift and become inaccurate when the server drops ticks/lags. Outside of DXPW on very laggy worlds it typically shouldn't be off by more than a second or two.
 
@@ -48,12 +55,5 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 
 - Overloads with <10s remaining can't be tracked due to the buff fading in and out. Ask a Jmod to please stop expiring buffs from doing that. Alt 1 can't track them properly. :)
 - BOLG stacks split into Time + Stack buffs will occasionally report Time as Stacks until a Stack is gained if you use the Weapon Special while already under the effects of the Weapon Special. It fixes itself when you gain at least one stack again.
-- For buffs that are normally transparent (eg. Elder Overloads) tracking may briefly fail in some situations when the timer causes the buff to not be able to be read. This is only an issue on some backgrounds and generally not for more than 1 second.
-
-## Can't Add
-
-- EE tracking. Sorry the debuff isn't able to be reliably detected. The icon the wiki doesn't work for detection.
-- Crystal Rain (SGB Spec) tracking. Same as EE - isn't reliable enough to avoid false positives for detection.
-- Supreme Overloads. Same issue - sorry. Ask Jmods to not let buffs/debuffs be transparent as that's the issue. :(
 
 If you encounter any other bugs - please submit an issue and I'll investigate it.
