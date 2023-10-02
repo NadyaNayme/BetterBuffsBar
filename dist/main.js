@@ -820,6 +820,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   padding: 4px;
 }
 
+#BetterBuffsBar.show-labels #Buffs {
+  max-height: 100% !important;
+  transform: scale(1) !important;
+}
+
 #BetterBuffsBar:not(.show-labels) #Buffs .buff-name,
 #BetterBuffsBar:not(.show-labels) #UntrackedBuffs .buff-name {
   display: none;
