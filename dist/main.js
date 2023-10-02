@@ -17451,7 +17451,7 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 90);
             findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 60);
             findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
-            findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 30);
+            findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 60);
         }
         else {
             noDetection(maxAttempts, interval, "debuff");
@@ -17549,9 +17549,6 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (buffImage == debuffImages.crystalRainMinimal) {
-                        console.log(findBuffImage);
-                    }
                     if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 16];
                     foundBuff = true;
                     return [4 /*yield*/, setActive(element)];
