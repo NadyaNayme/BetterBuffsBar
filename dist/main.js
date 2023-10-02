@@ -17552,7 +17552,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (buffImage == debuffImages.crystalRainMinimal) {
                         console.log(findBuffImage);
                     }
-                    if (!(findBuffImage.passed > threshold && findBuffImage.failed < 30 || findBuffImage.failed == 0)) return [3 /*break*/, 16];
+                    if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 16];
                     foundBuff = true;
                     return [4 /*yield*/, setActive(element)];
                 case 2:

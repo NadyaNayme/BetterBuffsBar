@@ -339,7 +339,7 @@ async function findStatus(
 
 		// If we find a match for the buff it will always exceed the threshold
 		// the threshold depends largely on which buff is being matched against
-		if (findBuffImage.passed > threshold && findBuffImage.failed < 30 || findBuffImage.failed == 0) {
+		if (findBuffImage.passed > threshold || findBuffImage.failed == 0) {
 			foundBuff = true;
 			await setActive(element);
 			timearg = value.readArg('timearg');
