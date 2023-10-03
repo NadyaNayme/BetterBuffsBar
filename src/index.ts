@@ -49,6 +49,9 @@ let buffsList = {
 	BonfireBoost: getByID('BonfireBoost'),
 	ErethdorsGrimoire: getByID('ErethdorsGrimoire'),
 	LantadymeIncense: getByID('LantadymeIncense'),
+	DwarfWeedIncense: getByID('DwarfWeedIncense'),
+	FellstalkIncense: getByID('FellstalkIncense'),
+	KwuarmIncense: getByID('KwuarmIncense'),
 };
 
 let debuffsList = {
@@ -108,8 +111,14 @@ var buffImages = a1lib.webpackImages({
 	timeRift: require('./asset/data/Time_Rift-noborder.data.png'),
 	aura: require('./asset/data/Aura-noborder.data.png'),
 	bonfireBoost: require('./asset/data/Bonfire_Boost-noborder.data.png'),
-	grimoire: require('./asset/data/Erethdor\'s_grimoire-noborder.data.png'),
+	grimoire: require("./asset/data/Erethdor's_grimoire-noborder.data.png"),
+});
+
+var incenseImages = a1lib.webpackImages({
 	lantadyme: require('./asset/data/Lantadyme.data.png'),
+	dwarfWeed: require('./asset/data/Dwarf_Weed.data.png'),
+	fellstalk: require('./asset/data/Fellstalk.data.png'),
+	kwuarm: require('./asset/data/Kwuarm.data.png'),
 });
 
 var debuffImages = a1lib.webpackImages({
@@ -270,7 +279,11 @@ function watchBuffs() {
 			findStatus(buffs, buffImages.aura, buffsList.Aura, 500);
 			findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, 400);
 			findStatus(buffs, buffImages.grimoire, buffsList.ErethdorsGrimoire, 55);
-			findStatus(buffs, buffImages.lantadyme, buffsList.LantadymeIncense, 100);
+
+			findStatus(buffs, incenseImages.lantadyme, buffsList.LantadymeIncense, 119);
+			findStatus(buffs, incenseImages.dwarfWeed, buffsList.DwarfWeedIncense, 150);
+			findStatus(buffs, incenseImages.fellstalk, buffsList.FellstalkIncense, 150);
+			findStatus(buffs, incenseImages.kwuarm, buffsList.KwuarmIncense, 150);
 
 			findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, 250, false, 0, Infinity, true, 83);
 			findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, 400, false, 0, Infinity, true, 50);
@@ -397,7 +410,7 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-		if (getSetting('debugLevel') == 1 && buffImage == buffImages.lantadyme) {
+		if (getSetting('debugLevel') == 1 && buffImage == incenseImages.kwuarm) {
 			console.log(findBuffImage)
 		}
 			if (findBuffImage.passed > threshold || findBuffImage.failed == 0) {
@@ -406,7 +419,7 @@ async function findStatus(
 				foundBuff = true;
 				await setActive(element);
 				timearg = value.readArg('timearg');
-				if (getSetting('debugLevel') == 1 && buffImage == buffImages.lantadyme) {
+				if (getSetting('debugLevel') == 1 && buffImage == incenseImages.lantadyme) {
 					console.log(timearg.time)
 					console.log(timearg);
 				}
