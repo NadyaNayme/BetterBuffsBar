@@ -387,11 +387,13 @@ async function findStatus(
 		if (foundBuff) {
 			return;
 		}
-		if (highlander.length != 2 && buffImage == buffImages.gladiatorsRage) {
-			return;
-		}
+
 		if (highlander.length == 1) {
 			setInactive(buffsList.GladiatorsRageBuff);
+		}
+
+		if (highlander.length != 2 && buffImage == buffImages.gladiatorsRage) {
+			return;
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);

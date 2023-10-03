@@ -18546,11 +18546,11 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (foundBuff) {
                         return [2 /*return*/];
                     }
-                    if (highlander.length != 2 && buffImage == buffImages.gladiatorsRage) {
-                        return [2 /*return*/];
-                    }
                     if (highlander.length == 1) {
                         setInactive(buffsList.GladiatorsRageBuff);
+                    }
+                    if (highlander.length != 2 && buffImage == buffImages.gladiatorsRage) {
+                        return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
                     if (getSetting('debugLevel') == 1 && buffImage == buffImages.lantadyme) {
