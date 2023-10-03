@@ -871,6 +871,17 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   position: relative;
 }
 
+#Buffs::before {
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  content:'';
+  display: block;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  border: solid 1px green;
+}
+
 #BetterBuffsBar.hide-overlay #Buffs {
   display: none;
 }
@@ -19253,7 +19264,7 @@ function setDefaultSettings() {
         bigHeadMode: false,
         bigHeadPosition: 'start',
         buffsLocation: findPlayerBuffs,
-        buffsPerRow: 5,
+        buffsPerRow: 10,
         debuffsLocation: findPlayerDebuffs,
         fadeInactiveBuffs: true,
         loopSpeed: 150,

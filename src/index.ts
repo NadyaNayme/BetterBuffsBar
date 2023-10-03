@@ -884,7 +884,7 @@ function setDefaultSettings() {
 			bigHeadMode: false,
 			bigHeadPosition: 'start',
 			buffsLocation: findPlayerBuffs,
-			buffsPerRow: 5,
+			buffsPerRow: 10,
 			debuffsLocation: findPlayerDebuffs,
 			fadeInactiveBuffs: true,
 			loopSpeed: 150,

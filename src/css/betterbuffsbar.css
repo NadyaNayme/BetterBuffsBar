@@ -69,6 +69,17 @@ body {
   position: relative;
 }
 
+#Buffs::before {
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  content:'';
+  display: block;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  border: solid 1px green;
+}
+
 #BetterBuffsBar.hide-overlay #Buffs {
   display: none;
 }
