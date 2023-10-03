@@ -853,7 +853,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 #Buffs {
   --maxcount: 5;
   --scale: 100;
-  --totalitems: 33;
+  --totalitems: 37;
   width: 100%;
   max-width: calc((var(--maxcount) * 72px) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
   min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * (27px * (var(--scale) / 100))) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
