@@ -18674,18 +18674,15 @@ function findPrayer(buffsList, debuffsList) {
                 !debuffsList) {
                 return [2 /*return*/];
             }
-            prayersActive = false;
+            prayersActive = 0;
             for (_i = 0, _a = Object.entries(debuffsList); _i < _a.length; _i++) {
                 _b = _a[_i], _key = _b[0], value = _b[1];
                 prayerDraining = value.countMatch(prayerImages.prayerActive, false);
                 if (prayerDraining.failed == 0 || prayerDraining.passed > 44) {
-                    prayersActive = true;
-                }
-                else {
-                    prayersActive = false;
+                    prayersActive++;
                 }
             }
-            if (prayersActive) {
+            if (prayersActive > 0) {
                 for (_c = 0, _d = Object.entries(buffsList); _c < _d.length; _c++) {
                     _e = _d[_c], _key = _e[0], value = _e[1];
                     lastActiveDPS = testDpsPrayers(value);

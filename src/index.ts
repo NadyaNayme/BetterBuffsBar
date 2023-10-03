@@ -530,20 +530,18 @@ async function findPrayer(buffsList: BuffReader.Buff[], debuffsList: BuffReader.
 		return;
 	}
 
-	let prayersActive = false;
+	let prayersActive: number = 0;
 	let lastActiveOverhead;
 	let lastActiveDPS;
 
 	for (let [_key, value] of Object.entries(debuffsList)) {
 		let prayerDraining = value.countMatch(prayerImages.prayerActive, false);
 		if (prayerDraining.failed == 0 || prayerDraining.passed > 44) {
-			prayersActive = true;
-		} else {
-			prayersActive = false;
+			prayersActive++;
 		}
 	}
 
-	if (prayersActive) {
+	if (prayersActive > 0) {
 		for (let [_key, value] of Object.entries(buffsList)) {
 			lastActiveDPS = testDpsPrayers(value);
 			lastActiveOverhead = testOverheadPrayers(value);
