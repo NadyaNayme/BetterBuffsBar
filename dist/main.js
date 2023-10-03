@@ -18541,6 +18541,8 @@ function findPrayer(buffsList, debuffsList) {
             else {
                 prayersList.DpsPrayer.dataset.prayer = "";
                 prayersList.OverheadPrayer.dataset.prayer = '';
+                prayersList.DpsPrayer.classList.add('inactive');
+                prayersList.OverheadPrayer.classList.add('inactive');
             }
             return [2 /*return*/];
         });
@@ -18573,6 +18575,7 @@ function testDpsPrayers(buff) {
                     _b = _a[_i], key = _b[0], value = _b[1];
                     if (value > 300) {
                         prayersList.DpsPrayer.dataset.prayer = key.toString().toLowerCase();
+                        prayersList.DpsPrayer.classList.remove('inactive');
                     }
                 }
             }
@@ -18611,6 +18614,7 @@ function testOverheadPrayers(buff) {
                         prayersList.OverheadPrayer.dataset.prayer = key
                             .toString()
                             .toLowerCase();
+                        prayersList.OverheadPrayer.classList.remove('inactive');
                     }
                 }
             }

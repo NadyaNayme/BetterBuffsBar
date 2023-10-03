@@ -516,6 +516,8 @@ async function findPrayer(buffsList: BuffReader.Buff[], debuffsList: BuffReader.
 	} else {
 		prayersList.DpsPrayer.dataset.prayer = "";
 		prayersList.OverheadPrayer.dataset.prayer = '';
+		prayersList.DpsPrayer.classList.add('inactive');
+		prayersList.OverheadPrayer.classList.add('inactive');
 	}
 }
 
@@ -542,6 +544,7 @@ async function testDpsPrayers(buff: BuffReader.Buff) {
 		for (let [key, value] of Object.entries(prayerTests)) {
 			if (value > 300) {
 				prayersList.DpsPrayer.dataset.prayer = key.toString().toLowerCase();
+				prayersList.DpsPrayer.classList.remove('inactive');
 			}
 		}
 	}
@@ -576,6 +579,7 @@ async function testOverheadPrayers(buff: BuffReader.Buff) {
 				prayersList.OverheadPrayer.dataset.prayer = key
 					.toString()
 					.toLowerCase();
+				prayersList.OverheadPrayer.classList.remove('inactive');
 			}
 		}
 	}
