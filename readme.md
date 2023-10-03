@@ -43,13 +43,19 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 - Ancient Elven Ritual Shard cooldown
 - Adrenaline Potion cooldown
 - Necrosis stacks
-- Limitless*
-- Berserk cooldown
-- (Greater) Sunshine cooldown
-- (Greater) Death's Swiftness cooldown
-- Living Dead cooldown
+- Berserk cooldown *
+- (Greater) Sunshine cooldown *
+- (Greater) Death's Swiftness cooldown *
+- Living Dead cooldown *
+- Limitless *
+- Undead Slayer Ability *
+- Dragon Slayer Ability *
+- Demon Slayer Ability *
+- Ingenuity of the Humans *
+- Overhead Prayers
+- DPS Prayers
 
-\* An attempt is made to track Limitless 84s~ cooldown. It can drift and become inaccurate when the server drops ticks/lags. Outside of DXPW on very laggy worlds it typically shouldn't be off by more than a second or two.
+\* An attempt is made to track cooldowns. It can drift and become inaccurate when the server drops ticks/lags. Outside of DXPW on very laggy worlds it typically shouldn't be off by more than a second or two.
 
 ## Known Issues
 
