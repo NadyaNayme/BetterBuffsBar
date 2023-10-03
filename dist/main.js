@@ -871,7 +871,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   position: relative;
 }
 
-#Buffs::before {
+#Buffs:not(.scaled)::before {
   width: calc(100% + 2px);
   height: calc(100% + 2px);
   content:'';
@@ -19425,6 +19425,9 @@ function setCustomScale() {
     var UIScaleValue = document.querySelector('#UIScaleOutput');
     var UIScaleInput = document.querySelector('#UIScale');
     UIScaleValue.textContent = UIScaleInput.value;
+    if (UIScaleInput.value < 100) {
+        helperItems.TrackedBuffs.classList.add('scaled');
+    }
 }
 function setCheckboxChecked(el) {
     el.checked = Boolean(getSetting(el.dataset.setting));

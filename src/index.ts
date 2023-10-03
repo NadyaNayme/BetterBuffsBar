@@ -1118,6 +1118,10 @@ function setCustomScale() {
 	let UIScaleValue = document.querySelector('#UIScaleOutput');
 	let UIScaleInput: any = document.querySelector('#UIScale');
 	UIScaleValue.textContent = UIScaleInput.value;
+
+	if (UIScaleInput.value < 100) {
+		helperItems.TrackedBuffs.classList.add('scaled');
+	}
 }
 
 function setCheckboxChecked(el: HTMLInputElement) {
