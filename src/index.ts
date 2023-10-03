@@ -45,6 +45,8 @@ let buffsList = {
 	OverloadBuff: getByID('OverloadBuff'),
 	TimeRiftBuff: getByID('TimeRiftBuff'),
 	WeaponPoisonBuff: getByID('WeaponPoisonBuff'),
+	Aura: getByID('Aura'),
+	BonfireBoost: getByID('BonfireBoost'),
 };
 
 let debuffsList = {
@@ -102,6 +104,8 @@ var buffImages = a1lib.webpackImages({
 	superAntifireActive: require('./asset/data/Super_Anti-Fire_Active-noborder.data.png'),
 	supremeOverloadActive: require('./asset/data/Supreme_Overload_Potion_Active-noborder.data.png'),
 	timeRift: require('./asset/data/Time_Rift-noborder.data.png'),
+	aura: require('./asset/data/Aura-noborder.data.png'),
+	bonfireBoost: require('./asset/data/Bonfire_Boost-noborder.data.png'),
 });
 
 var debuffImages = a1lib.webpackImages({
@@ -259,6 +263,8 @@ function watchBuffs() {
 			findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 450);
 			findStatus(buffs, buffImages.gladiatorsRage, buffsList.GladiatorsRageBuff, 50, false, 0, 16);
 			findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, 150);
+			findStatus(buffs, buffImages.aura, buffsList.Aura, 500);
+			findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, 400);
 
 			findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, 250, false, 0, Infinity, true, 83);
 			findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, 400, false, 0, Infinity, true, 50);
@@ -380,62 +386,88 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-
-		// If we find a match for the buff it will always exceed the threshold
-		// the threshold depends largely on which buff is being matched against
-		if (findBuffImage.passed > threshold || findBuffImage.failed == 0) {
-			foundBuff = true;
-			await setActive(element);
-			timearg = value.readArg('timearg');
-			if (element.dataset.time == '1' && showCooldown && !onCooldown) {
-				if (getSetting('debugMode')) {
-					console.log(`Starting cooldown timer for ${element.id}`)
-				}
-				onCooldown = true;
-				await startCooldownTimer(element, cooldownTimer);
-				return
-			} else if (timearg.time > 59 && !onCooldown && timearg.time < maxRange) {
-				if (getSetting('debugMode')) {
-					console.log(`${element.id} has >60s remaining`);
-				}
-				element.dataset.time =
-					Math.floor((value.readArg('timearg').time / 60)).toString() + 'm';
-
-				// Pause the check for a tick since we don't need to rapidly update
-				//a buff that won't have a more precise value for 1 minute
-				await new Promise((done) => setTimeout(done, 600));
-			} else if (expirationPulse && timearg.time == 11 && !onCooldown) {
-				if (getSetting('debugMode')) {
-					console.log(`${element.id} has <10s remaining - starting 10s countdown`);
-				}
-				element.dataset.time = '<10s';
+		if (buffImage == buffImages.bonfireBoost) {
+			console.log(findBuffImage)
+		}
+			if (findBuffImage.passed > threshold || findBuffImage.failed == 0) {
+				// If we find a match for the buff it will always exceed the threshold
+				// the threshold depends largely on which buff is being matched against
+				foundBuff = true;
 				await setActive(element);
-				// This can be desynced from in-game 10s but it's accurate enough
-				await new Promise((done) => setTimeout(done, 10000));
-				await setInactive(element);
-				if (getSetting('showTooltipReminders')) {
-					showTooltip('Overload expired', 3000);
-				}
-			} else if (timearg.time > minRange && timearg.time < maxRange) {
-				if (getSetting('debugMode')) {
-					console.log(`Cooldown for ${element.id} is between ${minRange} and ${maxRange}`);
-				}
-				element.dataset.time = timearg.time.toString();
-				if (timearg.time - 1 == 0 && !showCooldown) {
+				timearg = value.readArg('timearg');
+				if (
+					element.dataset.time == '1' &&
+					showCooldown &&
+					!onCooldown
+				) {
+					if (getSetting('debugMode')) {
+						console.log(
+							`Starting cooldown timer for ${element.id}`
+						);
+					}
+					onCooldown = true;
+					await startCooldownTimer(element, cooldownTimer);
+					return;
+				} else if (
+					timearg.time > 59 &&
+					!onCooldown &&
+					timearg.time < maxRange
+				) {
+					if (getSetting('debugMode')) {
+						console.log(`${element.id} has >60s remaining`);
+					}
+					element.dataset.time =
+						Math.floor(
+							value.readArg('timearg').time / 60
+						).toString() + 'm';
+
+					// Pause the check for a tick since we don't need to rapidly update
+					//a buff that won't have a more precise value for 1 minute
+					await new Promise((done) => setTimeout(done, 600));
+				} else if (
+					expirationPulse &&
+					timearg.time == 11 &&
+					!onCooldown
+				) {
+					if (getSetting('debugMode')) {
+						console.log(
+							`${element.id} has <10s remaining - starting 10s countdown`
+						);
+					}
+					element.dataset.time = '<10s';
+					await setActive(element);
+					// This can be desynced from in-game 10s but it's accurate enough
+					await new Promise((done) => setTimeout(done, 10000));
+					await setInactive(element);
+					if (getSetting('showTooltipReminders')) {
+						showTooltip('Overload expired', 3000);
+					}
+				} else if (timearg.time > minRange && timearg.time < maxRange) {
+					if (getSetting('debugMode')) {
+						console.log(
+							`Cooldown for ${element.id} is between ${minRange} and ${maxRange}`
+						);
+					}
+					element.dataset.time = timearg.time.toString();
+					if (timearg.time - 1 == 0 && !showCooldown) {
+						await setInactive(element);
+					}
+				} else {
+					if (getSetting('debugMode')) {
+						console.log(
+							`${element.id} is no longer active - setting inactive.`
+						);
+					}
 					await setInactive(element);
 				}
-			} else {
+			} else if (!showCooldown) {
 				if (getSetting('debugMode')) {
-					console.log(`${element.id} is no longer active - setting inactive.`);
+					console.log(
+						`${element.id} is no longer active - setting inactive.`
+					);
 				}
 				await setInactive(element);
 			}
-		} else if (!showCooldown) {
-			if (getSetting('debugMode')) {
-				console.log(`${element.id} is no longer active - setting inactive.`);
-			}
-			await setInactive(element);
-		}
 	}
 	// If we didn't find the buff try again after a brief timeout
 	if (timearg == undefined && foundBuff) {
