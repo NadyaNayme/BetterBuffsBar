@@ -952,13 +952,11 @@ function setBuffsPerRow() {
 }
 
 function setGridSize() {
-	helperItems.TrackedBuffs.style.gridTemplateAreas = `
-	"${'. '.repeat(getSetting('buffsPerRow'))}"
-	"${'. '.repeat(getSetting('buffsPerRow'))}"
-	"${'. '.repeat(getSetting('buffsPerRow'))}"
-	"${'. '.repeat(getSetting('buffsPerRow'))}"
-	"${'. '.repeat(getSetting('buffsPerRow'))}"
-	`;
+	let buffsCount = helperItems.TrackedBuffs.querySelectorAll('li').length;
+	let maxLength = parseInt(helperItems.TrackedBuffs.style.getPropertyValue('--maxcount'), 10);
+	let rowsToGenerate = parseInt(roundedToFixed(buffsCount / maxLength, 1) + 1, 10);
+	helperItems.TrackedBuffs.style.gridTemplateAreas = `"${'. '.repeat(getSetting('buffsPerRow'))}"`.repeat(rowsToGenerate);
+	helperItems.TrackedBuffs.style.gridTemplateRows = `repeat(${rowsToGenerate+1}, calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))`
 }
 
 function setBigHeadMode() {

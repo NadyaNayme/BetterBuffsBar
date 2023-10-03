@@ -782,6 +782,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
     "first first . . . . . "
     "first first . . . . . "
     ". . . . . . ."
+    ". . . . . . ."
+    ". . . . . . ."
+    ". . . . . . ."
 }
 
 #BetterBuffsBar.big-head-mode #Buffs li:nth-child(1) {
@@ -794,10 +797,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 #Buffs {
   --maxcount: 5;
   --scale: 100;
-  --totalitems: 16;
+  --totalitems: 33;
   width: 100%;
   max-width: calc((var(--maxcount) * 72px) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
-  max-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * 34px) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
+  min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * (27px * (var(--scale) / 100))) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
   display: grid;
   justify-content: flex-start;
   align-items: flex-start;
@@ -19106,7 +19109,11 @@ function setBuffsPerRow() {
     });
 }
 function setGridSize() {
-    helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\"".concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t\"").concat('. '.repeat(getSetting('buffsPerRow')), "\"\n\t");
+    var buffsCount = helperItems.TrackedBuffs.querySelectorAll('li').length;
+    var maxLength = parseInt(helperItems.TrackedBuffs.style.getPropertyValue('--maxcount'), 10);
+    var rowsToGenerate = parseInt(roundedToFixed(buffsCount / maxLength, 1) + 1, 10);
+    helperItems.TrackedBuffs.style.gridTemplateAreas = "\"".concat('. '.repeat(getSetting('buffsPerRow')), "\"").repeat(rowsToGenerate);
+    helperItems.TrackedBuffs.style.gridTemplateRows = "repeat(".concat(rowsToGenerate + 1, ", calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))");
 }
 function setBigHeadMode() {
     var setBigHeadMode = getByID('SetBigHeadMode');
