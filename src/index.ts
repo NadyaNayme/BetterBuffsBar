@@ -34,36 +34,48 @@ let helperItems = {
 }
 
 let buffsList = {
-	OverloadBuff: getByID('OverloadBuff'),
-	ElderOverloadBuff: getByID('ElderOverloadBuff'),
-	WeaponPoisonBuff: getByID('WeaponPoisonBuff'),
-	DarknessBuff: getByID('DarknessBuff'),
 	AnimateDeadBuff: getByID('AnimateDeadBuff'),
-	BolgStacksBuff: getByID('BolgStacksBuff'),
 	BalanceByForceBuff: getByID('BalanceByForceBuff'),
-	TimeRiftBuff: getByID('TimeRiftBuff'),
+	BolgStacksBuff: getByID('BolgStacksBuff'),
+	DarknessBuff: getByID('DarknessBuff'),
+	ElderOverloadBuff: getByID('ElderOverloadBuff'),
 	FsoaSpecBuff: getByID('FsoaSpecBuff'),
 	GladiatorsRageBuff: getByID('GladiatorsRageBuff'),
 	NecrosisBuff: getByID('NecrosisBuff'),
-	LimitlessBuff: getByID('LimitlessBuff'),
+	OverloadBuff: getByID('OverloadBuff'),
+	TimeRiftBuff: getByID('TimeRiftBuff'),
+	WeaponPoisonBuff: getByID('WeaponPoisonBuff'),
 };
 
 let debuffsList = {
-	DeathGuardDebuff: getByID('DeathGuardDebuff'),
-	OmniGuardDebuff: getByID('OmniGuardDebuff'),
-	CrystalRainDebuff: getByID('CrystalRainDebuff'),
-	AncientElvenRitualShardDebuff: getByID('AncientElvenRitualShardDebuff'),
-	EnhancedExcaliburDebuff: getByID('EnhancedExcaliburDebuff'),
 	AdrenalinePotionDebuff: getByID('AdrenalinePotionDebuff'),
+	AncientElvenRitualShardDebuff: getByID('AncientElvenRitualShardDebuff'),
+	CrystalRainDebuff: getByID('CrystalRainDebuff'),
+	DeathGuardDebuff: getByID('DeathGuardDebuff'),
+	EnhancedExcaliburDebuff: getByID('EnhancedExcaliburDebuff'),
+	OmniGuardDebuff: getByID('OmniGuardDebuff'),
+};
+
+let sigilsList = {
+	DemonSlayer: getByID('DemonSlayerSigil'),
+	DragonSlayer: getByID('DragonSlayerSigil'),
+	IngenuityOfTheHumans: getByID('IngenuityOfTheHumansSigil'),
+	LimitlessSigil: getByID('LimitlessSigil'),
+	UndeadSlayer: getByID('UndeadSlayerSigil'),
+};
+
+let prayersList = {
+	DpsPrayer: getByID('DpsPrayer'),
+	OverheadPrayer: getByID('OverheadPrayer'),
 };
 
 let ultimatesList = {
 	Berserk: getByID('BerserkUltimate'),
 	DeathsSwiftness: getByID('DeathsSwiftnessUltimate'),
 	GreaterDeathsSwiftness: getByID('GreaterDeathsSwiftnessUltimate'),
-	Sunshine: getByID('SunshineUltimate'),
 	GreaterSunshine: getByID('GreaterSunshineUltimate'),
 	LivingDeath: getByID('LivingDeathUltimate'),
+	Sunshine: getByID('SunshineUltimate'),
 };
 
 // loads all images as raw pixel data async, images have to be saved as *.data.png
@@ -79,6 +91,8 @@ var buffImages = a1lib.webpackImages({
 	darkness: require('./asset/data/Darkness-noborder.data.png'),
 	elderOverload: require('./asset/data/Elder_Overload-noborder.data.png'),
 	fsoaWeaponSpec: require('./asset/data/fsoaSpecBuff-noborder.data.png'),
+	gladiatorsRage: require('./asset/data/Gladiators_Rage-noborder.data.png'),
+	necrosis: require('./asset/data/Necrosis-noborder.data.png'),
 	overloaded: require('./asset/data/Overloaded-noborder.data.png'),
 	overloadedNoBorder: require('./asset/data/Overloaded-noborder.data.png'),
 	perfectEquilibrium: require('./asset/data/Perfect_Equilibrium-noborder.data.png'),
@@ -88,17 +102,14 @@ var buffImages = a1lib.webpackImages({
 	superAntifireActive: require('./asset/data/Super_Anti-Fire_Active-noborder.data.png'),
 	supremeOverloadActive: require('./asset/data/Supreme_Overload_Potion_Active-noborder.data.png'),
 	timeRift: require('./asset/data/Time_Rift-noborder.data.png'),
-	gladiatorsRage: require('./asset/data/Gladiators_Rage-noborder.data.png'),
-	necrosis: require('./asset/data/Necrosis-noborder.data.png'),
-	limitless: require('./asset/data/Limitless-noborder.data.png'),
 });
 
 var debuffImages = a1lib.webpackImages({
-	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png'),
 	adrenalinePotion: require('./asset/data/Adrenaline_Potion-noborder.data.png'),
 	crystalRainMinimal: require('./asset/data/Crystal_Rain-minimal-noborder.data.png'),
-	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top-noborder.data.png'),
 	deathEssenceDebuff: require('./asset/data/Omni_Guard_Special-top-noborder.data.png'),
+	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top-noborder.data.png'),
+	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png'),
 	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top-noborder.data.png'),
 });
 
@@ -106,9 +117,38 @@ var ultimateImages = a1lib.webpackImages({
 	berserk: require('./asset/data/Berserk-noborder.data.png'),
 	deathsSwiftness: require("./asset/data/Death's_Swiftness-noborder.data.png"),
 	greaterDeathsSwiftness: require("./asset/data/Greater_Death's_Swiftness-noborder.data.png"),
-	sunshine: require('./asset/data/Sunshine-noborder.data.png'),
 	greaterSunshine: require('./asset/data/Greater_Sunshine-noborder.data.png'),
 	livingDeath: require('./asset/data/Living_Death-noborder.data.png'),
+	sunshine: require('./asset/data/Sunshine-noborder.data.png'),
+});
+
+var sigilImages = a1lib.webpackImages({
+	demonSlayer: require('./asset/data/Demon_Slayer-noborder.data.png'),
+	dragonSlayer: require('./asset/data/Dragon_Slayer-noborder.data.png'),
+	ingenuityOfTheHumans: require('./asset/data/Ingenuity_of_the_Humans-noborder.data.png'),
+	limitless: require('./asset/data/Limitless-noborder.data.png'),
+	undeadSlayer: require('./asset/data/Undead_Slayer-noborder.data.png'),
+});
+
+var prayerImages = a1lib.webpackImages({
+	affliction: require('./asset/data/Affliction-noborder.data.png'),
+	anguish: require('./asset/data/Anguish-noborder.data.png'),
+	deflectMagic: require('./asset/data/Deflect_Magic-noborder.data.png'),
+	deflectMelee: require('./asset/data/Deflect_Melee-noborder.data.png'),
+	deflectNecromancy: require('./asset/data/Deflect_Necromancy-noborder.data.png'),
+	deflectRanged: require('./asset/data/Deflect_Ranged-noborder.data.png'),
+	desolation: require('./asset/data/Desolation-noborder.data.png'),
+	malevolence: require('./asset/data/Malevolence-noborder.data.png'),
+	prayerActive: require('./asset/data/Prayer_active-noborder.data.png'),
+	protectFromMagic: require('./asset/data/Protect_from_Magic-noborder.data.png'),
+	protectFromMelee: require('./asset/data/Protect_from_Melee-noborder.data.png'),
+	protectFromNecromancy: require('./asset/data/Protect_from_Necromancy-noborder.data.png'),
+	protectFromRanged: require('./asset/data/Protect_from_Ranged-noborder.data.png'),
+	ruination: require('./asset/data/Ruination-noborder.data.png'),
+	sorrow: require('./asset/data/Sorrow-noborder.data.png'),
+	soulSplit: require('./asset/data/Soul_Split-noborder.data.png'),
+	torment: require('./asset/data/Torment-noborder.data.png'),
+	turmoil: require('./asset/data/Turmoil-noborder.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -219,7 +259,12 @@ function watchBuffs() {
 			findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 450);
 			findStatus(buffs, buffImages.gladiatorsRage, buffsList.GladiatorsRageBuff, 50, false, 0, 16);
 			findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, 150);
-			findStatus(buffs, buffImages.limitless, buffsList.LimitlessBuff, 250, false, 0, Infinity, true, 83);
+
+			findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, 250, false, 0, Infinity, true, 83);
+			findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, 400, false, 0, Infinity, true, 50);
+			findStatus(buffs, sigilImages.dragonSlayer, sigilsList.DragonSlayer, 400, false, 0, Infinity, true, 50);
+			findStatus(buffs, sigilImages.undeadSlayer, sigilsList.UndeadSlayer, 400, false, 0, Infinity, true, 50);
+			findStatus(buffs, sigilImages.ingenuityOfTheHumans, sigilsList.IngenuityOfTheHumans, 400, false, 0, Infinity, true, 83);
 
 			/* BOLG is currently still special */
 			if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
@@ -246,6 +291,8 @@ function watchBuffs() {
 			findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 60);
 			findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
 			findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 60);
+
+			// findPrayer(buffs, debuffs); // Not accurate enough to work - Affliction matches Sorrow better than Sorrow matches Sorrow.
 		} else {
 			noDetection(maxAttempts, interval, "debuff");
 		}
@@ -436,6 +483,83 @@ function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
 		runOnlyOnce = false;
 		setInactive(element);
 	}
+}
+
+async function findPrayer(buffsList: BuffReader.Buff[], debuffsList: BuffReader.Buff[]) {
+	if (
+		!getByID('Buffs').contains(prayersList.OverheadPrayer) ||
+		!getByID('Buffs').contains(prayersList.DpsPrayer) ||
+		!buffsList ||
+		!debuffsList
+	) {
+		return;
+	}
+
+	let prayersActive = false;
+	let prayerDrainRate;
+	let lastActiveOverhead;
+	let lastActiveDPS;
+
+	for (let [_key, value] of Object.entries(debuffsList)) {
+		let prayerDraining = value.countMatch(prayerImages.prayerActive, false);
+		if (prayerDraining.failed == 0 || prayerDraining.passed > 44) {
+			console.log(value.readArg('timearg'));
+			prayersActive = true;
+		} else {
+			prayersActive = false;
+		}
+	}
+
+	if (prayersActive) {
+		for (let [_key, value] of Object.entries(buffsList)) {
+			lastActiveDPS = testDpsPrayers(value);
+			lastActiveOverhead = testOverheadPrayers(value);
+		}
+	}
+}
+
+async function testDpsPrayers(buff: BuffReader.Buff) {
+	if (getByID('Buffs').contains(prayersList.DpsPrayer)) {
+		/* DPS Prayers */
+		let affliction = buff.countMatch(prayerImages.affliction, false);
+		let anguish = buff.countMatch(prayerImages.anguish, false);
+		let desolation = buff.countMatch(prayerImages.desolation, false);
+		let malevolence = buff.countMatch(prayerImages.malevolence, false);
+		let ruination = buff.countMatch(prayerImages.ruination, false);
+		let sorrow = buff.countMatch(prayerImages.sorrow, false);
+		let torment = buff.countMatch(prayerImages.torment, false);
+		let turmoil = buff.countMatch(prayerImages.turmoil, false);
+		let prayerTests = {
+			affliction: affliction.passed,
+			anguish: anguish.passed,
+			desolation: desolation.passed,
+			malevolence: malevolence.passed,
+			ruination: ruination.passed,
+			sorrow: sorrow.passed,
+			torment: torment.passed,
+			turmoil: turmoil.passed,
+		};
+		console.log(prayerTests);
+	}
+}
+
+async function testOverheadPrayers(buff: BuffReader.Buff) {
+	if (getByID('Buffs').contains(prayersList.OverheadPrayer)) {
+		/* Overhead Prayers */
+		let deflectMagic = buff.countMatch(prayerImages.deflectMagic, false);
+		let deflectMelee = buff.countMatch(prayerImages.deflectMelee, false);
+		let deflectNecromancy = buff.countMatch(prayerImages.deflectNecromancy, false);
+		let deflectRanged = buff.countMatch(prayerImages.deflectRanged, false);
+		let protectFromMagic = buff.countMatch(prayerImages.protectFromMagic, false);
+		let protectFromMelee = buff.countMatch(prayerImages.protectFromMelee, false);
+		let protectFromNecromancy = buff.countMatch(prayerImages.protectFromNecromancy, false);
+		let protectFromRanged = buff.countMatch(prayerImages.protectFromRanged, false);
+		let soulSplit = buff.countMatch(prayerImages.soulSplit, false);
+	}
+}
+
+function getMaxValueKey(obj: { [key: string]: number }): string {
+	return Object.keys(obj).reduce((a, b) => (obj[a] > obj[b] ? a : b));
 }
 
 async function setCooldown(element: HTMLElement, cooldownTimer: number) {
