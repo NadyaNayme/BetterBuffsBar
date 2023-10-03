@@ -292,7 +292,7 @@ function watchBuffs() {
 			findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
 			findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 60);
 
-			// findPrayer(buffs, debuffs); // Not accurate enough to work - Affliction matches Sorrow better than Sorrow matches Sorrow.
+			findPrayer(buffs, debuffs); // Not accurate enough to work - Affliction matches Sorrow better than Sorrow matches Sorrow.
 		} else {
 			noDetection(maxAttempts, interval, "debuff");
 		}
@@ -496,14 +496,12 @@ async function findPrayer(buffsList: BuffReader.Buff[], debuffsList: BuffReader.
 	}
 
 	let prayersActive = false;
-	let prayerDrainRate;
 	let lastActiveOverhead;
 	let lastActiveDPS;
 
 	for (let [_key, value] of Object.entries(debuffsList)) {
 		let prayerDraining = value.countMatch(prayerImages.prayerActive, false);
 		if (prayerDraining.failed == 0 || prayerDraining.passed > 44) {
-			console.log(value.readArg('timearg'));
 			prayersActive = true;
 		} else {
 			prayersActive = false;
@@ -515,12 +513,14 @@ async function findPrayer(buffsList: BuffReader.Buff[], debuffsList: BuffReader.
 			lastActiveDPS = testDpsPrayers(value);
 			lastActiveOverhead = testOverheadPrayers(value);
 		}
+	} else {
+		prayersList.DpsPrayer.dataset.prayer = "";
+		prayersList.OverheadPrayer.dataset.prayer = '';
 	}
 }
 
 async function testDpsPrayers(buff: BuffReader.Buff) {
 	if (getByID('Buffs').contains(prayersList.DpsPrayer)) {
-		/* DPS Prayers */
 		let affliction = buff.countMatch(prayerImages.affliction, false);
 		let anguish = buff.countMatch(prayerImages.anguish, false);
 		let desolation = buff.countMatch(prayerImages.desolation, false);
@@ -539,7 +539,11 @@ async function testDpsPrayers(buff: BuffReader.Buff) {
 			torment: torment.passed,
 			turmoil: turmoil.passed,
 		};
-		console.log(prayerTests);
+		for (let [key, value] of Object.entries(prayerTests)) {
+			if (value > 300) {
+				prayersList.DpsPrayer.dataset.prayer = key.toString().toLowerCase();
+			}
+		}
 	}
 }
 
@@ -555,6 +559,25 @@ async function testOverheadPrayers(buff: BuffReader.Buff) {
 		let protectFromNecromancy = buff.countMatch(prayerImages.protectFromNecromancy, false);
 		let protectFromRanged = buff.countMatch(prayerImages.protectFromRanged, false);
 		let soulSplit = buff.countMatch(prayerImages.soulSplit, false);
+		let prayerTests = {
+			deflectMagic: deflectMagic.passed,
+			deflectMelee: deflectMelee.passed,
+			deflectNecromancy: deflectNecromancy.passed,
+			deflectRanged: deflectRanged.passed,
+			protectFromMagic: protectFromMagic.passed,
+			protectFromMelee: protectFromMelee.passed,
+			protectFromNecromancy: protectFromNecromancy.passed,
+			protectFromRanged: protectFromRanged.passed,
+			soulSplit: soulSplit.passed,
+		};
+
+		for (let [key, value] of Object.entries(prayerTests)) {
+			if (value > 300) {
+				prayersList.OverheadPrayer.dataset.prayer = key
+					.toString()
+					.toLowerCase();
+			}
+		}
 	}
 }
 
