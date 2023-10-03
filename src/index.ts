@@ -419,7 +419,7 @@ async function findStatus(
 				foundBuff = true;
 				await setActive(element);
 				timearg = value.readArg('timearg');
-				if (getSetting('debugLevel') == 1 && buffImage == incenseImages.lantadyme) {
+				if (getSetting('debugLevel') == 1 && buffImage == incenseImages.dwarfWeed) {
 					console.log(timearg.time)
 					console.log(timearg);
 				}

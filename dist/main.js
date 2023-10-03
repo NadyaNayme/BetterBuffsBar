@@ -337,7 +337,7 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
   \***************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAspJREFUeJzNVdtSGkEQZZdd2GUREUVE5LZcltvCCoKiIlgxsTRWxaokpmJV8pJK5SHmIT+QXz/pHliyUS6Sp0wV1WdmZ053n+4ZfL7/bYwub+Di6HYMi/Y+a+xkM1OSfKMG3Qij2nGgBgKrkw9fvYaVs+FiJnOxsb6O5vEh9gomrUm4vv6wmoNyuwlFVcWhslMXuHsxgmnX4VcDglzTNPG9cXIE3wTPHZgMxrtmDqVUAwcvhkhk9qBR5E0iMaJR2GwNA2owKNYKji3wQmKvj3gqKeZMFNQ11A67yFbLSOZzsNoO1o0YRic3KJLuPk0HB1Ps1J868BKLNCllF6dLJiKbm2gOTknrMKyDDiIbG9iKJXF78wk6YY46ReRKSBXrs8hdVZDMZsWG85dvqBtUsZa2TGFLrXEtKt0Ock4TMuFaryMi5+Iyztcq+Iv8sSzpQgmZUl7g/dGZsCzNeB+RHB9BCoVQIyd2vzclYyzJMp5Ezr/W2anrSBTRm5XXFtst+BXKgDWfSHh59Q6qEpgtC+N4KjUlCOr6XHL/moJ8o04BGOREQYFa1CKHZeqwmUWdap4URcFhKzuXnLMq7Tuk/zhS7iBlyW2dyhMOh/H9Yx87W2tivh0TNxQZ0xQ2W61AI81Zfz44xgvGoEMHJRkPRNqnqAdtU5BeDSz4ZT++vO0JW3RaorhM/AcvCpnliEdEtDwujirC/vx8gng0hIf7PmJrPkjkvEK9zkf4QjnDAWRJnk/OJEzqlZ5xp2ILPOqa+Pa+R52gILeXgEq9Lfv9Y2mooEujZsMkdjk5JXezYBwJ64KE97AciUQC5aa9/DX0tmLE0OCdu1iapJ7ZioxfykIBWnDJS/iY/PHcxXeXNvLpMGSK+sfdLYKLXsFVyX99vRdyDA9MJDapx3dnvID/Sp5JhWAmLbFWmnULn0Puvaneb7Is4axdXenv7DcHdyEG1dC/pQAAAABJRU5ErkJggg==")
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAspJREFUeJzNVUlv2lAQ9gpmFSFsTgDbBAOxCYtZAiEhPVVESlVVTROp6qWHXtJD///p67xn7KAogIl66Fzmm2c03+wIwv8q7vwOAc7l89j124OkXK+Fzkz3HFoqhbbXhxqLvZ/Ena+QyHQRYOY0wKlsFu58gpOGRW8ibO/hfUTN/gUUVYWPHY69D0tYrgNZjaF7OYGmafy7czWFsMY7BRvCbN0yICkOhrc3KFWrPJPubIpULgP3kjTZaixOGU1h9bpQ4/HdJIFjBgO+gq775SHHakKDMxnD6NjQTQPtQR+idIRy/Q4NwoKWAAuq4TnbidYkeMvWqe7Z/DF6iysks2lq9hDZ3BFFXuHfNYYpI71lQEmrULXKXiLBHjwEJUNreE/1V7lda1lc2z2/V52RB4OwtMb6mQFBFNGZ0Pt5ezfRRl9QNnzHw+U116xk/jcRzuwSYjLJM3Om49CpMxtTKaW9QxCSsGYH+LVuUi9kRYU96IWlbY2+kI6wN8XT09BRPJHYSiJnMrAcfyllWeHY7vf4RO4l2Yx+elHbSsJ+x7JQ1Ni6ly94p9gUDZv3x5XHHT0/TlAppDkuHvGNR80yuTY6bWjUE9YfHhzHEWQxJAeiRM6nmPVruPaqKObTWC1syNTMn59HpGU0aarYEDCCFxxBWBn0QpZHz2Q5bnH958cMhVwSv5+myGcEiBREZzTk2bDFHNwsCO+fJk7AnAsbU8xwpehyfDs28evrCKqioH5Sgkq7IcmyX7L14YxEwhRz1m2WQpLnp0mIsyn/AN6OTF6mYqkEu+tGv76bZySTimPTDrAk+iWpFzJcn5kmtHiEy/sWyWs7wA8fXVjVFCTKYnVzj/ihf1ZRSL5/+sbLtPRMlI/TtHTn/56kdpKga9vkbwcTvOV0Y8JeeiKJGO66rgcQhWbAF9hzWs5eO8JdisK17e204tJu1N9F8hf7tRtiTWY0fAAAAABJRU5ErkJggg==")
 
 /***/ }),
 
@@ -18731,7 +18731,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                 case 2:
                     _f.sent();
                     timearg = value.readArg('timearg');
-                    if (getSetting('debugLevel') == 1 && buffImage == incenseImages.lantadyme) {
+                    if (getSetting('debugLevel') == 1 && buffImage == incenseImages.dwarfWeed) {
                         console.log(timearg.time);
                         console.log(timearg);
                     }
