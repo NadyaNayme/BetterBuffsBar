@@ -48,6 +48,7 @@ let buffsList = {
 	Aura: getByID('Aura'),
 	BonfireBoost: getByID('BonfireBoost'),
 	ErethdorsGrimoire: getByID('ErethdorsGrimoire'),
+	LantadymeIncense: getByID('LantadymeIncense'),
 };
 
 let debuffsList = {
@@ -108,6 +109,7 @@ var buffImages = a1lib.webpackImages({
 	aura: require('./asset/data/Aura-noborder.data.png'),
 	bonfireBoost: require('./asset/data/Bonfire_Boost-noborder.data.png'),
 	grimoire: require('./asset/data/Erethdor\'s_grimoire-noborder.data.png'),
+	lantadyme: require('./asset/data/Lantadyme.data.png'),
 });
 
 var debuffImages = a1lib.webpackImages({
@@ -268,6 +270,7 @@ function watchBuffs() {
 			findStatus(buffs, buffImages.aura, buffsList.Aura, 500);
 			findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, 400);
 			findStatus(buffs, buffImages.grimoire, buffsList.ErethdorsGrimoire, 55);
+			findStatus(buffs, buffImages.lantadyme, buffsList.LantadymeIncense, 100);
 
 			findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, 250, false, 0, Infinity, true, 83);
 			findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, 400, false, 0, Infinity, true, 50);
@@ -387,9 +390,12 @@ async function findStatus(
 		if (highlander.length != 2 && buffImage == buffImages.gladiatorsRage) {
 			return;
 		}
+		if (highlander.length == 1) {
+			setInactive(buffsList.GladiatorsRageBuff);
+		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-		if (getSetting('debugLevel') == 1 && buffImage == buffImages.grimoire) {
+		if (getSetting('debugLevel') == 1 && buffImage == buffImages.lantadyme) {
 			console.log(findBuffImage)
 		}
 			if (findBuffImage.passed > threshold || findBuffImage.failed == 0) {
@@ -398,6 +404,10 @@ async function findStatus(
 				foundBuff = true;
 				await setActive(element);
 				timearg = value.readArg('timearg');
+				if (getSetting('debugLevel') == 1 && buffImage == buffImages.lantadyme) {
+					console.log(timearg.time)
+					console.log(timearg);
+				}
 				if (
 					element.dataset.time == '1' &&
 					showCooldown &&
