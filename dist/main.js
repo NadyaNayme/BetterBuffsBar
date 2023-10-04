@@ -18618,6 +18618,12 @@ function watchBuffs() {
             findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, 100, false, 0, Infinity, true, 23);
             findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 400, false, 0, Infinity, true, 60);
             checkBuffsForHidingOverlay(buffs);
+            if (buffs.length == 0) {
+                for (var _i = 0, _a = Object.entries(buffsList); _i < _a.length; _i++) {
+                    var _b = _a[_i], _key = _b[0], buff = _b[1];
+                    setInactive(buff);
+                }
+            }
         }
         else {
             noDetection(maxAttempts, interval, "buff");
@@ -18630,7 +18636,13 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 60);
             findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
             findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 60);
-            findPrayer(buffs, debuffs); // Not accurate enough to work - Affliction matches Sorrow better than Sorrow matches Sorrow.
+            findPrayer(buffs, debuffs);
+            if (debuffs.length == 0) {
+                for (var _c = 0, _d = Object.entries(debuffsList); _c < _d.length; _c++) {
+                    var _e = _d[_c], _key = _e[0], debuff = _e[1];
+                    setInactive(debuff);
+                }
+            }
         }
         else {
             noDetection(maxAttempts, interval, "debuff");
