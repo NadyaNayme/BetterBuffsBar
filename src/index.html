@@ -60,32 +60,6 @@
 		</div>
 		<div id="Settings">
 			<div class="container">
-				<h2>Settings</h2>
-				<h3>General</h3>
-				<div class="flex setting"><input class="per-row" type="number" id="BuffsPerRow" data-setting="buffsPerRow" min="1" max="20"> Number of buffs per row</div>
-				<div class="flex setting"><input class="fade-inactive" type="checkbox" id="FadeInactiveBuffs" data-setting="fadeInactiveBuffs"> Fade Inactive Buffs - If toggled off buffs will disappear instead of appearing grayed out.</div>
-				<div class="flex setting"><input class="big-head-mode" type="checkbox" id="SetBigHeadMode" data-setting="bigHeadMode"> Big Head Mode - The first buff will be made four times as large and take up two rows of buffs<select class="big-head-position" id="BigHeadPosition" data-setting="bigHeadPosition"><option value="start">Left Side</option><option value="end">Right Side</option></select></div>
-				<div class="flex setting"><input class="show-tooltip-reminders" type="checkbox" id="ShowTooltipReminders" data-setting="showTooltipReminders">Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire </div>
-				<div class="flex setting"><input class="show-maintainable-blinking" type="checkbox" id="ShowMaintainableBlinking" data-setting="showMaintainableBlinking">Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)</div>
-				<div class="flex setting"><input class="single-bolg" type="checkbox" id="SingleBolg" data-setting="singleBOLG">Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks</div>
-				<div class="flex setting"><input class="show-labels" type="checkbox" id="ShowBuffNames" data-setting="showBuffNames"> Show Names - Only use this if you don't recognize the icons</div>
-				<hr>
-				<h3>Overlay</h3>
-				<small>Make sure the "Show overlay" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right.</small><br><br>
-				<button style="margin-bottom:1rem;" id="OverlayPosition" data-setting="overlayPosition">Set Overlay Position</button>
-				<div class="flex setting"><input type="checkbox" id="ShowOverlay" data-setting="activeOverlay">Enable Overlay - You must leave the plugin open - but you may minimize it using the _ icon in the top right and move it somewhere out of the way.</div>
-				<hr>
-				<h3>UI Scale</h3>
-				<p>Adjusts the display size of the Overlay.</p>
-				<div class="flex setting"><input class="scale" type="range" min="30" max="200" value="100" id="UIScale" data-setting="uiScale"><output for="UIScale" id="UIScaleOutput"></output>%</div>
-				<hr>
-				<h3>Interface Search Speed</h3>
-				<p>Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. You must reload the app for the new value to take effect.
-				<div class="flex setting"><input class="speed" type="range" min="10" max="300" value="125" step="5" id="LoopSpeed" data-setting="loopSpeed"><output for="LoopSpeed" id="LoopSpeedOutput"></output>ms</div>
-				<hr>
-				<h3>Hard Reset</h3>
-				<p>Bad configuration values can break the plugin. This attempts to reset your configuration and reload the plugin. When troubleshooting this should be the first thing you should try to resolve your problem.</p>
-				<div class="flex"><button id="ResetAllSettings">Reset All Settings</button></div>
 			</div>
 		</div>
 		<div id="ToggleOverlayButton">🖼️</div>

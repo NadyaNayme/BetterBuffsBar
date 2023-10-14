@@ -2,7 +2,8 @@
 // also gives your editor info about the window.alt1 api
 import * as a1lib from 'alt1';
 import * as BuffReader from 'alt1/buffs';
-import { Sortable, MultiDrag }  from 'sortablejs';
+import * as sauce from './a1sauce';
+import { Sortable, MultiDrag } from 'sortablejs';
 import html2canvas from 'html2canvas';
 
 Sortable.mount(new MultiDrag());
@@ -24,14 +25,18 @@ function getByID(id: string) {
 	return document.getElementById(id);
 }
 
+let config = {
+	appName: 'betterBuffBar',
+};
+
 let helperItems = {
 	Output: getByID('output'),
 	settings: getByID('Settings'),
 	BetterBuffsBar: getByID('BetterBuffsBar'),
 	TrackedBuffs: getByID('Buffs'),
 	UntrackedBuffs: getByID('UntrackedBuffs'),
-	ToggleOverlayButton: getByID('ToggleOverlayButton')
-}
+	ToggleOverlayButton: getByID('ToggleOverlayButton'),
+};
 
 let buffsList = {
 	AnimateDeadBuff: getByID('AnimateDeadBuff'),
@@ -183,7 +188,7 @@ export function startBetterBuffsBar() {
 		);
 		return;
 	}
-	if (!alt1.permissionOverlay && getSetting('activeOverlay')) {
+	if (!alt1.permissionOverlay) {
 		helperItems.Output.insertAdjacentHTML(
 			'beforeend',
 			`<div><p>Attempted to use Overlay but app overlay permission is not enabled. Please enable "Show Overlay" permission in Alt1 settinsg (wrench icon in corner).</p></div>`
@@ -228,80 +233,259 @@ async function captureOverlay() {
 }
 
 function paintCanvas(canvas: HTMLCanvasElement) {
-		let overlayCanvasOutput = getByID(
-			'OverlayCanvasOutput'
-		);
-		let overlayCanvasContext = overlayCanvasOutput
-			.querySelector('canvas')
-			.getContext('2d', {'willReadFrequently': true});
-		overlayCanvasContext.clearRect(
-			0,
-			0,
-			overlayCanvasContext.canvas.width,
-			overlayCanvasContext.canvas.height
-		);
-		overlayCanvasContext.drawImage(canvas, 0, 0);
-		let overlay = overlayCanvasOutput.querySelector('canvas');
-		updateSetting('overlayImage', overlay.toDataURL());
-		updateSetting('firstFrame', true);
+	let overlayCanvasOutput = getByID('OverlayCanvasOutput');
+	let overlayCanvasContext = overlayCanvasOutput
+		.querySelector('canvas')
+		.getContext('2d', { willReadFrequently: true });
+	overlayCanvasContext.clearRect(
+		0,
+		0,
+		overlayCanvasContext.canvas.width,
+		overlayCanvasContext.canvas.height
+	);
+	overlayCanvasContext.drawImage(canvas, 0, 0);
+	let overlay = overlayCanvasOutput.querySelector('canvas');
+	sauce.updateSetting('OverlayImage', overlay.toDataURL());
+	sauce.updateSetting('FirstFrame', true);
 }
 
 let maxAttempts = 10;
 function watchBuffs() {
-	let loopSpeed = getSetting('loopSpeed');
-	updateSetting(
-		'firstFrame',
+	let loopSpeed = sauce.getSetting('LoopSpeed');
+	sauce.updateSetting(
+		'FirstFrame',
 		false
 	); /* We haven't captured a new frame yet */
-	if (getSetting('activeOverlay')) {
-		startOverlay();
-	} else {
-		alt1.overLayContinueGroup('betterBuffsBar');
-		alt1.overLayClearGroup('betterBuffsBar');
-		alt1.overLaySetGroup('betterBuffsBar');
-	}
+	startOverlay();
 	const interval = setInterval(() => {
 		let buffs = getActiveBuffs();
 		let debuffs = getActiveDebuffs();
-		if (getSetting('buffsLocation')) {
+		if (sauce.getSetting('BuffsLocation')) {
 			maxAttempts = 10;
 
 			//TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
-			findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
-			findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 100, true);
-			findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 300, true);
-			findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 400, false, 0, 43260);
-			findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 90);
-			findStatus(buffs, buffImages.fsoaWeaponSpec, buffsList.FsoaSpecBuff, 80, false, 0, 31);
+			findStatus(
+				buffs,
+				buffImages.overloaded,
+				buffsList.OverloadBuff,
+				300,
+				true
+			);
+			findStatus(
+				buffs,
+				buffImages.elderOverload,
+				buffsList.ElderOverloadBuff,
+				100,
+				true
+			);
+			findStatus(
+				buffs,
+				buffImages.poisonous,
+				buffsList.WeaponPoisonBuff,
+				300,
+				true
+			);
+			findStatus(
+				buffs,
+				buffImages.darkness,
+				buffsList.DarknessBuff,
+				400,
+				false,
+				0,
+				43260
+			);
+			findStatus(
+				buffs,
+				buffImages.animateDead,
+				buffsList.AnimateDeadBuff,
+				90
+			);
+			findStatus(
+				buffs,
+				buffImages.fsoaWeaponSpec,
+				buffsList.FsoaSpecBuff,
+				80,
+				false,
+				0,
+				31
+			);
 			findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 450);
-			findStatus(buffs, buffImages.gladiatorsRage, buffsList.GladiatorsRageBuff, 50, false, 0, 16);
+			findStatus(
+				buffs,
+				buffImages.gladiatorsRage,
+				buffsList.GladiatorsRageBuff,
+				50,
+				false,
+				0,
+				16
+			);
 			findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, 150);
 			findStatus(buffs, buffImages.aura, buffsList.Aura, 500);
-			findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, 400);
-			findStatus(buffs, buffImages.grimoire, buffsList.ErethdorsGrimoire, 55);
+			findStatus(
+				buffs,
+				buffImages.bonfireBoost,
+				buffsList.BonfireBoost,
+				400
+			);
+			findStatus(
+				buffs,
+				buffImages.grimoire,
+				buffsList.ErethdorsGrimoire,
+				55
+			);
 
-			findStatus(buffs, incenseImages.lantadyme, buffsList.LantadymeIncense, 119);
-			findStatus(buffs, incenseImages.dwarfWeed, buffsList.DwarfWeedIncense, 150);
-			findStatus(buffs, incenseImages.fellstalk, buffsList.FellstalkIncense, 150);
-			findStatus(buffs, incenseImages.kwuarm, buffsList.KwuarmIncense, 150);
+			findStatus(
+				buffs,
+				incenseImages.lantadyme,
+				buffsList.LantadymeIncense,
+				119
+			);
+			findStatus(
+				buffs,
+				incenseImages.dwarfWeed,
+				buffsList.DwarfWeedIncense,
+				150
+			);
+			findStatus(
+				buffs,
+				incenseImages.fellstalk,
+				buffsList.FellstalkIncense,
+				150
+			);
+			findStatus(
+				buffs,
+				incenseImages.kwuarm,
+				buffsList.KwuarmIncense,
+				150
+			);
 
-			findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, 250, false, 0, Infinity, true, 83);
-			findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, 400, false, 0, Infinity, true, 50);
-			findStatus(buffs, sigilImages.dragonSlayer, sigilsList.DragonSlayer, 400, false, 0, Infinity, true, 50);
-			findStatus(buffs, sigilImages.undeadSlayer, sigilsList.UndeadSlayer, 400, false, 0, Infinity, true, 50);
-			findStatus(buffs, sigilImages.ingenuityOfTheHumans, sigilsList.IngenuityOfTheHumans, 400, false, 0, Infinity, true, 83);
+			findStatus(
+				buffs,
+				sigilImages.limitless,
+				sigilsList.LimitlessSigil,
+				250,
+				false,
+				0,
+				Infinity,
+				true,
+				83
+			);
+			findStatus(
+				buffs,
+				sigilImages.demonSlayer,
+				sigilsList.DemonSlayer,
+				400,
+				false,
+				0,
+				Infinity,
+				true,
+				50
+			);
+			findStatus(
+				buffs,
+				sigilImages.dragonSlayer,
+				sigilsList.DragonSlayer,
+				400,
+				false,
+				0,
+				Infinity,
+				true,
+				50
+			);
+			findStatus(
+				buffs,
+				sigilImages.undeadSlayer,
+				sigilsList.UndeadSlayer,
+				400,
+				false,
+				0,
+				Infinity,
+				true,
+				50
+			);
+			findStatus(
+				buffs,
+				sigilImages.ingenuityOfTheHumans,
+				sigilsList.IngenuityOfTheHumans,
+				400,
+				false,
+				0,
+				Infinity,
+				true,
+				83
+			);
 
 			/* BOLG is currently still special */
 			if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
 				findBolgStacks(buffs);
 			}
 
-			findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 100, false, 0, Infinity, true, 40);
-			findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 110, false, 0, Infinity, true, 30);
-			findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 100, false, 0, Infinity, true, 23);
-			findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 500, false, 0, Infinity, true, 30);
-			findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, 100, false, 0, Infinity, true, 23);
-			findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 400, false, 0, Infinity, true, 60);
+			findStatus(
+				buffs,
+				ultimateImages.berserk,
+				ultimatesList.Berserk,
+				100,
+				false,
+				0,
+				Infinity,
+				true,
+				40
+			);
+			findStatus(
+				buffs,
+				ultimateImages.deathsSwiftness,
+				ultimatesList.DeathsSwiftness,
+				110,
+				false,
+				0,
+				Infinity,
+				true,
+				30
+			);
+			findStatus(
+				buffs,
+				ultimateImages.greaterDeathsSwiftness,
+				ultimatesList.GreaterDeathsSwiftness,
+				100,
+				false,
+				0,
+				Infinity,
+				true,
+				23
+			);
+			findStatus(
+				buffs,
+				ultimateImages.sunshine,
+				ultimatesList.Sunshine,
+				500,
+				false,
+				0,
+				Infinity,
+				true,
+				30
+			);
+			findStatus(
+				buffs,
+				ultimateImages.greaterSunshine,
+				ultimatesList.GreaterSunshine,
+				100,
+				false,
+				0,
+				Infinity,
+				true,
+				23
+			);
+			findStatus(
+				buffs,
+				ultimateImages.livingDeath,
+				ultimatesList.LivingDeath,
+				400,
+				false,
+				0,
+				Infinity,
+				true,
+				60
+			);
 
 			checkBuffsForHidingOverlay(buffs);
 
@@ -310,19 +494,47 @@ function watchBuffs() {
 					setInactive(buff);
 				}
 			}
-
-
 		} else {
-			noDetection(maxAttempts, interval, "buff");
+			noDetection(maxAttempts, interval, 'buff');
 		}
-		if (getSetting('debuffsLocation')) {
+		if (sauce.getSetting('DebuffsLocation')) {
 			maxAttempts = 10;
-			findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 90);
-			findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 300);
-			findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 90);
-			findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 60);
-			findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
-			findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 60);
+			findStatus(
+				debuffs,
+				debuffImages.elvenRitualShard,
+				debuffsList.AncientElvenRitualShardDebuff,
+				90
+			);
+			findStatus(
+				debuffs,
+				debuffImages.adrenalinePotion,
+				debuffsList.AdrenalinePotionDebuff,
+				300
+			);
+			findStatus(
+				debuffs,
+				debuffImages.deathGraspDebuff,
+				debuffsList.DeathGuardDebuff,
+				90
+			);
+			findStatus(
+				debuffs,
+				debuffImages.deathEssenceDebuff,
+				debuffsList.OmniGuardDebuff,
+				60
+			);
+			findStatus(
+				debuffs,
+				debuffImages.enhancedExcaliburDebuff,
+				debuffsList.EnhancedExcaliburDebuff,
+				15
+			);
+			findStatus(
+				debuffs,
+				debuffImages.crystalRainMinimal,
+				debuffsList.CrystalRainDebuff,
+				60
+			);
 
 			findPrayer(buffs, debuffs);
 
@@ -332,7 +544,7 @@ function watchBuffs() {
 				}
 			}
 		} else {
-			noDetection(maxAttempts, interval, "debuff");
+			noDetection(maxAttempts, interval, 'debuff');
 		}
 	}, loopSpeed);
 }
@@ -367,7 +579,7 @@ async function showTooltip(msg: string, duration: number) {
 	alt1.setTooltip(msg);
 	await new Promise((done) => setTimeout(done, duration));
 	alt1.clearTooltip();
-	return
+	return;
 }
 
 /*
@@ -423,92 +635,87 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-		if (getSetting('debugLevel') == 1 && buffImage == incenseImages.kwuarm) {
-			console.log(findBuffImage)
+		if (
+			sauce.getSetting('DebugLevel') == 1 &&
+			buffImage == incenseImages.kwuarm
+		) {
+			console.log(findBuffImage);
 		}
-			if (findBuffImage.passed > threshold || findBuffImage.failed == 0) {
-				// If we find a match for the buff it will always exceed the threshold
-				// the threshold depends largely on which buff is being matched against
-				foundBuff = true;
-				await setActive(element);
-				timearg = value.readArg('timearg');
-				if (getSetting('debugLevel') == 1 && buffImage == incenseImages.dwarfWeed) {
-					console.log(timearg.time)
-					console.log(timearg);
+		if (findBuffImage.passed > threshold || findBuffImage.failed == 0) {
+			// If we find a match for the buff it will always exceed the threshold
+			// the threshold depends largely on which buff is being matched against
+			foundBuff = true;
+			await setActive(element);
+			timearg = value.readArg('timearg');
+			if (
+				sauce.getSetting('DebugLevel') == 1 &&
+				buffImage == incenseImages.dwarfWeed
+			) {
+				console.log(timearg.time);
+				console.log(timearg);
+			}
+			if (element.dataset.time == '1' && showCooldown && !onCooldown) {
+				if (sauce.getSetting('DebugMode')) {
+					console.log(`Starting cooldown timer for ${element.id}`);
 				}
-				if (
-					element.dataset.time == '1' &&
-					showCooldown &&
-					!onCooldown
-				) {
-					if (getSetting('debugMode')) {
-						console.log(
-							`Starting cooldown timer for ${element.id}`
-						);
-					}
-					onCooldown = true;
-					await startCooldownTimer(element, cooldownTimer);
-					return;
-				} else if (
-					timearg.time > 59 &&
-					!onCooldown &&
-					timearg.time < maxRange
-				) {
-					if (getSetting('debugMode')) {
-						console.log(`${element.id} has >60s remaining`);
-					}
-					element.dataset.time =
-						Math.floor(
-							value.readArg('timearg').time / 60
-						).toString() + 'm';
+				onCooldown = true;
+				await startCooldownTimer(element, cooldownTimer);
+				return;
+			} else if (
+				timearg.time > 59 &&
+				!onCooldown &&
+				timearg.time < maxRange
+			) {
+				if (sauce.getSetting('DebugMode')) {
+					console.log(`${element.id} has >60s remaining`);
+				}
+				element.dataset.time =
+					Math.floor(value.readArg('timearg').time / 60).toString() +
+					'm';
 
-					// Pause the check for a tick since we don't need to rapidly update
-					//a buff that won't have a more precise value for 1 minute
-					await new Promise((done) => setTimeout(done, 600));
-				} else if (
-					expirationPulse &&
-					timearg.time == 11 &&
-					!onCooldown
-				) {
-					if (getSetting('debugMode')) {
-						console.log(
-							`${element.id} has <10s remaining - starting 10s countdown`
-						);
-					}
-					element.dataset.time = '<10s';
-					await setActive(element);
-					// This can be desynced from in-game 10s but it's accurate enough
-					await new Promise((done) => setTimeout(done, 10000));
-					await setInactive(element);
-					if (getSetting('showTooltipReminders')) {
-						showTooltip('Overload expired', 3000);
-					}
-				} else if (timearg.time > minRange && timearg.time < maxRange) {
-					if (getSetting('debugMode')) {
-						console.log(
-							`Cooldown for ${element.id} is between ${minRange} and ${maxRange}`
-						);
-					}
-					element.dataset.time = timearg.time.toString();
-					if (timearg.time - 1 == 0 && !showCooldown) {
-						await setInactive(element);
-					}
-				} else {
-					if (getSetting('debugMode')) {
-						console.log(
-							`${element.id} is no longer active - setting inactive.`
-						);
-					}
+				// Pause the check for a tick since we don't need to rapidly update
+				//a buff that won't have a more precise value for 1 minute
+				await new Promise((done) => setTimeout(done, 600));
+			} else if (expirationPulse && timearg.time == 11 && !onCooldown) {
+				if (sauce.getSetting('DebugMode')) {
+					console.log(
+						`${element.id} has <10s remaining - starting 10s countdown`
+					);
+				}
+				element.dataset.time = '<10s';
+				await setActive(element);
+				// This can be desynced from in-game 10s but it's accurate enough
+				await new Promise((done) => setTimeout(done, 10000));
+				await setInactive(element);
+				if (sauce.getSetting('ShowTooltipReminders')) {
+					showTooltip('Overload expired', 3000);
+				}
+			} else if (timearg.time > minRange && timearg.time < maxRange) {
+				if (sauce.getSetting('DebugMode')) {
+					console.log(
+						`Cooldown for ${element.id} is between ${minRange} and ${maxRange}`
+					);
+				}
+				element.dataset.time = timearg.time.toString();
+				if (timearg.time - 1 == 0 && !showCooldown) {
 					await setInactive(element);
 				}
-			} else if (!showCooldown) {
-				if (getSetting('debugMode')) {
+			} else {
+				if (sauce.getSetting('DebugMode')) {
 					console.log(
 						`${element.id} is no longer active - setting inactive.`
 					);
 				}
 				await setInactive(element);
 			}
+		} else if (!showCooldown) {
+			if (sauce.getSetting('DebugMode')) {
+				console.log(
+					`${element.id} is no longer active - setting inactive.`
+				);
+			}
+			await setInactive(element);
+		}
 	}
 	// If we didn't find the buff try again after a brief timeout
 	if (timearg == undefined && foundBuff) {
@@ -521,29 +728,31 @@ async function findStatus(
 	// Give a very brief pause before checking again
 	await new Promise((done) => setTimeout(done, 10));
 	return timearg;
-};
+}
 
 let runOnlyOnce;
 async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
-		/*
-		* Wait the final 1s then set buff to 'cooldown' state
-		* After its cooldown has finished set it back to 'inactive' state (actually 'readyToBeUsed')
-		*/
+	/*
+	 * Wait the final 1s then set buff to 'cooldown' state
+	 * After its cooldown has finished set it back to 'inactive' state (actually 'readyToBeUsed')
+	 */
+	await new Promise((done) => setTimeout(done, 1000));
+	await setCooldown(element, cooldownTimer);
+	if (element.dataset.cooldown != '' && !runOnlyOnce) {
+		runOnlyOnce = true;
+		element.dataset.cooldown = cooldownTimer.toString();
 		await new Promise((done) => setTimeout(done, 1000));
-		await setCooldown(element, cooldownTimer);
-		if (element.dataset.cooldown != '' && !runOnlyOnce) {
-			runOnlyOnce = true;
-			element.dataset.cooldown = (cooldownTimer).toString();
-			await new Promise((done) => setTimeout(done, 1000));
-			let timer = setInterval(() => {
-				countdown(element, cooldownTimer, timer);
-			}, 1000);
-			await new Promise((done) => setTimeout(done, 3000));
-			runOnlyOnce = false;
-			await new Promise((done) => setTimeout(done, (cooldownTimer * 1000) - 3000));
-			clearInterval(timer);
-		}
-		return false;
+		let timer = setInterval(() => {
+			countdown(element, cooldownTimer, timer);
+		}, 1000);
+		await new Promise((done) => setTimeout(done, 3000));
+		runOnlyOnce = false;
+		await new Promise((done) =>
+			setTimeout(done, cooldownTimer * 1000 - 3000)
+		);
+		clearInterval(timer);
+	}
+	return false;
 }
 
 function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
@@ -558,7 +767,10 @@ function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
 	}
 }
 
-async function findPrayer(buffsList: BuffReader.Buff[], debuffsList: BuffReader.Buff[]) {
+async function findPrayer(
+	buffsList: BuffReader.Buff[],
+	debuffsList: BuffReader.Buff[]
+) {
 	if (
 		!getByID('Buffs').contains(prayersList.OverheadPrayer) ||
 		!getByID('Buffs').contains(prayersList.DpsPrayer) ||
@@ -585,7 +797,7 @@ async function findPrayer(buffsList: BuffReader.Buff[], debuffsList: BuffReader.
 			lastActiveOverhead = testOverheadPrayers(value);
 		}
 	} else {
-		prayersList.DpsPrayer.dataset.prayer = "";
+		prayersList.DpsPrayer.dataset.prayer = '';
 		prayersList.OverheadPrayer.dataset.prayer = '';
 		prayersList.DpsPrayer.classList.add('inactive');
 		prayersList.OverheadPrayer.classList.add('inactive');
@@ -614,7 +826,9 @@ async function testDpsPrayers(buff: BuffReader.Buff) {
 		};
 		for (let [key, value] of Object.entries(prayerTests)) {
 			if (value > 300) {
-				prayersList.DpsPrayer.dataset.prayer = key.toString().toLowerCase();
+				prayersList.DpsPrayer.dataset.prayer = key
+					.toString()
+					.toLowerCase();
 				prayersList.DpsPrayer.classList.remove('inactive');
 			}
 		}
@@ -626,12 +840,27 @@ async function testOverheadPrayers(buff: BuffReader.Buff) {
 		/* Overhead Prayers */
 		let deflectMagic = buff.countMatch(prayerImages.deflectMagic, false);
 		let deflectMelee = buff.countMatch(prayerImages.deflectMelee, false);
-		let deflectNecromancy = buff.countMatch(prayerImages.deflectNecromancy, false);
+		let deflectNecromancy = buff.countMatch(
+			prayerImages.deflectNecromancy,
+			false
+		);
 		let deflectRanged = buff.countMatch(prayerImages.deflectRanged, false);
-		let protectFromMagic = buff.countMatch(prayerImages.protectFromMagic, false);
-		let protectFromMelee = buff.countMatch(prayerImages.protectFromMelee, false);
-		let protectFromNecromancy = buff.countMatch(prayerImages.protectFromNecromancy, false);
-		let protectFromRanged = buff.countMatch(prayerImages.protectFromRanged, false);
+		let protectFromMagic = buff.countMatch(
+			prayerImages.protectFromMagic,
+			false
+		);
+		let protectFromMelee = buff.countMatch(
+			prayerImages.protectFromMelee,
+			false
+		);
+		let protectFromNecromancy = buff.countMatch(
+			prayerImages.protectFromNecromancy,
+			false
+		);
+		let protectFromRanged = buff.countMatch(
+			prayerImages.protectFromRanged,
+			false
+		);
 		let soulSplit = buff.countMatch(prayerImages.soulSplit, false);
 		let prayerTests = {
 			deflectMagic: deflectMagic.passed,
@@ -682,7 +911,6 @@ async function setActive(element: HTMLElement) {
 	element.classList.add('active');
 }
 
-
 let bolgSpecActive = false;
 async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	let bolgStacksData;
@@ -691,41 +919,41 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	   the Zamorak mechanic is always the first so we need to reverse the buffs first
 	 */
 
-	if (!getSetting('singleBOLG')) {
+	if (!sauce.getSetting('SingleBOLG')) {
 		let canvas = <HTMLCanvasElement>document.getElementById('canvas');
 		let ctx = canvas.getContext('2d');
 		ctx.drawImage(
-				buffImages.perfectEquilibriumNoBorder.toImage(),
-				0,
-				0,
-				canvas.width,
-				canvas.height
+			buffImages.perfectEquilibriumNoBorder.toImage(),
+			0,
+			0,
+			canvas.width,
+			canvas.height
 		);
 		for (let a in buffs.reverse()) {
-				if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
-					let buffsImage = buffs[a].buffer.toImage();
-					ctx.drawImage(
-						buffsImage,
-						buffs[a].bufferx,
-						buffs[a].buffery,
-						27,
-						27,
-						0,
-						0,
-						canvas.width,
-						canvas.height
-					);
-					let bolgBuffImage = ctx.getImageData(
-						0,
-						0,
-						canvas.width,
-						canvas.height
-					);
-					buffsList.BolgStacksBuff.style.backgroundImage =
-						'url("data:image/png;base64,' +
-						bolgBuffImage.toPngBase64() +
-						'")';
-				}
+			if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
+				let buffsImage = buffs[a].buffer.toImage();
+				ctx.drawImage(
+					buffsImage,
+					buffs[a].bufferx,
+					buffs[a].buffery,
+					27,
+					27,
+					0,
+					0,
+					canvas.width,
+					canvas.height
+				);
+				let bolgBuffImage = ctx.getImageData(
+					0,
+					0,
+					canvas.width,
+					canvas.height
+				);
+				buffsList.BolgStacksBuff.style.backgroundImage =
+					'url("data:image/png;base64,' +
+					bolgBuffImage.toPngBase64() +
+					'")';
+			}
 		}
 	} else {
 		for (let [_key, value] of Object.entries(buffs).reverse()) {
@@ -787,7 +1015,10 @@ async function parseBolgBuff(data: string) {
 				bolgStacks = '0';
 				bolgSpecActive = true;
 				await new Promise((done) =>
-					setTimeout(done, parseInt(results[0].groups.time, 10) * 1000)
+					setTimeout(
+						done,
+						parseInt(results[0].groups.time, 10) * 1000
+					)
 				);
 				bolgSpecActive = false;
 			} else {
@@ -802,52 +1033,55 @@ async function parseBolgBuff(data: string) {
 	return [bolgSpecTime, bolgStacks];
 }
 
-let posBtn = getByID('OverlayPosition');
-posBtn.addEventListener('click', setOverlayPosition);
+
 async function setOverlayPosition() {
 	let bbb = getByID('Buffs');
 	a1lib.once('alt1pressed', updateLocation);
-	updateSetting('updatingOverlayPosition', true);
-	while (getSetting('updatingOverlayPosition')) {
-		alt1.setTooltip('Press Alt+1 to set overlay position.')
+	sauce.updateSetting('UpdatingOverlayPosition', true);
+	while (sauce.getSetting('UpdatingOverlayPosition')) {
+		alt1.setTooltip('Press Alt+1 to set overlay position.');
 		alt1.overLaySetGroup('overlayPositionHelper');
 		alt1.overLayRect(
 			a1lib.mixColor(255, 255, 255),
 			Math.floor(
 				a1lib.getMousePosition().x -
-					((getSetting('uiScale') / 100) * bbb.offsetWidth) / 2
+					((sauce.getSetting('UIScale') / 100) * bbb.offsetWidth) / 2
 			),
 			Math.floor(
 				a1lib.getMousePosition().y -
-					((getSetting('uiScale') / 100) * bbb.offsetHeight) / 2
+					((sauce.getSetting('UIScale') / 100) * bbb.offsetHeight) / 2
 			),
-			Math.floor((getSetting('uiScale') / 100) * bbb.offsetWidth / 2),
-			Math.floor((getSetting('uiScale') / 100) * bbb.offsetHeight / 1.5),
+			Math.floor(
+				((sauce.getSetting('UIScale') / 100) * bbb.offsetWidth) / 2
+			),
+			Math.floor(
+				((sauce.getSetting('UIScale') / 100) * bbb.offsetHeight) / 1.5
+			),
 			200,
 			2
 		);
-			await new Promise((done) => setTimeout(done, 200));
+		await new Promise((done) => setTimeout(done, 200));
 	}
 	alt1.clearTooltip();
 }
 
 function updateLocation(e) {
 	let bbb = getByID('Buffs');
-	updateSetting('overlayPosition', {
+	sauce.updateSetting('OverlayPosition', {
 		x: Math.floor(
-			e.x - (getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)
+			e.x - (sauce.getSetting('UIScale') / 100) * (bbb.offsetWidth / 2)
 		),
 		y: Math.floor(
-			e.y - (getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
+			e.y - (sauce.getSetting('UIScale') / 100) * (bbb.offsetHeight / 2)
 		),
 	});
-	updateSetting('updatingOverlayPosition', false);
+	sauce.updateSetting('UpdatingOverlayPosition', false);
 	alt1.overLayClearGroup('overlayPositionHelper');
 }
 
 export async function startOverlay() {
-    let cnv = document.createElement('canvas');
-	let ctx = cnv.getContext('2d', {"willReadFrequently": true});
+	let cnv = document.createElement('canvas');
+	let ctx = cnv.getContext('2d', { willReadFrequently: true });
 	let overlay = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0];
 
 	while (true) {
@@ -856,7 +1090,7 @@ export async function startOverlay() {
 
 		captureOverlay();
 
-		let overlayPosition = getSetting('overlayPosition');
+		let overlayPosition = sauce.getSetting('OverlayPosition');
 
 		alt1.overLaySetGroup('betterBuffsBar');
 		alt1.overLayFreezeGroup('betterBuffsBar');
@@ -876,14 +1110,14 @@ export async function startOverlay() {
 			a1lib.encodeImageString(data),
 			data.width,
 			125
-		)
+		);
 		alt1.overLayRefreshGroup('betterBuffsBar');
 		await new Promise((done) => setTimeout(done, 125));
 	}
 }
 
 function initSettings() {
-	if (!localStorage.betterBuffBar) {
+	if (!localStorage[config.appName]) {
 		setDefaultSettings();
 	}
 	loadSettings();
@@ -891,41 +1125,43 @@ function initSettings() {
 
 function setDefaultSettings() {
 	localStorage.setItem(
-		'betterBuffBar',
+		config.appName,
 		JSON.stringify({
-			activeOverlay: true,
-			bigHeadMode: false,
-			bigHeadPosition: 'start',
-			buffsLocation: findPlayerBuffs,
-			buffsPerRow: 10,
-			debuffsLocation: findPlayerDebuffs,
-			fadeInactiveBuffs: true,
-			loopSpeed: 150,
-			singleBOLG: false,
-			showBuffNames: false,
-			showMaintainableBlinking: false,
-			showTooltipReminders: true,
-			overlayPosition: { x: 100, y: 100 },
-			uiScale: 100,
-			updatingOverlayPosition: false,
+			ActiveOverlay: true,
+			BigHeadMode: false,
+			BigHeadPosition: 'start',
+			BuffsLocation: findPlayerBuffs,
+			BuffsPerRow: 10,
+			DebuffsLocation: findPlayerDebuffs,
+			FadeInactiveBuffs: true,
+			LoopSpeed: 150,
+			SingleBOLG: false,
+			ShowBuffNames: false,
+			ShowMaintainableBlinking: false,
+			ShowTooltipReminders: true,
+			OverlayPosition: { x: 100, y: 100 },
+			UIScale: 100,
+			UpdatingOverlayPosition: false,
 		})
 	);
 }
 
 function loadSettings() {
+	getByID('Buffs').style.setProperty( '--maxcount', sauce.getSetting('BuffsPerRow') );
+	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('UIScale'));
+	helperItems.BetterBuffsBar.classList.toggle( 'fade', !sauce.getSetting('FadeInactiveBuffs') );
+	helperItems.BetterBuffsBar.classList.toggle( 'big-head-mode', sauce.getSetting('BigHeadMode') );
+	helperItems.BetterBuffsBar.classList.toggle( 'blink-maintainables', sauce.getSetting('BlinkExpiredBuffs') );
+	if ( parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100 ) { helperItems.TrackedBuffs.classList.add('scaled'); }
+	helperItems.BetterBuffsBar.classList.toggle( 'show-labels', sauce.getSetting('ShowLabelNames') );
+
 	setBuffsPerRow();
 	setBigHeadMode();
-	setSingleBolg();
-	setBuffNames();
-	showMaintainableBlinking();
-	showTooltipReminders();
 	setSortables();
-	setFadeInactiveBuffs();
-	setCustomScale();
-	setOverlay();
-	setLoopSpeed();
 	findPlayerBuffs();
 	findPlayerDebuffs();
+	setGridSize();
+	setBigHeadGrid();
 }
 
 function setSortables() {
@@ -974,249 +1210,74 @@ function setSortables() {
 }
 
 function setBuffsPerRow() {
-	let buffsTracker = getByID('Buffs');
-	let buffsPerRowInput = <HTMLInputElement>getByID('BuffsPerRow');
-	let buffsPerRow = getSetting('buffsPerRow');
-	buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
+	getByID('Buffs').style.setProperty('--maxcount', sauce.getSetting('BuffsPerRow'));
 	setGridSize();
-
-	buffsPerRowInput.value = buffsPerRow;
-	buffsPerRowInput.addEventListener('change', (e) => {
-		updateSetting('buffsPerRow', buffsPerRowInput.value);
-		buffsTracker.style.setProperty('--maxcount', getSetting('buffsPerRow'));
-		setGridSize();
-		setBigHeadGrid();
-	});
 }
 
 function setGridSize() {
 	let buffsCount = helperItems.TrackedBuffs.querySelectorAll('li').length;
-	let maxLength = parseInt(helperItems.TrackedBuffs.style.getPropertyValue('--maxcount'), 10);
-	let rowsToGenerate = parseInt(roundedToFixed(buffsCount / maxLength, 1) + 1, 10);
-	helperItems.TrackedBuffs.style.gridTemplateAreas = `"${'. '.repeat(getSetting('buffsPerRow'))}"`.repeat(rowsToGenerate);
-	helperItems.TrackedBuffs.style.gridTemplateRows = `repeat(${rowsToGenerate+1}, calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))`
+	let maxLength = parseInt(
+		helperItems.TrackedBuffs.style.getPropertyValue('--maxcount'),
+		10
+	);
+	let rowsToGenerate = parseInt(
+		roundedToFixed(buffsCount / maxLength, 1) + 1,
+		10
+	);
+	helperItems.TrackedBuffs.style.gridTemplateAreas = `"${'. '.repeat(
+		sauce.getSetting('BuffsPerRow')
+	)}"`.repeat(rowsToGenerate);
+	helperItems.TrackedBuffs.style.gridTemplateRows = `repeat(${
+		rowsToGenerate + 1
+	}, calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))`;
 }
 
 function setBigHeadMode() {
-	let setBigHeadMode = <HTMLInputElement>
-		getByID('SetBigHeadMode');
-		let bigHeadPosition = <HTMLSelectElement>(
-			getByID('BigHeadPosition')
-		);
-	setCheckboxChecked(setBigHeadMode);
-	helperItems.BetterBuffsBar.classList.toggle(
-		'big-head-mode',
-		Boolean(getSetting('bigHeadMode'))
-	);
+	helperItems.TrackedBuffs.classList.toggle( 'scaled', sauce.getSetting('BigHeadMode') );
+	helperItems.BetterBuffsBar.classList.toggle( 'big-head-mode', sauce.getSetting('BigHeadMode'));
 	setBigHeadGrid();
-	setBigHeadMode.addEventListener('change', function () {
-		helperItems.BetterBuffsBar.classList.toggle(
-			'big-head-mode',
-			Boolean(getSetting('bigHeadMode'))
-		);
-		setBigHeadGrid();
-	});
-	bigHeadPosition.value = getSetting('bigHeadPosition');
-	bigHeadPosition.addEventListener('change', (e) => {
-		updateSetting('bigHeadPosition', bigHeadPosition.value);
-		setBigHeadGrid();
-	});
 }
 
 function setBigHeadGrid() {
-	if (getSetting('bigHeadMode') && getSetting('bigHeadPosition') == "start") {
+	if (sauce.getSetting('BigHeadMode') && sauce.getSetting('BigHeadPosition') == 'start') {
 		helperItems.TrackedBuffs.style.gridTemplateAreas = `
-		"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
-		"first first ${'. '.repeat(getSetting('buffsPerRow'))}"
-		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
-		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
-		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
+		"first first ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
+		"first first ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
+		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
+		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
+		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
 		`;
 	}
-	if (
-		getSetting('bigHeadMode') && getSetting('bigHeadPosition') == 'end'
-	) {
+	if (sauce.getSetting('BigHeadMode') && sauce.getSetting('BigHeadPosition') == 'end') {
 		helperItems.TrackedBuffs.style.gridTemplateAreas = `
-		"${'. '.repeat(getSetting('buffsPerRow'))}first first"
-		"${'. '.repeat(getSetting('buffsPerRow'))}first first"
-		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
-		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
-		". . ${'. '.repeat(getSetting('buffsPerRow'))}"
+		"${'. '.repeat(sauce.getSetting('BuffsPerRow'))}first first"
+		"${'. '.repeat(sauce.getSetting('BuffsPerRow'))}first first"
+		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
+		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
+		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
 		`;
 	}
 }
-
-function setSingleBolg() {
-	let singleBolg = <HTMLInputElement>(
-		document.querySelectorAll('.single-bolg')[0]
-	);
-	setCheckboxChecked(singleBolg);
-	buffsList.BalanceByForceBuff.classList.toggle(
-		'disabled',
-		!Boolean(getSetting('singleBOLG'))
-	);
-	singleBolg.addEventListener('change', function () {
-		buffsList.BalanceByForceBuff.classList.toggle(
-			'disabled',
-			!Boolean(getSetting('singleBOLG'))
-		);
-		location.reload();
-	});
-}
-
-function setBuffNames() {
-	let showBuffNames = <HTMLInputElement>(
-		document.querySelectorAll('.show-labels')[0]
-	);
-	setCheckboxChecked(showBuffNames);
-	helperItems.BetterBuffsBar.classList.toggle(
-		'show-labels',
-		Boolean(getSetting('showBuffNames'))
-	);
-	showBuffNames.addEventListener('change', function () {
-		helperItems.BetterBuffsBar.classList.toggle(
-			'show-labels',
-			Boolean(getSetting('showBuffNames'))
-		);
-	});
-}
-
-function showMaintainableBlinking() {
-	let showMaintainableBlinking = <HTMLInputElement>(
-		document.querySelectorAll('.show-maintainable-blinking')[0]
-	);
-	setCheckboxChecked(showMaintainableBlinking);
-	helperItems.BetterBuffsBar.classList.toggle(
-		'blink-maintainables',
-		Boolean(getSetting('showMaintainableBlinking'))
-	);
-	showMaintainableBlinking.addEventListener('change', function () {
-		helperItems.BetterBuffsBar.classList.toggle(
-			'blink-maintainables',
-			Boolean(getSetting('showMaintainableBlinking'))
-		);
-	});
-}
-
-function showTooltipReminders() {
-	let showTooltipReminders = <HTMLInputElement>(
-		document.querySelectorAll('.show-tooltip-reminders')[0]
-	);
-	setCheckboxChecked(showTooltipReminders);
-}
-
-function setFadeInactiveBuffs() {
-	let fadeInactiveBuffs = <HTMLInputElement>document.querySelectorAll('.fade-inactive')[0];
-	setCheckboxChecked(fadeInactiveBuffs);
-	helperItems.BetterBuffsBar.classList.toggle(
-		'fade',
-		Boolean(getSetting('fadeInactiveBuffs'))
-	);
-	fadeInactiveBuffs.addEventListener('change', function () {
-		helperItems.BetterBuffsBar.classList.toggle(
-			'fade',
-			Boolean(getSetting('fadeInactiveBuffs'))
-		);
-	});
-}
-
-function setCustomScale() {
-	let buffsTracker = getByID('Buffs');
-	buffsTracker.style.setProperty('--scale', getSetting('uiScale'));
-
-	document
-		.getElementById('UIScale')
-		.setAttribute('value', getSetting('uiScale'));
-
-	let UIScaleValue = document.querySelector('#UIScaleOutput');
-	let UIScaleInput: any = document.querySelector('#UIScale');
-	UIScaleValue.textContent = UIScaleInput.value;
-
-	if (UIScaleInput.value < 100) {
-		helperItems.TrackedBuffs.classList.add('scaled');
-	}
-}
-
-function setCheckboxChecked(el: HTMLInputElement) {
-	el.checked = Boolean(getSetting(el.dataset.setting));
-}
-
-function setOverlay() {
-	let showOverlay = <HTMLInputElement>getByID('ShowOverlay');
-	setCheckboxChecked(showOverlay);
-	helperItems.BetterBuffsBar.classList.toggle(
-		'overlay',
-		Boolean(getSetting('activeOverlay'))
-	);
-	showOverlay.addEventListener('change', function () {
-		location.reload();
-	});
-	helperItems.ToggleOverlayButton.addEventListener('click', (e) => {
-		showOverlay.checked = !showOverlay.checked;
-		updateSetting('activeOverlay', showOverlay.checked);
-		helperItems.BetterBuffsBar.classList.toggle(
-			'overlay',
-			Boolean(getSetting('activeOverlay'))
-		);
-		location.reload();
-	})
-}
-
-function setLoopSpeed() {
-
-	if (getSetting('loopSpeed') == '') {
-		updateSetting('loopSpeed', 125);
-	}
-
-	let loopSpeed = <HTMLInputElement>getByID('LoopSpeed');
-	loopSpeed.value = getSetting('loopSpeed');
-
-	document
-		.getElementById('LoopSpeed')
-		.setAttribute('value', getSetting('loopSoeed'));
-
-	let LoopSpeedValue = document.querySelector('#LoopSpeedOutput');
-	let LoopSpeedInput: any = document.querySelector('#LoopSpeed');
-	LoopSpeedValue.textContent = LoopSpeedInput.value;
-}
-
-function getSetting(setting) {
-	if (!localStorage.betterBuffBar) {
-		initSettings();
-	}
-	return JSON.parse(localStorage.getItem('betterBuffBar'))[setting];
-}
-
-function updateSetting(setting, value) {
-	if (!localStorage.getItem('betterBuffBar')) {
-		localStorage.setItem('betterBuffBar', JSON.stringify({}));
-	}
-	var save_data = JSON.parse(localStorage.getItem('betterBuffBar'));
-	save_data[setting] = value;
-	localStorage.setItem('betterBuffBar', JSON.stringify(save_data));
-}
-
 
 let foundBuffs = false;
 function getActiveBuffs() {
-	if (foundBuffs && getSetting('buffsLocation')) {
+	if (foundBuffs && sauce.getSetting('BuffsLocation')) {
 		return buffs.read();
 	} else {
 		findPlayerBuffs();
 	}
 }
 
-
 function findPlayerBuffs() {
 	if (buffs.find()) {
 		foundBuffs = true;
-		return updateSetting('buffsLocation', [buffs.pos.x, buffs.pos.y]);
+		return sauce.updateSetting('BuffsLocation', [buffs.pos.x, buffs.pos.y]);
 	}
 }
 
 let foundDebuffs = false;
 function getActiveDebuffs() {
-	if (foundDebuffs && getSetting('debuffsLocation')) {
+	if (foundDebuffs && sauce.getSetting('DebuffsLocation')) {
 		return debuffs.read();
 	} else {
 		findPlayerDebuffs();
@@ -1226,7 +1287,7 @@ function getActiveDebuffs() {
 function findPlayerDebuffs() {
 	if (debuffs.find()) {
 		foundDebuffs = true;
-		return updateSetting('debuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
+		return sauce.updateSetting('DebuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
 	}
 }
 
@@ -1236,38 +1297,142 @@ function roundedToFixed(input, digits) {
 }
 
 /* Settings */
+const settingsObject = {
+	settingsHeader: sauce.createHeading('h2', 'Settings'),
+	beginGeneral: sauce.createHeading('h3', 'General'),
+	BuffsPerRow: sauce.createNumberSetting(
+		'BuffsPerRow',
+		'Number of buffs per row',
+		{ defaultValue: 10, min: 1, max: 20 }
+	),
+	FadeInactiveBuffs: sauce.createCheckboxSetting(
+		'FadeInactiveBuffs',
+		'Remove Inactive Buffs - Removes inactive buffs instead of appearing greyed out',
+		false
+	),
+	BigHeadMode: sauce.createCheckboxSetting(
+		'BigHeadMode',
+		'Big Head Mode - The first buff will be made four times as large and take up two rows of buffs',
+		false
+	),
+	BigHeadPosition: sauce.createDropdownSetting(
+		'BigHeadPosition',
+		'Position of Big Head Mode',
+		'start',
+		[
+			{ value: 'start', name: 'Left Side' },
+			{ value: 'end', name: 'Right Side' },
+		]
+	),
+	OverloadReminder: sauce.createCheckboxSetting(
+		'OverloadReminder',
+		'Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire',
+		false
+	),
+	BlinkExpiredBuffs: sauce.createCheckboxSetting(
+		'BlinkExpiredBuffs',
+		'Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)',
+		false
+	),
+	SingleBOLG: sauce.createCheckboxSetting(
+		'SingleBOLG',
+		'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks',
+		false
+	),
+	ShowLabelNames: sauce.createCheckboxSetting(
+		'ShowLabelNames',
+		`Show Names - Only use this if you don't recognize the icons`,
+		false
+	),
+	endGeneral: sauce.createSeperator(),
+	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
+	OverlaySmallText: sauce.createSmallText(
+		`Make sure the "Show overlay" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right.`
+	),
+	OverlayPositionButton: sauce.createButton(
+		'Set Overlay Position',
+		setOverlayPosition
+	),
+	endOverlay: sauce.createSeperator(),
+	ScaleHeader: sauce.createHeading('h3', 'UI Scale'),
+	UIScale: sauce.createRangeSetting(
+		'UIScale',
+		'Adjusts the display size of the Overlay.',
+		{
+			defaultValue: 100,
+			min: 50,
+			max: 200,
+		}
+	),
+	endScale: sauce.createSeperator(),
+	SearchHeader: sauce.createHeading('h3', 'Interface Search Speed'),
+	SearchText: sauce.createText(
+		`Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. You must reload the app for the new value to take effect.`
+	),
+	SearchSpeed: sauce.createRangeSetting('LoopSpeed', '', {
+		defaultValue: 150,
+		min: 50,
+		max: 300,
+		unit: 'ms',
+	}),
+	endSearch: sauce.createSeperator(),
+	ResetHeader: sauce.createHeading('h3', 'Hard Reset'),
+	ResetText: sauce.createText(
+		`Bad configuration values can break the plugin. This attempts to reset your configuration and reload the plugin. When troubleshooting this should be the first thing you should try to resolve your problem.`
+	),
+	resetButton: sauce.createButton(
+		'Reset All Settings',
+		sauce.setDefaultSettings
+	),
+};
 
-let checkboxFields: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"]');
-checkboxFields.forEach((checkbox) => {
-	checkbox.addEventListener('click', (e) => {
-			updateSetting(checkbox.dataset.setting, checkbox.checked);
-		})
+settingsObject.BuffsPerRow.addEventListener('click', () => {
+	getByID('Buffs').style.setProperty('--maxcount', sauce.getSetting('BuffsPerRow'));
+	setGridSize();
+	setBigHeadGrid();
 });
 
-var scaleSliderFields: any = document.querySelectorAll(
-	'input[type="range"].scale'
-);
-scaleSliderFields.forEach((scaleSlider) => {
-	scaleSlider.addEventListener('input', (event) => {
-		updateSetting(scaleSlider.dataset.setting, event.target.value);
-		loadSettings();
-	});
+settingsObject.FadeInactiveBuffs.addEventListener('change', function () {
+	helperItems.BetterBuffsBar.classList.toggle(
+		'fade',
+		!settingsObject.FadeInactiveBuffs.querySelector('input').checked
+	);
 });
 
-var loopSpeed: any = document.querySelector('#LoopSpeed');
-loopSpeed.addEventListener('change', (event) => {
-	updateSetting('loopSpeed', event.target.value);
+settingsObject.BigHeadMode.addEventListener('change', () => {
+	helperItems.BetterBuffsBar.classList.toggle(
+		'big-head-mode',
+		settingsObject.BigHeadMode.querySelector('input').checked
+	);
+	setBigHeadMode();
+	setBigHeadGrid();
 });
 
-let resetAllSettingsButton = getByID('ResetAllSettings');
-resetAllSettingsButton.addEventListener('click', () => {
-	localStorage.removeItem('betterBuffBar');
-	localStorage.clear();
-	initSettings();
-	location.reload();
+settingsObject.BigHeadPosition.addEventListener('change', () => {
+	setBigHeadMode();
+	setBigHeadGrid();
 });
 
-/* End Settings */
+settingsObject.BlinkExpiredBuffs.addEventListener('change', () => {
+	helperItems.BetterBuffsBar.classList.toggle(
+		'blink-maintainables',
+		settingsObject.BlinkExpiredBuffs.querySelector('input').checked
+	);
+});
+
+settingsObject.UIScale.addEventListener('change', () => {
+	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('UIScale'));
+	if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
+		helperItems.TrackedBuffs.classList.add('scaled');
+	}
+});
+
+settingsObject.ShowLabelNames.addEventListener('click', () => {
+	helperItems.BetterBuffsBar.classList.toggle(
+		'show-labels',
+		settingsObject.ShowLabelNames.querySelector('input').checked
+	);
+});
 
 window.onload = function () {
 	//check if we are running inside alt1 by checking if the alt1 global exists
@@ -1276,6 +1441,10 @@ window.onload = function () {
 		//this makes alt1 show the add app button when running inside the embedded browser
 		//also updates app settings if they are changed
 		alt1.identifyAppUrl('./appconfig.json');
+		let settings = document.querySelector('#Settings .container');
+		Object.values(settingsObject).forEach((val) => {
+			settings.before(val);
+		});
 		initSettings();
 		startBetterBuffsBar();
 	} else {

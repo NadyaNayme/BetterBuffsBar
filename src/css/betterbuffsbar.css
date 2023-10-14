@@ -652,7 +652,8 @@ body {
   left: calc(50% + 1px);
 }
 
-#BetterBuffsBar:not(.fade) #Buffs li.inactive {
+#BetterBuffsBar:not(.fade) #Buffs li.inactive,
+#BetterBuffsBar:not(.fade) #Buffs li.cooldown {
   display: none;
 }
 
@@ -738,6 +739,9 @@ h3 {
   justify-content: flex-start;
 }
 
+.flex-wrap { flex-wrap: wrap; }
+.full { width: 100%; }
+
 #Settings .setting {
   margin-bottom: .65rem;
 }
@@ -751,7 +755,9 @@ input[type="color"] {
   border: none;
 }
 
-input[type="checkbox"] {
+input[type="text"],
+input[type="checkbox"],
+select {
   margin-right: .5rem;
 }
 
@@ -762,15 +768,16 @@ input[type="color"]:hover {
 input[type="number"] {
   margin: 0 .5rem;
   max-width: 40px;
-  margin-left: auto;
+  margin-left: 0;
 }
 
 input[type="number"].per-row {
   margin-left: 0;
 }
 
-select {
-  margin: 0 .25rem 0 1rem;
+small {
+  display: block;
+  margin: 1rem 0;
 }
 
 .nisimgbutton {
