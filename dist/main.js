@@ -18838,18 +18838,18 @@ function paintCanvas(canvas) {
     overlayCanvasContext.clearRect(0, 0, overlayCanvasContext.canvas.width, overlayCanvasContext.canvas.height);
     overlayCanvasContext.drawImage(canvas, 0, 0);
     var overlay = overlayCanvasOutput.querySelector('canvas');
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('OverlayImage', overlay.toDataURL());
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('FirstFrame', true);
+    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayImage', overlay.toDataURL());
+    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('firstFrame', true);
 }
 var maxAttempts = 10;
 function watchBuffs() {
-    var loopSpeed = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('LoopSpeed');
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('FirstFrame', false); /* We haven't captured a new frame yet */
+    var loopSpeed = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('loopSpeed');
+    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('firstFrame', false); /* We haven't captured a new frame yet */
     startOverlay();
     var interval = setInterval(function () {
         var buffs = getActiveBuffs();
         var debuffs = getActiveDebuffs();
-        if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsLocation')) {
+        if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsLocation')) {
             maxAttempts = 10;
             //TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
             findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
@@ -18894,7 +18894,7 @@ function watchBuffs() {
         else {
             noDetection(maxAttempts, interval, 'buff');
         }
-        if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('DebuffsLocation')) {
+        if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debuffsLocation')) {
             maxAttempts = 10;
             findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 90);
             findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 300);
@@ -19009,7 +19009,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('DebugLevel') == 1 &&
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugLevel') == 1 &&
                         buffImage == incenseImages.kwuarm) {
                         console.log(findBuffImage);
                     }
@@ -19021,13 +19021,13 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                 case 2:
                     _f.sent();
                     timearg = value.readArg('timearg');
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('DebugLevel') == 1 &&
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugLevel') == 1 &&
                         buffImage == incenseImages.dwarfWeed) {
                         console.log(timearg.time);
                         console.log(timearg);
                     }
                     if (!(element.dataset.time == '1' && showCooldown && !onCooldown)) return [3 /*break*/, 4];
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('DebugMode')) {
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
                         console.log("Starting cooldown timer for ".concat(element.id));
                     }
                     onCooldown = true;
@@ -19039,7 +19039,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (!(timearg.time > 59 &&
                         !onCooldown &&
                         timearg.time < maxRange)) return [3 /*break*/, 6];
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('DebugMode')) {
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
                         console.log("".concat(element.id, " has >60s remaining"));
                     }
                     element.dataset.time =
@@ -19055,7 +19055,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     return [3 /*break*/, 15];
                 case 6:
                     if (!(expirationPulse && timearg.time == 11 && !onCooldown)) return [3 /*break*/, 10];
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('DebugMode')) {
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
                         console.log("".concat(element.id, " has <10s remaining - starting 10s countdown"));
                     }
                     element.dataset.time = '<10s';
@@ -19070,13 +19070,13 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     return [4 /*yield*/, setInactive(element)];
                 case 9:
                     _f.sent();
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('ShowTooltipReminders')) {
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showTooltipReminders')) {
                         showTooltip('Overload expired', 3000);
                     }
                     return [3 /*break*/, 15];
                 case 10:
                     if (!(timearg.time > minRange && timearg.time < maxRange)) return [3 /*break*/, 13];
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('DebugMode')) {
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
                         console.log("Cooldown for ".concat(element.id, " is between ").concat(minRange, " and ").concat(maxRange));
                     }
                     element.dataset.time = timearg.time.toString();
@@ -19087,7 +19087,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     _f.label = 12;
                 case 12: return [3 /*break*/, 15];
                 case 13:
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('DebugMode')) {
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
                         console.log("".concat(element.id, " is no longer active - setting inactive."));
                     }
                     return [4 /*yield*/, setInactive(element)];
@@ -19097,7 +19097,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                 case 15: return [3 /*break*/, 18];
                 case 16:
                     if (!!showCooldown) return [3 /*break*/, 18];
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('DebugMode')) {
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
                         console.log("".concat(element.id, " is no longer active - setting inactive."));
                     }
                     return [4 /*yield*/, setInactive(element)];
@@ -19341,7 +19341,7 @@ function findBolgStacks(buffs) {
             switch (_c.label) {
                 case 0:
                     bolgFound = false;
-                    if (!!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('SingleBOLG')) return [3 /*break*/, 1];
+                    if (!!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('singleBOLG')) return [3 /*break*/, 1];
                     canvas = document.getElementById('canvas');
                     ctx = canvas.getContext('2d');
                     ctx.drawImage(buffImages.perfectEquilibriumNoBorder.toImage(), 0, 0, canvas.width, canvas.height);
@@ -19468,15 +19468,15 @@ function setOverlayPosition() {
                 case 0:
                     bbb = getByID('Buffs');
                     alt1__WEBPACK_IMPORTED_MODULE_8__.once('alt1pressed', updateLocation);
-                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('UpdatingOverlayPosition', true);
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
                     _a.label = 1;
                 case 1:
-                    if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('UpdatingOverlayPosition')) return [3 /*break*/, 3];
+                    if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
                     alt1.setTooltip('Press Alt+1 to set overlay position.');
                     alt1.overLaySetGroup('overlayPositionHelper');
                     alt1.overLayRect(alt1__WEBPACK_IMPORTED_MODULE_8__.mixColor(255, 255, 255), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_8__.getMousePosition().x -
-                        ((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('UIScale') / 100) * bbb.offsetWidth) / 2), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_8__.getMousePosition().y -
-                        ((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('UIScale') / 100) * bbb.offsetHeight) / 2), Math.floor(((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('UIScale') / 100) * bbb.offsetWidth) / 2), Math.floor(((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('UIScale') / 100) * bbb.offsetHeight) / 1.5), 200, 2);
+                        ((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_8__.getMousePosition().y -
+                        ((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * bbb.offsetHeight) / 2), Math.floor(((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2), Math.floor(((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * bbb.offsetHeight) / 1.5), 200, 2);
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 200); })];
                 case 2:
                     _a.sent();
@@ -19490,11 +19490,11 @@ function setOverlayPosition() {
 }
 function updateLocation(e) {
     var bbb = getByID('Buffs');
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('OverlayPosition', {
-        x: Math.floor(e.x - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('UIScale') / 100) * (bbb.offsetWidth / 2)),
-        y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('UIScale') / 100) * (bbb.offsetHeight / 2)),
+    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayPosition', {
+        x: Math.floor(e.x - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
+        y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
     });
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('UpdatingOverlayPosition', false);
+    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
     alt1.overLayClearGroup('overlayPositionHelper');
 }
 function startOverlay() {
@@ -19512,7 +19512,7 @@ function startOverlay() {
                     cnv.width = 1000;
                     cnv.height = 1000;
                     captureOverlay();
-                    overlayPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('OverlayPosition');
+                    overlayPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
                     alt1.overLaySetGroup('betterBuffsBar');
                     alt1.overLayFreezeGroup('betterBuffsBar');
                     /* If I try and use the overlay instead of copying the overlay it doesn't work. No idea why. */
@@ -19538,33 +19538,33 @@ function initSettings() {
 }
 function setDefaultSettings() {
     localStorage.setItem(config.appName, JSON.stringify({
-        ActiveOverlay: true,
-        BigHeadMode: false,
-        BigHeadPosition: 'start',
-        BuffsLocation: findPlayerBuffs,
-        BuffsPerRow: 10,
-        DebuffsLocation: findPlayerDebuffs,
-        FadeInactiveBuffs: true,
-        LoopSpeed: 150,
-        SingleBOLG: false,
-        ShowBuffNames: false,
-        ShowMaintainableBlinking: false,
-        ShowTooltipReminders: true,
-        OverlayPosition: { x: 100, y: 100 },
-        UIScale: 100,
-        UpdatingOverlayPosition: false,
+        activeOverlay: true,
+        bigHeadMode: false,
+        bigHeadPosition: 'start',
+        buffsLocation: findPlayerBuffs,
+        buffsPerRow: 10,
+        debuffsLocation: findPlayerDebuffs,
+        fadeInactiveBuffs: true,
+        loopSpeed: 150,
+        singleBOLG: false,
+        showBuffNames: false,
+        showMaintainableBlinking: false,
+        showTooltipReminders: true,
+        overlayPosition: { x: 100, y: 100 },
+        uiScale: 100,
+        updatingOverlayPosition: false,
     }));
 }
 function loadSettings() {
-    getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow'));
-    getByID('Buffs').style.setProperty('--scale', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('UIScale'));
-    helperItems.BetterBuffsBar.classList.toggle('fade', !_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('FadeInactiveBuffs'));
-    helperItems.BetterBuffsBar.classList.toggle('big-head-mode', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BigHeadMode'));
-    helperItems.BetterBuffsBar.classList.toggle('blink-maintainables', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BlinkExpiredBuffs'));
+    getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
+    getByID('Buffs').style.setProperty('--scale', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale'));
+    helperItems.BetterBuffsBar.classList.toggle('fade', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('fadeInactiveBuffs'));
+    helperItems.BetterBuffsBar.classList.toggle('big-head-mode', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode'));
+    helperItems.BetterBuffsBar.classList.toggle('blink-maintainables', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showMaintainableBlinking'));
     if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
         helperItems.TrackedBuffs.classList.add('scaled');
     }
-    helperItems.BetterBuffsBar.classList.toggle('show-labels', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('ShowLabelNames'));
+    helperItems.BetterBuffsBar.classList.toggle('show-labels', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showBuffNames'));
     setBuffsPerRow();
     setBigHeadMode();
     setSortables();
@@ -19616,32 +19616,32 @@ function setSortables() {
     });
 }
 function setBuffsPerRow() {
-    getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow'));
+    getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
     setGridSize();
 }
 function setGridSize() {
     var buffsCount = helperItems.TrackedBuffs.querySelectorAll('li').length;
     var maxLength = parseInt(helperItems.TrackedBuffs.style.getPropertyValue('--maxcount'), 10);
     var rowsToGenerate = parseInt(roundedToFixed(buffsCount / maxLength, 1) + 1, 10);
-    helperItems.TrackedBuffs.style.gridTemplateAreas = "\"".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "\"").repeat(rowsToGenerate);
+    helperItems.TrackedBuffs.style.gridTemplateAreas = "\"".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"").repeat(rowsToGenerate);
     helperItems.TrackedBuffs.style.gridTemplateRows = "repeat(".concat(rowsToGenerate + 1, ", calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))");
 }
 function setBigHeadMode() {
-    helperItems.TrackedBuffs.classList.toggle('scaled', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BigHeadMode'));
-    helperItems.BetterBuffsBar.classList.toggle('big-head-mode', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BigHeadMode'));
+    helperItems.TrackedBuffs.classList.toggle('scaled', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode'));
+    helperItems.BetterBuffsBar.classList.toggle('big-head-mode', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode'));
     setBigHeadGrid();
 }
 function setBigHeadGrid() {
-    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BigHeadMode') && _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BigHeadPosition') == 'start') {
-        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"first first ".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "\"\n\t\t\"first first ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "\"\n\t\t");
+    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode') && _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadPosition') == 'start') {
+        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"first first ".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\"first first ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t");
     }
-    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BigHeadMode') && _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BigHeadPosition') == 'end') {
-        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "first first\"\n\t\t\"").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "first first\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow')), "\"\n\t\t");
+    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode') && _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadPosition') == 'end') {
+        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "first first\"\n\t\t\"").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "first first\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t");
     }
 }
 var foundBuffs = false;
 function getActiveBuffs() {
-    if (foundBuffs && _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsLocation')) {
+    if (foundBuffs && _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsLocation')) {
         return buffs.read();
     }
     else {
@@ -19651,12 +19651,12 @@ function getActiveBuffs() {
 function findPlayerBuffs() {
     if (buffs.find()) {
         foundBuffs = true;
-        return _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('BuffsLocation', [buffs.pos.x, buffs.pos.y]);
+        return _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('buffsLocation', [buffs.pos.x, buffs.pos.y]);
     }
 }
 var foundDebuffs = false;
 function getActiveDebuffs() {
-    if (foundDebuffs && _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('DebuffsLocation')) {
+    if (foundDebuffs && _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debuffsLocation')) {
         return debuffs.read();
     }
     else {
@@ -19666,7 +19666,7 @@ function getActiveDebuffs() {
 function findPlayerDebuffs() {
     if (debuffs.find()) {
         foundDebuffs = true;
-        return _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('DebuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
+        return _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('debuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
     }
 }
 function roundedToFixed(input, digits) {
@@ -19677,24 +19677,24 @@ function roundedToFixed(input, digits) {
 var settingsObject = {
     settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings'),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
-    BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('BuffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
-    FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('FadeInactiveBuffs', 'Remove Inactive Buffs - Removes inactive buffs instead of appearing greyed out', false),
-    BigHeadMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('BigHeadMode', 'Big Head Mode - The first buff will be made four times as large and take up two rows of buffs', false),
-    BigHeadPosition: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createDropdownSetting('BigHeadPosition', 'Position of Big Head Mode', 'start', [
+    BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
+    FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', 'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them', false),
+    BigHeadMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('bigHeadMode', 'Big Head Mode - The first buff will be made four times as large and take up two rows of buffs', false),
+    BigHeadPosition: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createDropdownSetting('bigHeadPosition', 'Position of Big Head Mode', 'start', [
         { value: 'start', name: 'Left Side' },
         { value: 'end', name: 'Right Side' },
     ]),
-    OverloadReminder: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('OverloadReminder', 'Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire', false),
-    BlinkExpiredBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('BlinkExpiredBuffs', 'Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)', false),
-    SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('SingleBOLG', 'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks', false),
-    ShowLabelNames: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('ShowLabelNames', "Show Names - Only use this if you don't recognize the icons", false),
+    OverloadReminder: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('overloadReminder', 'Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire', false),
+    BlinkExpiredBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showMaintainableBlinking', 'Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)', false),
+    SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('singleBOLG', 'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks', false),
+    ShowLabelNames: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showBuffNames', "Show Names - Only use this if you don't recognize the icons", false),
     endGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("Make sure the \"Show overlay\" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right."),
     OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition),
     endOverlay: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     ScaleHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'UI Scale'),
-    UIScale: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('UIScale', 'Adjusts the display size of the Overlay.', {
+    UIScale: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('uiScale', 'Adjusts the display size of the Overlay.', {
         defaultValue: 100,
         min: 50,
         max: 200,
@@ -19702,7 +19702,7 @@ var settingsObject = {
     endScale: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     SearchHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Interface Search Speed'),
     SearchText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. You must reload the app for the new value to take effect."),
-    SearchSpeed: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('LoopSpeed', '', {
+    SearchSpeed: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('loopSpeed', '', {
         defaultValue: 150,
         min: 50,
         max: 300,
@@ -19714,12 +19714,12 @@ var settingsObject = {
     resetButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Reset All Settings', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.setDefaultSettings),
 };
 settingsObject.BuffsPerRow.addEventListener('click', function () {
-    getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('BuffsPerRow'));
+    getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
     setGridSize();
     setBigHeadGrid();
 });
 settingsObject.FadeInactiveBuffs.addEventListener('change', function () {
-    helperItems.BetterBuffsBar.classList.toggle('fade', !settingsObject.FadeInactiveBuffs.querySelector('input').checked);
+    helperItems.BetterBuffsBar.classList.toggle('fade', settingsObject.FadeInactiveBuffs.querySelector('input').checked);
 });
 settingsObject.BigHeadMode.addEventListener('change', function () {
     helperItems.BetterBuffsBar.classList.toggle('big-head-mode', settingsObject.BigHeadMode.querySelector('input').checked);
@@ -19734,7 +19734,7 @@ settingsObject.BlinkExpiredBuffs.addEventListener('change', function () {
     helperItems.BetterBuffsBar.classList.toggle('blink-maintainables', settingsObject.BlinkExpiredBuffs.querySelector('input').checked);
 });
 settingsObject.UIScale.addEventListener('change', function () {
-    getByID('Buffs').style.setProperty('--scale', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('UIScale'));
+    getByID('Buffs').style.setProperty('--scale', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale'));
     if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
         helperItems.TrackedBuffs.classList.add('scaled');
     }

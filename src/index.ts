@@ -245,22 +245,22 @@ function paintCanvas(canvas: HTMLCanvasElement) {
 	);
 	overlayCanvasContext.drawImage(canvas, 0, 0);
 	let overlay = overlayCanvasOutput.querySelector('canvas');
-	sauce.updateSetting('OverlayImage', overlay.toDataURL());
-	sauce.updateSetting('FirstFrame', true);
+	sauce.updateSetting('overlayImage', overlay.toDataURL());
+	sauce.updateSetting('firstFrame', true);
 }
 
 let maxAttempts = 10;
 function watchBuffs() {
-	let loopSpeed = sauce.getSetting('LoopSpeed');
+	let loopSpeed = sauce.getSetting('loopSpeed');
 	sauce.updateSetting(
-		'FirstFrame',
+		'firstFrame',
 		false
 	); /* We haven't captured a new frame yet */
 	startOverlay();
 	const interval = setInterval(() => {
 		let buffs = getActiveBuffs();
 		let debuffs = getActiveDebuffs();
-		if (sauce.getSetting('BuffsLocation')) {
+		if (sauce.getSetting('buffsLocation')) {
 			maxAttempts = 10;
 
 			//TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
@@ -497,7 +497,7 @@ function watchBuffs() {
 		} else {
 			noDetection(maxAttempts, interval, 'buff');
 		}
-		if (sauce.getSetting('DebuffsLocation')) {
+		if (sauce.getSetting('debuffsLocation')) {
 			maxAttempts = 10;
 			findStatus(
 				debuffs,
@@ -636,7 +636,7 @@ async function findStatus(
 
 		let findBuffImage = value.countMatch(buffImage, false);
 		if (
-			sauce.getSetting('DebugLevel') == 1 &&
+			sauce.getSetting('debugLevel') == 1 &&
 			buffImage == incenseImages.kwuarm
 		) {
 			console.log(findBuffImage);
@@ -648,14 +648,14 @@ async function findStatus(
 			await setActive(element);
 			timearg = value.readArg('timearg');
 			if (
-				sauce.getSetting('DebugLevel') == 1 &&
+				sauce.getSetting('debugLevel') == 1 &&
 				buffImage == incenseImages.dwarfWeed
 			) {
 				console.log(timearg.time);
 				console.log(timearg);
 			}
 			if (element.dataset.time == '1' && showCooldown && !onCooldown) {
-				if (sauce.getSetting('DebugMode')) {
+				if (sauce.getSetting('debugMode')) {
 					console.log(`Starting cooldown timer for ${element.id}`);
 				}
 				onCooldown = true;
@@ -666,7 +666,7 @@ async function findStatus(
 				!onCooldown &&
 				timearg.time < maxRange
 			) {
-				if (sauce.getSetting('DebugMode')) {
+				if (sauce.getSetting('debugMode')) {
 					console.log(`${element.id} has >60s remaining`);
 				}
 				element.dataset.time =
@@ -677,7 +677,7 @@ async function findStatus(
 				//a buff that won't have a more precise value for 1 minute
 				await new Promise((done) => setTimeout(done, 600));
 			} else if (expirationPulse && timearg.time == 11 && !onCooldown) {
-				if (sauce.getSetting('DebugMode')) {
+				if (sauce.getSetting('debugMode')) {
 					console.log(
 						`${element.id} has <10s remaining - starting 10s countdown`
 					);
@@ -687,11 +687,11 @@ async function findStatus(
 				// This can be desynced from in-game 10s but it's accurate enough
 				await new Promise((done) => setTimeout(done, 10000));
 				await setInactive(element);
-				if (sauce.getSetting('ShowTooltipReminders')) {
+				if (sauce.getSetting('showTooltipReminders')) {
 					showTooltip('Overload expired', 3000);
 				}
 			} else if (timearg.time > minRange && timearg.time < maxRange) {
-				if (sauce.getSetting('DebugMode')) {
+				if (sauce.getSetting('debugMode')) {
 					console.log(
 						`Cooldown for ${element.id} is between ${minRange} and ${maxRange}`
 					);
@@ -701,7 +701,7 @@ async function findStatus(
 					await setInactive(element);
 				}
 			} else {
-				if (sauce.getSetting('DebugMode')) {
+				if (sauce.getSetting('debugMode')) {
 					console.log(
 						`${element.id} is no longer active - setting inactive.`
 					);
@@ -709,7 +709,7 @@ async function findStatus(
 				await setInactive(element);
 			}
 		} else if (!showCooldown) {
-			if (sauce.getSetting('DebugMode')) {
+			if (sauce.getSetting('debugMode')) {
 				console.log(
 					`${element.id} is no longer active - setting inactive.`
 				);
@@ -919,7 +919,7 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	   the Zamorak mechanic is always the first so we need to reverse the buffs first
 	 */
 
-	if (!sauce.getSetting('SingleBOLG')) {
+	if (!sauce.getSetting('singleBOLG')) {
 		let canvas = <HTMLCanvasElement>document.getElementById('canvas');
 		let ctx = canvas.getContext('2d');
 		ctx.drawImage(
@@ -1037,25 +1037,25 @@ async function parseBolgBuff(data: string) {
 async function setOverlayPosition() {
 	let bbb = getByID('Buffs');
 	a1lib.once('alt1pressed', updateLocation);
-	sauce.updateSetting('UpdatingOverlayPosition', true);
-	while (sauce.getSetting('UpdatingOverlayPosition')) {
+	sauce.updateSetting('updatingOverlayPosition', true);
+	while (sauce.getSetting('updatingOverlayPosition')) {
 		alt1.setTooltip('Press Alt+1 to set overlay position.');
 		alt1.overLaySetGroup('overlayPositionHelper');
 		alt1.overLayRect(
 			a1lib.mixColor(255, 255, 255),
 			Math.floor(
 				a1lib.getMousePosition().x -
-					((sauce.getSetting('UIScale') / 100) * bbb.offsetWidth) / 2
+					((sauce.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2
 			),
 			Math.floor(
 				a1lib.getMousePosition().y -
-					((sauce.getSetting('UIScale') / 100) * bbb.offsetHeight) / 2
+					((sauce.getSetting('uiScale') / 100) * bbb.offsetHeight) / 2
 			),
 			Math.floor(
-				((sauce.getSetting('UIScale') / 100) * bbb.offsetWidth) / 2
+				((sauce.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2
 			),
 			Math.floor(
-				((sauce.getSetting('UIScale') / 100) * bbb.offsetHeight) / 1.5
+				((sauce.getSetting('uiScale') / 100) * bbb.offsetHeight) / 1.5
 			),
 			200,
 			2
@@ -1067,15 +1067,15 @@ async function setOverlayPosition() {
 
 function updateLocation(e) {
 	let bbb = getByID('Buffs');
-	sauce.updateSetting('OverlayPosition', {
+	sauce.updateSetting('overlayPosition', {
 		x: Math.floor(
-			e.x - (sauce.getSetting('UIScale') / 100) * (bbb.offsetWidth / 2)
+			e.x - (sauce.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)
 		),
 		y: Math.floor(
-			e.y - (sauce.getSetting('UIScale') / 100) * (bbb.offsetHeight / 2)
+			e.y - (sauce.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
 		),
 	});
-	sauce.updateSetting('UpdatingOverlayPosition', false);
+	sauce.updateSetting('updatingOverlayPosition', false);
 	alt1.overLayClearGroup('overlayPositionHelper');
 }
 
@@ -1090,7 +1090,7 @@ export async function startOverlay() {
 
 		captureOverlay();
 
-		let overlayPosition = sauce.getSetting('OverlayPosition');
+		let overlayPosition = sauce.getSetting('overlayPosition');
 
 		alt1.overLaySetGroup('betterBuffsBar');
 		alt1.overLayFreezeGroup('betterBuffsBar');
@@ -1127,33 +1127,33 @@ function setDefaultSettings() {
 	localStorage.setItem(
 		config.appName,
 		JSON.stringify({
-			ActiveOverlay: true,
-			BigHeadMode: false,
-			BigHeadPosition: 'start',
-			BuffsLocation: findPlayerBuffs,
-			BuffsPerRow: 10,
-			DebuffsLocation: findPlayerDebuffs,
-			FadeInactiveBuffs: true,
-			LoopSpeed: 150,
-			SingleBOLG: false,
-			ShowBuffNames: false,
-			ShowMaintainableBlinking: false,
-			ShowTooltipReminders: true,
-			OverlayPosition: { x: 100, y: 100 },
-			UIScale: 100,
-			UpdatingOverlayPosition: false,
+			activeOverlay: true,
+			bigHeadMode: false,
+			bigHeadPosition: 'start',
+			buffsLocation: findPlayerBuffs,
+			buffsPerRow: 10,
+			debuffsLocation: findPlayerDebuffs,
+			fadeInactiveBuffs: true,
+			loopSpeed: 150,
+			singleBOLG: false,
+			showBuffNames: false,
+			showMaintainableBlinking: false,
+			showTooltipReminders: true,
+			overlayPosition: { x: 100, y: 100 },
+			uiScale: 100,
+			updatingOverlayPosition: false,
 		})
 	);
 }
 
 function loadSettings() {
-	getByID('Buffs').style.setProperty( '--maxcount', sauce.getSetting('BuffsPerRow') );
-	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('UIScale'));
-	helperItems.BetterBuffsBar.classList.toggle( 'fade', !sauce.getSetting('FadeInactiveBuffs') );
-	helperItems.BetterBuffsBar.classList.toggle( 'big-head-mode', sauce.getSetting('BigHeadMode') );
-	helperItems.BetterBuffsBar.classList.toggle( 'blink-maintainables', sauce.getSetting('BlinkExpiredBuffs') );
+	getByID('Buffs').style.setProperty( '--maxcount', sauce.getSetting('buffsPerRow') );
+	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('uiScale'));
+	helperItems.BetterBuffsBar.classList.toggle( 'fade', sauce.getSetting('fadeInactiveBuffs') );
+	helperItems.BetterBuffsBar.classList.toggle( 'big-head-mode', sauce.getSetting('bigHeadMode') );
+	helperItems.BetterBuffsBar.classList.toggle( 'blink-maintainables', sauce.getSetting('showMaintainableBlinking') );
 	if ( parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100 ) { helperItems.TrackedBuffs.classList.add('scaled'); }
-	helperItems.BetterBuffsBar.classList.toggle( 'show-labels', sauce.getSetting('ShowLabelNames') );
+	helperItems.BetterBuffsBar.classList.toggle( 'show-labels', sauce.getSetting('showBuffNames') );
 
 	setBuffsPerRow();
 	setBigHeadMode();
@@ -1210,7 +1210,7 @@ function setSortables() {
 }
 
 function setBuffsPerRow() {
-	getByID('Buffs').style.setProperty('--maxcount', sauce.getSetting('BuffsPerRow'));
+	getByID('Buffs').style.setProperty('--maxcount', sauce.getSetting('buffsPerRow'));
 	setGridSize();
 }
 
@@ -1225,7 +1225,7 @@ function setGridSize() {
 		10
 	);
 	helperItems.TrackedBuffs.style.gridTemplateAreas = `"${'. '.repeat(
-		sauce.getSetting('BuffsPerRow')
+		sauce.getSetting('buffsPerRow')
 	)}"`.repeat(rowsToGenerate);
 	helperItems.TrackedBuffs.style.gridTemplateRows = `repeat(${
 		rowsToGenerate + 1
@@ -1233,35 +1233,35 @@ function setGridSize() {
 }
 
 function setBigHeadMode() {
-	helperItems.TrackedBuffs.classList.toggle( 'scaled', sauce.getSetting('BigHeadMode') );
-	helperItems.BetterBuffsBar.classList.toggle( 'big-head-mode', sauce.getSetting('BigHeadMode'));
+	helperItems.TrackedBuffs.classList.toggle( 'scaled', sauce.getSetting('bigHeadMode') );
+	helperItems.BetterBuffsBar.classList.toggle( 'big-head-mode', sauce.getSetting('bigHeadMode'));
 	setBigHeadGrid();
 }
 
 function setBigHeadGrid() {
-	if (sauce.getSetting('BigHeadMode') && sauce.getSetting('BigHeadPosition') == 'start') {
+	if (sauce.getSetting('bigHeadMode') && sauce.getSetting('bigHeadPosition') == 'start') {
 		helperItems.TrackedBuffs.style.gridTemplateAreas = `
-		"first first ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
-		"first first ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
-		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
-		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
-		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
+		"first first ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
+		"first first ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
+		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
+		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
+		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
 		`;
 	}
-	if (sauce.getSetting('BigHeadMode') && sauce.getSetting('BigHeadPosition') == 'end') {
+	if (sauce.getSetting('bigHeadMode') && sauce.getSetting('bigHeadPosition') == 'end') {
 		helperItems.TrackedBuffs.style.gridTemplateAreas = `
-		"${'. '.repeat(sauce.getSetting('BuffsPerRow'))}first first"
-		"${'. '.repeat(sauce.getSetting('BuffsPerRow'))}first first"
-		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
-		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
-		". . ${'. '.repeat(sauce.getSetting('BuffsPerRow'))}"
+		"${'. '.repeat(sauce.getSetting('buffsPerRow'))}first first"
+		"${'. '.repeat(sauce.getSetting('buffsPerRow'))}first first"
+		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
+		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
+		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
 		`;
 	}
 }
 
 let foundBuffs = false;
 function getActiveBuffs() {
-	if (foundBuffs && sauce.getSetting('BuffsLocation')) {
+	if (foundBuffs && sauce.getSetting('buffsLocation')) {
 		return buffs.read();
 	} else {
 		findPlayerBuffs();
@@ -1271,13 +1271,13 @@ function getActiveBuffs() {
 function findPlayerBuffs() {
 	if (buffs.find()) {
 		foundBuffs = true;
-		return sauce.updateSetting('BuffsLocation', [buffs.pos.x, buffs.pos.y]);
+		return sauce.updateSetting('buffsLocation', [buffs.pos.x, buffs.pos.y]);
 	}
 }
 
 let foundDebuffs = false;
 function getActiveDebuffs() {
-	if (foundDebuffs && sauce.getSetting('DebuffsLocation')) {
+	if (foundDebuffs && sauce.getSetting('debuffsLocation')) {
 		return debuffs.read();
 	} else {
 		findPlayerDebuffs();
@@ -1287,7 +1287,7 @@ function getActiveDebuffs() {
 function findPlayerDebuffs() {
 	if (debuffs.find()) {
 		foundDebuffs = true;
-		return sauce.updateSetting('DebuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
+		return sauce.updateSetting('debuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
 	}
 }
 
@@ -1301,22 +1301,22 @@ const settingsObject = {
 	settingsHeader: sauce.createHeading('h2', 'Settings'),
 	beginGeneral: sauce.createHeading('h3', 'General'),
 	BuffsPerRow: sauce.createNumberSetting(
-		'BuffsPerRow',
+		'buffsPerRow',
 		'Number of buffs per row',
 		{ defaultValue: 10, min: 1, max: 20 }
 	),
 	FadeInactiveBuffs: sauce.createCheckboxSetting(
-		'FadeInactiveBuffs',
-		'Remove Inactive Buffs - Removes inactive buffs instead of appearing greyed out',
+		'fadeInactiveBuffs',
+		'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them',
 		false
 	),
 	BigHeadMode: sauce.createCheckboxSetting(
-		'BigHeadMode',
+		'bigHeadMode',
 		'Big Head Mode - The first buff will be made four times as large and take up two rows of buffs',
 		false
 	),
 	BigHeadPosition: sauce.createDropdownSetting(
-		'BigHeadPosition',
+		'bigHeadPosition',
 		'Position of Big Head Mode',
 		'start',
 		[
@@ -1325,22 +1325,22 @@ const settingsObject = {
 		]
 	),
 	OverloadReminder: sauce.createCheckboxSetting(
-		'OverloadReminder',
+		'overloadReminder',
 		'Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire',
 		false
 	),
 	BlinkExpiredBuffs: sauce.createCheckboxSetting(
-		'BlinkExpiredBuffs',
+		'showMaintainableBlinking',
 		'Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)',
 		false
 	),
 	SingleBOLG: sauce.createCheckboxSetting(
-		'SingleBOLG',
+		'singleBOLG',
 		'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks',
 		false
 	),
 	ShowLabelNames: sauce.createCheckboxSetting(
-		'ShowLabelNames',
+		'showBuffNames',
 		`Show Names - Only use this if you don't recognize the icons`,
 		false
 	),
@@ -1356,7 +1356,7 @@ const settingsObject = {
 	endOverlay: sauce.createSeperator(),
 	ScaleHeader: sauce.createHeading('h3', 'UI Scale'),
 	UIScale: sauce.createRangeSetting(
-		'UIScale',
+		'uiScale',
 		'Adjusts the display size of the Overlay.',
 		{
 			defaultValue: 100,
@@ -1369,7 +1369,7 @@ const settingsObject = {
 	SearchText: sauce.createText(
 		`Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. You must reload the app for the new value to take effect.`
 	),
-	SearchSpeed: sauce.createRangeSetting('LoopSpeed', '', {
+	SearchSpeed: sauce.createRangeSetting('loopSpeed', '', {
 		defaultValue: 150,
 		min: 50,
 		max: 300,
@@ -1387,7 +1387,7 @@ const settingsObject = {
 };
 
 settingsObject.BuffsPerRow.addEventListener('click', () => {
-	getByID('Buffs').style.setProperty('--maxcount', sauce.getSetting('BuffsPerRow'));
+	getByID('Buffs').style.setProperty('--maxcount', sauce.getSetting('buffsPerRow'));
 	setGridSize();
 	setBigHeadGrid();
 });
@@ -1395,7 +1395,7 @@ settingsObject.BuffsPerRow.addEventListener('click', () => {
 settingsObject.FadeInactiveBuffs.addEventListener('change', function () {
 	helperItems.BetterBuffsBar.classList.toggle(
 		'fade',
-		!settingsObject.FadeInactiveBuffs.querySelector('input').checked
+		settingsObject.FadeInactiveBuffs.querySelector('input').checked
 	);
 });
 
@@ -1421,7 +1421,7 @@ settingsObject.BlinkExpiredBuffs.addEventListener('change', () => {
 });
 
 settingsObject.UIScale.addEventListener('change', () => {
-	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('UIScale'));
+	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('uiScale'));
 	if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
 		helperItems.TrackedBuffs.classList.add('scaled');
 	}
