@@ -13777,6 +13777,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createDropdownSetting: () => (/* binding */ createDropdownSetting),
 /* harmony export */   createHeading: () => (/* binding */ createHeading),
 /* harmony export */   createNumberSetting: () => (/* binding */ createNumberSetting),
+/* harmony export */   createProfileManager: () => (/* binding */ createProfileManager),
 /* harmony export */   createRangeSetting: () => (/* binding */ createRangeSetting),
 /* harmony export */   createSeperator: () => (/* binding */ createSeperator),
 /* harmony export */   createSmallText: () => (/* binding */ createSmallText),
@@ -13878,6 +13879,117 @@ function createRangeSetting(name, description, options) {
     });
     return container;
 }
+function createProfileManager() {
+    function saveProfile() {
+        var id = container.querySelector('select').selectedIndex;
+        if (id !== 0) {
+            var profiles = getSetting('profiles');
+            var loadOptions_1 = container.querySelector('select');
+            if (!getSetting('profiles')) {
+                profiles = [
+                    { value: '0', name: 'Select Profile' },
+                    { value: 'Melee', name: 'Melee' },
+                    { value: 'Ranged', name: 'Ranged' },
+                    { value: 'Magic', name: 'Magic' },
+                    { value: 'Necromancy', name: 'Necromancy' },
+                    { value: 'Hybrid', name: 'Hybrid' },
+                ];
+                updateSetting('profiles', profiles);
+            }
+            var name_1 = container.querySelector('input').value;
+            profiles[id].name = name_1;
+            var data = [];
+            var trackedBuffs = localStorage['Buffs'];
+            var untrackedBuffs = localStorage['UntrackedBuffs'];
+            var settings = JSON.parse(localStorage[config.appName]);
+            var profile_data = { trackedBuffs: trackedBuffs, untrackedBuffs: untrackedBuffs, settings: settings };
+            data.push(profile_data);
+            profiles[id].value = data;
+            updateSetting('profiles', profiles);
+            var profileOptions_1 = [
+                { value: '0', name: 'Select Profile' },
+                { value: 'Melee', name: 'Melee' },
+                { value: 'Ranged', name: 'Ranged' },
+                { value: 'Magic', name: 'Magic' },
+                { value: 'Necromancy', name: 'Necromancy' },
+                { value: 'Hybrid', name: 'Hybrid' },
+            ];
+            var savedProfiles_1 = getSetting('profiles');
+            savedProfiles_1 === null || savedProfiles_1 === void 0 ? void 0 : savedProfiles_1.forEach(function (profile, index) {
+                profileOptions_1[index].value = profile.name;
+                profileOptions_1[index].name = profile.name;
+            });
+            loadOptions_1.parentElement.replaceWith(createDropdownSetting('Profile', '', 'CreateNew', profileOptions_1));
+            document.querySelector('#Profile').addEventListener('change', function () {
+                var name = document.querySelector('.profile-name');
+                var dropdown = document.querySelector('#Profile');
+                name.value = dropdown.value;
+            });
+        }
+    }
+    function loadProfile() {
+        var id = container.querySelector('select').selectedIndex;
+        if (id !== 0) {
+            var data = getSetting('profiles');
+            data[id].value.forEach(function (key) {
+                localStorage['Buffs'] = key.trackedBuffs;
+                localStorage['UntrackedBuffs'] = key.untrackedBuffs;
+                Object.keys(key.settings).forEach(function (setting) {
+                    if (setting.toString() !== "profiles") {
+                        updateSetting(setting, key.settings[setting]);
+                    }
+                });
+            });
+        }
+    }
+    function deleteProfile() {
+        var id = container.querySelector('select').selectedIndex;
+        var profiles = getSetting('profiles');
+        if (id !== 0) {
+            profiles.splice(id, 1);
+            updateSetting('profiles', profiles);
+        }
+        loadOptions.parentElement.replaceWith(createDropdownSetting('Profile', '', 'CreateNew', profiles));
+    }
+    var profileOptions = [
+        { value: '0', name: 'Select Profile' },
+        { value: 'Melee', name: 'Melee' },
+        { value: 'Ranged', name: 'Ranged' },
+        { value: 'Magic', name: 'Magic' },
+        { value: 'Necromancy', name: 'Necromancy' },
+        { value: 'Hybrid', name: 'Hybrid' },
+    ];
+    var savedProfiles = getSetting('profiles');
+    savedProfiles === null || savedProfiles === void 0 ? void 0 : savedProfiles.forEach(function (profile, index) {
+        profileOptions[index].value = profile.name;
+        profileOptions[index].name = profile.name;
+    });
+    var profileHeader = createHeading('h3', 'Profiles');
+    var profileText = createText('Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.');
+    var saveButton = createButton('Save', saveProfile);
+    var profileName = createInput('input', 'ProfileName', '');
+    profileName.classList.add('profile-name');
+    var loadOptions = createDropdownSetting('Profile', '', 'Add', profileOptions);
+    loadOptions.classList.add('profile-list');
+    loadOptions.querySelector('select').selectedIndex = 0;
+    var loadButton = createButton('Load', loadProfile);
+    loadButton.classList.add('load-btn');
+    var deleteButton = createButton('Delete Profile', deleteProfile);
+    var container = createFlexContainer();
+    container.classList.remove('flex');
+    var endSeperator = createSeperator();
+    container.classList.add('flex-wrap');
+    container.appendChild(profileHeader);
+    container.appendChild(profileText);
+    container.appendChild(loadOptions);
+    container.appendChild(document.createElement('br'));
+    container.appendChild(saveButton);
+    container.appendChild(profileName);
+    container.appendChild(loadButton);
+    //container.appendChild(deleteButton);
+    container.appendChild(endSeperator);
+    return container;
+}
 function createLabel(name, description) {
     var label = document.createElement('label');
     label.setAttribute('for', name);
@@ -13892,10 +14004,10 @@ function createInput(type, name, defaultValue) {
     input.dataset.defaultValue = defaultValue;
     input.value = input.dataset.defaultValue;
     if (getSetting(name)) {
-        input.value = getSetting(name);
+        input.value = getSetting(name) || input.dataset.defaultValue;
     }
     else {
-        updateSetting(name, input.value);
+        updateSetting(name, input.dataset.defaultValue);
     }
     input.addEventListener('change', function () {
         if (type == 'text') {
@@ -13988,13 +14100,17 @@ function loadSettings() {
         switch (setting.type) {
             case 'number':
             case 'range':
-                setting.value = getSetting(setting.dataset.setting);
+                setting.value = getSetting(setting.dataset.setting) || setting.dataset.defaultValue;
                 break;
             case 'checkbox':
-                setting.checked = getSetting(setting.dataset.setting);
+                setting.checked =
+                    getSetting(setting.dataset.setting) ||
+                        setting.dataset.defaultValue;
                 break;
             default:
-                setting.value = getSetting(setting.dataset.setting);
+                setting.value =
+                    getSetting(setting.dataset.setting) ||
+                        setting.dataset.defaultValue;
         }
     });
 }
@@ -14008,6 +14124,7 @@ function settingsExist() {
 }
 function getSetting(setting) {
     if (!localStorage[config.appName]) {
+        localStorage.setItem(config.appName, JSON.stringify({}));
         setDefaultSettings();
     }
     return JSON.parse(localStorage[config.appName])[setting];
@@ -19709,6 +19826,7 @@ var settingsObject = {
         unit: 'ms',
     }),
     endSearch: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
+    ProfileManager: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createProfileManager(),
     ResetHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Hard Reset'),
     ResetText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Bad configuration values can break the plugin. This attempts to reset your configuration and reload the plugin. When troubleshooting this should be the first thing you should try to resolve your problem."),
     resetButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Reset All Settings', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.setDefaultSettings),
@@ -19741,6 +19859,15 @@ settingsObject.UIScale.addEventListener('change', function () {
 });
 settingsObject.ShowLabelNames.addEventListener('click', function () {
     helperItems.BetterBuffsBar.classList.toggle('show-labels', settingsObject.ShowLabelNames.querySelector('input').checked);
+});
+settingsObject.ProfileManager.querySelector('.profile-list').addEventListener('change', function () {
+    var name = settingsObject.ProfileManager.querySelector('.profile-name');
+    var dropdown = settingsObject.ProfileManager.querySelector('.profile-list select');
+    name.value = dropdown.value;
+});
+settingsObject.ProfileManager.querySelector('.load-btn').addEventListener('click', function () {
+    setTimeout(function () { }, 100);
+    location.reload();
 });
 window.onload = function () {
     //check if we are running inside alt1 by checking if the alt1 global exists

@@ -136,6 +136,140 @@ export function createRangeSetting(
 	return container;
 }
 
+export function createProfileManager() {
+
+	function saveProfile() {
+		let id = container.querySelector('select').selectedIndex;
+		if (id !== 0) {
+			let profiles = getSetting('profiles');
+			let loadOptions = container.querySelector('select');
+			if (!getSetting('profiles')) {
+				profiles = [
+					{ value: '0', name: 'Select Profile' },
+					{ value: 'Melee', name: 'Melee' },
+					{ value: 'Ranged', name: 'Ranged' },
+					{ value: 'Magic', name: 'Magic' },
+					{ value: 'Necromancy', name: 'Necromancy' },
+					{ value: 'Hybrid', name: 'Hybrid' },
+				];
+				updateSetting('profiles', profiles);
+			}
+
+
+			let name = container.querySelector('input').value;
+			profiles[id].name = name;
+
+			let data = [];
+			let trackedBuffs = localStorage['Buffs'];
+			let untrackedBuffs = localStorage['UntrackedBuffs'];
+			let settings = JSON.parse(localStorage[config.appName]);
+			let profile_data = {trackedBuffs, untrackedBuffs, settings };
+			data.push(profile_data);
+			profiles[id].value = data;
+			updateSetting('profiles', profiles);
+			let profileOptions = [
+				{ value: '0', name: 'Select Profile' },
+				{ value: 'Melee', name: 'Melee' },
+				{ value: 'Ranged', name: 'Ranged' },
+				{ value: 'Magic', name: 'Magic' },
+				{ value: 'Necromancy', name: 'Necromancy' },
+				{ value: 'Hybrid', name: 'Hybrid' },
+			];
+			let savedProfiles = getSetting('profiles');
+			savedProfiles?.forEach((profile, index) => {
+				profileOptions[index].value = profile.name;
+				profileOptions[index].name = profile.name;
+			});
+			loadOptions.parentElement.replaceWith(
+				createDropdownSetting(
+					'Profile',
+					'',
+					'CreateNew',
+					profileOptions
+				)
+			);
+			document.querySelector('#Profile').addEventListener(
+				'change',
+				() => {
+					let name: HTMLInputElement =
+						document.querySelector('.profile-name');
+					let dropdown: HTMLSelectElement =
+						document.querySelector('#Profile');
+					name.value = dropdown.value;
+				}
+			);
+		}
+	}
+
+	function loadProfile() {
+		let id = container.querySelector('select').selectedIndex;
+		if (id !== 0) {
+			let data = getSetting('profiles');
+			data[id].value.forEach((key) => {
+				localStorage['Buffs'] = key.trackedBuffs;
+				localStorage['UntrackedBuffs'] = key.untrackedBuffs;
+				Object.keys(key.settings).forEach((setting) => {
+					if (setting.toString() !== "profiles") {
+						updateSetting(setting, key.settings[setting]);
+					}
+				});
+			});
+		}
+	}
+
+	function deleteProfile() {
+		let id = container.querySelector('select').selectedIndex;
+		let profiles = getSetting('profiles');
+		if (id !== 0) {
+			profiles.splice(id, 1)
+			updateSetting('profiles', profiles);
+		}
+		loadOptions.parentElement.replaceWith(
+			createDropdownSetting('Profile', '', 'CreateNew', profiles)
+		);
+	}
+
+	let profileOptions = [
+		{ value: '0', name: 'Select Profile' },
+		{ value: 'Melee', name: 'Melee' },
+		{ value: 'Ranged', name: 'Ranged' },
+		{ value: 'Magic', name: 'Magic' },
+		{ value: 'Necromancy', name: 'Necromancy' },
+		{ value: 'Hybrid', name: 'Hybrid' },
+	];
+	let savedProfiles = getSetting('profiles');
+	savedProfiles?.forEach((profile, index) => {
+		profileOptions[index].value = profile.name;
+		profileOptions[index].name = profile.name;
+	});
+
+	var profileHeader = createHeading('h3', 'Profiles');
+	var profileText = createText('Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.');
+	var saveButton = createButton('Save', saveProfile);
+	var profileName = createInput('input', 'ProfileName', '');
+	profileName.classList.add('profile-name');
+	var loadOptions = createDropdownSetting( 'Profile', '', 'Add', profileOptions );
+	loadOptions.classList.add('profile-list');
+	loadOptions.querySelector('select').selectedIndex = 0;
+	var loadButton = createButton('Load', loadProfile);
+	loadButton.classList.add('load-btn');
+	var deleteButton = createButton('Delete Profile', deleteProfile);
+	var container = createFlexContainer();
+	container.classList.remove('flex');
+	var endSeperator = createSeperator();
+	container.classList.add('flex-wrap');
+	container.appendChild(profileHeader);
+	container.appendChild(profileText);
+	container.appendChild(loadOptions);
+	container.appendChild(document.createElement('br'));
+	container.appendChild(saveButton);
+	container.appendChild(profileName);
+	container.appendChild(loadButton);
+	//container.appendChild(deleteButton);
+	container.appendChild(endSeperator);
+	return container;
+}
+
 function createLabel(name: string, description: string) {
 	let label = <HTMLLabelElement>document.createElement('label');
 	label.setAttribute('for', name);
@@ -151,9 +285,9 @@ function createInput(type: string, name: string, defaultValue: any) {
 	input.dataset.defaultValue = defaultValue;
 	input.value = input.dataset.defaultValue;
 	if (getSetting(name)) {
-		input.value = getSetting(name);
+		input.value = getSetting(name) || input.dataset.defaultValue;
 	} else {
-		updateSetting(name, input.value);
+		updateSetting(name, input.dataset.defaultValue);
 	}
 	input.addEventListener('change', () => {
 		if (type == 'text') {
@@ -263,13 +397,17 @@ export function loadSettings() {
 		switch (setting.type) {
 			case 'number':
 			case 'range':
-				setting.value = getSetting(setting.dataset.setting);
+				setting.value = getSetting(setting.dataset.setting) || setting.dataset.defaultValue;
 				break;
 			case 'checkbox':
-				setting.checked = getSetting(setting.dataset.setting);
+				setting.checked =
+					getSetting(setting.dataset.setting) ||
+					setting.dataset.defaultValue;
 				break;
 			default:
-				setting.value = getSetting(setting.dataset.setting);
+				setting.value =
+					getSetting(setting.dataset.setting) ||
+					setting.dataset.defaultValue;
 		}
 	});
 }
@@ -284,6 +422,7 @@ export function settingsExist() {
 
 export function getSetting(setting) {
 	if (!localStorage[config.appName]) {
+		localStorage.setItem(config.appName, JSON.stringify({}));
 		setDefaultSettings();
 	}
 	return JSON.parse(localStorage[config.appName])[setting];

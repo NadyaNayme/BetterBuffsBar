@@ -1376,6 +1376,7 @@ const settingsObject = {
 		unit: 'ms',
 	}),
 	endSearch: sauce.createSeperator(),
+	ProfileManager: sauce.createProfileManager(),
 	ResetHeader: sauce.createHeading('h3', 'Hard Reset'),
 	ResetText: sauce.createText(
 		`Bad configuration values can break the plugin. This attempts to reset your configuration and reload the plugin. When troubleshooting this should be the first thing you should try to resolve your problem.`
@@ -1432,6 +1433,18 @@ settingsObject.ShowLabelNames.addEventListener('click', () => {
 		'show-labels',
 		settingsObject.ShowLabelNames.querySelector('input').checked
 	);
+});
+
+settingsObject.ProfileManager.querySelector('.profile-list').addEventListener('change', () => {
+	let name: HTMLInputElement = settingsObject.ProfileManager.querySelector('.profile-name');
+	let dropdown: HTMLSelectElement =
+		settingsObject.ProfileManager.querySelector('.profile-list select');
+	name.value = dropdown.value;
+});
+
+settingsObject.ProfileManager.querySelector('.load-btn').addEventListener('click', () => {
+	setTimeout(function() {}, 100);
+	location.reload();
 });
 
 window.onload = function () {
