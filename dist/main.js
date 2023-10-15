@@ -13964,7 +13964,7 @@ function createProfileManager() {
         profileOptions[index].value = profile.name;
         profileOptions[index].name = profile.name;
     });
-    var profileHeader = createHeading('h3', 'Profiles');
+    var profileHeader = createHeading('h3', 'Profiles [Beta]');
     var profileText = createText('Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.');
     var saveButton = createButton('Save', saveProfile);
     var profileName = createInput('input', 'ProfileName', '');
