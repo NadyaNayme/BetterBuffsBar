@@ -53,8 +53,8 @@ body {
   --scale: 100;
   --totalitems: 37;
   width: 100%;
-  max-width: calc((var(--maxcount) * 72px) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
-  min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * (27px * (var(--scale) / 100))) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
+  max-width: calc((var(--maxcount) * 72px));
+  min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * 27px));
   display: grid;
   justify-content: flex-start;
   align-items: flex-start;
@@ -62,10 +62,10 @@ body {
   margin:0 auto;
   padding:0;
   gap: 2px;
-  transform: scale(calc(var(--scale) / 100));
-  transform-origin: top;
-  grid-template-columns: repeat(var(--maxcount), calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)));
-  grid-template-rows: repeat(8, calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)));
+  /* transform: scale(calc(var(--scale) / 100)); */
+  /* transform-origin: top; */
+  grid-template-columns: repeat(var(--maxcount),30px);
+  grid-template-rows: repeat(8, 30px);
   position: relative;
 }
 
