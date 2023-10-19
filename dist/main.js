@@ -855,8 +855,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   --scale: 100;
   --totalitems: 37;
   width: 100%;
-  max-width: calc((var(--maxcount) * 72px) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
-  min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * (27px * (var(--scale) / 100))) * clamp(1, (var(--scale) / 100), (var(--scale) / 100)));
+  max-width: calc((var(--maxcount) * 72px));
+  min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * 27px));
   display: grid;
   justify-content: flex-start;
   align-items: flex-start;
@@ -864,10 +864,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   margin:0 auto;
   padding:0;
   gap: 2px;
-  transform: scale(calc(var(--scale) / 100));
-  transform-origin: top;
-  grid-template-columns: repeat(var(--maxcount), calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)));
-  grid-template-rows: repeat(8, calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)));
+  /* transform: scale(calc(var(--scale) / 100)); */
+  /* transform-origin: top; */
+  grid-template-columns: repeat(var(--maxcount),30px);
+  grid-template-rows: repeat(8, 30px);
   position: relative;
 }
 
@@ -18953,7 +18953,7 @@ function paintCanvas(canvas) {
         .querySelector('canvas')
         .getContext('2d', { willReadFrequently: true });
     overlayCanvasContext.clearRect(0, 0, overlayCanvasContext.canvas.width, overlayCanvasContext.canvas.height);
-    overlayCanvasContext.drawImage(canvas, 0, 0);
+    overlayCanvasContext.drawImage(canvas, 0, 0, _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') * 4, (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') * 4 * canvas.height) / canvas.width);
     var overlay = overlayCanvasOutput.querySelector('canvas');
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayImage', overlay.toDataURL());
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('firstFrame', true);

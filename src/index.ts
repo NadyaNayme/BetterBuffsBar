@@ -243,7 +243,13 @@ function paintCanvas(canvas: HTMLCanvasElement) {
 		overlayCanvasContext.canvas.width,
 		overlayCanvasContext.canvas.height
 	);
-	overlayCanvasContext.drawImage(canvas, 0, 0);
+	overlayCanvasContext.drawImage(
+		canvas,
+		0,
+		0,
+		sauce.getSetting('uiScale') * 4,
+		(sauce.getSetting('uiScale') * 4 * canvas.height) / canvas.width
+	);
 	let overlay = overlayCanvasOutput.querySelector('canvas');
 	sauce.updateSetting('overlayImage', overlay.toDataURL());
 	sauce.updateSetting('firstFrame', true);
