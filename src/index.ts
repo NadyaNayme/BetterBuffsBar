@@ -281,7 +281,7 @@ function watchBuffs() {
 				buffs,
 				buffImages.elderOverload,
 				buffsList.ElderOverloadBuff,
-				100,
+				80,
 				true
 			);
 			findStatus(
@@ -955,6 +955,7 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 					canvas.width,
 					canvas.height
 				);
+				setActive(buffsList.BolgStacksBuff);
 				buffsList.BolgStacksBuff.style.backgroundImage =
 					'url("data:image/png;base64,' +
 					bolgBuffImage.toPngBase64() +

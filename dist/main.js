@@ -18970,7 +18970,7 @@ function watchBuffs() {
             maxAttempts = 10;
             //TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
             findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
-            findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 100, true);
+            findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 80, true);
             findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 300, true);
             findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 400, false, 0, 43260);
             findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 90);
@@ -19467,6 +19467,7 @@ function findBolgStacks(buffs) {
                             buffsImage = buffs[a].buffer.toImage();
                             ctx.drawImage(buffsImage, buffs[a].bufferx, buffs[a].buffery, 27, 27, 0, 0, canvas.width, canvas.height);
                             bolgBuffImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                            setActive(buffsList.BolgStacksBuff);
                             buffsList.BolgStacksBuff.style.backgroundImage =
                                 'url("data:image/png;base64,' +
                                     bolgBuffImage.toPngBase64() +
