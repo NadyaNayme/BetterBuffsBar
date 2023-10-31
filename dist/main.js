@@ -19741,7 +19741,7 @@ function findPrayer(buffsList, debuffsList) {
             for (_i = 0, _a = Object.entries(debuffsList); _i < _a.length; _i++) {
                 _b = _a[_i], _key = _b[0], value = _b[1];
                 prayerDraining = value.countMatch(prayerImages.prayerActive, false);
-                if (prayerDraining.failed == 0 || prayerDraining.passed > 36) {
+                if (prayerDraining.failed == 0 || prayerDraining.passed > 44) {
                     prayersActive++;
                 }
             }
@@ -19785,6 +19785,7 @@ function testDpsPrayers(buff) {
                     torment: torment.passed,
                     turmoil: turmoil.passed,
                 };
+                console.log(prayerTests);
                 for (_i = 0, _a = Object.entries(prayerTests); _i < _a.length; _i++) {
                     _b = _a[_i], key = _b[0], value = _b[1];
                     if (value > 180) {
