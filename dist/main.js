@@ -19552,7 +19552,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     }
                     findBuffImage = value.countMatch(buffImage, false);
                     if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugLevel') == 1 &&
-                        buffImage == incenseImages.kwuarm) {
+                        buffImage == buffImages.Freedom) {
                         console.log(findBuffImage);
                     }
                     if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 16];

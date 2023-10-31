@@ -684,7 +684,7 @@ async function findStatus(
 		let findBuffImage = value.countMatch(buffImage, false);
 		if (
 			sauce.getSetting('debugLevel') == 1 &&
-			buffImage == incenseImages.kwuarm
+			buffImage == buffImages.Freedom
 		) {
 			console.log(findBuffImage);
 		}
