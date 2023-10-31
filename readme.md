@@ -61,6 +61,16 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 - Kwuarm Incense Sticks
 - Dwarf Weed Incense Sticks
 - Fellstalk Incense Sticks
+- Stunned
+- Anticipation
+- Barricade
+- Devotiion
+- Divert
+- Freedom
+- Immortality
+- Reflect
+- Resonance
+
 
 \* An attempt is made to track cooldowns. It can drift and become inaccurate when the server drops ticks/lags. Outside of DXPW on very laggy worlds it typically shouldn't be off by more than a second or two.
 
