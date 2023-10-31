@@ -387,18 +387,18 @@ function watchBuffs() {
 				buffsList.Anticipation,
 				150
 			);
-			findStatus(buffs, buffImages.Barricade, buffsList.Barricade, 150);
-			findStatus(buffs, buffImages.Devotion, buffsList.Devotion, 150);
-			findStatus(buffs, buffImages.Divert, buffsList.Divert, 150);
-			findStatus(buffs, buffImages.Freedom, buffsList.Freedom, 150);
+			findStatus(buffs, buffImages.Barricade, buffsList.Barricade, 300);
+			findStatus(buffs, buffImages.Devotion, buffsList.Devotion, 300);
+			findStatus(buffs, buffImages.Divert, buffsList.Divert, 300);
+			findStatus(buffs, buffImages.Freedom, buffsList.Freedom, 300);
 			findStatus(
 				buffs,
 				buffImages.Immortality,
 				buffsList.Immortality,
-				150
+				300
 			);
-			findStatus(buffs, buffImages.Reflect, buffsList.Reflect, 150);
-			findStatus(buffs, buffImages.Resonance, buffsList.Resonance, 150);
+			findStatus(buffs, buffImages.Reflect, buffsList.Reflect, 300);
+			findStatus(buffs, buffImages.Resonance, buffsList.Resonance, 300);
 
 			findStatus(
 				buffs,
