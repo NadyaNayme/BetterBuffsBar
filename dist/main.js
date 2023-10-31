@@ -19551,7 +19551,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugLevel') == 1 &&
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') &&
                         buffImage == buffImages.Freedom) {
                         console.log(findBuffImage);
                     }
@@ -19563,11 +19563,6 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                 case 2:
                     _f.sent();
                     timearg = value.readArg('timearg');
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugLevel') == 1 &&
-                        buffImage == incenseImages.dwarfWeed) {
-                        console.log(timearg.time);
-                        console.log(timearg);
-                    }
                     if (!(element.dataset.time == '1' && showCooldown && !onCooldown)) return [3 /*break*/, 4];
                     if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
                         console.log("Starting cooldown timer for ".concat(element.id));
@@ -20268,6 +20263,7 @@ var settingsObject = {
     ResetHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Hard Reset'),
     ResetText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Bad configuration values can break the plugin. This attempts to reset your configuration and reload the plugin. When troubleshooting this should be the first thing you should try to resolve your problem."),
     resetButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Reset All Settings', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.setDefaultSettings),
+    debugMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('debugMode', "Don't use this", false),
 };
 settingsObject.BuffsPerRow.addEventListener('click', function () {
     getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));

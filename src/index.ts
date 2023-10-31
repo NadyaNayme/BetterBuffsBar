@@ -683,7 +683,7 @@ async function findStatus(
 
 		let findBuffImage = value.countMatch(buffImage, false);
 		if (
-			sauce.getSetting('debugLevel') == 1 &&
+			sauce.getSetting('debugMode') &&
 			buffImage == buffImages.Freedom
 		) {
 			console.log(findBuffImage);
@@ -694,13 +694,6 @@ async function findStatus(
 			foundBuff = true;
 			await setActive(element);
 			timearg = value.readArg('timearg');
-			if (
-				sauce.getSetting('debugLevel') == 1 &&
-				buffImage == incenseImages.dwarfWeed
-			) {
-				console.log(timearg.time);
-				console.log(timearg);
-			}
 			if (element.dataset.time == '1' && showCooldown && !onCooldown) {
 				if (sauce.getSetting('debugMode')) {
 					console.log(`Starting cooldown timer for ${element.id}`);
@@ -1476,6 +1469,7 @@ const settingsObject = {
 		'Reset All Settings',
 		sauce.setDefaultSettings
 	),
+	debugMode: sauce.createCheckboxSetting('debugMode', "Don't use this", false),
 };
 
 settingsObject.BuffsPerRow.addEventListener('click', () => {
