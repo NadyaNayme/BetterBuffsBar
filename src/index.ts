@@ -57,6 +57,14 @@ let buffsList = {
 	DwarfWeedIncense: getByID('DwarfWeedIncense'),
 	FellstalkIncense: getByID('FellstalkIncense'),
 	KwuarmIncense: getByID('KwuarmIncense'),
+	Anticipation: getByID('Anticipation'),
+	Barricade: getByID('Barricade'),
+	Devotion: getByID('Devotion'),
+	Divert: getByID('Divert'),
+	Freedom: getByID('Freedom'),
+	Immortality: getByID('Immortality'),
+	Reflect: getByID('Reflect'),
+	Resonance: getByID('Resonance'),
 };
 
 let debuffsList = {
@@ -66,6 +74,7 @@ let debuffsList = {
 	DeathGuardDebuff: getByID('DeathGuardDebuff'),
 	EnhancedExcaliburDebuff: getByID('EnhancedExcaliburDebuff'),
 	OmniGuardDebuff: getByID('OmniGuardDebuff'),
+	StunnedDebuff: getByID('StunnedDebuff'),
 };
 
 let sigilsList = {
@@ -117,6 +126,14 @@ var buffImages = a1lib.webpackImages({
 	aura: require('./asset/data/Aura-noborder.data.png'),
 	bonfireBoost: require('./asset/data/Bonfire_Boost-noborder.data.png'),
 	grimoire: require("./asset/data/Erethdor's_grimoire-noborder.data.png"),
+	Anticipation: require('./asset/data/Anticipation.data.png'),
+	Barricade: require('./asset/data/Barricade.data.png'),
+	Devotion: require('./asset/data/Devotion.data.png'),
+	Divert: require('./asset/data/Divert.data.png'),
+	Freedom: require('./asset/data/Freedom.data.png'),
+	Immortality: require('./asset/data/Immortality.data.png'),
+	Reflect: require('./asset/data/Reflect.data.png'),
+	Resonance: require('./asset/data/Resonance.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
@@ -133,6 +150,7 @@ var debuffImages = a1lib.webpackImages({
 	deathGraspDebuff: require('./asset/data/Death_Guard_Special-top-noborder.data.png'),
 	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png'),
 	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top-noborder.data.png'),
+	stunnedDebuff: require('./asset/data/Stunned.data.png'),
 });
 
 var ultimateImages = a1lib.webpackImages({
@@ -195,7 +213,6 @@ export function startBetterBuffsBar() {
 		);
 		return;
 	}
-
 	watchBuffs();
 }
 
@@ -281,7 +298,7 @@ function watchBuffs() {
 				buffs,
 				buffImages.elderOverload,
 				buffsList.ElderOverloadBuff,
-				100,
+				80,
 				true
 			);
 			findStatus(
@@ -364,6 +381,24 @@ function watchBuffs() {
 				buffsList.KwuarmIncense,
 				150
 			);
+			findStatus(
+				buffs,
+				buffImages.Anticipation,
+				buffsList.Anticipation,
+				150
+			);
+			findStatus(buffs, buffImages.Barricade, buffsList.Barricade, 150);
+			findStatus(buffs, buffImages.Devotion, buffsList.Devotion, 150);
+			findStatus(buffs, buffImages.Divert, buffsList.Divert, 150);
+			findStatus(buffs, buffImages.Freedom, buffsList.Freedom, 150);
+			findStatus(
+				buffs,
+				buffImages.Immortality,
+				buffsList.Immortality,
+				150
+			);
+			findStatus(buffs, buffImages.Reflect, buffsList.Reflect, 150);
+			findStatus(buffs, buffImages.Resonance, buffsList.Resonance, 150);
 
 			findStatus(
 				buffs,
@@ -539,6 +574,12 @@ function watchBuffs() {
 				debuffs,
 				debuffImages.crystalRainMinimal,
 				debuffsList.CrystalRainDebuff,
+				60
+			);
+			findStatus(
+				debuffs,
+				debuffImages.stunnedDebuff,
+				debuffsList.StunnedDebuff,
 				60
 			);
 
@@ -955,6 +996,7 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 					canvas.width,
 					canvas.height
 				);
+				setActive(buffsList.BolgStacksBuff);
 				buffsList.BolgStacksBuff.style.backgroundImage =
 					'url("data:image/png;base64,' +
 					bolgBuffImage.toPngBase64() +
@@ -1038,7 +1080,6 @@ async function parseBolgBuff(data: string) {
 	}
 	return [bolgSpecTime, bolgStacks];
 }
-
 
 async function setOverlayPosition() {
 	let bbb = getByID('Buffs');
@@ -1153,13 +1194,32 @@ function setDefaultSettings() {
 }
 
 function loadSettings() {
-	getByID('Buffs').style.setProperty( '--maxcount', sauce.getSetting('buffsPerRow') );
+	getByID('Buffs').style.setProperty(
+		'--maxcount',
+		sauce.getSetting('buffsPerRow')
+	);
 	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('uiScale'));
-	helperItems.BetterBuffsBar.classList.toggle( 'fade', sauce.getSetting('fadeInactiveBuffs') );
-	helperItems.BetterBuffsBar.classList.toggle( 'big-head-mode', sauce.getSetting('bigHeadMode') );
-	helperItems.BetterBuffsBar.classList.toggle( 'blink-maintainables', sauce.getSetting('showMaintainableBlinking') );
-	if ( parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100 ) { helperItems.TrackedBuffs.classList.add('scaled'); }
-	helperItems.BetterBuffsBar.classList.toggle( 'show-labels', sauce.getSetting('showBuffNames') );
+	helperItems.BetterBuffsBar.classList.toggle(
+		'fade',
+		sauce.getSetting('fadeInactiveBuffs')
+	);
+	helperItems.BetterBuffsBar.classList.toggle(
+		'big-head-mode',
+		sauce.getSetting('bigHeadMode')
+	);
+	helperItems.BetterBuffsBar.classList.toggle(
+		'blink-maintainables',
+		sauce.getSetting('showMaintainableBlinking')
+	);
+	if (
+		parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100
+	) {
+		helperItems.TrackedBuffs.classList.add('scaled');
+	}
+	helperItems.BetterBuffsBar.classList.toggle(
+		'show-labels',
+		sauce.getSetting('showBuffNames')
+	);
 
 	setBuffsPerRow();
 	setBigHeadMode();
@@ -1216,7 +1276,10 @@ function setSortables() {
 }
 
 function setBuffsPerRow() {
-	getByID('Buffs').style.setProperty('--maxcount', sauce.getSetting('buffsPerRow'));
+	getByID('Buffs').style.setProperty(
+		'--maxcount',
+		sauce.getSetting('buffsPerRow')
+	);
 	setGridSize();
 }
 
@@ -1239,13 +1302,22 @@ function setGridSize() {
 }
 
 function setBigHeadMode() {
-	helperItems.TrackedBuffs.classList.toggle( 'scaled', sauce.getSetting('bigHeadMode') );
-	helperItems.BetterBuffsBar.classList.toggle( 'big-head-mode', sauce.getSetting('bigHeadMode'));
+	helperItems.TrackedBuffs.classList.toggle(
+		'scaled',
+		sauce.getSetting('bigHeadMode')
+	);
+	helperItems.BetterBuffsBar.classList.toggle(
+		'big-head-mode',
+		sauce.getSetting('bigHeadMode')
+	);
 	setBigHeadGrid();
 }
 
 function setBigHeadGrid() {
-	if (sauce.getSetting('bigHeadMode') && sauce.getSetting('bigHeadPosition') == 'start') {
+	if (
+		sauce.getSetting('bigHeadMode') &&
+		sauce.getSetting('bigHeadPosition') == 'start'
+	) {
 		helperItems.TrackedBuffs.style.gridTemplateAreas = `
 		"first first ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
 		"first first ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
@@ -1254,7 +1326,10 @@ function setBigHeadGrid() {
 		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
 		`;
 	}
-	if (sauce.getSetting('bigHeadMode') && sauce.getSetting('bigHeadPosition') == 'end') {
+	if (
+		sauce.getSetting('bigHeadMode') &&
+		sauce.getSetting('bigHeadPosition') == 'end'
+	) {
 		helperItems.TrackedBuffs.style.gridTemplateAreas = `
 		"${'. '.repeat(sauce.getSetting('buffsPerRow'))}first first"
 		"${'. '.repeat(sauce.getSetting('buffsPerRow'))}first first"
@@ -1293,7 +1368,10 @@ function getActiveDebuffs() {
 function findPlayerDebuffs() {
 	if (debuffs.find()) {
 		foundDebuffs = true;
-		return sauce.updateSetting('debuffsLocation', [debuffs.pos.x, debuffs.pos.y]);
+		return sauce.updateSetting('debuffsLocation', [
+			debuffs.pos.x,
+			debuffs.pos.y,
+		]);
 	}
 }
 
@@ -1394,7 +1472,10 @@ const settingsObject = {
 };
 
 settingsObject.BuffsPerRow.addEventListener('click', () => {
-	getByID('Buffs').style.setProperty('--maxcount', sauce.getSetting('buffsPerRow'));
+	getByID('Buffs').style.setProperty(
+		'--maxcount',
+		sauce.getSetting('buffsPerRow')
+	);
 	setGridSize();
 	setBigHeadGrid();
 });
@@ -1429,7 +1510,9 @@ settingsObject.BlinkExpiredBuffs.addEventListener('change', () => {
 
 settingsObject.UIScale.addEventListener('change', () => {
 	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('uiScale'));
-	if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
+	if (
+		parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100
+	) {
 		helperItems.TrackedBuffs.classList.add('scaled');
 	}
 });
@@ -1441,17 +1524,24 @@ settingsObject.ShowLabelNames.addEventListener('click', () => {
 	);
 });
 
-settingsObject.ProfileManager.querySelector('.profile-list').addEventListener('change', () => {
-	let name: HTMLInputElement = settingsObject.ProfileManager.querySelector('.profile-name');
-	let dropdown: HTMLSelectElement =
-		settingsObject.ProfileManager.querySelector('.profile-list select');
-	name.value = dropdown.value;
-});
+settingsObject.ProfileManager.querySelector('.profile-list').addEventListener(
+	'change',
+	() => {
+		let name: HTMLInputElement =
+			settingsObject.ProfileManager.querySelector('.profile-name');
+		let dropdown: HTMLSelectElement =
+			settingsObject.ProfileManager.querySelector('.profile-list select');
+		name.value = dropdown.value;
+	}
+);
 
-settingsObject.ProfileManager.querySelector('.load-btn').addEventListener('click', () => {
-	setTimeout(function() {}, 100);
-	location.reload();
-});
+settingsObject.ProfileManager.querySelector('.load-btn').addEventListener(
+	'click',
+	() => {
+		setTimeout(function () {}, 100);
+		location.reload();
+	}
+);
 
 window.onload = function () {
 	//check if we are running inside alt1 by checking if the alt1 global exists
@@ -1460,6 +1550,7 @@ window.onload = function () {
 		//this makes alt1 show the add app button when running inside the embedded browser
 		//also updates app settings if they are changed
 		alt1.identifyAppUrl('./appconfig.json');
+
 		let settings = document.querySelector('#Settings .container');
 		Object.values(settingsObject).forEach((val) => {
 			settings.before(val);
