@@ -841,14 +841,21 @@ async function findPrayer(
 	if (prayersActive > 0) {
 		for (let [_key, value] of Object.entries(buffsList)) {
 			lastActiveDPS = testDpsPrayers(value);
-			lastActiveOverhead = testOverheadPrayers(value);
 		}
 	} else {
 		prayersList.DpsPrayer.dataset.prayer = '';
-		prayersList.OverheadPrayer.dataset.prayer = '';
 		prayersList.DpsPrayer.classList.add('inactive');
+	}
+
+	if (prayersActive > 0) {
+		for (let [_key, value] of Object.entries(buffsList)) {
+			lastActiveOverhead = testOverheadPrayers(value);
+		}
+	} else {
+		prayersList.OverheadPrayer.dataset.prayer = '';
 		prayersList.OverheadPrayer.classList.add('inactive');
 	}
+
 }
 
 async function testDpsPrayers(buff: BuffReader.Buff) {
@@ -871,7 +878,6 @@ async function testDpsPrayers(buff: BuffReader.Buff) {
 			torment: torment.passed,
 			turmoil: turmoil.passed,
 		};
-		console.log(prayerTests);
 		for (let [key, value] of Object.entries(prayerTests)) {
 			if (value > 180) {
 				prayersList.DpsPrayer.dataset.prayer = key

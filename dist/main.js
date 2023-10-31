@@ -19729,8 +19729,8 @@ function countdown(element, cooldownTimer, timer) {
 }
 function findPrayer(buffsList, debuffsList) {
     return __awaiter(this, void 0, void 0, function () {
-        var prayersActive, lastActiveOverhead, lastActiveDPS, _i, _a, _b, _key, value, prayerDraining, _c, _d, _e, _key, value;
-        return __generator(this, function (_f) {
+        var prayersActive, lastActiveOverhead, lastActiveDPS, _i, _a, _b, _key, value, prayerDraining, _c, _d, _e, _key, value, _f, _g, _h, _key, value;
+        return __generator(this, function (_j) {
             if (!getByID('Buffs').contains(prayersList.OverheadPrayer) ||
                 !getByID('Buffs').contains(prayersList.DpsPrayer) ||
                 !buffsList ||
@@ -19749,13 +19749,20 @@ function findPrayer(buffsList, debuffsList) {
                 for (_c = 0, _d = Object.entries(buffsList); _c < _d.length; _c++) {
                     _e = _d[_c], _key = _e[0], value = _e[1];
                     lastActiveDPS = testDpsPrayers(value);
-                    lastActiveOverhead = testOverheadPrayers(value);
                 }
             }
             else {
                 prayersList.DpsPrayer.dataset.prayer = '';
-                prayersList.OverheadPrayer.dataset.prayer = '';
                 prayersList.DpsPrayer.classList.add('inactive');
+            }
+            if (prayersActive > 0) {
+                for (_f = 0, _g = Object.entries(buffsList); _f < _g.length; _f++) {
+                    _h = _g[_f], _key = _h[0], value = _h[1];
+                    lastActiveOverhead = testOverheadPrayers(value);
+                }
+            }
+            else {
+                prayersList.OverheadPrayer.dataset.prayer = '';
                 prayersList.OverheadPrayer.classList.add('inactive');
             }
             return [2 /*return*/];
@@ -19785,7 +19792,6 @@ function testDpsPrayers(buff) {
                     torment: torment.passed,
                     turmoil: turmoil.passed,
                 };
-                console.log(prayerTests);
                 for (_i = 0, _a = Object.entries(prayerTests); _i < _a.length; _i++) {
                     _b = _a[_i], key = _b[0], value = _b[1];
                     if (value > 180) {
