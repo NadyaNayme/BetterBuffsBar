@@ -833,7 +833,7 @@ async function findPrayer(
 
 	for (let [_key, value] of Object.entries(debuffsList)) {
 		let prayerDraining = value.countMatch(prayerImages.prayerActive, false);
-		if (prayerDraining.failed == 0 || prayerDraining.passed > 44) {
+		if (prayerDraining.failed == 0 || prayerDraining.passed > 36) {
 			prayersActive++;
 		}
 	}
@@ -872,7 +872,7 @@ async function testDpsPrayers(buff: BuffReader.Buff) {
 			turmoil: turmoil.passed,
 		};
 		for (let [key, value] of Object.entries(prayerTests)) {
-			if (value > 240) {
+			if (value > 180) {
 				prayersList.DpsPrayer.dataset.prayer = key
 					.toString()
 					.toLowerCase();
