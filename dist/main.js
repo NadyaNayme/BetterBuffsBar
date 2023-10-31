@@ -19787,7 +19787,7 @@ function testDpsPrayers(buff) {
                 };
                 for (_i = 0, _a = Object.entries(prayerTests); _i < _a.length; _i++) {
                     _b = _a[_i], key = _b[0], value = _b[1];
-                    if (value > 300) {
+                    if (value > 240) {
                         prayersList.DpsPrayer.dataset.prayer = key
                             .toString()
                             .toLowerCase();

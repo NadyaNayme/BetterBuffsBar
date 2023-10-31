@@ -872,7 +872,7 @@ async function testDpsPrayers(buff: BuffReader.Buff) {
 			turmoil: turmoil.passed,
 		};
 		for (let [key, value] of Object.entries(prayerTests)) {
-			if (value > 300) {
+			if (value > 240) {
 				prayersList.DpsPrayer.dataset.prayer = key
 					.toString()
 					.toLowerCase();
