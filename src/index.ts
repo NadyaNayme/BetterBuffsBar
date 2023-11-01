@@ -407,7 +407,7 @@ function watchBuffs() {
 				buffs,
 				buffImages.SplitSoul,
 				buffsList.SplitSoulBuff,
-				250
+				350
 			);
 
 			findStatus(
@@ -700,7 +700,7 @@ async function findStatus(
 		let findBuffImage = value.countMatch(buffImage, false);
 		if (
 			(sauce.getSetting('debugMode') &&
-				(buffImage == buffImages.SplitSoul))
+				(buffImage == debuffImages.signOfLifeDebuff))
 		) {
 			console.log(findBuffImage);
 		}

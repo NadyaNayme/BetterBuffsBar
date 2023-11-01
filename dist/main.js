@@ -19507,7 +19507,7 @@ function watchBuffs() {
             findStatus(buffs, buffImages.Immortality, buffsList.Immortality, 300);
             findStatus(buffs, buffImages.Reflect, buffsList.Reflect, 300);
             findStatus(buffs, buffImages.Resonance, buffsList.Resonance, 300);
-            findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, 250);
+            findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, 350);
             findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, 250, false, 0, Infinity, true, 83);
             findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, 400, false, 0, Infinity, true, 50);
             findStatus(buffs, sigilImages.dragonSlayer, sigilsList.DragonSlayer, 400, false, 0, Infinity, true, 50);
@@ -19652,7 +19652,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     }
                     findBuffImage = value.countMatch(buffImage, false);
                     if ((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') &&
-                        (buffImage == buffImages.SplitSoul))) {
+                        (buffImage == debuffImages.signOfLifeDebuff))) {
                         console.log(findBuffImage);
                     }
                     if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 16];
