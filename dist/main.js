@@ -571,6 +571,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
+/***/ "./asset/data/Sign_of_Life.data.png":
+/*!******************************************!*\
+  !*** ./asset/data/Sign_of_Life.data.png ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAhZQTFRFAAAABwAOAAAHAgAJPpOXBx4eAA0HMHN1Jl5gARwPAAoELWtsPI+TNoGEJVtdABQQAQABDwAWFjoAKmVmMXN2MnZ5NX2AG0dJABAQDwAWDiMALGlqO42QNX6BIEtOJllcNHx/EjU2AA0OADcHDSAAK2doOIWINn+CIk5RDBpFAAAAM3d6NHt/ETM0AAIKAAAHDR0AJWdZN4KFN4GFJlhbDR40ATkAAGICNXx/MXV4DzAwABEKBwAOImpRN4KEO4uPJ1xfDR8hADABACMCL3ByAAAJJ2ZdM3p9JVdaEywuAH4CMnh7ABIQAAQHABkHIWxNL3FzKF1gGkE+ACEAAAcCLW1wAxcXAAADADcHGTs9Mnh6QZmdABYCATkAOISHJl5hDi0uCwAaAwAKP5eaR6erNYOGBhobOYeKLGhpEgAvCAAWL4hyQJeaNIGEACMNACkCLWxtPY+TPI6RLWttEissAC0ABQAMOoyPQZueM4J/ACcKGDk6ACMCN4qHRKGlJWNlACwFBZEAPZKWIVBQAA8ABw8ANoqEGkxOADMFAIkCPZGVMnZ4IVBRAAIAO46RACkBIU9QAwAIBw8APZCURqSoQp2hNHt+JlpbBgATDzsALYdsPJCTQJicNoCDK2ZnCBITAGQEAIkAK4hnQJaaKmRlAIAAPI+SKWFiETkoAEIAADQCKohkF0E1ACQBCAAZFEIvACACAS0AB1jSOAAAALJ0Uk5TACFEFP//Zv///1X/////7iQBZv///////wRJ/////////90iR///////mv///6oRQP//////Ui3///+qH///////Sy3/mf////8t//93Ef////+HLf//RBH///+liv///zwV////////ryX///+lLf//////XBn///+H/1r///9LKf//h0T//0st////pf9L/6FW//////+nDP///////zwf////H////z0t//9pO/94Upx5qjUAAAFOSURBVHicY2AgCjAy4ZRiZmFlwyXHws7ByYVDipuHl49fAIuMoJAwi4iomLiEJKaclLSMrJy8gpiikjK6lIqqmrqGppa2jpiunj6qlIGhkbGJqRmDubaFpZU1ipSNrZ29g6MTkOWsLebC6oos5+bO4uFpBmZ6aYt5+/jCZfz8A3gCg4KhvBBtsdCwcCgnIjIqOjQyBq40VjsuPiERwk6KSk5JTUNYYKbNkp6RCeVkZeek5ObBpPILCouKS0ph3LLyipTKKiingIdFuroGYUxWbV1KfQOI1VjA0lTQ3ILsida2upT2DgaGzgL7ru6eXtSAae2rSynoZygwZnGfMJEBDUyaPGVqQYE6y7TpM8zR5WbOmp0yJ51l7rz5C9ClGBgWLpqdsth+yfylmFJAMCt52fIVK7FKMaxazb1mLXYpBoZ16zfgkmJg2IhbCgMAAJjWTPRll67vAAAAAElFTkSuQmCC")
+
+/***/ }),
+
 /***/ "./asset/data/Sorrow-noborder.data.png":
 /*!*********************************************!*\
   !*** ./asset/data/Sorrow-noborder.data.png ***!
@@ -588,6 +598,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAB9dJREFUeJxdVVuMVdUZ/tbaa9/O2WfPuc6cGeYCDOIAg4AKhSBQNAgaKxZbCxZTTR9M2qRJNX3oS01qmrRpH/rS9K1J28RUk1J9QaIPMlqUyKg4jlJnuM2FuZzLnOu+3/qPadPGnexkZ+1//f+/vvX93yfwv4fRm/zne3xL//bTg5nRkzktO5wwLsuSkDJck7zIR8BiCpYjJGFET1B3qvNzzZk3blZn/kZ7p7+eT3xtQS5kCt/b07/vxd7M4O6U3IOW20Q3bqHeWUN1eBDp2IR3+wbS2aLkBz5Sclrv6xkeLxrl8Y25rY99vPzB75qd+quUK/hvXvF/BYycVvjx/pFjPxvIDBduNr6EKrWTnFZc7xpKG8x4+DBEoYDwFzeRcAHOo6Trt8BpexCFrGBs2PWNjcd/f3XxnQ2rjeU/UM7uen6RUAAD08r5wZ8e3PDQz5ks64vObCyr4HEcsPX6Gk9BMotQN21D0CcjzKQRW3XIQmMptYhWdw6aoqHpVmJdNgsHRx596TJ7W1lam/8tFfG+giuj9pzePXDohXy6qDuhH1tBwhVJgbGewOvAdTtgW8vI3D0OXnWgDZbRmptFpKhggYWU3kuNBlBkgweRHStC13cNPPBCx3p9oeNZfxZ0ih0Pjzz+Yk5LZ291b8YZbhAQaaQkE1VnCVo+h8bSCga2PYm+oQzchRa6TEabuRhIlcF9G7brwVB6ESMkCAPu+K3YUMzs2OD+F6/cYJNic2nszPqlNby1BHHIXQo0FRPLUQ2CcwRdD4lZgHjwKPJ1gOcivFNfgSKIYR0HthSgIVyoUYPiDbhBAFlK8bbXTIbSQ+PVwpYzYjQ/dtJQetAMOkgr+leE64aULQxRlz2gUYGx436ow/0oxz7ypgEnqEIigGoJQUmnKkUCge/A4x569DKiJEQUuwRfCqOF7SdFRu8ZrjpVgBbTcgnNqIu1yEIWCjq1ChpOA6NHHgdvMhQ2M2gNBj+ihH4TntRE1taRyY/BZg545CKmf6qswY0AO+zASOWGRRD5AlIETS/RiAl0LAudbhVBTy/Mew5g9Pi38cTpo5haJEgyOtqfTKPyrymcfP4nUA8+gcVXX8PS8mfwWm3khQFeMEHkAWMSi+MQkqQIkVULUsWdh19dgq2rMO4aQH7XKbD7jyIzMgRCCDNuF09v01FbWcUvf/UyRu7ejvKJZxEMbUbx5XuRVBcQvTcB58plVObmYbQEZGooUiUYnLSChkFC3yYUn74H0uAWSPt2owcm8lGIPtVDSUvgCtrEONDp4Ic/eh73HXsCS0wQqxy4FrA6uAGrZ8+ieuY78GYmEd++ieY7V+Fcm4KW2iSJiNgEIUP0lRD35+jTAOsmMEma+pUEXCaSR5xgDDG+bRT7dm3B7XaIxHJhUqc0llQsRCVUwBMNupyDlU1B0QZoQOsw6PKJpSqSuRtYfekWWLYXyv0bUN26Dze3H8DFQg4FGtfBgoPRskDFDtBtgTZz1K0YH9QUVKmBqNkBv3YR+GIS1uQ0kYRIZKiwCQkrVCGIKVHAuJQrl2gIEtQuTiC+dBEbDu1HZs8jQG8fdg5vxrt3CD5TQkphmG+GGMppEFO3kJ9fhH19AgtvTUA4xMC+IerKRLBO4ShBjumR8MBiVZJRa8/DcxNsHR3H4Wf2YHRsEybeu4zXfnOOIv6IaOMenMj4pO4JPllRMLl6C1d+/RxOPPQgnnzqm6js3YXLr1zA9TtV9MQEf8wQRQy24sXCDx1fE1zzwlyyb7zIHvvubpB2o764is+/WMLJh4+jXamhMkBaaUdESaBFEKhzS3jo2BFcn2ti50odI4TExrN78fq5KSxeD7AU3kr61TJDEvui2r2zVE5vNofKMR45uokSddFqcEzPLuPEkfuwZesY/vTKPxD2b8NCaQB6EsFe60B88TZO/OA41uZW8eXnM0jtcOmCgWMHB/AmjUTjdgF5vQ9NZ35FPHpvlldWRHTygYJkahzM8+A0atg7VoaWMVCrLOP2e5MoGpewvP0pMFeC9un7mHvrn1g+tBOD5QLUnZuhWwRTw4akyzh1uIS/NBtJudhl3x8zLHGibNzVHokjDR7CVhNKTxZ6EMGvdKGGDt4/PwtdMxHOfQyHPUneKSOiWVAiBRN/PY9nntsP1ePIUgFOWAadNmS7g2cfLLF0EiBuWKaQ6xbL5BLJUhVIRMs4DKAXikQ7BxcuNPHZh3eQ7c2hNjWD1oeT0IpZWFc/gZnLY+GWjfN/v4Fj+8sIiTzre/xWg1hKTspIXOfJ2KprhohIq7hNb2AjJMwVMkOnUcVbH9n4dLYJnfju2CR+XRq66jVEkgF/pQW5v4S0rmB6egHcYzh+IA043a98PCHxlJab4I4D5sfkT203UQ01ESsdhKKObracvPmuzaeXLQjJSRjpcRASBGrC2KU5dAmCwlAvKYOJpl2DlPKTKSJJ2DGSb+3VmKaQOM7VkKq3EtuPoRE4gpNqOB2HcfJtpWkhE60wnXmRkLOSJpVYEFpkUDKCFPnI7A0kLEKghGBWDbqkwqU+SqkccgZnGhmYmF8lcoSgAkymY/mI1XWPr6YYjx2nxXmYsZOC1jp1IH/no3NX7yx3e+/tSeXvysqmCJJEMIWTLApm+XYii5iETURaLPuWu7B88G7TNWerRrtqpSIeSHmmJCTgXGJs7d9TCZdp/mpPJgAAAABJRU5ErkJggg==")
+
+/***/ }),
+
+/***/ "./asset/data/Split_Soul.data.png":
+/*!****************************************!*\
+  !*** ./asset/data/Split_Soul.data.png ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("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")
 
 /***/ }),
 
@@ -1061,6 +1081,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   font-size: 10px;
   color: #000000;
   font-weight: 300;
+}
+
+#Buffs .spacer {
+  background-color: transparent !important;
 }
 
 #OverloadBuff {
@@ -19196,6 +19220,7 @@ var buffsList = {
     Immortality: getByID('Immortality'),
     Reflect: getByID('Reflect'),
     Resonance: getByID('Resonance'),
+    SplitSoulBuff: getByID('SplitSoulBuff'),
 };
 var debuffsList = {
     AdrenalinePotionDebuff: getByID('AdrenalinePotionDebuff'),
@@ -19205,6 +19230,7 @@ var debuffsList = {
     EnhancedExcaliburDebuff: getByID('EnhancedExcaliburDebuff'),
     OmniGuardDebuff: getByID('OmniGuardDebuff'),
     StunnedDebuff: getByID('StunnedDebuff'),
+    SignOfLifeDebuff: getByID('SignOfLifeDebuff'),
 };
 var sigilsList = {
     DemonSlayer: getByID('DemonSlayerSigil'),
@@ -19260,6 +19286,7 @@ var buffImages = alt1__WEBPACK_IMPORTED_MODULE_8__.webpackImages({
     Immortality: __webpack_require__(/*! ./asset/data/Immortality.data.png */ "./asset/data/Immortality.data.png"),
     Reflect: __webpack_require__(/*! ./asset/data/Reflect.data.png */ "./asset/data/Reflect.data.png"),
     Resonance: __webpack_require__(/*! ./asset/data/Resonance.data.png */ "./asset/data/Resonance.data.png"),
+    SplitSoul: __webpack_require__(/*! ./asset/data/Split_Soul.data.png */ "./asset/data/Split_Soul.data.png"),
 });
 var incenseImages = alt1__WEBPACK_IMPORTED_MODULE_8__.webpackImages({
     lantadyme: __webpack_require__(/*! ./asset/data/Lantadyme.data.png */ "./asset/data/Lantadyme.data.png"),
@@ -19275,6 +19302,7 @@ var debuffImages = alt1__WEBPACK_IMPORTED_MODULE_8__.webpackImages({
     elvenRitualShard: __webpack_require__(/*! ./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png */ "./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png"),
     enhancedExcaliburDebuff: __webpack_require__(/*! ./asset/data/EE_scuffed-top-noborder.data.png */ "./asset/data/EE_scuffed-top-noborder.data.png"),
     stunnedDebuff: __webpack_require__(/*! ./asset/data/Stunned.data.png */ "./asset/data/Stunned.data.png"),
+    signOfLifeDebuff: __webpack_require__(/*! ./asset/data/Sign_of_Life.data.png */ "./asset/data/Sign_of_Life.data.png"),
 });
 var ultimateImages = alt1__WEBPACK_IMPORTED_MODULE_8__.webpackImages({
     berserk: __webpack_require__(/*! ./asset/data/Berserk-noborder.data.png */ "./asset/data/Berserk-noborder.data.png"),
@@ -19401,7 +19429,7 @@ function watchBuffs() {
             findStatus(buffs, incenseImages.dwarfWeed, buffsList.DwarfWeedIncense, 150);
             findStatus(buffs, incenseImages.fellstalk, buffsList.FellstalkIncense, 150);
             findStatus(buffs, incenseImages.kwuarm, buffsList.KwuarmIncense, 150);
-            findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, 150);
+            findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, 300);
             findStatus(buffs, buffImages.Barricade, buffsList.Barricade, 300);
             findStatus(buffs, buffImages.Devotion, buffsList.Devotion, 300);
             findStatus(buffs, buffImages.Divert, buffsList.Divert, 300);
@@ -19409,6 +19437,7 @@ function watchBuffs() {
             findStatus(buffs, buffImages.Immortality, buffsList.Immortality, 300);
             findStatus(buffs, buffImages.Reflect, buffsList.Reflect, 300);
             findStatus(buffs, buffImages.Resonance, buffsList.Resonance, 300);
+            findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, 250);
             findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, 250, false, 0, Infinity, true, 83);
             findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, 400, false, 0, Infinity, true, 50);
             findStatus(buffs, sigilImages.dragonSlayer, sigilsList.DragonSlayer, 400, false, 0, Infinity, true, 50);
@@ -19444,6 +19473,7 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
             findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 60);
             findStatus(debuffs, debuffImages.stunnedDebuff, debuffsList.StunnedDebuff, 60);
+            findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, 60);
             findPrayer(buffs, debuffs);
             if (debuffs.length == 0) {
                 for (var _c = 0, _d = Object.entries(debuffsList); _c < _d.length; _c++) {
@@ -19551,8 +19581,8 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') &&
-                        buffImage == buffImages.Freedom) {
+                    if ((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') &&
+                        (buffImage == buffImages.SplitSoul))) {
                         console.log(findBuffImage);
                     }
                     if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 16];

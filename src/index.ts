@@ -65,6 +65,7 @@ let buffsList = {
 	Immortality: getByID('Immortality'),
 	Reflect: getByID('Reflect'),
 	Resonance: getByID('Resonance'),
+	SplitSoulBuff: getByID('SplitSoulBuff'),
 };
 
 let debuffsList = {
@@ -75,6 +76,7 @@ let debuffsList = {
 	EnhancedExcaliburDebuff: getByID('EnhancedExcaliburDebuff'),
 	OmniGuardDebuff: getByID('OmniGuardDebuff'),
 	StunnedDebuff: getByID('StunnedDebuff'),
+	SignOfLifeDebuff: getByID('SignOfLifeDebuff'),
 };
 
 let sigilsList = {
@@ -134,6 +136,7 @@ var buffImages = a1lib.webpackImages({
 	Immortality: require('./asset/data/Immortality.data.png'),
 	Reflect: require('./asset/data/Reflect.data.png'),
 	Resonance: require('./asset/data/Resonance.data.png'),
+	SplitSoul: require('./asset/data/Split_Soul.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
@@ -151,6 +154,7 @@ var debuffImages = a1lib.webpackImages({
 	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png'),
 	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top-noborder.data.png'),
 	stunnedDebuff: require('./asset/data/Stunned.data.png'),
+	signOfLifeDebuff: require('./asset/data/Sign_of_Life.data.png'),
 });
 
 var ultimateImages = a1lib.webpackImages({
@@ -385,7 +389,7 @@ function watchBuffs() {
 				buffs,
 				buffImages.Anticipation,
 				buffsList.Anticipation,
-				150
+				300
 			);
 			findStatus(buffs, buffImages.Barricade, buffsList.Barricade, 300);
 			findStatus(buffs, buffImages.Devotion, buffsList.Devotion, 300);
@@ -399,6 +403,12 @@ function watchBuffs() {
 			);
 			findStatus(buffs, buffImages.Reflect, buffsList.Reflect, 300);
 			findStatus(buffs, buffImages.Resonance, buffsList.Resonance, 300);
+			findStatus(
+				buffs,
+				buffImages.SplitSoul,
+				buffsList.SplitSoulBuff,
+				250
+			);
 
 			findStatus(
 				buffs,
@@ -582,6 +592,12 @@ function watchBuffs() {
 				debuffsList.StunnedDebuff,
 				60
 			);
+			findStatus(
+				debuffs,
+				debuffImages.signOfLifeDebuff,
+				debuffsList.SignOfLifeDebuff,
+				60
+			);
 
 			findPrayer(buffs, debuffs);
 
@@ -683,8 +699,8 @@ async function findStatus(
 
 		let findBuffImage = value.countMatch(buffImage, false);
 		if (
-			sauce.getSetting('debugMode') &&
-			buffImage == buffImages.Freedom
+			(sauce.getSetting('debugMode') &&
+				(buffImage == buffImages.SplitSoul))
 		) {
 			console.log(findBuffImage);
 		}
