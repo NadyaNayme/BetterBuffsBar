@@ -571,13 +571,13 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
-/***/ "./asset/data/Sign_of_Life-lq.data.png":
-/*!*********************************************!*\
-  !*** ./asset/data/Sign_of_Life-lq.data.png ***!
-  \*********************************************/
+/***/ "./asset/data/Sign_of_Life-top.data.png":
+/*!**********************************************!*\
+  !*** ./asset/data/Sign_of_Life-top.data.png ***!
+  \**********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAMAAAC6CgRnAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAhZQTFRFAAAABwAOAAAHAgAJPpOXBx4eAA0HMHN1Jl5gARwPAAoELWtsPI+TNoGEJVtdABQQAQABDwAWFjoAKmVmMXN2MnZ5NX2AG0dJABAQDwAWDiMALGlqO42QNX6BIEtOJllcNHx/EjU2AA0OADcHDSAAK2doOIWINn+CIk5RDBpFAAAAM3d6NHt/ETM0AAIKAAAHDR0AJWdZN4KFN4GFJlhbDR40ATkAAGICNXx/MXV4DzAwABEKBwAOImpRN4KEO4uPJ1xfDR8hADABACMCL3ByAAAJJ2ZdM3p9JVdaEywuAH4CMnh7ABIQAAQHABkHIWxNL3FzKF1gGkE+ACEAAAcCLW1wAxcXAAADADcHGTs9Mnh6QZmdABYCATkAOISHJl5hDi0uCwAaAwAKP5eaR6erNYOGBhobOYeKLGhpEgAvCAAWL4hyQJeaNIGEACMNACkCLWxtPY+TPI6RLWttEissAC0ABQAMOoyPQZueM4J/ACcKGDk6ACMCN4qHRKGlJWNlACwFBZEAPZKWIVBQAA8ABw8ANoqEGkxOADMFAIkCPZGVMnZ4IVBRAAIAO46RACkBIU9QAwAIBw8APZCURqSoQp2hNHt+JlpbBgATDzsALYdsPJCTQJicNoCDK2ZnCBITAGQEAIkAK4hnQJaaKmRlAIAAPI+SKWFiETkoAEIAADQCKohkF0E1ACQBCAAZFEIvACACAS0AB1jSOAAAALJ0Uk5TACFEFP//Zv///1X/////7iQBZv///////wRJ/////////90iR///////mv///6oRQP//////Ui3///+qH///////Sy3/mf////8t//93Ef////+HLf//RBH///+liv///zwV////////ryX///+lLf//////XBn///+H/1r///9LKf//h0T//0st////pf9L/6FW//////+nDP///////zwf////H////z0t//9pO/94Upx5qjUAAAFOSURBVHicY2AgCjAy4ZRiZmFlwyXHws7ByYVDipuHl49fAIuMoJAwi4iomLiEJKaclLSMrJy8gpiikjK6lIqqmrqGppa2jpiunj6qlIGhkbGJqRmDubaFpZU1ipSNrZ29g6MTkOWsLebC6oos5+bO4uFpBmZ6aYt5+/jCZfz8A3gCg4KhvBBtsdCwcCgnIjIqOjQyBq40VjsuPiERwk6KSk5JTUNYYKbNkp6RCeVkZeek5ObBpPILCouKS0ph3LLyipTKKiingIdFuroGYUxWbV1KfQOI1VjA0lTQ3ILsida2upT2DgaGzgL7ru6eXtSAae2rSynoZygwZnGfMJEBDUyaPGVqQYE6y7TpM8zR5WbOmp0yJ51l7rz5C9ClGBgWLpqdsth+yfylmFJAMCt52fIVK7FKMaxazb1mLXYpBoZ16zfgkmJg2IhbCgMAAJjWTPRll67vAAAAAElFTkSuQmCC")
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAMCAMAAACgLOZ5AAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAQJQTFRFAAAALFZeDhkgNE9fL3F0Ezk6ICU0Nk1gLm5xO42QL3R3EDIzIyc3N01gKmVoOoyPKWRnMnp9LnF0Bx8fJSk5REtoJ19iPJCTLnByIFBSLXBzARISKWNmOYmMM3t9HUlLFxslHSIuMmlxK2xvBRsbKGFkNoGEM3x+HkxOHyk0Mm5zI1pcAxcXKlhfNH6BIlVXFSQrMHV4IFRWCBYZNH2AOIiLI1lbDB4fMHZ5H1NVDhogKVtfMXZ5IVRWESssRVFsMXh7Mnl8GEJDBhMWL1ljPZKWIVZYGTw/QztZOVhpM32ADzAxFiQsOH6DQZufRKOnHVNVFBcgLGxuNoOGJVlcQkdhxBczNgAAAFZ0Uk5TAP////////////////////////////////////////////////////////////////////////////////////////////////////////////////+hc9syAAAAj0lEQVR4nGNggANGJgbsgJmFlQ2rBDsHJxc3DxYJXj5+AUEhYREMCVExcQlJKUFBaQwZGVk5eQVFJUFlFTQJVTV1DU0grSWorYMioaunp28AZhkKGhkjSTCamJqZQ9kWgpZWcAlrG3FbOxjH3sHRyRnKduFwdXP3gKvztPDy9oEwff38AwKRzA4SDw4JBdIAZVEPSxuGX0EAAAAASUVORK5CYII=")
 
 /***/ }),
 
@@ -19372,7 +19372,7 @@ var debuffImages = alt1__WEBPACK_IMPORTED_MODULE_8__.webpackImages({
     elvenRitualShard: __webpack_require__(/*! ./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png */ "./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png"),
     enhancedExcaliburDebuff: __webpack_require__(/*! ./asset/data/EE_scuffed-top-noborder.data.png */ "./asset/data/EE_scuffed-top-noborder.data.png"),
     stunnedDebuff: __webpack_require__(/*! ./asset/data/Stunned.data.png */ "./asset/data/Stunned.data.png"),
-    signOfLifeDebuff: __webpack_require__(/*! ./asset/data/Sign_of_Life-lq.data.png */ "./asset/data/Sign_of_Life-lq.data.png"),
+    signOfLifeDebuff: __webpack_require__(/*! ./asset/data/Sign_of_Life-top.data.png */ "./asset/data/Sign_of_Life-top.data.png"),
 });
 var ultimateImages = alt1__WEBPACK_IMPORTED_MODULE_8__.webpackImages({
     berserk: __webpack_require__(/*! ./asset/data/Berserk-noborder.data.png */ "./asset/data/Berserk-noborder.data.png"),
@@ -19543,7 +19543,7 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
             findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 60);
             findStatus(debuffs, debuffImages.stunnedDebuff, debuffsList.StunnedDebuff, 60);
-            findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, 60);
+            findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, 20);
             findPrayer(buffs, debuffs);
             if (debuffs.length == 0) {
                 for (var _c = 0, _d = Object.entries(debuffsList); _c < _d.length; _c++) {

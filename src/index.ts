@@ -154,7 +154,7 @@ var debuffImages = a1lib.webpackImages({
 	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png'),
 	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top-noborder.data.png'),
 	stunnedDebuff: require('./asset/data/Stunned.data.png'),
-	signOfLifeDebuff: require('./asset/data/Sign_of_Life-lq.data.png'),
+	signOfLifeDebuff: require('./asset/data/Sign_of_Life-top.data.png'),
 });
 
 var ultimateImages = a1lib.webpackImages({
@@ -596,7 +596,7 @@ function watchBuffs() {
 				debuffs,
 				debuffImages.signOfLifeDebuff,
 				debuffsList.SignOfLifeDebuff,
-				60
+				20
 			);
 
 			findPrayer(buffs, debuffs);
