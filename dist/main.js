@@ -20105,16 +20105,18 @@ function parseBolgBuff(data) {
 }
 function setOverlayPosition() {
     return __awaiter(this, void 0, void 0, function () {
-        var bbb;
+        var oldPosition, bbb;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     alt1__WEBPACK_IMPORTED_MODULE_8__.once('alt1pressed', updateLocation);
-                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
+                    oldPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('oldOverlayPosition', oldPosition);
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
                     _a.label = 1;
                 case 1:
                     if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
-                    alt1.setTooltip('Press Alt+1 to set position');
+                    alt1.setTooltip('Press Alt+1 to set position or esc to cancel');
                     bbb = getByID('Buffs');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayPosition', {
                         x: Math.floor(alt1__WEBPACK_IMPORTED_MODULE_8__.getMousePosition().x -
@@ -20134,6 +20136,12 @@ function setOverlayPosition() {
         });
     });
 }
+document.addEventListener('keydown', function (event) {
+    if (event.key === '27') {
+        _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayPosition', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('oldOverlayPosition'));
+        _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
+    }
+});
 function updateLocation(e) {
     var bbb = getByID('Buffs');
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayPosition', {
@@ -20141,7 +20149,6 @@ function updateLocation(e) {
         y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
     });
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
-    alt1.overLayClearGroup('overlayPositionHelper');
 }
 function startOverlay() {
     return __awaiter(this, void 0, void 0, function () {
