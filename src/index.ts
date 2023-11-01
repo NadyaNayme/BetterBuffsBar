@@ -1096,31 +1096,22 @@ async function parseBolgBuff(data: string) {
 }
 
 async function setOverlayPosition() {
-	let bbb = getByID('Buffs');
 	a1lib.once('alt1pressed', updateLocation);
-	sauce.updateSetting('updatingOverlayPosition', true);
+	sauce.updateSetting('updatingOverlayPosition', false);
 	while (sauce.getSetting('updatingOverlayPosition')) {
 		alt1.setTooltip('Press Alt+1 to set position');
-		alt1.overLaySetGroup('overlayPositionHelper');
-		alt1.overLayRect(
-			a1lib.mixColor(255, 255, 255),
-			Math.floor(
+		let bbb = getByID('Buffs');
+		sauce.updateSetting('overlayPosition', {
+			x: Math.floor(
 				a1lib.getMousePosition().x -
-					((sauce.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2
+					(sauce.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)
 			),
-			Math.floor(
+			y: Math.floor(
 				a1lib.getMousePosition().y -
-					((sauce.getSetting('uiScale') / 100) * bbb.offsetHeight) / 2
+					(sauce.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
 			),
-			Math.floor(
-				((sauce.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2
-			),
-			Math.floor(
-				((sauce.getSetting('uiScale') / 100) * bbb.offsetHeight) / 1.5
-			),
-			200,
-			2
-		);
+		});
+		alt1.overLayRefreshGroup('betterBuffsBar');
 		await new Promise((done) => setTimeout(done, 200));
 	}
 	alt1.clearTooltip();

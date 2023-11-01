@@ -20109,17 +20109,20 @@ function setOverlayPosition() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    bbb = getByID('Buffs');
                     alt1__WEBPACK_IMPORTED_MODULE_8__.once('alt1pressed', updateLocation);
-                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
                     _a.label = 1;
                 case 1:
                     if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
                     alt1.setTooltip('Press Alt+1 to set position');
-                    alt1.overLaySetGroup('overlayPositionHelper');
-                    alt1.overLayRect(alt1__WEBPACK_IMPORTED_MODULE_8__.mixColor(255, 255, 255), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_8__.getMousePosition().x -
-                        ((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2), Math.floor(alt1__WEBPACK_IMPORTED_MODULE_8__.getMousePosition().y -
-                        ((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * bbb.offsetHeight) / 2), Math.floor(((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2), Math.floor(((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * bbb.offsetHeight) / 1.5), 200, 2);
+                    bbb = getByID('Buffs');
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayPosition', {
+                        x: Math.floor(alt1__WEBPACK_IMPORTED_MODULE_8__.getMousePosition().x -
+                            (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
+                        y: Math.floor(alt1__WEBPACK_IMPORTED_MODULE_8__.getMousePosition().y -
+                            (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
+                    });
+                    alt1.overLayRefreshGroup('betterBuffsBar');
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 200); })];
                 case 2:
                     _a.sent();
