@@ -1380,7 +1380,7 @@ function roundedToFixed(input, digits) {
 
 /* Settings */
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings'),
+	settingsHeader: sauce.createHeading('h2', 'Settings - v1.35'),
 	beginGeneral: sauce.createHeading('h3', 'General'),
 	BuffsPerRow: sauce.createNumberSetting(
 		'buffsPerRow',
