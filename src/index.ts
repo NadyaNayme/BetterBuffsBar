@@ -154,7 +154,7 @@ var debuffImages = a1lib.webpackImages({
 	elvenRitualShard: require('./asset/data/Ancient_Elven_Ritual_Shard-noborder.data.png'),
 	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top-noborder.data.png'),
 	stunnedDebuff: require('./asset/data/Stunned.data.png'),
-	signOfLifeDebuff: require('./asset/data/Sign_of_Life.data.png'),
+	signOfLifeDebuff: require('./asset/data/Sign_of_Life-lq.data.png'),
 });
 
 var ultimateImages = a1lib.webpackImages({
