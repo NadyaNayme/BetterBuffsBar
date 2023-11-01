@@ -1106,20 +1106,18 @@ async function setOverlayPosition() {
 			a1lib.mixColor(255, 255, 255),
 			Math.floor(
 				a1lib.getMousePosition().x -
-					(sauce.getSetting('uiScale') / 100) *
-						parseInt(sauce.getSetting('buffsPerRow'), 10) *
-						29
-			) / 2,
+					((sauce.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2
+			),
 			Math.floor(
 				a1lib.getMousePosition().y -
-					(sauce.getSetting('uiScale') / 100) * (helperItems.TrackedBuffs.querySelectorAll('li').length / parseInt(sauce.getSetting('buffsPerRow')) * 29)
-			) / 2,
-			Math.floor(
-				(sauce.getSetting('uiScale') / 100) *
-					parseInt(sauce.getSetting('buffsPerRow'), 10) *
-					29
+					((sauce.getSetting('uiScale') / 100) * bbb.offsetHeight) / 2
 			),
-			Math.floor((sauce.getSetting('uiScale') / 100) * (helperItems.TrackedBuffs.querySelectorAll('li').length / parseInt(sauce.getSetting('buffsPerRow')) * 29) / 2),
+			Math.floor(
+				((sauce.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2
+			),
+			Math.floor(
+				((sauce.getSetting('uiScale') / 100) * bbb.offsetHeight) / 1.5
+			),
 			200,
 			2
 		);
