@@ -20116,7 +20116,7 @@ function setOverlayPosition() {
                     _a.label = 1;
                 case 1:
                     if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
-                    alt1.setTooltip('Press Alt+1 to set position or esc to cancel');
+                    alt1.setTooltip('Press Alt+1 to save position');
                     bbb = getByID('Buffs');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayPosition', {
                         x: Math.floor(alt1__WEBPACK_IMPORTED_MODULE_8__.getMousePosition().x -
@@ -20136,12 +20136,6 @@ function setOverlayPosition() {
         });
     });
 }
-document.addEventListener('keydown', function (event) {
-    if (event.key === '27') {
-        _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayPosition', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('oldOverlayPosition'));
-        _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
-    }
-});
 function updateLocation(e) {
     var bbb = getByID('Buffs');
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayPosition', {

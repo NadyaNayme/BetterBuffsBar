@@ -1102,7 +1102,7 @@ async function setOverlayPosition() {
 	sauce.updateSetting('oldOverlayPosition', oldPosition);
 	sauce.updateSetting('updatingOverlayPosition', true);
 	while (sauce.getSetting('updatingOverlayPosition')) {
-		alt1.setTooltip('Press Alt+1 to set position or esc to cancel');
+		alt1.setTooltip('Press Alt+1 to save position');
 		let bbb = getByID('Buffs');
 		sauce.updateSetting('overlayPosition', {
 			x: Math.floor(
@@ -1119,16 +1119,6 @@ async function setOverlayPosition() {
 	}
 	alt1.clearTooltip();
 }
-
-document.addEventListener('keydown', (event) => {
-	if (event.key === '27') {
-		sauce.updateSetting(
-			'overlayPosition',
-			sauce.getSetting('oldOverlayPosition')
-		);
-		sauce.updateSetting('updatingOverlayPosition', false);
-	}
-});
 
 function updateLocation(e) {
 	let bbb = getByID('Buffs');
