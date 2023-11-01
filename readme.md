@@ -80,3 +80,7 @@ alt1://addapp/https://nadyanayme.github.io/BetterBuffsBar/dist/appconfig.json
 - BOLG stacks split into Time + Stack buffs will occasionally report Time as Stacks until a Stack is gained if you use the Weapon Special while already under the effects of the Weapon Special. It fixes itself when you gain at least one stack again.
 
 If you encounter any other bugs - please submit an issue and I'll investigate it.
+
+## My Other Plugins
+
+To see my other Alt1 plugins [click here](https://github.com/NadyaNayme/NyusPluginDirectory)
