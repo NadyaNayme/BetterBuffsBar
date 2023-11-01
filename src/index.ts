@@ -1100,24 +1100,26 @@ async function setOverlayPosition() {
 	a1lib.once('alt1pressed', updateLocation);
 	sauce.updateSetting('updatingOverlayPosition', true);
 	while (sauce.getSetting('updatingOverlayPosition')) {
-		alt1.setTooltip('Press Alt+1 to set overlay position.');
+		alt1.setTooltip('Press Alt+1 to set position');
 		alt1.overLaySetGroup('overlayPositionHelper');
 		alt1.overLayRect(
 			a1lib.mixColor(255, 255, 255),
 			Math.floor(
 				a1lib.getMousePosition().x -
-					((sauce.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2
-			),
+					(sauce.getSetting('uiScale') / 100) *
+						parseInt(sauce.getSetting('buffsPerRow'), 10) *
+						29
+			) / 2,
 			Math.floor(
 				a1lib.getMousePosition().y -
-					((sauce.getSetting('uiScale') / 100) * bbb.offsetHeight) / 2
-			),
+					(sauce.getSetting('uiScale') / 100) * (helperItems.TrackedBuffs.querySelectorAll('li').length / parseInt(sauce.getSetting('buffsPerRow')) * 29)
+			) / 2,
 			Math.floor(
-				((sauce.getSetting('uiScale') / 100) * bbb.offsetWidth) / 2
+				(sauce.getSetting('uiScale') / 100) *
+					parseInt(sauce.getSetting('buffsPerRow'), 10) *
+					29
 			),
-			Math.floor(
-				((sauce.getSetting('uiScale') / 100) * bbb.offsetHeight) / 1.5
-			),
+			Math.floor((sauce.getSetting('uiScale') / 100) * (helperItems.TrackedBuffs.querySelectorAll('li').length / parseInt(sauce.getSetting('buffsPerRow')) * 29) / 2),
 			200,
 			2
 		);
