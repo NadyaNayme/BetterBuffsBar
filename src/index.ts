@@ -812,8 +812,6 @@ async function findPrayer(
 	debuffsList: BuffReader.Buff[]
 ) {
 	if (
-		!getByID('Buffs').contains(prayersList.OverheadPrayer) ||
-		!getByID('Buffs').contains(prayersList.DpsPrayer) ||
 		!buffsList ||
 		!debuffsList
 	) {
@@ -831,7 +829,7 @@ async function findPrayer(
 		}
 	}
 
-	if (prayersActive > 0) {
+	if (prayersActive > 0 && getByID('Buffs').contains(prayersList.DpsPrayer)) {
 		for (let [_key, value] of Object.entries(buffsList)) {
 			lastActiveDPS = testDpsPrayers(value);
 		}
@@ -840,7 +838,7 @@ async function findPrayer(
 		prayersList.DpsPrayer.classList.add('inactive');
 	}
 
-	if (prayersActive > 0) {
+	if (prayersActive > 0 && getByID('Buffs').contains(prayersList.OverheadPrayer)) {
 		for (let [_key, value] of Object.entries(buffsList)) {
 			lastActiveOverhead = testOverheadPrayers(value);
 		}

@@ -19726,9 +19726,7 @@ function findPrayer(buffsList, debuffsList) {
     return __awaiter(this, void 0, void 0, function () {
         var prayersActive, lastActiveOverhead, lastActiveDPS, _i, _a, _b, _key, value, prayerDraining, _c, _d, _e, _key, value, _f, _g, _h, _key, value;
         return __generator(this, function (_j) {
-            if (!getByID('Buffs').contains(prayersList.OverheadPrayer) ||
-                !getByID('Buffs').contains(prayersList.DpsPrayer) ||
-                !buffsList ||
+            if (!buffsList ||
                 !debuffsList) {
                 return [2 /*return*/];
             }
@@ -19740,7 +19738,7 @@ function findPrayer(buffsList, debuffsList) {
                     prayersActive++;
                 }
             }
-            if (prayersActive > 0) {
+            if (prayersActive > 0 && getByID('Buffs').contains(prayersList.DpsPrayer)) {
                 for (_c = 0, _d = Object.entries(buffsList); _c < _d.length; _c++) {
                     _e = _d[_c], _key = _e[0], value = _e[1];
                     lastActiveDPS = testDpsPrayers(value);
@@ -19750,7 +19748,7 @@ function findPrayer(buffsList, debuffsList) {
                 prayersList.DpsPrayer.dataset.prayer = '';
                 prayersList.DpsPrayer.classList.add('inactive');
             }
-            if (prayersActive > 0) {
+            if (prayersActive > 0 && getByID('Buffs').contains(prayersList.OverheadPrayer)) {
                 for (_f = 0, _g = Object.entries(buffsList); _f < _g.length; _f++) {
                     _h = _g[_f], _key = _h[0], value = _h[1];
                     lastActiveOverhead = testOverheadPrayers(value);
