@@ -233,7 +233,7 @@ function createCanvas() {
 	return overlayCanvas;
 }
 
-async function captureOverlay() {
+function captureOverlay() {
 	let overlayCanvas = createCanvas();
 	html2canvas(document.querySelector('#Buffs'), {
 		allowTaint: true,
@@ -602,7 +602,7 @@ function watchBuffs() {
 
 			findPrayer(buffs, debuffs);
 
-			if (debuffs.length == 0) {
+			if (!debuffs || debuffs.length == 0) {
 				for (let [_key, debuff] of Object.entries(debuffsList)) {
 					setInactive(debuff);
 				}
@@ -1142,8 +1142,6 @@ export async function startOverlay() {
 		cnv.width = 1000;
 		cnv.height = 1000;
 
-		captureOverlay();
-
 		let overlayPosition = sauce.getSetting('overlayPosition');
 
 		alt1.overLaySetGroup('betterBuffsBar');
@@ -1564,6 +1562,9 @@ window.onload = function () {
 			settings.before(val);
 		});
 		initSettings();
+		let observableConfig = { childList: true, subtree: true, attributes: true };
+		let observer = new MutationObserver(captureOverlay);
+		observer.observe(helperItems.TrackedBuffs, observableConfig);
 		startBetterBuffsBar();
 	} else {
 		let addappurl = `alt1://addapp/${

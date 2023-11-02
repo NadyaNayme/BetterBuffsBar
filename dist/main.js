@@ -19435,30 +19435,24 @@ function createCanvas() {
     return overlayCanvas;
 }
 function captureOverlay() {
-    return __awaiter(this, void 0, void 0, function () {
-        var overlayCanvas;
-        return __generator(this, function (_a) {
-            overlayCanvas = createCanvas();
-            html2canvas__WEBPACK_IMPORTED_MODULE_2___default()(document.querySelector('#Buffs'), {
-                allowTaint: true,
-                canvas: overlayCanvas,
-                backgroundColor: 'transparent',
-                useCORS: true,
-                removeContainer: true,
-            })
-                .then(function (canvas) {
-                try {
-                    paintCanvas(canvas);
-                }
-                catch (e) {
-                    console.log('Error saving image? ' + e);
-                }
-            })
-                .catch(function () {
-                console.log('Overlay failed to capture.');
-            });
-            return [2 /*return*/];
-        });
+    var overlayCanvas = createCanvas();
+    html2canvas__WEBPACK_IMPORTED_MODULE_2___default()(document.querySelector('#Buffs'), {
+        allowTaint: true,
+        canvas: overlayCanvas,
+        backgroundColor: 'transparent',
+        useCORS: true,
+        removeContainer: true,
+    })
+        .then(function (canvas) {
+        try {
+            paintCanvas(canvas);
+        }
+        catch (e) {
+            console.log('Error saving image? ' + e);
+        }
+    })
+        .catch(function () {
+        console.log('Overlay failed to capture.');
     });
 }
 function paintCanvas(canvas) {
@@ -19545,7 +19539,7 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.stunnedDebuff, debuffsList.StunnedDebuff, 60);
             findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, 20);
             findPrayer(buffs, debuffs);
-            if (debuffs.length == 0) {
+            if (!debuffs || debuffs.length == 0) {
                 for (var _c = 0, _d = Object.entries(debuffsList); _c < _d.length; _c++) {
                     var _e = _d[_c], _key = _e[0], debuff = _e[1];
                     setInactive(debuff);
@@ -20158,7 +20152,6 @@ function startOverlay() {
                     if (false) {}
                     cnv.width = 1000;
                     cnv.height = 1000;
-                    captureOverlay();
                     overlayPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
                     alt1.overLaySetGroup('betterBuffsBar');
                     alt1.overLayFreezeGroup('betterBuffsBar');
@@ -20417,6 +20410,9 @@ window.onload = function () {
             settings_1.before(val);
         });
         initSettings();
+        var observableConfig = { childList: true, subtree: true, attributes: true };
+        var observer = new MutationObserver(captureOverlay);
+        observer.observe(helperItems.TrackedBuffs, observableConfig);
         startBetterBuffsBar();
     }
     else {
