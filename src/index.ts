@@ -602,7 +602,7 @@ function watchBuffs() {
 
 			findPrayer(buffs, debuffs);
 
-			if (debuffs.length == 0) {
+			if (!debuffs) {
 				for (let [_key, debuff] of Object.entries(debuffsList)) {
 					setInactive(debuff);
 				}

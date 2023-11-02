@@ -19545,7 +19545,7 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.stunnedDebuff, debuffsList.StunnedDebuff, 60);
             findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, 20);
             findPrayer(buffs, debuffs);
-            if (debuffs.length == 0) {
+            if (!debuffs) {
                 for (var _c = 0, _d = Object.entries(debuffsList); _c < _d.length; _c++) {
                     var _e = _d[_c], _key = _e[0], debuff = _e[1];
                     setInactive(debuff);
