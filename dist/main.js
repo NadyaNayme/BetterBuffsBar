@@ -1007,8 +1007,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 #Buffs {
   --maxcount: 5;
   --scale: 100;
-  --totalitems: 37;
+  --totalitems: 48;
   width: 100%;
+  width: calc(((var(--maxcount) + 1) * 27px) + 4px);
   max-width: calc((var(--maxcount) * 72px));
   min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * 27px));
   display: grid;
@@ -1018,11 +1019,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   margin:0 auto;
   padding:0;
   gap: 2px;
-  /* transform: scale(calc(var(--scale) / 100)); */
-  /* transform-origin: top; */
   grid-template-columns: repeat(var(--maxcount),30px);
   grid-template-rows: repeat(8, 30px);
   position: relative;
+}
+
+#Buffs:hover .spacer {
+  background-color: red !important;
 }
 
 #Buffs:not(.scaled)::before {
@@ -19249,6 +19252,8 @@ sortablejs__WEBPACK_IMPORTED_MODULE_1__.Sortable.mount(new sortablejs__WEBPACK_I
 var buffs = new (alt1_buffs__WEBPACK_IMPORTED_MODULE_7___default())();
 var debuffs = new (alt1_buffs__WEBPACK_IMPORTED_MODULE_7___default())();
 debuffs.debuffs = true;
+var debugMode = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode');
+var currentOverlayPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
 function getByID(id) {
     return document.getElementById(id);
 }
@@ -19467,7 +19472,9 @@ function paintCanvas(canvas) {
         .querySelector('canvas')
         .getContext('2d', { willReadFrequently: true });
     overlayCanvasContext.clearRect(0, 0, overlayCanvasContext.canvas.width, overlayCanvasContext.canvas.height);
-    overlayCanvasContext.drawImage(canvas, 0, 0, _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') * 4, (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') * 4 * canvas.height) / canvas.width);
+    overlayCanvasContext.drawImage(canvas, 0, 0, (helperItems.TrackedBuffs.offsetWidth * _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale')) /
+        100, (helperItems.TrackedBuffs.offsetHeight * _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale')) /
+        100);
     var overlay = overlayCanvasOutput.querySelector('canvas');
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayImage', overlay.toDataURL());
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('firstFrame', true);
@@ -19517,7 +19524,7 @@ function watchBuffs() {
             if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
                 findBolgStacks(buffs);
             }
-            findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 100, false, 0, Infinity, true, 40);
+            findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 200, false, 0, Infinity, true, 40);
             findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 110, false, 0, Infinity, true, 30);
             findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 100, false, 0, Infinity, true, 23);
             findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 500, false, 0, Infinity, true, 30);
@@ -19651,20 +19658,21 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if ((_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') &&
+                    if ((debugMode &&
                         (buffImage == debuffImages.signOfLifeDebuff))) {
                         console.log(findBuffImage);
                     }
                     if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 16];
                     // If we find a match for the buff it will always exceed the threshold
                     // the threshold depends largely on which buff is being matched against
-                    foundBuff = true;
                     return [4 /*yield*/, setActive(element)];
                 case 2:
+                    // If we find a match for the buff it will always exceed the threshold
+                    // the threshold depends largely on which buff is being matched against
                     _f.sent();
                     timearg = value.readArg('timearg');
                     if (!(element.dataset.time == '1' && showCooldown && !onCooldown)) return [3 /*break*/, 4];
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
+                    if (debugMode) {
                         console.log("Starting cooldown timer for ".concat(element.id));
                     }
                     onCooldown = true;
@@ -19676,7 +19684,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (!(timearg.time > 59 &&
                         !onCooldown &&
                         timearg.time < maxRange)) return [3 /*break*/, 6];
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
+                    if (debugMode) {
                         console.log("".concat(element.id, " has >60s remaining"));
                     }
                     element.dataset.time =
@@ -19692,7 +19700,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     return [3 /*break*/, 15];
                 case 6:
                     if (!(expirationPulse && timearg.time == 11 && !onCooldown)) return [3 /*break*/, 10];
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
+                    if (debugMode) {
                         console.log("".concat(element.id, " has <10s remaining - starting 10s countdown"));
                     }
                     element.dataset.time = '<10s';
@@ -19713,7 +19721,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     return [3 /*break*/, 15];
                 case 10:
                     if (!(timearg.time > minRange && timearg.time < maxRange)) return [3 /*break*/, 13];
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
+                    if (debugMode) {
                         console.log("Cooldown for ".concat(element.id, " is between ").concat(minRange, " and ").concat(maxRange));
                     }
                     element.dataset.time = timearg.time.toString();
@@ -19724,23 +19732,23 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     _f.label = 12;
                 case 12: return [3 /*break*/, 15];
                 case 13:
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
+                    if (debugMode) {
                         console.log("".concat(element.id, " is no longer active - setting inactive."));
                     }
                     return [4 /*yield*/, setInactive(element)];
                 case 14:
                     _f.sent();
                     _f.label = 15;
-                case 15: return [3 /*break*/, 18];
+                case 15: return [3 /*break*/, 19];
                 case 16:
                     if (!!showCooldown) return [3 /*break*/, 18];
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode')) {
+                    if (debugMode) {
                         console.log("".concat(element.id, " is no longer active - setting inactive."));
                     }
                     return [4 /*yield*/, setInactive(element)];
                 case 17:
                     _f.sent();
-                    _f.label = 18;
+                    return [3 /*break*/, 19];
                 case 18:
                     _c++;
                     return [3 /*break*/, 1];
@@ -19892,6 +19900,7 @@ function testDpsPrayers(buff) {
                             .toString()
                             .toLowerCase();
                         prayersList.DpsPrayer.classList.remove('inactive');
+                        return [2 /*return*/, prayerTests[key].toString()];
                     }
                 }
             }
@@ -20124,6 +20133,7 @@ function setOverlayPosition() {
                         y: Math.floor(alt1__WEBPACK_IMPORTED_MODULE_8__.getMousePosition().y -
                             (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
                     });
+                    currentOverlayPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
                     alt1.overLayRefreshGroup('betterBuffsBar');
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 200); })];
                 case 2:
@@ -20146,32 +20156,29 @@ function updateLocation(e) {
 }
 function startOverlay() {
     return __awaiter(this, void 0, void 0, function () {
-        var cnv, ctx, overlay, beta, overlayPosition, data;
+        var cnv, ctx, overlay, overlayPosition, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     cnv = document.createElement('canvas');
                     ctx = cnv.getContext('2d', { willReadFrequently: true });
-                    overlay = document.getElementsByTagName('canvas')[0];
-                    beta = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('beta');
+                    overlay = (document.getElementsByTagName('canvas')[0]);
                     _a.label = 1;
                 case 1:
                     if (false) {}
                     cnv.width = 1000;
                     cnv.height = 1000;
-                    if (!beta) {
-                        captureOverlay();
-                    }
-                    overlayPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
+                    captureOverlay();
+                    overlayPosition = currentOverlayPosition;
                     alt1.overLaySetGroup('betterBuffsBar');
                     alt1.overLayFreezeGroup('betterBuffsBar');
                     /* If I try and use the overlay instead of copying the overlay it doesn't work. No idea why. */
                     ctx.drawImage(overlay, 0, 0);
                     data = ctx.getImageData(0, 0, helperItems.BetterBuffsBar.offsetWidth, helperItems.BetterBuffsBar.offsetHeight);
                     alt1.overLayClearGroup('betterBuffsBar');
-                    alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_8__.encodeImageString(data), data.width, 125);
+                    alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_8__.encodeImageString(data), data.width, 50);
                     alt1.overLayRefreshGroup('betterBuffsBar');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 125); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 50); })];
                 case 2:
                     _a.sent();
                     return [3 /*break*/, 1];
@@ -20207,6 +20214,7 @@ function setDefaultSettings() {
 }
 function loadSettings() {
     getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
+    getByID('Buffs').style.setProperty('--totalitems', helperItems.TrackedBuffs.children.length.toString());
     getByID('Buffs').style.setProperty('--scale', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale'));
     helperItems.BetterBuffsBar.classList.toggle('fade', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('fadeInactiveBuffs'));
     helperItems.BetterBuffsBar.classList.toggle('big-head-mode', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode'));
@@ -20268,6 +20276,9 @@ function setSortables() {
 function setBuffsPerRow() {
     getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
     setGridSize();
+    helperItems.TrackedBuffs.addEventListener('change', function () {
+        getByID('Buffs').style.setProperty('--totalitems', helperItems.TrackedBuffs.children.length.toString());
+    });
 }
 function setGridSize() {
     var buffsCount = helperItems.TrackedBuffs.querySelectorAll('li').length;
@@ -20277,18 +20288,23 @@ function setGridSize() {
     helperItems.TrackedBuffs.style.gridTemplateRows = "repeat(".concat(rowsToGenerate + 1, ", calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))");
 }
 function setBigHeadMode() {
-    helperItems.TrackedBuffs.classList.toggle('scaled', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode'));
-    helperItems.BetterBuffsBar.classList.toggle('big-head-mode', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode'));
+    var bigHeadMode = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode');
+    helperItems.TrackedBuffs.classList.toggle('scaled', bigHeadMode);
+    helperItems.BetterBuffsBar.classList.toggle('big-head-mode', bigHeadMode);
     setBigHeadGrid();
 }
 function setBigHeadGrid() {
-    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode') &&
-        _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadPosition') == 'start') {
-        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"first first ".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\"first first ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t");
+    var bigHeadModeActive = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode');
+    var bigHeadPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadPosition');
+    var buffsPerRow = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow');
+    if (bigHeadModeActive && bigHeadPosition == 'start') {
+        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"first first ".concat('. '.repeat(buffsPerRow), "\"\n\t\t\"first first ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
     }
-    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode') &&
-        _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadPosition') == 'end') {
-        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "first first\"\n\t\t\"").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "first first\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t\". . ").concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"\n\t\t");
+    if (bigHeadModeActive && bigHeadPosition == 'end') {
+        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(buffsPerRow), "first first\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "first first\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
+    }
+    if (!bigHeadModeActive) {
+        helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
     }
 }
 var foundBuffs = false;
@@ -20330,7 +20346,7 @@ function roundedToFixed(input, digits) {
 }
 /* Settings */
 var settingsObject = {
-    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.35'),
+    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.36'),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
     FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', 'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them', false),
@@ -20411,6 +20427,14 @@ settingsObject.ProfileManager.querySelector('.load-btn').addEventListener('click
     setTimeout(function () { }, 100);
     location.reload();
 });
+settingsObject.debugMode.querySelector('input').addEventListener('change', function () {
+    setTimeout(function () { }, 100);
+    location.reload();
+});
+settingsObject.beta.querySelector('input').addEventListener('change', function () {
+    setTimeout(function () { }, 100);
+    location.reload();
+});
 window.onload = function () {
     //check if we are running inside alt1 by checking if the alt1 global exists
     if (window.alt1) {
@@ -20423,11 +20447,6 @@ window.onload = function () {
             settings_1.before(val);
         });
         initSettings();
-        if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('beta')) {
-            var observableConfig = { childList: true, subtree: true, attributes: true };
-            var observer = new MutationObserver(captureOverlay);
-            observer.observe(helperItems.TrackedBuffs, observableConfig);
-        }
         startBetterBuffsBar();
     }
     else {

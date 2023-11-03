@@ -16,11 +16,13 @@ import './index.html';
 import './appconfig.json';
 import './icon.png';
 import './css/betterbuffsbar.css';
-import { KeyObject } from 'crypto';
 
 var buffs = new BuffReader.default();
 var debuffs = new BuffReader.default();
 debuffs.debuffs = true;
+
+var debugMode = sauce.getSetting('debugMode');
+var currentOverlayPosition = sauce.getSetting('overlayPosition');
 
 function getByID(id: string) {
 	return document.getElementById(id);
@@ -34,8 +36,8 @@ let helperItems = {
 	Output: getByID('output'),
 	settings: getByID('Settings'),
 	BetterBuffsBar: getByID('BetterBuffsBar'),
-	TrackedBuffs: getByID('Buffs'),
-	UntrackedBuffs: getByID('UntrackedBuffs'),
+	TrackedBuffs: <HTMLUListElement>getByID('Buffs'),
+	UntrackedBuffs: <HTMLUListElement>getByID('UntrackedBuffs'),
 	ToggleOverlayButton: getByID('ToggleOverlayButton'),
 };
 
@@ -269,8 +271,10 @@ function paintCanvas(canvas: HTMLCanvasElement) {
 		canvas,
 		0,
 		0,
-		sauce.getSetting('uiScale') * 4,
-		(sauce.getSetting('uiScale') * 4 * canvas.height) / canvas.width
+		(helperItems.TrackedBuffs.offsetWidth * sauce.getSetting('uiScale')) /
+			100,
+		(helperItems.TrackedBuffs.offsetHeight * sauce.getSetting('uiScale')) /
+			100
 	);
 	let overlay = overlayCanvasOutput.querySelector('canvas');
 	sauce.updateSetting('overlayImage', overlay.toDataURL());
@@ -476,7 +480,7 @@ function watchBuffs() {
 				buffs,
 				ultimateImages.berserk,
 				ultimatesList.Berserk,
-				100,
+				200,
 				false,
 				0,
 				Infinity,
@@ -685,7 +689,7 @@ async function findStatus(
 		}
 	}
 
-	for (let [_key, value] of Object.entries(buffsReader)) {
+	buffSearchLoop: for (let [_key, value] of Object.entries(buffsReader)) {
 		if (foundBuff) {
 			return;
 		}
@@ -700,7 +704,7 @@ async function findStatus(
 
 		let findBuffImage = value.countMatch(buffImage, false);
 		if (
-			(sauce.getSetting('debugMode') &&
+			(debugMode &&
 				(buffImage == debuffImages.signOfLifeDebuff))
 		) {
 			console.log(findBuffImage);
@@ -708,11 +712,10 @@ async function findStatus(
 		if (findBuffImage.passed > threshold || findBuffImage.failed == 0) {
 			// If we find a match for the buff it will always exceed the threshold
 			// the threshold depends largely on which buff is being matched against
-			foundBuff = true;
 			await setActive(element);
 			timearg = value.readArg('timearg');
 			if (element.dataset.time == '1' && showCooldown && !onCooldown) {
-				if (sauce.getSetting('debugMode')) {
+				if (debugMode) {
 					console.log(`Starting cooldown timer for ${element.id}`);
 				}
 				onCooldown = true;
@@ -723,7 +726,7 @@ async function findStatus(
 				!onCooldown &&
 				timearg.time < maxRange
 			) {
-				if (sauce.getSetting('debugMode')) {
+				if (debugMode) {
 					console.log(`${element.id} has >60s remaining`);
 				}
 				element.dataset.time =
@@ -734,7 +737,7 @@ async function findStatus(
 				//a buff that won't have a more precise value for 1 minute
 				await new Promise((done) => setTimeout(done, 600));
 			} else if (expirationPulse && timearg.time == 11 && !onCooldown) {
-				if (sauce.getSetting('debugMode')) {
+				if (debugMode) {
 					console.log(
 						`${element.id} has <10s remaining - starting 10s countdown`
 					);
@@ -748,7 +751,7 @@ async function findStatus(
 					showTooltip('Overload expired', 3000);
 				}
 			} else if (timearg.time > minRange && timearg.time < maxRange) {
-				if (sauce.getSetting('debugMode')) {
+				if (debugMode) {
 					console.log(
 						`Cooldown for ${element.id} is between ${minRange} and ${maxRange}`
 					);
@@ -758,20 +761,22 @@ async function findStatus(
 					await setInactive(element);
 				}
 			} else {
-				if (sauce.getSetting('debugMode')) {
+				if (debugMode) {
 					console.log(
 						`${element.id} is no longer active - setting inactive.`
 					);
 				}
 				await setInactive(element);
 			}
+			break buffSearchLoop;
 		} else if (!showCooldown) {
-			if (sauce.getSetting('debugMode')) {
+			if (debugMode) {
 				console.log(
 					`${element.id} is no longer active - setting inactive.`
 				);
 			}
 			await setInactive(element);
+			break buffSearchLoop;
 		}
 	}
 	// If we didn't find the buff try again after a brief timeout
@@ -892,6 +897,7 @@ async function testDpsPrayers(buff: BuffReader.Buff) {
 					.toString()
 					.toLowerCase();
 				prayersList.DpsPrayer.classList.remove('inactive');
+				return prayerTests[key].toString();
 			}
 		}
 	}
@@ -1114,6 +1120,7 @@ async function setOverlayPosition() {
 					(sauce.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
 			),
 		});
+		currentOverlayPosition = sauce.getSetting('overlayPosition');
 		alt1.overLayRefreshGroup('betterBuffsBar');
 		await new Promise((done) => setTimeout(done, 200));
 	}
@@ -1136,18 +1143,17 @@ function updateLocation(e) {
 export async function startOverlay() {
 	let cnv = document.createElement('canvas');
 	let ctx = cnv.getContext('2d', { willReadFrequently: true });
-	let overlay = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0];
-	let beta = sauce.getSetting('beta');
+	let overlay = <HTMLCanvasElement>(
+		document.getElementsByTagName('canvas')[0]
+	);
 
 	while (true) {
 		cnv.width = 1000;
 		cnv.height = 1000;
 
-		if (!beta) {
-			captureOverlay();
-		}
+		captureOverlay();
 
-		let overlayPosition = sauce.getSetting('overlayPosition');
+		let overlayPosition = currentOverlayPosition;
 
 		alt1.overLaySetGroup('betterBuffsBar');
 		alt1.overLayFreezeGroup('betterBuffsBar');
@@ -1166,10 +1172,10 @@ export async function startOverlay() {
 			overlayPosition.y,
 			a1lib.encodeImageString(data),
 			data.width,
-			125
+			50
 		);
 		alt1.overLayRefreshGroup('betterBuffsBar');
-		await new Promise((done) => setTimeout(done, 125));
+		await new Promise((done) => setTimeout(done, 50));
 	}
 }
 
@@ -1207,6 +1213,10 @@ function loadSettings() {
 	getByID('Buffs').style.setProperty(
 		'--maxcount',
 		sauce.getSetting('buffsPerRow')
+	);
+	getByID('Buffs').style.setProperty(
+		'--totalitems',
+		helperItems.TrackedBuffs.children.length.toString()
 	);
 	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('uiScale'));
 	helperItems.BetterBuffsBar.classList.toggle(
@@ -1291,6 +1301,13 @@ function setBuffsPerRow() {
 		sauce.getSetting('buffsPerRow')
 	);
 	setGridSize();
+
+	helperItems.TrackedBuffs.addEventListener('change', () => {
+		getByID('Buffs').style.setProperty(
+			'--totalitems',
+			helperItems.TrackedBuffs.children.length.toString()
+		);
+	});
 }
 
 function setGridSize() {
@@ -1312,40 +1329,45 @@ function setGridSize() {
 }
 
 function setBigHeadMode() {
-	helperItems.TrackedBuffs.classList.toggle(
-		'scaled',
-		sauce.getSetting('bigHeadMode')
-	);
-	helperItems.BetterBuffsBar.classList.toggle(
-		'big-head-mode',
-		sauce.getSetting('bigHeadMode')
-	);
+	let bigHeadMode = sauce.getSetting('bigHeadMode');
+	helperItems.TrackedBuffs.classList.toggle('scaled', bigHeadMode);
+	helperItems.BetterBuffsBar.classList.toggle('big-head-mode', bigHeadMode);
 	setBigHeadGrid();
 }
 
 function setBigHeadGrid() {
+	let bigHeadModeActive = sauce.getSetting('bigHeadMode');
+	let bigHeadPosition = sauce.getSetting('bigHeadPosition');
+	let buffsPerRow = sauce.getSetting('buffsPerRow');
 	if (
-		sauce.getSetting('bigHeadMode') &&
-		sauce.getSetting('bigHeadPosition') == 'start'
+		 bigHeadModeActive && bigHeadPosition == 'start'
 	) {
 		helperItems.TrackedBuffs.style.gridTemplateAreas = `
-		"first first ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
-		"first first ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
-		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
-		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
-		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
+		"first first ${'. '.repeat(buffsPerRow)}"
+		"first first ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
 		`;
 	}
 	if (
-		sauce.getSetting('bigHeadMode') &&
-		sauce.getSetting('bigHeadPosition') == 'end'
+		bigHeadModeActive && bigHeadPosition == 'end'
 	) {
 		helperItems.TrackedBuffs.style.gridTemplateAreas = `
-		"${'. '.repeat(sauce.getSetting('buffsPerRow'))}first first"
-		"${'. '.repeat(sauce.getSetting('buffsPerRow'))}first first"
-		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
-		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
-		". . ${'. '.repeat(sauce.getSetting('buffsPerRow'))}"
+		"${'. '.repeat(buffsPerRow)}first first"
+		"${'. '.repeat(buffsPerRow)}first first"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		`;
+	}
+	if (!bigHeadModeActive) {
+		helperItems.TrackedBuffs.style.gridTemplateAreas = `
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
 		`;
 	}
 }
@@ -1392,7 +1414,7 @@ function roundedToFixed(input, digits) {
 
 /* Settings */
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings - v1.35'),
+	settingsHeader: sauce.createHeading('h2', 'Settings - v1.36'),
 	beginGeneral: sauce.createHeading('h3', 'General'),
 	BuffsPerRow: sauce.createNumberSetting(
 		'buffsPerRow',
@@ -1565,6 +1587,19 @@ settingsObject.ProfileManager.querySelector('.load-btn').addEventListener(
 	}
 );
 
+settingsObject.debugMode.querySelector('input').addEventListener(
+	'change',
+	() => {
+		setTimeout(function () {}, 100);
+		location.reload();
+	}
+);
+
+settingsObject.beta.querySelector('input').addEventListener('change', () => {
+	setTimeout(function () {}, 100);
+	location.reload();
+});
+
 window.onload = function () {
 	//check if we are running inside alt1 by checking if the alt1 global exists
 	if (window.alt1) {
@@ -1578,11 +1613,6 @@ window.onload = function () {
 			settings.before(val);
 		});
 		initSettings();
-		if (sauce.getSetting('beta')) {
-			let observableConfig = { childList: true, subtree: true, attributes: true };
-			let observer = new MutationObserver(captureOverlay);
-			observer.observe(helperItems.TrackedBuffs, observableConfig);
-		}
 		startBetterBuffsBar();
 	} else {
 		let addappurl = `alt1://addapp/${
