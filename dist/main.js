@@ -19449,20 +19449,26 @@ function captureOverlay() {
         removeContainer: true,
     })
         .then(function (canvas) {
-        paintCanvas(canvas);
+        try {
+            paintCanvas(canvas);
+        }
+        catch (e) {
+            console.log('Error saving image? ' + e);
+        }
     })
         .catch(function () {
         console.log('Overlay failed to capture.');
     });
 }
 function paintCanvas(canvas) {
+    var uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale');
     var overlayCanvasOutput = getByID('OverlayCanvasOutput');
     var overlayCanvasContext = overlayCanvasOutput
         .querySelector('canvas')
         .getContext('2d', { willReadFrequently: true });
     overlayCanvasContext.clearRect(0, 0, overlayCanvasContext.canvas.width, overlayCanvasContext.canvas.height);
-    overlayCanvasContext.drawImage(canvas, 0, 0, (helperItems.TrackedBuffs.offsetWidth * _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale')) /
-        100, (helperItems.TrackedBuffs.offsetHeight * _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale')) /
+    overlayCanvasContext.drawImage(canvas, 0, 0, (helperItems.TrackedBuffs.offsetWidth * uiScale) /
+        100, (helperItems.TrackedBuffs.offsetHeight * uiScale) /
         100);
 }
 var maxAttempts = 10;
@@ -19551,7 +19557,7 @@ function watchBuffs() {
 function checkBuffsForHidingOverlay(buffsReader) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            // Attempt to hide the overlay if we have 0 buffs
+            // If we don't have an overlay visible - hide it
             if (Object.entries(buffsReader).length == 0) {
                 helperItems.BetterBuffsBar.classList.add('hide-overlay');
             }
@@ -20129,9 +20135,9 @@ function startOverlay() {
                     _a.label = 1;
                 case 1:
                     if (false) {}
+                    captureOverlay();
                     cnv.width = helperItems.TrackedBuffs.offsetWidth + 200;
                     cnv.height = helperItems.TrackedBuffs.offsetHeight + 200;
-                    captureOverlay();
                     overlayPosition = currentOverlayPosition;
                     alt1.overLaySetGroup('betterBuffsBar');
                     alt1.overLayFreezeGroup('betterBuffsBar');

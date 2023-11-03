@@ -246,7 +246,11 @@ function captureOverlay() {
 		removeContainer: true,
 	})
 		.then((canvas) => {
-			paintCanvas(canvas);
+			try {
+				paintCanvas(canvas);
+			} catch (e) {
+				console.log('Error saving image? ' + e);
+			}
 		})
 		.catch(() => {
 			console.log('Overlay failed to capture.');
@@ -254,6 +258,7 @@ function captureOverlay() {
 }
 
 function paintCanvas(canvas: HTMLCanvasElement) {
+	let uiScale = sauce.getSetting('uiScale');
 	let overlayCanvasOutput = getByID('OverlayCanvasOutput');
 	let overlayCanvasContext = overlayCanvasOutput
 		.querySelector('canvas')
@@ -268,9 +273,9 @@ function paintCanvas(canvas: HTMLCanvasElement) {
 		canvas,
 		0,
 		0,
-		(helperItems.TrackedBuffs.offsetWidth * sauce.getSetting('uiScale')) /
+		(helperItems.TrackedBuffs.offsetWidth * uiScale) /
 			100,
-		(helperItems.TrackedBuffs.offsetHeight * sauce.getSetting('uiScale')) /
+		(helperItems.TrackedBuffs.offsetHeight * uiScale) /
 			100
 	);
 }
@@ -640,7 +645,7 @@ function watchBuffs() {
 }
 
 async function checkBuffsForHidingOverlay(buffsReader: BuffReader.Buff[]) {
-	// Attempt to hide the overlay if we have 0 buffs
+	// If we don't have an overlay visible - hide it
 	if (Object.entries(buffsReader).length == 0) {
 		helperItems.BetterBuffsBar.classList.add('hide-overlay');
 	} else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {
@@ -1138,10 +1143,9 @@ async function startOverlay() {
 	let overlay = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0];
 
 	while (true) {
+		captureOverlay();
 		cnv.width = helperItems.TrackedBuffs.offsetWidth + 200;
 		cnv.height = helperItems.TrackedBuffs.offsetHeight + 200;
-
-		captureOverlay();
 
 		let overlayPosition = currentOverlayPosition;
 
@@ -1167,7 +1171,6 @@ async function startOverlay() {
 		alt1.overLayRefreshGroup('betterBuffsBar');
 		await new Promise((done) => setTimeout(done, 75));
 	}
-	return;
 }
 
 function initSettings() {
