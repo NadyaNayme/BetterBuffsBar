@@ -273,18 +273,11 @@ function paintCanvas(canvas: HTMLCanvasElement) {
 		(helperItems.TrackedBuffs.offsetHeight * sauce.getSetting('uiScale')) /
 			100
 	);
-	let overlay = overlayCanvasOutput.querySelector('canvas');
-	sauce.updateSetting('overlayImage', overlay.toDataURL());
-	sauce.updateSetting('firstFrame', true);
 }
 
 let maxAttempts = 10;
 function watchBuffs() {
 	let loopSpeed = sauce.getSetting('loopSpeed');
-	sauce.updateSetting(
-		'firstFrame',
-		false
-	); /* We haven't captured a new frame yet */
 	const interval = setInterval(() => {
 		let buffs = getActiveBuffs();
 		let debuffs = getActiveDebuffs();
@@ -1495,7 +1488,7 @@ function roundedToFixed(input, digits) {
 
 /* Settings */
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings - v1.36'),
+	settingsHeader: sauce.createHeading('h2', 'Settings - v1.37'),
 	beginGeneral: sauce.createHeading('h3', 'General'),
 	BuffsPerRow: sauce.createNumberSetting(
 		'buffsPerRow',

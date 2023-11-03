@@ -19464,14 +19464,10 @@ function paintCanvas(canvas) {
     overlayCanvasContext.drawImage(canvas, 0, 0, (helperItems.TrackedBuffs.offsetWidth * _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale')) /
         100, (helperItems.TrackedBuffs.offsetHeight * _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale')) /
         100);
-    var overlay = overlayCanvasOutput.querySelector('canvas');
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayImage', overlay.toDataURL());
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('firstFrame', true);
 }
 var maxAttempts = 10;
 function watchBuffs() {
     var loopSpeed = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('loopSpeed');
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('firstFrame', false); /* We haven't captured a new frame yet */
     var interval = setInterval(function () {
         var buffs = getActiveBuffs();
         var debuffs = getActiveDebuffs();
@@ -20402,7 +20398,7 @@ function roundedToFixed(input, digits) {
 }
 /* Settings */
 var settingsObject = {
-    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.36'),
+    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.37'),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
     FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', 'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them', false),
