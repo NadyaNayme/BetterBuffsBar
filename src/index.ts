@@ -1137,12 +1137,15 @@ export async function startOverlay() {
 	let cnv = document.createElement('canvas');
 	let ctx = cnv.getContext('2d', { willReadFrequently: true });
 	let overlay = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0];
+	let beta = sauce.getSetting('beta');
 
 	while (true) {
 		cnv.width = 1000;
 		cnv.height = 1000;
 
-		captureOverlay();
+		if (!beta) {
+			captureOverlay();
+		}
 
 		let overlayPosition = sauce.getSetting('overlayPosition');
 
@@ -1476,7 +1479,18 @@ const settingsObject = {
 		'Reset All Settings',
 		sauce.setDefaultSettings
 	),
-	debugMode: sauce.createCheckboxSetting('debugMode', "Don't use this", false),
+	endreset: sauce.createSeperator(),
+	troubleshootingHeader: sauce.createHeading('h3', 'Here is trouble (Make it double!)'),
+	debugMode: sauce.createCheckboxSetting(
+		'debugMode',
+		"Debug mode (please don't use this)",
+		false
+	),
+	beta: sauce.createCheckboxSetting(
+		'beta',
+		"Beta Testing (please join the Discord if you use this)",
+		false
+	),
 };
 
 settingsObject.BuffsPerRow.addEventListener('click', () => {
@@ -1564,6 +1578,11 @@ window.onload = function () {
 			settings.before(val);
 		});
 		initSettings();
+		if (sauce.getSetting('beta')) {
+			let observableConfig = { childList: true, subtree: true, attributes: true };
+			let observer = new MutationObserver(captureOverlay);
+			observer.observe(helperItems.TrackedBuffs, observableConfig);
+		}
 		startBetterBuffsBar();
 	} else {
 		let addappurl = `alt1://addapp/${

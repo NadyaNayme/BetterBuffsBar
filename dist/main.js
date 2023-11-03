@@ -20146,19 +20146,22 @@ function updateLocation(e) {
 }
 function startOverlay() {
     return __awaiter(this, void 0, void 0, function () {
-        var cnv, ctx, overlay, overlayPosition, data;
+        var cnv, ctx, overlay, beta, overlayPosition, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     cnv = document.createElement('canvas');
                     ctx = cnv.getContext('2d', { willReadFrequently: true });
                     overlay = document.getElementsByTagName('canvas')[0];
+                    beta = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('beta');
                     _a.label = 1;
                 case 1:
                     if (false) {}
                     cnv.width = 1000;
                     cnv.height = 1000;
-                    captureOverlay();
+                    if (!beta) {
+                        captureOverlay();
+                    }
                     overlayPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
                     alt1.overLaySetGroup('betterBuffsBar');
                     alt1.overLayFreezeGroup('betterBuffsBar');
@@ -20365,7 +20368,10 @@ var settingsObject = {
     ResetHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Hard Reset'),
     ResetText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Bad configuration values can break the plugin. This attempts to reset your configuration and reload the plugin. When troubleshooting this should be the first thing you should try to resolve your problem."),
     resetButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Reset All Settings', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.setDefaultSettings),
-    debugMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('debugMode', "Don't use this", false),
+    endreset: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
+    troubleshootingHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Here is trouble (Make it double!)'),
+    debugMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('debugMode', "Debug mode (please don't use this)", false),
+    beta: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('beta', "Beta Testing (please join the Discord if you use this)", false),
 };
 settingsObject.BuffsPerRow.addEventListener('click', function () {
     getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
@@ -20417,6 +20423,11 @@ window.onload = function () {
             settings_1.before(val);
         });
         initSettings();
+        if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('beta')) {
+            var observableConfig = { childList: true, subtree: true, attributes: true };
+            var observer = new MutationObserver(captureOverlay);
+            observer.observe(helperItems.TrackedBuffs, observableConfig);
+        }
         startBetterBuffsBar();
     }
     else {
