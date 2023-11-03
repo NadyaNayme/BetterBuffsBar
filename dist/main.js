@@ -19426,8 +19426,8 @@ function startBetterBuffsBar() {
         helperItems.Output.insertAdjacentHTML('beforeend', "<div><p>Attempted to use Overlay but app overlay permission is not enabled. Please enable \"Show Overlay\" permission in Alt1 settinsg (wrench icon in corner).</p></div>");
         return;
     }
-    startOverlay();
     watchBuffs();
+    startOverlay();
 }
 function createCanvas() {
     var overlayCanvas = document.createElement('canvas');
@@ -19474,120 +19474,48 @@ function watchBuffs() {
         if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsLocation')) {
             maxAttempts = 10;
             //TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
-            if (getByID('Buffs').contains(buffsList.OverloadBuff)) {
-                findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
-            }
-            if (getByID('Buffs').contains(buffsList.ElderOverloadBuff)) {
-                findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 80, true);
-            }
-            if (getByID('Buffs').contains(buffsList.WeaponPoisonBuff)) {
-                findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 300, true);
-            }
-            if (getByID('Buffs').contains(buffsList.DarknessBuff)) {
-                findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 400, false, 0, 43260);
-            }
-            if (getByID('Buffs').contains(buffsList.AnimateDeadBuff)) {
-                findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 90);
-            }
-            if (getByID('Buffs').contains(buffsList.FsoaSpecBuff)) {
-                findStatus(buffs, buffImages.fsoaWeaponSpec, buffsList.FsoaSpecBuff, 80, false, 0, 31);
-            }
-            if (getByID('Buffs').contains(buffsList.TimeRiftBuff)) {
-                findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 450);
-            }
-            if (getByID('Buffs').contains(buffsList.GladiatorsRageBuff)) {
-                findStatus(buffs, buffImages.gladiatorsRage, buffsList.GladiatorsRageBuff, 50, false, 0, 16);
-            }
-            if (getByID('Buffs').contains(buffsList.NecrosisBuff)) {
-                findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, 150);
-            }
-            if (getByID('Buffs').contains(buffsList.Aura)) {
-                findStatus(buffs, buffImages.aura, buffsList.Aura, 500);
-            }
-            if (getByID('Buffs').contains(buffsList.BonfireBoost)) {
-                findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, 400);
-            }
-            if (getByID('Buffs').contains(buffsList.ErethdorsGrimoire)) {
-                findStatus(buffs, buffImages.grimoire, buffsList.ErethdorsGrimoire, 55);
-            }
-            if (getByID('Buffs').contains(buffsList.LantadymeIncense)) {
-                findStatus(buffs, incenseImages.lantadyme, buffsList.LantadymeIncense, 119);
-            }
-            if (getByID('Buffs').contains(buffsList.DwarfWeedIncense)) {
-                findStatus(buffs, incenseImages.dwarfWeed, buffsList.DwarfWeedIncense, 150);
-            }
-            if (getByID('Buffs').contains(buffsList.FellstalkIncense)) {
-                findStatus(buffs, incenseImages.fellstalk, buffsList.FellstalkIncense, 150);
-            }
-            if (getByID('Buffs').contains(buffsList.KwuarmIncense)) {
-                findStatus(buffs, incenseImages.kwuarm, buffsList.KwuarmIncense, 150);
-            }
-            if (getByID('Buffs').contains(buffsList.Anticipation)) {
-                findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, 300);
-            }
-            if (getByID('Buffs').contains(buffsList.Barricade)) {
-                findStatus(buffs, buffImages.Barricade, buffsList.Barricade, 300);
-            }
-            if (getByID('Buffs').contains(buffsList.Devotion)) {
-                findStatus(buffs, buffImages.Devotion, buffsList.Devotion, 300);
-            }
-            if (getByID('Buffs').contains(buffsList.Divert)) {
-                findStatus(buffs, buffImages.Divert, buffsList.Divert, 300);
-            }
-            if (getByID('Buffs').contains(buffsList.Freedom)) {
-                findStatus(buffs, buffImages.Freedom, buffsList.Freedom, 300);
-            }
-            if (getByID('Buffs').contains(buffsList.Immortality)) {
-                findStatus(buffs, buffImages.Immortality, buffsList.Immortality, 300);
-            }
-            if (getByID('Buffs').contains(buffsList.Reflect)) {
-                findStatus(buffs, buffImages.Reflect, buffsList.Reflect, 300);
-            }
-            if (getByID('Buffs').contains(buffsList.Resonance)) {
-                findStatus(buffs, buffImages.Resonance, buffsList.Resonance, 300);
-            }
-            if (getByID('Buffs').contains(buffsList.SplitSoulBuff)) {
-                findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, 350);
-            }
-            if (getByID('Buffs').contains(sigilsList.LimitlessSigil)) {
-                findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, 250, false, 0, Infinity, true, 83);
-            }
-            if (getByID('Buffs').contains(sigilsList.DemonSlayer)) {
-                findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, 400, false, 0, Infinity, true, 50);
-            }
-            if (getByID('Buffs').contains(buffsList.WeaponPoisonBuff)) {
-                findStatus(buffs, sigilImages.dragonSlayer, sigilsList.DragonSlayer, 400, false, 0, Infinity, true, 50);
-            }
-            if (getByID('Buffs').contains(sigilsList.UndeadSlayer)) {
-                findStatus(buffs, sigilImages.undeadSlayer, sigilsList.UndeadSlayer, 400, false, 0, Infinity, true, 50);
-            }
-            if (getByID('Buffs').contains(sigilsList.IngenuityOfTheHumans)) {
-                findStatus(buffs, sigilImages.ingenuityOfTheHumans, sigilsList.IngenuityOfTheHumans, 400, false, 0, Infinity, true, 83);
-            }
+            findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
+            findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 80, true);
+            findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 300, true);
+            findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 400, false, 0, 43260);
+            findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 90);
+            findStatus(buffs, buffImages.fsoaWeaponSpec, buffsList.FsoaSpecBuff, 80, false, 0, 31);
+            findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 450);
+            findStatus(buffs, buffImages.gladiatorsRage, buffsList.GladiatorsRageBuff, 50, false, 0, 16);
+            findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, 150);
+            findStatus(buffs, buffImages.aura, buffsList.Aura, 500);
+            findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, 400);
+            findStatus(buffs, buffImages.grimoire, buffsList.ErethdorsGrimoire, 55);
+            findStatus(buffs, incenseImages.lantadyme, buffsList.LantadymeIncense, 119);
+            findStatus(buffs, incenseImages.dwarfWeed, buffsList.DwarfWeedIncense, 150);
+            findStatus(buffs, incenseImages.fellstalk, buffsList.FellstalkIncense, 150);
+            findStatus(buffs, incenseImages.kwuarm, buffsList.KwuarmIncense, 150);
+            findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, 300);
+            findStatus(buffs, buffImages.Barricade, buffsList.Barricade, 300);
+            findStatus(buffs, buffImages.Devotion, buffsList.Devotion, 300);
+            findStatus(buffs, buffImages.Divert, buffsList.Divert, 300);
+            findStatus(buffs, buffImages.Freedom, buffsList.Freedom, 300);
+            findStatus(buffs, buffImages.Immortality, buffsList.Immortality, 300);
+            findStatus(buffs, buffImages.Reflect, buffsList.Reflect, 300);
+            findStatus(buffs, buffImages.Resonance, buffsList.Resonance, 300);
+            findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, 350);
+            findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, 250, false, 0, Infinity, true, 83);
+            findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, 400, false, 0, Infinity, true, 50);
+            findStatus(buffs, sigilImages.dragonSlayer, sigilsList.DragonSlayer, 400, false, 0, Infinity, true, 50);
+            findStatus(buffs, sigilImages.undeadSlayer, sigilsList.UndeadSlayer, 400, false, 0, Infinity, true, 50);
+            findStatus(buffs, sigilImages.ingenuityOfTheHumans, sigilsList.IngenuityOfTheHumans, 400, false, 0, Infinity, true, 83);
             /* BOLG is currently still special */
             if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
                 findBolgStacks(buffs);
             }
-            if (getByID('Buffs').contains(ultimatesList.Berserk)) {
-                findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 200, false, 0, Infinity, true, 40);
-            }
-            if (getByID('Buffs').contains(ultimatesList.DeathsSwiftness)) {
-                findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 110, false, 0, Infinity, true, 30);
-            }
-            if (getByID('Buffs').contains(ultimatesList.GreaterDeathsSwiftness)) {
-                findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 100, false, 0, Infinity, true, 23);
-            }
-            if (getByID('Buffs').contains(ultimatesList.Sunshine)) {
-                findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 500, false, 0, Infinity, true, 30);
-            }
-            if (getByID('Buffs').contains(ultimatesList.GreaterSunshine)) {
-                findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, 100, false, 0, Infinity, true, 23);
-            }
-            if (getByID('Buffs').contains(ultimatesList.LivingDeath)) {
-                findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 400, false, 0, Infinity, true, 60);
-            }
-            //checkBuffsForHidingOverlay(buffs);
-            if (buffs.length == 0) {
+            findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 200, false, 0, Infinity, true, 40);
+            findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 110, false, 0, Infinity, true, 30);
+            findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 100, false, 0, Infinity, true, 23);
+            findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 500, false, 0, Infinity, true, 30);
+            findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, 100, false, 0, Infinity, true, 23);
+            findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 400, false, 0, Infinity, true, 60);
+            checkBuffsForHidingOverlay(buffs);
+            if ((buffs === null || buffs === void 0 ? void 0 : buffs.length) == 0) {
                 for (var _i = 0, _a = Object.entries(buffsList); _i < _a.length; _i++) {
                     var _b = _a[_i], _key = _b[0], buff = _b[1];
                     setInactive(buff);
@@ -19599,32 +19527,16 @@ function watchBuffs() {
         }
         if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debuffsLocation')) {
             maxAttempts = 10;
-            if (getByID('Buffs').contains(debuffsList.AncientElvenRitualShardDebuff)) {
-                findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 80);
-            }
-            if (getByID('Buffs').contains(debuffsList.AdrenalinePotionDebuff)) {
-                findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 300);
-            }
-            if (getByID('Buffs').contains(debuffsList.DeathGuardDebuff)) {
-                findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 90);
-            }
-            if (getByID('Buffs').contains(debuffsList.OmniGuardDebuff)) {
-                findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 60);
-            }
-            if (getByID('Buffs').contains(debuffsList.EnhancedExcaliburDebuff)) {
-                findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
-            }
-            if (getByID('Buffs').contains(debuffsList.CrystalRainDebuff)) {
-                findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 60);
-            }
-            if (getByID('Buffs').contains(debuffsList.StunnedDebuff)) {
-                findStatus(debuffs, debuffImages.stunnedDebuff, debuffsList.StunnedDebuff, 60);
-            }
-            if (getByID('Buffs').contains(debuffsList.SignOfLifeDebuff)) {
-                findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, 20);
-            }
+            findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 90);
+            findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 300);
+            findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 90);
+            findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 60);
+            findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
+            findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 60);
+            findStatus(debuffs, debuffImages.stunnedDebuff, debuffsList.StunnedDebuff, 60);
+            findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, 20);
             findPrayer(buffs, debuffs);
-            if (!debuffs) {
+            if ((debuffs === null || debuffs === void 0 ? void 0 : debuffs.length) == 0) {
                 for (var _c = 0, _d = Object.entries(debuffsList); _c < _d.length; _c++) {
                     var _e = _d[_c], _key = _e[0], debuff = _e[1];
                     setInactive(debuff);
@@ -19733,10 +19645,9 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 16];
                     // If we find a match for the buff it will always exceed the threshold
                     // the threshold depends largely on which buff is being matched against
+                    foundBuff = true;
                     return [4 /*yield*/, setActive(element)];
                 case 2:
-                    // If we find a match for the buff it will always exceed the threshold
-                    // the threshold depends largely on which buff is being matched against
                     _f.sent();
                     timearg = value.readArg('timearg');
                     if (!(element.dataset.time == '1' && showCooldown && !onCooldown)) return [3 /*break*/, 4];
@@ -19794,13 +19705,13 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                 case 14:
                     _f.sent();
                     _f.label = 15;
-                case 15: return [3 /*break*/, 19];
+                case 15: return [3 /*break*/, 18];
                 case 16:
                     if (!!showCooldown) return [3 /*break*/, 18];
                     return [4 /*yield*/, setInactive(element)];
                 case 17:
                     _f.sent();
-                    return [3 /*break*/, 19];
+                    _f.label = 18;
                 case 18:
                     _c++;
                     return [3 /*break*/, 1];
@@ -19886,8 +19797,7 @@ function findPrayer(buffsList, debuffsList) {
     return __awaiter(this, void 0, void 0, function () {
         var prayersActive, lastActiveOverhead, lastActiveDPS, _i, _a, _b, _key, value, prayerDraining, _c, _d, _e, _key, value, _f, _g, _h, _key, value;
         return __generator(this, function (_j) {
-            if (!buffsList ||
-                !debuffsList) {
+            if (!buffsList || !debuffsList) {
                 return [2 /*return*/];
             }
             prayersActive = 0;
@@ -19908,7 +19818,8 @@ function findPrayer(buffsList, debuffsList) {
                 prayersList.DpsPrayer.dataset.prayer = '';
                 prayersList.DpsPrayer.classList.add('inactive');
             }
-            if (prayersActive > 0 && getByID('Buffs').contains(prayersList.OverheadPrayer)) {
+            if (prayersActive > 0 &&
+                getByID('Buffs').contains(prayersList.OverheadPrayer)) {
                 for (_f = 0, _g = Object.entries(buffsList); _f < _g.length; _f++) {
                     _h = _g[_f], _key = _h[0], value = _h[1];
                     lastActiveOverhead = testOverheadPrayers(value);
@@ -20214,7 +20125,7 @@ function startOverlay() {
                 case 0:
                     cnv = document.createElement('canvas');
                     ctx = cnv.getContext('2d', { willReadFrequently: true });
-                    overlay = (document.getElementsByTagName('canvas')[0]);
+                    overlay = document.getElementsByTagName('canvas')[0];
                     _a.label = 1;
                 case 1:
                     if (false) {}
@@ -20228,9 +20139,9 @@ function startOverlay() {
                     ctx.drawImage(overlay, 0, 0);
                     data = ctx.getImageData(0, 0, helperItems.BetterBuffsBar.offsetWidth, helperItems.BetterBuffsBar.offsetHeight);
                     alt1.overLayClearGroup('betterBuffsBar');
-                    alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_8__.encodeImageString(data), data.width, 125);
+                    alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_8__.encodeImageString(data), data.width, 75);
                     alt1.overLayRefreshGroup('betterBuffsBar');
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 125); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 75); })];
                 case 2:
                     _a.sent();
                     return [3 /*break*/, 1];
@@ -20398,7 +20309,7 @@ function roundedToFixed(input, digits) {
 }
 /* Settings */
 var settingsObject = {
-    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.37'),
+    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.40'),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
     FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', 'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them', false),
@@ -20439,7 +20350,7 @@ var settingsObject = {
     endreset: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     troubleshootingHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Here is trouble (Make it double!)'),
     debugMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('debugMode', "Debug mode (please don't use this)", false),
-    beta: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('beta', "Beta Testing (please join the Discord if you use this)", false),
+    beta: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('beta', 'Beta Testing (please join the Discord if you use this)', false),
 };
 settingsObject.BuffsPerRow.addEventListener('click', function () {
     getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
@@ -20479,7 +20390,9 @@ settingsObject.ProfileManager.querySelector('.load-btn').addEventListener('click
     setTimeout(function () { }, 100);
     location.reload();
 });
-settingsObject.debugMode.querySelector('input').addEventListener('change', function () {
+settingsObject.debugMode
+    .querySelector('input')
+    .addEventListener('change', function () {
     setTimeout(function () { }, 100);
     location.reload();
 });
