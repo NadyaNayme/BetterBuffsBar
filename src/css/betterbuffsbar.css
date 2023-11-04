@@ -52,9 +52,9 @@ body {
   --maxcount: 5;
   --scale: 100;
   --totalitems: 48;
-  width: calc(((var(--maxcount) + 1) * (var(--scale) / 100 * 27px)) + (var(--maxcount) * 1px));
-  max-width: calc((var(--maxcount) * 72px));
-  min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * (var(--scale) / 100 * 27px)));
+  min-width: calc(((var(--maxcount) + 1) * 27px) + ((var(--maxcount) * 1px)));
+  width: calc(((var(--maxcount) + 1) * (var(--scale) / 100 * 27px)) + ((var(--scale) / 100) * (var(--maxcount) * 1px)));
+  min-height: calc(((var(--totalitems) / var(--maxcount)) + 1) * (var(--scale) / 100 * 27px) + (var(--scale) / 100 * 27px));
   display: grid;
   justify-content: flex-start;
   align-items: flex-start;
