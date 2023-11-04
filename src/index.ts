@@ -80,6 +80,7 @@ let debuffsList = {
 	OmniGuardDebuff: getByID('OmniGuardDebuff'),
 	StunnedDebuff: getByID('StunnedDebuff'),
 	SignOfLifeDebuff: getByID('SignOfLifeDebuff'),
+	Virus: getByID('VirusDebuff'),
 };
 
 let sigilsList = {
@@ -158,6 +159,10 @@ var debuffImages = a1lib.webpackImages({
 	enhancedExcaliburDebuff: require('./asset/data/EE_scuffed-top-noborder.data.png'),
 	stunnedDebuff: require('./asset/data/Stunned.data.png'),
 	signOfLifeDebuff: require('./asset/data/Sign_of_Life-top.data.png'),
+	blackVirus: require('./asset/data/Black_virus.data.png'),
+	redVirus: require('./asset/data/Red_virus.data.png'),
+	blueVirus: require('./asset/data/Blue_virus.data.png'),
+	greenVirus: require('./asset/data/Green_virus.data.png'),
 });
 
 var ultimateImages = a1lib.webpackImages({
@@ -631,6 +636,8 @@ function watchBuffs() {
 				20
 			);
 
+			findVirus(debuffs);
+
 			findPrayer(buffs, debuffs);
 
 			if (debuffs?.length == 0) {
@@ -832,6 +839,48 @@ function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
 		clearInterval(timer);
 		runOnlyOnce = false;
 		setInactive(element);
+	}
+}
+
+async function findVirus(
+	debuffs: BuffReader.Buff[]
+) {
+	if (!debuffs) {
+		return;
+	}
+
+	let virusActive: number = 0;
+	let currentVirus;
+
+	for (let [_key, value] of Object.entries(debuffs)) {
+		let checkBlackVirus = value.countMatch(prayerImages.prayerActive, false);
+		let checkBlueVirus = value.countMatch(prayerImages.prayerActive, false);
+		let checkRedVirus = value.countMatch(prayerImages.prayerActive, false);
+		let checkGreenVirus = value.countMatch(prayerImages.prayerActive, false);
+		if (checkBlackVirus.failed == 0 || checkBlackVirus.passed > 80) {
+			currentVirus = 'BLK';
+			virusActive++;
+		}
+		if (checkBlueVirus.failed == 0 || checkBlueVirus.passed > 80) {
+			currentVirus = 'BLU';
+			virusActive++;
+		}
+		if (checkRedVirus.failed == 0 || checkRedVirus.passed > 80) {
+			currentVirus = 'RED';
+			virusActive++;
+		}
+		if (checkGreenVirus.failed == 0 || checkGreenVirus.passed > 80) {
+			currentVirus = 'GRN';
+			virusActive++;
+		}
+	}
+
+	if (!virusActive)) {
+		debuffsList.Virus.dataset.virus = '';
+		debuffsList.Virus.classList.add('inactive');
+	} else {
+		debuffsList.Virus.dataset.virus = currentVirus;
+		debuffsList.Virus.classList.add('active');
 	}
 }
 
