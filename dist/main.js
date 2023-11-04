@@ -19973,19 +19973,19 @@ function findVirus(debuffs) {
                 checkBlueVirus = value.countMatch(debuffImages.blueVirus, false);
                 checkRedVirus = value.countMatch(debuffImages.redVirus, false);
                 checkGreenVirus = value.countMatch(debuffImages.greenVirus, false);
-                if (checkBlackVirus.failed == 0 || checkBlackVirus.passed > 300) {
+                if (checkBlackVirus.failed == 0 || checkBlackVirus.passed > 275) {
                     currentVirus = 'BLK';
                     virusActive++;
                 }
-                if (checkBlueVirus.failed == 0 || checkBlueVirus.passed > 300) {
+                if (checkBlueVirus.failed == 0 || checkBlueVirus.passed > 275) {
                     currentVirus = 'BLU';
                     virusActive++;
                 }
-                if (checkRedVirus.failed == 0 || checkRedVirus.passed > 300) {
+                if (checkRedVirus.failed == 0 || checkRedVirus.passed > 275) {
                     currentVirus = 'RED';
                     virusActive++;
                 }
-                if (checkGreenVirus.failed == 0 || checkGreenVirus.passed > 300) {
+                if (checkGreenVirus.failed == 0 || checkGreenVirus.passed > 275) {
                     currentVirus = 'GRN';
                     virusActive++;
                 }
