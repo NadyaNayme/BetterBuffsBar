@@ -19518,7 +19518,7 @@ function watchBuffs() {
             findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 100, false, 0, Infinity, true, 23);
             findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 500, false, 0, Infinity, true, 30);
             findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, 100, false, 0, Infinity, true, 23);
-            findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 400, false, 0, Infinity, true, 60);
+            findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 400, false, 0, Infinity, true, 59);
             checkBuffsForHidingOverlay(buffs);
             if ((buffs === null || buffs === void 0 ? void 0 : buffs.length) == 0) {
                 for (var _i = 0, _a = Object.entries(buffsList); _i < _a.length; _i++) {
@@ -19612,7 +19612,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
     if (maxRange === void 0) { maxRange = Infinity; }
     if (showCooldown === void 0) { showCooldown = false; }
     return __awaiter(this, void 0, void 0, function () {
-        var timearg, foundBuff, onCooldown, highlander, _i, _a, _b, _key, value, findBuffImage, _c, _d, _e, _key, value, findBuffImage;
+        var timearg, foundBuff, onCooldown, cooldownAdjustment, highlander, _i, _a, _b, _key, value, findBuffImage, _c, _d, _e, _key, value, findBuffImage, buffTimeRemaining;
         return __generator(this, function (_f) {
             switch (_f.label) {
                 case 0:
@@ -19622,6 +19622,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     }
                     foundBuff = false;
                     onCooldown = false;
+                    cooldownAdjustment = parseInt(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('delayAdjustment'), 10);
                     highlander = [];
                     if (buffImage == buffImages.gladiatorsRage) {
                         for (_i = 0, _a = Object.entries(buffsReader); _i < _a.length; _i++) {
@@ -19635,7 +19636,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     _c = 0, _d = Object.entries(buffsReader);
                     _f.label = 1;
                 case 1:
-                    if (!(_c < _d.length)) return [3 /*break*/, 19];
+                    if (!(_c < _d.length)) return [3 /*break*/, 22];
                     _e = _d[_c], _key = _e[0], value = _e[1];
                     if (foundBuff) {
                         return [2 /*return*/];
@@ -19647,7 +19648,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 16];
+                    if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 19];
                     // If we find a match for the buff it will always exceed the threshold
                     // the threshold depends largely on which buff is being matched against
                     foundBuff = true;
@@ -19660,7 +19661,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         console.log("Starting cooldown timer for ".concat(element.id));
                     }
                     onCooldown = true;
-                    return [4 /*yield*/, startCooldownTimer(element, cooldownTimer)];
+                    return [4 /*yield*/, startCooldownTimer(element, cooldownTimer - cooldownAdjustment)];
                 case 3:
                     _f.sent();
                     return [2 /*return*/];
@@ -19678,7 +19679,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     // Pause the check for a tick since we don't need to rapidly update
                     //a buff that won't have a more precise value for 1 minute
                     _f.sent();
-                    return [3 /*break*/, 15];
+                    return [3 /*break*/, 18];
                 case 6:
                     if (!(expirationPulse && timearg.time == 11 && !onCooldown)) return [3 /*break*/, 10];
                     element.dataset.time = '<10s';
@@ -19696,45 +19697,53 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showTooltipReminders')) {
                         showTooltip('Overload expired', 3000);
                     }
-                    return [3 /*break*/, 15];
+                    return [3 /*break*/, 18];
                 case 10:
-                    if (!(timearg.time > minRange && timearg.time < maxRange)) return [3 /*break*/, 13];
-                    element.dataset.time = timearg.time.toString();
-                    if (!(timearg.time - 1 == 0 && !showCooldown)) return [3 /*break*/, 12];
-                    return [4 /*yield*/, setInactive(element)];
-                case 11:
+                    if (!(timearg.time > minRange && timearg.time < maxRange)) return [3 /*break*/, 16];
+                    buffTimeRemaining = timearg.time - cooldownAdjustment;
+                    if (!(buffTimeRemaining > 0)) return [3 /*break*/, 11];
+                    element.dataset.time = buffTimeRemaining.toString();
+                    return [3 /*break*/, 13];
+                case 11: return [4 /*yield*/, setInactive(element)];
+                case 12:
                     _f.sent();
-                    _f.label = 12;
-                case 12: return [3 /*break*/, 15];
-                case 13: return [4 /*yield*/, setInactive(element)];
+                    _f.label = 13;
+                case 13:
+                    if (!(timearg.time - 1 == 0 && !showCooldown)) return [3 /*break*/, 15];
+                    return [4 /*yield*/, setInactive(element)];
                 case 14:
                     _f.sent();
                     _f.label = 15;
                 case 15: return [3 /*break*/, 18];
-                case 16:
-                    if (!!showCooldown) return [3 /*break*/, 18];
-                    return [4 /*yield*/, setInactive(element)];
+                case 16: return [4 /*yield*/, setInactive(element)];
                 case 17:
                     _f.sent();
                     _f.label = 18;
-                case 18:
-                    _c++;
-                    return [3 /*break*/, 1];
+                case 18: return [3 /*break*/, 21];
                 case 19:
-                    if (!(timearg == undefined && foundBuff)) return [3 /*break*/, 23];
-                    if (!expirationPulse) return [3 /*break*/, 21];
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    if (!!showCooldown) return [3 /*break*/, 21];
+                    return [4 /*yield*/, setInactive(element)];
                 case 20:
                     _f.sent();
                     _f.label = 21;
-                case 21: return [4 /*yield*/, setInactive(element)];
+                case 21:
+                    _c++;
+                    return [3 /*break*/, 1];
                 case 22:
+                    if (!(timearg == undefined && foundBuff)) return [3 /*break*/, 26];
+                    if (!expirationPulse) return [3 /*break*/, 24];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                case 23:
                     _f.sent();
-                    _f.label = 23;
-                case 23: 
+                    _f.label = 24;
+                case 24: return [4 /*yield*/, setInactive(element)];
+                case 25:
+                    _f.sent();
+                    _f.label = 26;
+                case 26: 
                 // Give a very brief pause before checking again
                 return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 24:
+                case 27:
                     // Give a very brief pause before checking again
                     _f.sent();
                     return [2 /*return*/, timearg];
@@ -20328,6 +20337,9 @@ var settingsObject = {
     SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('singleBOLG', 'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks', false),
     ShowLabelNames: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showBuffNames', "Show Names - Only use this if you don't recognize the icons", false),
     endGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
+    delayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay Delay Compensation'),
+    DelayAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('delayAdjustment', "Subtracts time from any timers to compensate for the overlay's delay", { defaultValue: 1, min: 0, max: 5, unit: 's' }),
+    endAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("Make sure the \"Show overlay\" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right."),
     OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition),

@@ -567,7 +567,7 @@ function watchBuffs() {
 				0,
 				Infinity,
 				true,
-				60
+				59
 			);
 
 			checkBuffsForHidingOverlay(buffs);
@@ -705,6 +705,7 @@ async function findStatus(
 	let timearg;
 	let foundBuff = false;
 	let onCooldown = false;
+	let cooldownAdjustment = parseInt(sauce.getSetting('delayAdjustment'), 10);
 	let highlander = [];
 
 	if (buffImage == buffImages.gladiatorsRage) {
@@ -741,7 +742,10 @@ async function findStatus(
 					console.log(`Starting cooldown timer for ${element.id}`);
 				}
 				onCooldown = true;
-				await startCooldownTimer(element, cooldownTimer);
+				await startCooldownTimer(
+					element,
+					cooldownTimer - cooldownAdjustment
+				);
 				return;
 			} else if (
 				timearg.time > 59 &&
@@ -765,7 +769,12 @@ async function findStatus(
 					showTooltip('Overload expired', 3000);
 				}
 			} else if (timearg.time > minRange && timearg.time < maxRange) {
-				element.dataset.time = timearg.time.toString();
+				let buffTimeRemaining = timearg.time - cooldownAdjustment;
+				if (buffTimeRemaining > 0) {
+					element.dataset.time = buffTimeRemaining.toString();
+				} else {
+					await setInactive(element);
+				}
 				if (timearg.time - 1 == 0 && !showCooldown) {
 					await setInactive(element);
 				}
@@ -1451,6 +1460,13 @@ const settingsObject = {
 		false
 	),
 	endGeneral: sauce.createSeperator(),
+	delayHeader: sauce.createHeading('h3', 'Overlay Delay Compensation'),
+	DelayAdjustment: sauce.createRangeSetting(
+		'delayAdjustment',
+		`Subtracts time from any timers to compensate for the overlay's delay`,
+		{ defaultValue: 1, min: 0, max: 5, unit: 's' }
+	),
+	endAdjustment: sauce.createSeperator(),
 	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
 	OverlaySmallText: sauce.createSmallText(
 		`Make sure the "Show overlay" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right.`
