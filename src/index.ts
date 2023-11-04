@@ -857,12 +857,7 @@ async function findVirus(
 		let checkBlueVirus = value.countMatch(debuffImages.blueVirus, false);
 		let checkRedVirus = value.countMatch(debuffImages.redVirus, false);
 		let checkGreenVirus = value.countMatch(debuffImages.greenVirus, false);
-		console.log(`
-		Black Virus: ${checkBlackVirus}
-		Blue Virus: ${checkBlueVirus}
-		Red Virus: ${checkRedVirus}
-		Green Virus: ${checkGreenVirus}
-		`);
+
 		if (checkBlackVirus.failed == 0 || checkBlackVirus.passed > 275) {
 			currentVirus = 'BLK';
 			virusActive++;
