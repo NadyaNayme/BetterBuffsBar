@@ -19966,6 +19966,7 @@ function findVirus(debuffs) {
                 return [2 /*return*/];
             }
             virusActive = 0;
+            currentVirus = '';
             for (_i = 0, _a = Object.entries(debuffs); _i < _a.length; _i++) {
                 _b = _a[_i], _key = _b[0], value = _b[1];
                 checkBlackVirus = value.countMatch(prayerImages.prayerActive, false);
@@ -19989,13 +19990,11 @@ function findVirus(debuffs) {
                     virusActive++;
                 }
             }
-            if (!virusActive)
-                ;
-            {
+            if (!virusActive) {
                 debuffsList.Virus.dataset.virus = '';
                 debuffsList.Virus.classList.add('inactive');
             }
-            {
+            else {
                 debuffsList.Virus.dataset.virus = currentVirus;
                 debuffsList.Virus.classList.add('active');
             }
@@ -20519,7 +20518,7 @@ function roundedToFixed(input, digits) {
 }
 /* Settings */
 var settingsObject = {
-    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.40'),
+    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.41'),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
     FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', 'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them', false),

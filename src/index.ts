@@ -850,7 +850,7 @@ async function findVirus(
 	}
 
 	let virusActive: number = 0;
-	let currentVirus;
+	let currentVirus = '';
 
 	for (let [_key, value] of Object.entries(debuffs)) {
 		let checkBlackVirus = value.countMatch(prayerImages.prayerActive, false);
@@ -875,7 +875,7 @@ async function findVirus(
 		}
 	}
 
-	if (!virusActive)) {
+	if (!virusActive) {
 		debuffsList.Virus.dataset.virus = '';
 		debuffsList.Virus.classList.add('inactive');
 	} else {
@@ -1462,7 +1462,7 @@ function roundedToFixed(input, digits) {
 
 /* Settings */
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings - v1.40'),
+	settingsHeader: sauce.createHeading('h2', 'Settings - v1.41'),
 	beginGeneral: sauce.createHeading('h3', 'General'),
 	BuffsPerRow: sauce.createNumberSetting(
 		'buffsPerRow',
