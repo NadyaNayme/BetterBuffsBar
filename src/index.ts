@@ -853,10 +853,10 @@ async function findVirus(
 	let currentVirus = '';
 
 	for (let [_key, value] of Object.entries(debuffs)) {
-		let checkBlackVirus = value.countMatch(prayerImages.prayerActive, false);
-		let checkBlueVirus = value.countMatch(prayerImages.prayerActive, false);
-		let checkRedVirus = value.countMatch(prayerImages.prayerActive, false);
-		let checkGreenVirus = value.countMatch(prayerImages.prayerActive, false);
+		let checkBlackVirus = value.countMatch(debuffImages.blackVirus, false);
+		let checkBlueVirus = value.countMatch(debuffImages.blueVirus, false);
+		let checkRedVirus = value.countMatch(debuffImages.redVirus, false);
+		let checkGreenVirus = value.countMatch(debuffImages.greenVirus, false);
 		if (checkBlackVirus.failed == 0 || checkBlackVirus.passed > 150) {
 			currentVirus = 'BLK';
 			virusActive++;

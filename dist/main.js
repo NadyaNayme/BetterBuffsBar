@@ -19969,10 +19969,10 @@ function findVirus(debuffs) {
             currentVirus = '';
             for (_i = 0, _a = Object.entries(debuffs); _i < _a.length; _i++) {
                 _b = _a[_i], _key = _b[0], value = _b[1];
-                checkBlackVirus = value.countMatch(prayerImages.prayerActive, false);
-                checkBlueVirus = value.countMatch(prayerImages.prayerActive, false);
-                checkRedVirus = value.countMatch(prayerImages.prayerActive, false);
-                checkGreenVirus = value.countMatch(prayerImages.prayerActive, false);
+                checkBlackVirus = value.countMatch(debuffImages.blackVirus, false);
+                checkBlueVirus = value.countMatch(debuffImages.blueVirus, false);
+                checkRedVirus = value.countMatch(debuffImages.redVirus, false);
+                checkGreenVirus = value.countMatch(debuffImages.greenVirus, false);
                 if (checkBlackVirus.failed == 0 || checkBlackVirus.passed > 150) {
                     currentVirus = 'BLK';
                     virusActive++;
