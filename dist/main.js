@@ -1008,8 +1008,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   --maxcount: 5;
   --scale: 100;
   --totalitems: 48;
-  width: 100%;
-  width: calc(((var(--maxcount) + 1) * (var(--scale) / 100 * 27px)) + 1px);
+  width: calc(((var(--maxcount) + 1) * (var(--scale) / 100 * 27px)) + (var(--maxcount) * 1px));
   max-width: calc((var(--maxcount) * 72px));
   min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * 27px));
   display: grid;
