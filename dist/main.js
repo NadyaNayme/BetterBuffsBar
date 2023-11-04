@@ -1060,7 +1060,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   --totalitems: 48;
   width: calc(((var(--maxcount) + 1) * (var(--scale) / 100 * 27px)) + (var(--maxcount) * 1px));
   max-width: calc((var(--maxcount) * 72px));
-  min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * 27px));
+  min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * (var(--scale) / 100 * 27px)));
   display: grid;
   justify-content: flex-start;
   align-items: flex-start;
@@ -19973,19 +19973,19 @@ function findVirus(debuffs) {
                 checkBlueVirus = value.countMatch(prayerImages.prayerActive, false);
                 checkRedVirus = value.countMatch(prayerImages.prayerActive, false);
                 checkGreenVirus = value.countMatch(prayerImages.prayerActive, false);
-                if (checkBlackVirus.failed == 0 || checkBlackVirus.passed > 80) {
+                if (checkBlackVirus.failed == 0 || checkBlackVirus.passed > 150) {
                     currentVirus = 'BLK';
                     virusActive++;
                 }
-                if (checkBlueVirus.failed == 0 || checkBlueVirus.passed > 80) {
+                if (checkBlueVirus.failed == 0 || checkBlueVirus.passed > 150) {
                     currentVirus = 'BLU';
                     virusActive++;
                 }
-                if (checkRedVirus.failed == 0 || checkRedVirus.passed > 80) {
+                if (checkRedVirus.failed == 0 || checkRedVirus.passed > 150) {
                     currentVirus = 'RED';
                     virusActive++;
                 }
-                if (checkGreenVirus.failed == 0 || checkGreenVirus.passed > 80) {
+                if (checkGreenVirus.failed == 0 || checkGreenVirus.passed > 150) {
                     currentVirus = 'GRN';
                     virusActive++;
                 }

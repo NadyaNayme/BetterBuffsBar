@@ -54,7 +54,7 @@ body {
   --totalitems: 48;
   width: calc(((var(--maxcount) + 1) * (var(--scale) / 100 * 27px)) + (var(--maxcount) * 1px));
   max-width: calc((var(--maxcount) * 72px));
-  min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * 27px));
+  min-height: calc((((var(--totalitems) / var(--maxcount)) + 1) * (var(--scale) / 100 * 27px)));
   display: grid;
   justify-content: flex-start;
   align-items: flex-start;

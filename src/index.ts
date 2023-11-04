@@ -857,19 +857,19 @@ async function findVirus(
 		let checkBlueVirus = value.countMatch(prayerImages.prayerActive, false);
 		let checkRedVirus = value.countMatch(prayerImages.prayerActive, false);
 		let checkGreenVirus = value.countMatch(prayerImages.prayerActive, false);
-		if (checkBlackVirus.failed == 0 || checkBlackVirus.passed > 80) {
+		if (checkBlackVirus.failed == 0 || checkBlackVirus.passed > 150) {
 			currentVirus = 'BLK';
 			virusActive++;
 		}
-		if (checkBlueVirus.failed == 0 || checkBlueVirus.passed > 80) {
+		if (checkBlueVirus.failed == 0 || checkBlueVirus.passed > 150) {
 			currentVirus = 'BLU';
 			virusActive++;
 		}
-		if (checkRedVirus.failed == 0 || checkRedVirus.passed > 80) {
+		if (checkRedVirus.failed == 0 || checkRedVirus.passed > 150) {
 			currentVirus = 'RED';
 			virusActive++;
 		}
-		if (checkGreenVirus.failed == 0 || checkGreenVirus.passed > 80) {
+		if (checkGreenVirus.failed == 0 || checkGreenVirus.passed > 150) {
 			currentVirus = 'GRN';
 			virusActive++;
 		}
