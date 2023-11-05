@@ -81,6 +81,7 @@ let debuffsList = {
 	StunnedDebuff: getByID('StunnedDebuff'),
 	SignOfLifeDebuff: getByID('SignOfLifeDebuff'),
 	Virus: getByID('VirusDebuff'),
+	PowerburstPrevention: getByID('PowerburstPreventionDebuff'),
 };
 
 let sigilsList = {
@@ -163,6 +164,7 @@ var debuffImages = a1lib.webpackImages({
 	redVirus: require('./asset/data/Red_virus.data.png'),
 	blueVirus: require('./asset/data/Blue_virus.data.png'),
 	greenVirus: require('./asset/data/Green_virus.data.png'),
+	powerburstPrevention: require('./asset/data/Powerburst_prevention.data.png'),
 });
 
 var ultimateImages = a1lib.webpackImages({
@@ -633,6 +635,13 @@ function watchBuffs() {
 				debuffs,
 				debuffImages.signOfLifeDebuff,
 				debuffsList.SignOfLifeDebuff,
+				20
+			);
+
+			findStatus(
+				debuffs,
+				debuffImages.powerburstPrevention,
+				debuffsList.PowerburstPrevention,
 				20
 			);
 
