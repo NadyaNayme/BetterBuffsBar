@@ -2,7 +2,7 @@
 
 Track only the buffs that actually matter.
 
-["This is what I'd like our buff bar to be." - Mod Sponge](https://youtu.be/LPV-pZ1hcAU?t=4273)
+["This is what I'd like our buff bar to be." - Mod Sponge](https://youtu.be/LPV-pZ1hcAU?t=4266)
 
 ![Better Buffs Bar](./BetterBuffsBar.png)
 
