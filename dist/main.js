@@ -20688,6 +20688,10 @@ settingsObject.ProfileManager.querySelector('.load-btn').addEventListener('click
     setTimeout(function () { }, 100);
     location.reload();
 });
+settingsObject.OverlayActive.querySelector('input').addEventListener('click', function () {
+    setTimeout(function () { }, 100);
+    location.reload();
+});
 settingsObject.debugMode
     .querySelector('input')
     .addEventListener('change', function () {

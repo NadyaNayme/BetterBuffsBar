@@ -1660,6 +1660,14 @@ settingsObject.ProfileManager.querySelector('.load-btn').addEventListener(
 	}
 );
 
+settingsObject.OverlayActive.querySelector('input').addEventListener(
+	'click',
+	() => {
+		setTimeout(function () {}, 100);
+		location.reload();
+	}
+);
+
 settingsObject.debugMode
 	.querySelector('input')
 	.addEventListener('change', () => {
