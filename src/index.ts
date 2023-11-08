@@ -795,8 +795,10 @@ async function findStatus(
 				}
 			} else if (timearg.time > minRange && timearg.time < maxRange) {
 				let buffTimeRemaining = timearg.time - cooldownAdjustment;
-				if (buffTimeRemaining > 0) {
+				if (buffTimeRemaining > 0 && buffImage != buffImages.necrosis ) {
 					element.dataset.time = buffTimeRemaining.toString();
+				} else if (buffTimeRemaining > 0 && buffImage == buffImages.necrosis) {
+					element.dataset.time = timearg.time;
 				} else {
 					await setInactive(element);
 				}

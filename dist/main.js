@@ -19872,7 +19872,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     _c = 0, _d = Object.entries(buffsReader);
                     _f.label = 1;
                 case 1:
-                    if (!(_c < _d.length)) return [3 /*break*/, 22];
+                    if (!(_c < _d.length)) return [3 /*break*/, 23];
                     _e = _d[_c], _key = _e[0], value = _e[1];
                     if (foundBuff) {
                         return [2 /*return*/];
@@ -19884,7 +19884,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 19];
+                    if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 20];
                     // If we find a match for the buff it will always exceed the threshold
                     // the threshold depends largely on which buff is being matched against
                     if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') && buffImage == ultimateImages.deathsSwiftness) {
@@ -19918,7 +19918,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     // Pause the check for a tick since we don't need to rapidly update
                     //a buff that won't have a more precise value for 1 minute
                     _f.sent();
-                    return [3 /*break*/, 18];
+                    return [3 /*break*/, 19];
                 case 6:
                     if (!(expirationPulse && timearg.time == 11 && !onCooldown)) return [3 /*break*/, 10];
                     element.dataset.time = '<10s';
@@ -19936,53 +19936,57 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showTooltipReminders')) {
                         showTooltip('Overload expired', 3000);
                     }
-                    return [3 /*break*/, 18];
+                    return [3 /*break*/, 19];
                 case 10:
-                    if (!(timearg.time > minRange && timearg.time < maxRange)) return [3 /*break*/, 16];
+                    if (!(timearg.time > minRange && timearg.time < maxRange)) return [3 /*break*/, 17];
                     buffTimeRemaining = timearg.time - cooldownAdjustment;
-                    if (!(buffTimeRemaining > 0)) return [3 /*break*/, 11];
+                    if (!(buffTimeRemaining > 0 && buffImage != buffImages.necrosis)) return [3 /*break*/, 11];
                     element.dataset.time = buffTimeRemaining.toString();
-                    return [3 /*break*/, 13];
-                case 11: return [4 /*yield*/, setInactive(element)];
-                case 12:
-                    _f.sent();
-                    _f.label = 13;
+                    return [3 /*break*/, 14];
+                case 11:
+                    if (!(buffTimeRemaining > 0 && buffImage == buffImages.necrosis)) return [3 /*break*/, 12];
+                    element.dataset.time = timearg.time;
+                    return [3 /*break*/, 14];
+                case 12: return [4 /*yield*/, setInactive(element)];
                 case 13:
-                    if (!(timearg.time - 1 == 0 && !showCooldown)) return [3 /*break*/, 15];
-                    return [4 /*yield*/, setInactive(element)];
+                    _f.sent();
+                    _f.label = 14;
                 case 14:
-                    _f.sent();
-                    _f.label = 15;
-                case 15: return [3 /*break*/, 18];
-                case 16: return [4 /*yield*/, setInactive(element)];
-                case 17:
-                    _f.sent();
-                    _f.label = 18;
-                case 18: return [3 /*break*/, 21];
-                case 19:
-                    if (!!showCooldown) return [3 /*break*/, 21];
+                    if (!(timearg.time - 1 == 0 && !showCooldown)) return [3 /*break*/, 16];
                     return [4 /*yield*/, setInactive(element)];
-                case 20:
+                case 15:
                     _f.sent();
-                    _f.label = 21;
+                    _f.label = 16;
+                case 16: return [3 /*break*/, 19];
+                case 17: return [4 /*yield*/, setInactive(element)];
+                case 18:
+                    _f.sent();
+                    _f.label = 19;
+                case 19: return [3 /*break*/, 22];
+                case 20:
+                    if (!!showCooldown) return [3 /*break*/, 22];
+                    return [4 /*yield*/, setInactive(element)];
                 case 21:
+                    _f.sent();
+                    _f.label = 22;
+                case 22:
                     _c++;
                     return [3 /*break*/, 1];
-                case 22:
-                    if (!(timearg == undefined && foundBuff)) return [3 /*break*/, 26];
-                    if (!expirationPulse) return [3 /*break*/, 24];
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
                 case 23:
+                    if (!(timearg == undefined && foundBuff)) return [3 /*break*/, 27];
+                    if (!expirationPulse) return [3 /*break*/, 25];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                case 24:
                     _f.sent();
-                    _f.label = 24;
-                case 24: return [4 /*yield*/, setInactive(element)];
-                case 25:
+                    _f.label = 25;
+                case 25: return [4 /*yield*/, setInactive(element)];
+                case 26:
                     _f.sent();
-                    _f.label = 26;
-                case 26: 
+                    _f.label = 27;
+                case 27: 
                 // Give a very brief pause before checking again
                 return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 27:
+                case 28:
                     // Give a very brief pause before checking again
                     _f.sent();
                     return [2 /*return*/, timearg];
