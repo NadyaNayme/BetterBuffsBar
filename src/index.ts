@@ -537,7 +537,7 @@ function watchBuffs() {
 				buffs,
 				ultimateImages.greaterDeathsSwiftness,
 				ultimatesList.GreaterDeathsSwiftness,
-				100,
+				300,
 				false,
 				0,
 				Infinity,
@@ -754,6 +754,11 @@ async function findStatus(
 		if (findBuffImage.passed > threshold || findBuffImage.failed == 0) {
 			// If we find a match for the buff it will always exceed the threshold
 			// the threshold depends largely on which buff is being matched against
+
+			if (sauce.getSetting('debugMode') && buffImage == ultimateImages.greaterDeathsSwiftness) {
+				console.log(findBuffImage);
+			}
+
 			foundBuff = true;
 			await setActive(element);
 			timearg = value.readArg('timearg');

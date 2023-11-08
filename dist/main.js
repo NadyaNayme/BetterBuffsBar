@@ -19749,7 +19749,7 @@ function watchBuffs() {
             }
             findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 200, false, 0, Infinity, true, 40);
             findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 110, false, 0, Infinity, true, 30);
-            findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 100, false, 0, Infinity, true, 23);
+            findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 300, false, 0, Infinity, true, 23);
             findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 500, false, 0, Infinity, true, 30);
             findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, 100, false, 0, Infinity, true, 23);
             findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 400, false, 0, Infinity, true, 59);
@@ -19887,6 +19887,9 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 19];
                     // If we find a match for the buff it will always exceed the threshold
                     // the threshold depends largely on which buff is being matched against
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') && buffImage == ultimateImages.greaterDeathsSwiftness) {
+                        console.log(findBuffImage);
+                    }
                     foundBuff = true;
                     return [4 /*yield*/, setActive(element)];
                 case 2:
