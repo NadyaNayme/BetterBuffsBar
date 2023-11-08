@@ -14224,12 +14224,15 @@ function createNumberSetting(name, description, options) {
 }
 function createRangeSetting(name, description, options) {
     if (options === void 0) { options = {}; }
-    var _a = options.defaultValue, defaultValue = _a === void 0 ? options.defaultValue || 100 : _a, _b = options.min, min = _b === void 0 ? options.min || 0 : _b, _c = options.max, max = _c === void 0 ? options.max || 100 : _c, _d = options.unit, unit = _d === void 0 ? options.unit || '%' : _d;
+    var _a = options.defaultValue, defaultValue = _a === void 0 ? options.defaultValue || '100' : _a, _b = options.min, min = _b === void 0 ? options.min || 0 : _b, _c = options.max, max = _c === void 0 ? options.max || 100 : _c, _d = options.unit, unit = _d === void 0 ? options.unit || '%' : _d;
     var input = createInput('range', name, defaultValue);
     input.setAttribute('min', min.toString());
     input.setAttribute('max', max.toString());
     var label = createLabel(name, description);
     label.classList.add('full');
+    if (getSetting(name) != undefined) {
+        input.value = getSetting(name);
+    }
     var output = createOutput();
     output.setAttribute('id', "".concat(name, "Output"));
     output.setAttribute('for', name);
@@ -20422,7 +20425,7 @@ function setDefaultSettings() {
         buffsLocation: findPlayerBuffs,
         buffsPerRow: 10,
         debuffsLocation: findPlayerDebuffs,
-        fadeInactiveBuffs: true,
+        fadeInactiveBuffs: false,
         loopSpeed: 150,
         singleBOLG: false,
         showBuffNames: false,
@@ -20582,7 +20585,7 @@ var settingsObject = {
     ShowLabelNames: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showBuffNames', "Show Names - Only use this if you don't recognize the icons", false),
     endGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     delayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay Delay Compensation'),
-    DelayAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('delayAdjustment', "Subtracts time from any timers to compensate for the overlay's delay", { defaultValue: 1, min: 0, max: 5, unit: 's' }),
+    DelayAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('delayAdjustment', "Subtracts time from any timers to compensate for the overlay's delay", { defaultValue: '1', min: 0, max: 5, unit: 's' }),
     endAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("Make sure the \"Show overlay\" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right."),
@@ -20590,7 +20593,7 @@ var settingsObject = {
     endOverlay: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     ScaleHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'UI Scale'),
     UIScale: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('uiScale', 'Adjusts the display size of the Overlay.', {
-        defaultValue: 100,
+        defaultValue: '100',
         min: 50,
         max: 200,
     }),
@@ -20598,7 +20601,7 @@ var settingsObject = {
     SearchHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Interface Search Speed'),
     SearchText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. You must reload the app for the new value to take effect."),
     SearchSpeed: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('loopSpeed', '', {
-        defaultValue: 150,
+        defaultValue: '150',
         min: 50,
         max: 300,
         unit: 'ms',

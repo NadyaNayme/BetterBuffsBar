@@ -1258,7 +1258,7 @@ function setDefaultSettings() {
 			buffsLocation: findPlayerBuffs,
 			buffsPerRow: 10,
 			debuffsLocation: findPlayerDebuffs,
-			fadeInactiveBuffs: true,
+			fadeInactiveBuffs: false,
 			loopSpeed: 150,
 			singleBOLG: false,
 			showBuffNames: false,
@@ -1523,7 +1523,7 @@ const settingsObject = {
 	DelayAdjustment: sauce.createRangeSetting(
 		'delayAdjustment',
 		`Subtracts time from any timers to compensate for the overlay's delay`,
-		{ defaultValue: 1, min: 0, max: 5, unit: 's' }
+		{ defaultValue: '1', min: 0, max: 5, unit: 's' }
 	),
 	endAdjustment: sauce.createSeperator(),
 	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
@@ -1540,7 +1540,7 @@ const settingsObject = {
 		'uiScale',
 		'Adjusts the display size of the Overlay.',
 		{
-			defaultValue: 100,
+			defaultValue: '100',
 			min: 50,
 			max: 200,
 		}
@@ -1551,7 +1551,7 @@ const settingsObject = {
 		`Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. You must reload the app for the new value to take effect.`
 	),
 	SearchSpeed: sauce.createRangeSetting('loopSpeed', '', {
-		defaultValue: 150,
+		defaultValue: '150',
 		min: 50,
 		max: 300,
 		unit: 'ms',

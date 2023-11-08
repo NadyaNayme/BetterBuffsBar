@@ -103,14 +103,14 @@ export function createRangeSetting(
 	name: string,
 	description: string,
 	options: {
-		defaultValue?: number;
+		defaultValue?: string;
 		min?: number;
 		max?: number;
 		unit?: string;
 	} = {}
 ) {
 	let {
-		defaultValue = options.defaultValue || 100,
+		defaultValue = options.defaultValue || '100',
 		min = options.min || 0,
 		max = options.max || 100,
 		unit = options.unit || '%',
@@ -120,6 +120,9 @@ export function createRangeSetting(
 	input.setAttribute('max', max.toString());
 	let label = createLabel(name, description);
 	label.classList.add('full');
+	if (getSetting(name) != undefined) {
+		input.value = getSetting(name);
+	}
 	let output = createOutput();
 	output.setAttribute('id', `${name}Output`);
 	output.setAttribute('for', name);
