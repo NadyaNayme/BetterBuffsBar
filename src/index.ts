@@ -228,7 +228,11 @@ export function startBetterBuffsBar() {
 		return;
 	}
 	watchBuffs();
-	startOverlay();
+	if (sauce.getSetting('activeOverlay')) {
+		startOverlay();
+	} else {
+		helperItems.BetterBuffsBar.classList.add('overlay-disabled');
+	}
 }
 
 function createCanvas() {
@@ -1527,6 +1531,7 @@ const settingsObject = {
 	),
 	endAdjustment: sauce.createSeperator(),
 	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
+	OverlayActive: sauce.createCheckboxSetting('activeOverlay', 'Enable Overlay', sauce.getSetting('activeOverlay') || false),
 	OverlaySmallText: sauce.createSmallText(
 		`Make sure the "Show overlay" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right.`
 	),

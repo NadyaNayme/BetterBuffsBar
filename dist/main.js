@@ -1049,6 +1049,34 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   text-align: center;
 }
 
+#BetterBuffsBar.overlay-disabled {
+  padding: 5px;
+}
+
+#BetterBuffsBar.overlay-disabled p,
+#BetterBuffsBar.overlay-disabled h2 {
+  display: none;
+}
+
+#BetterBuffsBar.overlay-disabled > *:not(#Buffs) {
+  opacity: 0;
+  height: 0;
+}
+
+#BetterBuffsBar.overlay-disabled:hover > *:not(#Buffs) {
+  opacity: 1;
+  height: initial;
+}
+
+#BetterBuffsBar.overlay-disabled ~ #Settings {
+  opacity: 0;
+}
+
+#BetterBuffsBar.overlay-disabled:hover ~ #Settings,
+#BetterBuffsBar.overlay-disabled ~ #Settings:hover {
+  opacity: 1;
+}
+
 #BetterBuffsBar.big-head-mode #Buffs {
   display: grid;
   width: 100%;
@@ -19627,7 +19655,12 @@ function startBetterBuffsBar() {
         return;
     }
     watchBuffs();
-    startOverlay();
+    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) {
+        startOverlay();
+    }
+    else {
+        helperItems.BetterBuffsBar.classList.add('overlay-disabled');
+    }
 }
 function createCanvas() {
     var overlayCanvas = document.createElement('canvas');
@@ -20588,6 +20621,7 @@ var settingsObject = {
     DelayAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('delayAdjustment', "Subtracts time from any timers to compensate for the overlay's delay", { defaultValue: '1', min: 0, max: 5, unit: 's' }),
     endAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
+    OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', 'Enable Overlay', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay') || false),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("Make sure the \"Show overlay\" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right."),
     OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition),
     endOverlay: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),

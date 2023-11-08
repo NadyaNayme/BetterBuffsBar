@@ -29,6 +29,34 @@ body {
   text-align: center;
 }
 
+#BetterBuffsBar.overlay-disabled {
+  padding: 5px;
+}
+
+#BetterBuffsBar.overlay-disabled p,
+#BetterBuffsBar.overlay-disabled h2 {
+  display: none;
+}
+
+#BetterBuffsBar.overlay-disabled > *:not(#Buffs) {
+  opacity: 0;
+  height: 0;
+}
+
+#BetterBuffsBar.overlay-disabled:hover > *:not(#Buffs) {
+  opacity: 1;
+  height: initial;
+}
+
+#BetterBuffsBar.overlay-disabled ~ #Settings {
+  opacity: 0;
+}
+
+#BetterBuffsBar.overlay-disabled:hover ~ #Settings,
+#BetterBuffsBar.overlay-disabled ~ #Settings:hover {
+  opacity: 1;
+}
+
 #BetterBuffsBar.big-head-mode #Buffs {
   display: grid;
   width: 100%;
