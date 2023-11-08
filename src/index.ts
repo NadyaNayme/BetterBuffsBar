@@ -169,7 +169,7 @@ var debuffImages = a1lib.webpackImages({
 
 var ultimateImages = a1lib.webpackImages({
 	berserk: require('./asset/data/Berserk-noborder.data.png'),
-	deathsSwiftness: require("./asset/data/Death's_Swiftness-noborder.data.png"),
+	deathsSwiftness: require("./asset/data/Deaths_Swiftness-top.data.png"),
 	greaterDeathsSwiftness: require("./asset/data/Greater_Death's_Swiftness-noborder.data.png"),
 	greaterSunshine: require('./asset/data/Greater_Sunshine-noborder.data.png'),
 	livingDeath: require('./asset/data/Living_Death-noborder.data.png'),
@@ -525,7 +525,7 @@ function watchBuffs() {
 				buffs,
 				ultimateImages.deathsSwiftness,
 				ultimatesList.DeathsSwiftness,
-				110,
+				270,
 				false,
 				0,
 				Infinity,
@@ -537,7 +537,7 @@ function watchBuffs() {
 				buffs,
 				ultimateImages.greaterDeathsSwiftness,
 				ultimatesList.GreaterDeathsSwiftness,
-				300,
+				450,
 				false,
 				0,
 				Infinity,
@@ -755,7 +755,7 @@ async function findStatus(
 			// If we find a match for the buff it will always exceed the threshold
 			// the threshold depends largely on which buff is being matched against
 
-			if (sauce.getSetting('debugMode') && buffImage == ultimateImages.greaterDeathsSwiftness) {
+			if (sauce.getSetting('debugMode') && buffImage == ultimateImages.deathsSwiftness) {
 				console.log(findBuffImage);
 			}
 

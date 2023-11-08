@@ -181,16 +181,6 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
-/***/ "./asset/data/Death's_Swiftness-noborder.data.png":
-/*!********************************************************!*\
-  !*** ./asset/data/Death's_Swiftness-noborder.data.png ***!
-  \********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAIAAABLixI0AAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAABihJREFUeJwdVFtsXEcZnn9mzv2ye/bqXd/WcUNsTGjaUKgUo0CqQN30IaroKxISSDxQISEQ8FCpz0gIwQsIXngFISRKgxBIJFVVSmlSBdTWQJ3IcWJ7be/aez3nzJy5MI40OnM0M/rnm+/7/o9U5rzSLI1bxA2t8jyN23TuPC23SHXF/sQGqS2Usz1reaXzua/Gc5enyRNe82naftKiLl29Rs9s2FGdugkJEssvW4TYRGlkO2CXEQ0RdrVGUF4hOZcVp6zudfqD7vzMmQo9y50DZz6zHVJoiJuo9RQ66SIxRZKjIlNSaeKXbUAgmTa1wib2Z8FyAQgsnge8/UnMvNFovLjUaTbnN/86bC+rxnNMMzW7gvICnRyBV0cUYT6A9FiTsEawI7GNirGWBYQtaC+TaI7t3wrb7rNSs95Rf2n5rB86x4M+367s/fuktYaSp1Q61s0nUDFBe+/o7FBjC4hfAcDIq5F4lhhE+UjjCHmHzQc3vaVzZ3iWn5z0kko1CuPj4xFQ64O3uwfvObWOtXoF7W7qrdfBlHPryLLQKS4AUAwsB0Ud3L4o5X/nss1FcDjx/IIxwSecScGBc6aV1jRNh6jYIbPP8q2/y+bSKS0UES01aT1px3XixQYhBlejExfvdgyBGctDSg0upuRSp8XYtCjyyWScZ8zxCJva1dW884JEXLMRmp4gOdLEi6hEpwpSD8fzMv+oamdVZAkAykXBhXxm7dxsu7EwUy447O48RAgchyJm+RH4C5OH79LhIUr3VTZEpLxIbR+BBs1Evm87+VI1aQxHA11Iz8NL87WN5597ceOli5+5PLdQUdkIbI8LJqQspFraYMguDD9CYycCUl6gxEE2KLcSDO/ZC601CfKf7/zj2gtXKKBvv/Kd9fUvExX5jnV2ZeXs6ko1QK//6abEwsrKw20nWU1N1Zxj3kMkalCNtKdqsNd2kNuYrX/88f3h8bGh5t7W/8q1RhIlrVbj6GD39t3bP/rJz378018FYbC/e9hYqOS7zvBDp/ZMGs8IMJ4otWyYloojz3Gw7YeK4/tb/8kNwyw9OBrfuvUWtfXVq1+8+9EHX/v6N+/cuVttRHkm0jSbDNOkEfCB3XvPzYEDlaRdbxcDMmYj1/ZBqZ2d7d7xAGn4/Pqlb73yja9cf/Hl6y83a/Vzq2udxdba+Qslz7nz/r+AUM7YZJyWS6FmNH/kPtqcEs/yHUMyJoChf3LS7R4AJkpKrfDl9Usz9cbTn7rw3R9+7/DgwZeuXmHT/Pdv/GVvv2vOI0CFsVzBqUcxovlEkCAKsPEa0lLJo8OeUmD+KSX9fu/NN98em74RxcXPfqEa+t9/9bWf/+KXDx7uaq1MqziWCQXIOXNcmxAqhSLVak0hCQgXrJhMpsikBEHI2Na146R07flLN/54YzQ8+M3vbqxfWD5KWXfvkFLq+a4pwTJuU5MzgI0XXJeUmh4OBFBluaRQQirh2JapaHtkPJ6kDF579QeeG7x0/dLm/f0bf/4btmQcxa4XFnnBEIvqge0T82QClJTKSWEJ7ikdaqdtkbrEszpYJjLhQcfdGT3azrfmP914a/fd3958I48myWrJaycizngwdhLbjR0TeLZ0EEIkCKMCmzjTJuFMbgQVX1Ft7ilVZrhidqD30+4ffn3r7u0PdT2PwqYdlJjOAOmglrjUykfCBhcENo1ALOLgDGGGiNCKa8WkrUITgViQkptY2vZz169i7EDEa6FbIgwIl6hw8h5nPY7HoCaSp0IKSXzf1wafAJSBNht9KLqFOOS8m7mpXZF1l/nT+4IcOQ2r5qTUGVnpdjHeHqm+gBTrArRRzohvNAu8wMwaayMlRibKTJufTuaCLGWeF5SSuuu7pVLFj2NeiL297nSaGTMaJ8FpEXh8/PRrspQIRxau0JZUIZehkOVMJYWOChnzMemhWEIFcD1P9XR39GBqDyCRwuXKV9KwZHxNjPqFRIIQz6BTiGJlKRUIFArkapwoFCscKe2rEfSnMBjIfo/tS7egJayI1mY4JniQsbY2NjXD8GUTipSBajyKDVBsmQcDko8TLT9dAUaKsbGjBknNitkygQXi8S4nRjTIlWlts/J/B4EjgoUP4PkAAAAASUVORK5CYII=")
-
-/***/ }),
-
 /***/ "./asset/data/Death_Guard_Special-top-noborder.data.png":
 /*!**************************************************************!*\
   !*** ./asset/data/Death_Guard_Special-top-noborder.data.png ***!
@@ -198,6 +188,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAOCAYAAADaOrdAAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAXxJREFUeJzV1FtP2gAYxnFvXZaY7H4mGmOHUkAOrZSTHEppGSis6AQVtB4gDMKY0czIotG4TaPbxfZ5/6vd1e4Wyy72foDnlyd533di4n8YyVfkn4WHRQ3ZBqKBEoHI6/FCXu8KS54sEbHgIPIj4lXHjMzFCDqIhuQzbOQ3NFbEJ6QILqh/IFlFY7eaGQ8kzEik5AKKp0F0voWubJGIlDmxljE1nRdTz91BajqGOJ+kvmbS3xyyZ3ykGrymt9PmoitTVQ2eTU65Q8RXcWLhAqOBxZfzNnejHrvqFbXgHRu6SiktuAP0FRm/J82nD3vcnB1xf9Hl5+ch3y8HvBG/UUyWMJLTLlsICZaX8oyGFl/POw7wcNnjx80xDekWs7BGJu6iiWc2arfIUK9Uebta4+qkw/XpIWf9Du9a+5weKDQqgacDml7EJ9jHt5gjZK9sa71OOb9O09wmp9RsuEw89PLpwKbVxNqIOzfx+EIkv+G8kFioQiJs8r6Z+uvwX8FEvcLkX4igAAAAAElFTkSuQmCC")
+
+/***/ }),
+
+/***/ "./asset/data/Deaths_Swiftness-top.data.png":
+/*!**************************************************!*\
+  !*** ./asset/data/Deaths_Swiftness-top.data.png ***!
+  \**************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAALCAYAAACK9ybzAAAAAW5vUEUAYtdMlAAAAARub1BFAAAAAEEgjiIAAAAJbm9QRQAAAAAAAAAAAKGKctUAAANXSURBVDhPLZNLbxtlGIW95uLESeyx537z2DP2+BKP40vsEOQ4Ta3UdRIoLSEQtWqBUNIqaoUKi6pBQmLTDd1UqtghhMSWTcWCBRKwQeovenidsvg0i+/ynHPeM6lsVSNXM8h3ltCGixjjBfT9DPqtDMa9LHY1wI8b1HYOqY1v4EcJdinCDH3MMxPjtobxnoq2bVAY2Chth1zTIp8skV9dJN9Ik8oKIFt3KPSz6NtzwJIAZD1axprauLUYv9om3vqQaLCP6zaw3SpWMcQIAsw7DsaJiXldR9uZgxzyPZVCN0MhkbU6hwggt+pSGGroexk0AWgCMG8ZBElC0FonaPSp9g/wyh0su4ZlVbCcijhsiYg6xoYrMEtABtolC33rdSqFjqxkQSAND6XjoY5k81g2v1qRwybFZp1Kf0SxMaTSmRC2r2D7TUyrimlGAqoSVERAvY9VKqOFDtYdG+MDHX0mcW8toA0EspYhpSQe+aGLPjXRTxXMqYUTR1S7G5SbG5RWR8SDmUB2JaImhrgw/od4QZuwsYVTqmH4PqrMwriroh8JZFeifzeN1lskle+7kqUo+Fhy/czBjkqErR6RAIqVPtHahHi4T9S7ihdvYDixgARix7jBGmFzQhCJGz+k4NjoT/JodwXy/iL6Thp9Q2aijgRwTZcmOZhbRdwoJpKIoto7FMO+OJgQrU8pdy9TjNeJwrYMvo7lNSWqTaLWDmF9G9uLUX0R/CCP+vh1O/WZuBm/TcqYaTI0qeIjDysq45flcrlLqTLED9fxa5uU18by2CbPru3yy9GU+5MxbtgVQX0Bi5hocFEG3S1SmGioz5bRHoqTI5nLlTnkWHr+jY15HBA0E/ySNMZuyLcjwB6ePOTXhzw9nPHb40NefnfMy28/4ouruwIYiJAujt9CVTx0y6fg26jnOdTvpamnEteNOeRLA2PkSRVrRIko91dRV2T4dv2isqVKj/t7u/z+9Jg/n5/wz4+n/PXihD9+uMn5JwckEpmes8ilV8gu5NAsB8U1yd/Moj4RJ58LRI+KWNXqxQ8XhGuYWpmsXFDeWuFsvEfPinlwacTfLz7l35/PePXrQ179dI/ntw+YFjucXz/AzCgsvZlm6Y1FlGVpl19Ck3eViUC/TvMfseWzcYRihlAAAAAASUVORK5CYII=")
 
 /***/ }),
 
@@ -19608,7 +19608,7 @@ var debuffImages = alt1__WEBPACK_IMPORTED_MODULE_8__.webpackImages({
 });
 var ultimateImages = alt1__WEBPACK_IMPORTED_MODULE_8__.webpackImages({
     berserk: __webpack_require__(/*! ./asset/data/Berserk-noborder.data.png */ "./asset/data/Berserk-noborder.data.png"),
-    deathsSwiftness: __webpack_require__(/*! ./asset/data/Death's_Swiftness-noborder.data.png */ "./asset/data/Death's_Swiftness-noborder.data.png"),
+    deathsSwiftness: __webpack_require__(/*! ./asset/data/Deaths_Swiftness-top.data.png */ "./asset/data/Deaths_Swiftness-top.data.png"),
     greaterDeathsSwiftness: __webpack_require__(/*! ./asset/data/Greater_Death's_Swiftness-noborder.data.png */ "./asset/data/Greater_Death's_Swiftness-noborder.data.png"),
     greaterSunshine: __webpack_require__(/*! ./asset/data/Greater_Sunshine-noborder.data.png */ "./asset/data/Greater_Sunshine-noborder.data.png"),
     livingDeath: __webpack_require__(/*! ./asset/data/Living_Death-noborder.data.png */ "./asset/data/Living_Death-noborder.data.png"),
@@ -19748,8 +19748,8 @@ function watchBuffs() {
                 findBolgStacks(buffs);
             }
             findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 200, false, 0, Infinity, true, 40);
-            findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 110, false, 0, Infinity, true, 30);
-            findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 300, false, 0, Infinity, true, 23);
+            findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 270, false, 0, Infinity, true, 30);
+            findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 450, false, 0, Infinity, true, 23);
             findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 500, false, 0, Infinity, true, 30);
             findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, 100, false, 0, Infinity, true, 23);
             findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 400, false, 0, Infinity, true, 59);
@@ -19887,7 +19887,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     if (!(findBuffImage.passed > threshold || findBuffImage.failed == 0)) return [3 /*break*/, 19];
                     // If we find a match for the buff it will always exceed the threshold
                     // the threshold depends largely on which buff is being matched against
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') && buffImage == ultimateImages.greaterDeathsSwiftness) {
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') && buffImage == ultimateImages.deathsSwiftness) {
                         console.log(findBuffImage);
                     }
                     foundBuff = true;
