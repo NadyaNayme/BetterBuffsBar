@@ -1040,6 +1040,15 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   padding: .5rem;
 }
 
+#Settings a {
+  color: #CEFC92;
+}
+
+#Settings a:visited,
+#Settings a:hover {
+  color: #57799e;
+}
+
 #OverlayCanvasOutput {
   display: none;
 }
@@ -20629,6 +20638,7 @@ function roundedToFixed(input, digits) {
 /* Settings */
 var settingsObject = {
     settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.44'),
+    settingDiscord: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Please <a href=\"https://discord.gg/KJ2SgWyJFF\" target=\"_blank\" rel=\"nofollow\">join the Discord</a> for any suggestions or support."),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
     FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', 'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them', false),
@@ -20673,7 +20683,7 @@ var settingsObject = {
     endreset: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     troubleshootingHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Here is trouble (Make it double!)'),
     debugMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('debugMode', "Debug mode (please don't use this)", false),
-    beta: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('beta', 'Beta Testing (please join the Discord if you use this)', false),
+    beta: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('beta', 'Beta Testing', false),
 };
 settingsObject.BuffsPerRow.addEventListener('click', function () {
     getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));

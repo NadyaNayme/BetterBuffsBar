@@ -1503,6 +1503,7 @@ function roundedToFixed(input, digits) {
 /* Settings */
 const settingsObject = {
 	settingsHeader: sauce.createHeading('h2', 'Settings - v1.44'),
+	settingDiscord: sauce.createText(`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support.`),
 	beginGeneral: sauce.createHeading('h3', 'General'),
 	BuffsPerRow: sauce.createNumberSetting(
 		'buffsPerRow',
@@ -1557,7 +1558,11 @@ const settingsObject = {
 	),
 	endAdjustment: sauce.createSeperator(),
 	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
-	OverlayActive: sauce.createCheckboxSetting('activeOverlay', 'Enable Overlay', sauce.getSetting('activeOverlay') || false),
+	OverlayActive: sauce.createCheckboxSetting(
+		'activeOverlay',
+		'Enable Overlay',
+		sauce.getSetting('activeOverlay') || false
+	),
 	OverlaySmallText: sauce.createSmallText(
 		`Make sure the "Show overlay" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right.`
 	),
@@ -1609,7 +1614,7 @@ const settingsObject = {
 	),
 	beta: sauce.createCheckboxSetting(
 		'beta',
-		'Beta Testing (please join the Discord if you use this)',
+		'Beta Testing',
 		false
 	),
 };

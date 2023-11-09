@@ -20,6 +20,15 @@ body {
   padding: .5rem;
 }
 
+#Settings a {
+  color: #CEFC92;
+}
+
+#Settings a:visited,
+#Settings a:hover {
+  color: #57799e;
+}
+
 #OverlayCanvasOutput {
   display: none;
 }
