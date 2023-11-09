@@ -20222,6 +20222,22 @@ function setCooldown(element, cooldownTimer) {
             element.classList.add('cooldown');
             element.dataset.time = '';
             element.dataset.cooldown = cooldownTimer.toString();
+            /* Sanity checking that we're really meant to be on cooldown :) and yes this is jank */
+            setTimeout(function () {
+                element.classList.add('cooldown');
+            }, 1000);
+            setTimeout(function () {
+                element.classList.add('cooldown');
+            }, 2000);
+            setTimeout(function () {
+                element.classList.add('cooldown');
+            }, 3000);
+            setTimeout(function () {
+                element.classList.add('cooldown');
+            }, 4000);
+            setTimeout(function () {
+                element.classList.add('cooldown');
+            }, 5000);
             return [2 /*return*/];
         });
     });
