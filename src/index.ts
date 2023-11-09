@@ -1170,7 +1170,7 @@ async function parseBolgBuff(data: string) {
 			await new Promise((done) => setTimeout(done, 30000));
 			bolgSpecActive = false;
 		} else if (bolgSpecActive) {
-			bolgSpecTime = results[0].groups.time || 0;
+			bolgSpecTime = results[0].groups.time ?? 0;
 			bolgStacks = '0';
 		} else if (!bolgSpecActive) {
 			if (parseInt(results[0].groups.time, 10) > 8) {
@@ -1186,7 +1186,7 @@ async function parseBolgBuff(data: string) {
 				bolgSpecActive = false;
 			} else {
 				bolgSpecTime = '';
-				bolgStacks = results[0].groups.time || 0;
+				bolgStacks = results[0].groups.time ?? 0;
 			}
 		}
 	}
@@ -1561,7 +1561,7 @@ const settingsObject = {
 	OverlayActive: sauce.createCheckboxSetting(
 		'activeOverlay',
 		'Enable Overlay',
-		sauce.getSetting('activeOverlay') || false
+		sauce.getSetting('activeOverlay') ?? false
 	),
 	OverlaySmallText: sauce.createSmallText(
 		`Make sure the "Show overlay" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right.`

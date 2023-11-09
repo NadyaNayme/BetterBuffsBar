@@ -14248,8 +14248,9 @@ function createCheckboxSetting(name, description, defaultValue) {
     return container;
 }
 function createNumberSetting(name, description, options) {
+    var _a, _b, _c;
     if (options === void 0) { options = {}; }
-    var _a = options.defaultValue, defaultValue = _a === void 0 ? options.defaultValue || 10 : _a, _b = options.min, min = _b === void 0 ? options.min || 1 : _b, _c = options.max, max = _c === void 0 ? options.max || 20 : _c;
+    var _d = options.defaultValue, defaultValue = _d === void 0 ? (_a = options.defaultValue) !== null && _a !== void 0 ? _a : 10 : _d, _e = options.min, min = _e === void 0 ? (_b = options.min) !== null && _b !== void 0 ? _b : 1 : _e, _f = options.max, max = _f === void 0 ? (_c = options.max) !== null && _c !== void 0 ? _c : 20 : _f;
     var input = createInput('number', name, defaultValue);
     input.setAttribute('min', min.toString());
     input.setAttribute('max', max.toString());
@@ -14260,8 +14261,9 @@ function createNumberSetting(name, description, options) {
     return container;
 }
 function createRangeSetting(name, description, options) {
+    var _a, _b, _c, _d;
     if (options === void 0) { options = {}; }
-    var _a = options.defaultValue, defaultValue = _a === void 0 ? options.defaultValue || '100' : _a, _b = options.min, min = _b === void 0 ? options.min || 0 : _b, _c = options.max, max = _c === void 0 ? options.max || 100 : _c, _d = options.unit, unit = _d === void 0 ? options.unit || '%' : _d;
+    var _e = options.defaultValue, defaultValue = _e === void 0 ? (_a = options.defaultValue) !== null && _a !== void 0 ? _a : '100' : _e, _f = options.min, min = _f === void 0 ? (_b = options.min) !== null && _b !== void 0 ? _b : 0 : _f, _g = options.max, max = _g === void 0 ? (_c = options.max) !== null && _c !== void 0 ? _c : 100 : _g, _h = options.unit, unit = _h === void 0 ? (_d = options.unit) !== null && _d !== void 0 ? _d : '%' : _h;
     var input = createInput('range', name, defaultValue);
     input.setAttribute('min', min.toString());
     input.setAttribute('max', max.toString());
@@ -14403,6 +14405,7 @@ function createLabel(name, description) {
     return label;
 }
 function createInput(type, name, defaultValue) {
+    var _a;
     var input = document.createElement('input');
     input.id = name;
     input.type = type;
@@ -14410,7 +14413,7 @@ function createInput(type, name, defaultValue) {
     input.dataset.defaultValue = defaultValue;
     input.value = input.dataset.defaultValue;
     if (getSetting(name)) {
-        input.value = getSetting(name) || input.dataset.defaultValue;
+        input.value = (_a = getSetting(name)) !== null && _a !== void 0 ? _a : input.dataset.defaultValue;
     }
     else {
         updateSetting(name, input.dataset.defaultValue);
@@ -14503,10 +14506,11 @@ function setDefaultSettings() {
 function loadSettings() {
     var settings = document.querySelectorAll('[data-setting]');
     settings.forEach(function (setting) {
+        var _a;
         switch (setting.type) {
             case 'number':
             case 'range':
-                setting.value = getSetting(setting.dataset.setting) || setting.dataset.defaultValue;
+                setting.value = (_a = getSetting(setting.dataset.setting)) !== null && _a !== void 0 ? _a : setting.dataset.defaultValue;
                 break;
             case 'checkbox':
                 setting.checked =
@@ -19462,6 +19466,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var _a;
 // alt1 base libs, provides all the commonly used methods for image matching and capture
 // also gives your editor info about the window.alt1 api
 
@@ -20348,10 +20353,11 @@ function findBolgStacks(buffs) {
     });
 }
 function parseBolgBuff(data) {
+    var _a, _b;
     return __awaiter(this, void 0, void 0, function () {
         var bolgSpecTime, bolgStacks, buffRegexp, results;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
                     buffRegexp = /(?<time>\d{1,2})(.*\((?<stacks>\d)\))?/g;
                     results = Array.from(data.matchAll(buffRegexp));
@@ -20369,12 +20375,12 @@ function parseBolgBuff(data) {
                     bolgStacks = results[0].groups.stacks;
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 30000); })];
                 case 2:
-                    _a.sent();
+                    _c.sent();
                     bolgSpecActive = false;
                     return [3 /*break*/, 7];
                 case 3:
                     if (!bolgSpecActive) return [3 /*break*/, 4];
-                    bolgSpecTime = results[0].groups.time || 0;
+                    bolgSpecTime = (_a = results[0].groups.time) !== null && _a !== void 0 ? _a : 0;
                     bolgStacks = '0';
                     return [3 /*break*/, 7];
                 case 4:
@@ -20387,13 +20393,13 @@ function parseBolgBuff(data) {
                             return setTimeout(done, parseInt(results[0].groups.time, 10) * 1000);
                         })];
                 case 5:
-                    _a.sent();
+                    _c.sent();
                     bolgSpecActive = false;
                     return [3 /*break*/, 7];
                 case 6:
                     bolgSpecTime = '';
-                    bolgStacks = results[0].groups.time || 0;
-                    _a.label = 7;
+                    bolgStacks = (_b = results[0].groups.time) !== null && _b !== void 0 ? _b : 0;
+                    _c.label = 7;
                 case 7:
                     if (bolgSpecTime == undefined || bolgStacks == undefined) {
                         return [2 /*return*/, ['', '']];
@@ -20656,7 +20662,7 @@ var settingsObject = {
     DelayAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('delayAdjustment', "Subtracts time from any timers to compensate for the overlay's delay", { defaultValue: '1', min: 0, max: 5, unit: 's' }),
     endAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
-    OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', 'Enable Overlay', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay') || false),
+    OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', 'Enable Overlay', (_a = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _a !== void 0 ? _a : false),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("Make sure the \"Show overlay\" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right."),
     OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition),
     endOverlay: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),

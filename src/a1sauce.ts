@@ -85,9 +85,9 @@ export function createNumberSetting(
 	} = {}
 ) {
 	let {
-		defaultValue = options.defaultValue || 10,
-		min = options.min || 1,
-		max = options.max || 20,
+		defaultValue = options.defaultValue ?? 10,
+		min = options.min ?? 1,
+		max = options.max ?? 20,
 	} = options;
 	let input = createInput('number', name, defaultValue);
 	input.setAttribute('min', min.toString());
@@ -110,10 +110,10 @@ export function createRangeSetting(
 	} = {}
 ) {
 	let {
-		defaultValue = options.defaultValue || '100',
-		min = options.min || 0,
-		max = options.max || 100,
-		unit = options.unit || '%',
+		defaultValue = options.defaultValue ?? '100',
+		min = options.min ?? 0,
+		max = options.max ?? 100,
+		unit = options.unit ?? '%',
 	} = options;
 	let input = createInput('range', name, defaultValue);
 	input.setAttribute('min', min.toString());
@@ -288,7 +288,7 @@ function createInput(type: string, name: string, defaultValue: any) {
 	input.dataset.defaultValue = defaultValue;
 	input.value = input.dataset.defaultValue;
 	if (getSetting(name)) {
-		input.value = getSetting(name) || input.dataset.defaultValue;
+		input.value = getSetting(name) ?? input.dataset.defaultValue;
 	} else {
 		updateSetting(name, input.dataset.defaultValue);
 	}
@@ -400,7 +400,7 @@ export function loadSettings() {
 		switch (setting.type) {
 			case 'number':
 			case 'range':
-				setting.value = getSetting(setting.dataset.setting) || setting.dataset.defaultValue;
+				setting.value = getSetting(setting.dataset.setting) ?? setting.dataset.defaultValue;
 				break;
 			case 'checkbox':
 				setting.checked =
