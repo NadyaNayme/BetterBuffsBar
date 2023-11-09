@@ -1060,11 +1060,11 @@ async function setCooldown(element: HTMLElement, cooldownTimer: number) {
 async function setInactive(element: HTMLElement) {
 	element.classList.add('inactive');
 	element.classList.remove('active');
+	element.dataset.time = '';
 	if (parseInt(element.dataset.cooldown, 10) <= 2) {
 		element.classList.remove('cooldown');
+		element.dataset.cooldown = '';
 	}
-	element.dataset.time = '';
-	element.dataset.cooldown = '';
 }
 
 async function setActive(element: HTMLElement) {

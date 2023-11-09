@@ -20247,11 +20247,11 @@ function setInactive(element) {
         return __generator(this, function (_a) {
             element.classList.add('inactive');
             element.classList.remove('active');
+            element.dataset.time = '';
             if (parseInt(element.dataset.cooldown, 10) <= 2) {
                 element.classList.remove('cooldown');
+                element.dataset.cooldown = '';
             }
-            element.dataset.time = '';
-            element.dataset.cooldown = '';
             return [2 /*return*/];
         });
     });
