@@ -85,6 +85,12 @@ body {
   background-size: cover;
 }
 
+#NameOutput {
+  display: block;
+  height: 20px;
+  margin-top: 1rem;
+}
+
 #Buffs {
   --maxcount: 5;
   --scale: 100;

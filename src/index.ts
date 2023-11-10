@@ -39,6 +39,7 @@ let helperItems = {
 	TrackedBuffs: <HTMLUListElement>getByID('Buffs'),
 	UntrackedBuffs: <HTMLUListElement>getByID('UntrackedBuffs'),
 	ToggleOverlayButton: getByID('ToggleOverlayButton'),
+	NameOutput: getByID('NameOutput'),
 };
 
 let buffsList = {
@@ -227,6 +228,7 @@ export function startBetterBuffsBar() {
 		);
 		return;
 	}
+
 	watchBuffs();
 	if (sauce.getSetting('activeOverlay')) {
 		startOverlay();
@@ -1385,6 +1387,17 @@ function setSortables() {
 			prevItem = item;
 		});
 	});
+
+	let allItems = helperItems.BetterBuffsBar.querySelectorAll('[data-name]');
+	allItems.forEach((item: HTMLLIElement) => {
+		item.addEventListener('mouseenter', (e) => {
+			let name = item.dataset.name;
+			helperItems.NameOutput.innerHTML = name;
+		});
+		item.addEventListener('mouseleave', (e) => {
+			helperItems.NameOutput.innerHTML = '';
+		});
+	});
 }
 
 function setBuffsPerRow() {
@@ -1502,7 +1515,7 @@ function roundedToFixed(input, digits) {
 
 /* Settings */
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings - v1.44'),
+	settingsHeader: sauce.createHeading('h2', 'Settings - v1.45'),
 	settingDiscord: sauce.createText(`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support.`),
 	beginGeneral: sauce.createHeading('h3', 'General'),
 	BuffsPerRow: sauce.createNumberSetting(

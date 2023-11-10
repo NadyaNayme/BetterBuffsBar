@@ -1105,6 +1105,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-size: cover;
 }
 
+#NameOutput {
+  display: block;
+  height: 20px;
+  margin-top: 1rem;
+}
+
 #Buffs {
   --maxcount: 5;
   --scale: 100;
@@ -19506,6 +19512,7 @@ var helperItems = {
     TrackedBuffs: getByID('Buffs'),
     UntrackedBuffs: getByID('UntrackedBuffs'),
     ToggleOverlayButton: getByID('ToggleOverlayButton'),
+    NameOutput: getByID('NameOutput'),
 };
 var buffsList = {
     AnimateDeadBuff: getByID('AnimateDeadBuff'),
@@ -20574,6 +20581,16 @@ function setSortables() {
             prevItem = item;
         });
     });
+    var allItems = helperItems.BetterBuffsBar.querySelectorAll('[data-name]');
+    allItems.forEach(function (item) {
+        item.addEventListener('mouseenter', function (e) {
+            var name = item.dataset.name;
+            helperItems.NameOutput.innerHTML = name;
+        });
+        item.addEventListener('mouseleave', function (e) {
+            helperItems.NameOutput.innerHTML = '';
+        });
+    });
 }
 function setBuffsPerRow() {
     getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
@@ -20648,7 +20665,7 @@ function roundedToFixed(input, digits) {
 }
 /* Settings */
 var settingsObject = {
-    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.44'),
+    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.45'),
     settingDiscord: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Please <a href=\"https://discord.gg/KJ2SgWyJFF\" target=\"_blank\" rel=\"nofollow\">join the Discord</a> for any suggestions or support."),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
