@@ -1862,6 +1862,11 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   display: none;
 }
 
+#BetterBuffsBar:not(.fade):hover #Buffs li.inactive,
+#BetterBuffsBar:not(.fade):hover #Buffs li.cooldown {
+  display: block;
+}
+
 #UntrackedBuffs {
   border: solid 1px red;
   min-height: 10px;
