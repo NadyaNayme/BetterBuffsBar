@@ -6,7 +6,7 @@
 	"iconUrl": "./icon.png",
 	"defaultWidth": 400,
 	"defaultHeight": 400,
-	"minWidth": 300,
+	"minWidth": 5,
 	"minHeight": 5,
 	"maxWidth": 1000,
 	"maxHeight": 1000,
