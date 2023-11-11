@@ -19966,11 +19966,11 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                 case 10:
                     if (!(timearg.time > minRange && timearg.time < maxRange)) return [3 /*break*/, 17];
                     buffTimeRemaining = timearg.time - cooldownAdjustment;
-                    if (!(buffTimeRemaining > 0 && buffImage != buffImages.necrosis)) return [3 /*break*/, 11];
+                    if (!(buffTimeRemaining > 0 && buffImage != buffImages.necrosis && element != buffsList.BolgStacksBuff)) return [3 /*break*/, 11];
                     element.dataset.time = buffTimeRemaining.toString();
                     return [3 /*break*/, 14];
                 case 11:
-                    if (!(buffTimeRemaining > 0 && buffImage == buffImages.necrosis)) return [3 /*break*/, 12];
+                    if (!(buffTimeRemaining > 0 && (buffImage == buffImages.necrosis || element == buffsList.BolgStacksBuff))) return [3 /*break*/, 12];
                     element.dataset.time = timearg.time;
                     return [3 /*break*/, 14];
                 case 12: return [4 /*yield*/, setInactive(element)];
@@ -20510,11 +20510,10 @@ function setDefaultSettings() {
         buffsLocation: findPlayerBuffs,
         buffsPerRow: 10,
         debuffsLocation: findPlayerDebuffs,
-        fadeInactiveBuffs: false,
+        fadeInactiveBuffs: true,
         loopSpeed: 150,
         singleBOLG: false,
-        showBuffNames: false,
-        showMaintainableBlinking: false,
+        showMaintainableBlinking: true,
         showTooltipReminders: true,
         overlayPosition: { x: 100, y: 100 },
         uiScale: 100,
@@ -20665,7 +20664,7 @@ function roundedToFixed(input, digits) {
 }
 /* Settings */
 var settingsObject = {
-    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.45'),
+    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.46'),
     settingDiscord: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Please <a href=\"https://discord.gg/KJ2SgWyJFF\" target=\"_blank\" rel=\"nofollow\">join the Discord</a> for any suggestions or support."),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
@@ -20678,7 +20677,6 @@ var settingsObject = {
     OverloadReminder: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('overloadReminder', 'Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire', false),
     BlinkExpiredBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showMaintainableBlinking', 'Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)', false),
     SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('singleBOLG', 'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks', false),
-    ShowLabelNames: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showBuffNames', "Show Names - Only use this if you don't recognize the icons", false),
     endGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     delayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay Delay Compensation'),
     DelayAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('delayAdjustment', "Subtracts time from any timers to compensate for the overlay's delay", { defaultValue: '1', min: 0, max: 5, unit: 's' }),
@@ -20738,9 +20736,6 @@ settingsObject.UIScale.addEventListener('change', function () {
     if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
         helperItems.TrackedBuffs.classList.add('scaled');
     }
-});
-settingsObject.ShowLabelNames.addEventListener('click', function () {
-    helperItems.BetterBuffsBar.classList.toggle('show-labels', settingsObject.ShowLabelNames.querySelector('input').checked);
 });
 settingsObject.ProfileManager.querySelector('.profile-list').addEventListener('change', function () {
     var name = settingsObject.ProfileManager.querySelector('.profile-name');

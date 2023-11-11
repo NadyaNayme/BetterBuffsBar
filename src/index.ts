@@ -797,9 +797,9 @@ async function findStatus(
 				}
 			} else if (timearg.time > minRange && timearg.time < maxRange) {
 				let buffTimeRemaining = timearg.time - cooldownAdjustment;
-				if (buffTimeRemaining > 0 && buffImage != buffImages.necrosis ) {
+				if (buffTimeRemaining > 0 && buffImage != buffImages.necrosis && element != buffsList.BolgStacksBuff ) {
 					element.dataset.time = buffTimeRemaining.toString();
-				} else if (buffTimeRemaining > 0 && buffImage == buffImages.necrosis) {
+				} else if (buffTimeRemaining > 0 && (buffImage == buffImages.necrosis || element == buffsList.BolgStacksBuff)) {
 					element.dataset.time = timearg.time;
 				} else {
 					await setInactive(element);
@@ -1290,11 +1290,10 @@ function setDefaultSettings() {
 			buffsLocation: findPlayerBuffs,
 			buffsPerRow: 10,
 			debuffsLocation: findPlayerDebuffs,
-			fadeInactiveBuffs: false,
+			fadeInactiveBuffs: true,
 			loopSpeed: 150,
 			singleBOLG: false,
-			showBuffNames: false,
-			showMaintainableBlinking: false,
+			showMaintainableBlinking: true,
 			showTooltipReminders: true,
 			overlayPosition: { x: 100, y: 100 },
 			uiScale: 100,
@@ -1515,7 +1514,7 @@ function roundedToFixed(input, digits) {
 
 /* Settings */
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings - v1.45'),
+	settingsHeader: sauce.createHeading('h2', 'Settings - v1.46'),
 	settingDiscord: sauce.createText(`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support.`),
 	beginGeneral: sauce.createHeading('h3', 'General'),
 	BuffsPerRow: sauce.createNumberSetting(
@@ -1555,11 +1554,6 @@ const settingsObject = {
 	SingleBOLG: sauce.createCheckboxSetting(
 		'singleBOLG',
 		'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks',
-		false
-	),
-	ShowLabelNames: sauce.createCheckboxSetting(
-		'showBuffNames',
-		`Show Names - Only use this if you don't recognize the icons`,
 		false
 	),
 	endGeneral: sauce.createSeperator(),
@@ -1676,13 +1670,6 @@ settingsObject.UIScale.addEventListener('change', () => {
 	) {
 		helperItems.TrackedBuffs.classList.add('scaled');
 	}
-});
-
-settingsObject.ShowLabelNames.addEventListener('click', () => {
-	helperItems.BetterBuffsBar.classList.toggle(
-		'show-labels',
-		settingsObject.ShowLabelNames.querySelector('input').checked
-	);
 });
 
 settingsObject.ProfileManager.querySelector('.profile-list').addEventListener(
