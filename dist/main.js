@@ -20317,8 +20317,8 @@ function findBolgStacks(buffs) {
                                 'url("data:image/png;base64,' +
                                     bolgBuffImage.toPngBase64() +
                                     '")';
+                            break firstBOLG;
                         }
-                        break firstBOLG;
                     }
                     return [3 /*break*/, 9];
                 case 1:

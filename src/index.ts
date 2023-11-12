@@ -1120,8 +1120,8 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 					'url("data:image/png;base64,' +
 					bolgBuffImage.toPngBase64() +
 					'")';
+				break firstBOLG;
 			}
-			break firstBOLG;
 		}
 	} else {
 		for (let [_key, value] of Object.entries(buffs).reverse()) {
