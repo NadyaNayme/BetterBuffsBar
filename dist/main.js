@@ -20536,7 +20536,6 @@ function loadSettings() {
     if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
         helperItems.TrackedBuffs.classList.add('scaled');
     }
-    helperItems.BetterBuffsBar.classList.toggle('show-labels', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showBuffNames'));
     setBuffsPerRow();
     setBigHeadMode();
     setSortables();
@@ -20544,6 +20543,7 @@ function loadSettings() {
     findPlayerDebuffs();
     setGridSize();
     setBigHeadGrid();
+    disableNameSetting();
 }
 function setSortables() {
     var sortables = ['Buffs', 'UntrackedBuffs'];
@@ -20631,6 +20631,11 @@ function setBigHeadGrid() {
         helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
     }
 }
+function disableNameSetting() {
+    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showBuffNames')) {
+        _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('showBuffNames', false);
+    }
+}
 var foundBuffs = false;
 function getActiveBuffs() {
     if (foundBuffs && _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsLocation')) {
@@ -20677,7 +20682,7 @@ function roundedToFixed(input, digits) {
 }
 /* Settings */
 var settingsObject = {
-    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.48'),
+    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.49'),
     settingDiscord: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Please <a href=\"https://discord.gg/KJ2SgWyJFF\" target=\"_blank\" rel=\"nofollow\">join the Discord</a> for any suggestions or support."),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),

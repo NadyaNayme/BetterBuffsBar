@@ -1333,10 +1333,6 @@ function loadSettings() {
 	) {
 		helperItems.TrackedBuffs.classList.add('scaled');
 	}
-	helperItems.BetterBuffsBar.classList.toggle(
-		'show-labels',
-		sauce.getSetting('showBuffNames')
-	);
 
 	setBuffsPerRow();
 	setBigHeadMode();
@@ -1345,6 +1341,7 @@ function loadSettings() {
 	findPlayerDebuffs();
 	setGridSize();
 	setBigHeadGrid();
+	disableNameSetting();
 }
 
 function setSortables() {
@@ -1476,6 +1473,12 @@ function setBigHeadGrid() {
 	}
 }
 
+function disableNameSetting() {
+	if (sauce.getSetting('showBuffNames')) {
+		sauce.updateSetting('showBuffNames', false);
+	}
+}
+
 let foundBuffs = false;
 function getActiveBuffs() {
 	if (foundBuffs && sauce.getSetting('buffsLocation')) {
@@ -1533,7 +1536,7 @@ function roundedToFixed(input, digits) {
 
 /* Settings */
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings - v1.48'),
+	settingsHeader: sauce.createHeading('h2', 'Settings - v1.49'),
 	settingDiscord: sauce.createText(
 		`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support.`
 	),
