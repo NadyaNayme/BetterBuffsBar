@@ -19819,7 +19819,10 @@ function checkBuffsForHidingOverlay(buffsReader) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             // If we don't have an overlay visible - hide it
-            if (Object.entries(buffsReader).length == 0) {
+            if (buffsReader == undefined) {
+                helperItems.BetterBuffsBar.classList.add('hide-overlay');
+            }
+            else if (Object.entries(buffsReader).length == 0) {
                 helperItems.BetterBuffsBar.classList.add('hide-overlay');
             }
             else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {

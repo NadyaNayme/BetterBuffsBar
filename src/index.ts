@@ -668,7 +668,9 @@ function watchBuffs() {
 
 async function checkBuffsForHidingOverlay(buffsReader: BuffReader.Buff[]) {
 	// If we don't have an overlay visible - hide it
-	if (Object.entries(buffsReader).length == 0) {
+	if (buffsReader == undefined) {
+		helperItems.BetterBuffsBar.classList.add('hide-overlay');
+	} else if (Object.entries(buffsReader).length == 0) {
 		helperItems.BetterBuffsBar.classList.add('hide-overlay');
 	} else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {
 		helperItems.BetterBuffsBar.classList.remove('hide-overlay');
