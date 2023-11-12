@@ -1095,8 +1095,9 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 			canvas.width,
 			canvas.height
 		);
-		firstBOLG: for (let a in buffs.reverse()) {
-			if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
+		for (let a in buffs.reverse()) {
+			if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder) && bolgFound == false) {
+				bolgFound = true;
 				let buffsImage = buffs[a].buffer.toImage();
 				ctx.drawImage(
 					buffsImage,
@@ -1120,10 +1121,9 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 					'url("data:image/png;base64,' +
 					bolgBuffImage.toPngBase64() +
 					'")';
-				break firstBOLG;
 			}
 		}
-	} else {
+	} else if (sauce.getSetting('singleBOLG')) {
 		for (let [_key, value] of Object.entries(buffs).reverse()) {
 			let bolgStacksBuff = value.countMatch(
 				buffImages.perfectEquilibrium,
@@ -1487,6 +1487,21 @@ function getActiveBuffs() {
 function findPlayerBuffs() {
 	if (buffs.find()) {
 		foundBuffs = true;
+		setTimeout(() => {
+			alt1.overLaySetGroup('buffsArea');
+			alt1.overLayRect(
+				a1lib.mixColor(120, 255, 120),
+				buffs.getCaptRect().x,
+				buffs.getCaptRect().y,
+				buffs.getCaptRect().width,
+				buffs.getCaptRect().height,
+				3000,
+				1
+			);
+		}, 1000);
+		setTimeout(() => {
+			alt1.overLayClearGroup('buffsArea');
+		}, 4000);
 		return sauce.updateSetting('buffsLocation', [buffs.pos.x, buffs.pos.y]);
 	}
 }

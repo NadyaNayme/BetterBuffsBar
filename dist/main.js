@@ -20307,8 +20307,9 @@ function findBolgStacks(buffs) {
                     canvas = document.getElementById('bolgCanvas');
                     ctx = canvas.getContext('2d');
                     ctx.drawImage(buffImages.perfectEquilibriumNoBorder.toImage(), 0, 0, canvas.width, canvas.height);
-                    firstBOLG: for (a in buffs.reverse()) {
-                        if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
+                    for (a in buffs.reverse()) {
+                        if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder) && bolgFound == false) {
+                            bolgFound = true;
                             buffsImage = buffs[a].buffer.toImage();
                             ctx.drawImage(buffsImage, buffs[a].bufferx, buffs[a].buffery, 27, 27, 0, 0, canvas.width, canvas.height);
                             bolgBuffImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -20317,11 +20318,11 @@ function findBolgStacks(buffs) {
                                 'url("data:image/png;base64,' +
                                     bolgBuffImage.toPngBase64() +
                                     '")';
-                            break firstBOLG;
                         }
                     }
                     return [3 /*break*/, 9];
                 case 1:
+                    if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('singleBOLG')) return [3 /*break*/, 9];
                     _i = 0, _a = Object.entries(buffs).reverse();
                     _c.label = 2;
                 case 2:
@@ -20641,6 +20642,13 @@ function getActiveBuffs() {
 function findPlayerBuffs() {
     if (buffs.find()) {
         foundBuffs = true;
+        setTimeout(function () {
+            alt1.overLaySetGroup('buffsArea');
+            alt1.overLayRect(alt1__WEBPACK_IMPORTED_MODULE_8__.mixColor(120, 255, 120), buffs.getCaptRect().x, buffs.getCaptRect().y, buffs.getCaptRect().width, buffs.getCaptRect().height, 3000, 1);
+        }, 1000);
+        setTimeout(function () {
+            alt1.overLayClearGroup('buffsArea');
+        }, 4000);
         return _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('buffsLocation', [buffs.pos.x, buffs.pos.y]);
     }
 }
