@@ -1518,7 +1518,9 @@ function roundedToFixed(input, digits) {
 /* Settings */
 const settingsObject = {
 	settingsHeader: sauce.createHeading('h2', 'Settings - v1.48'),
-	settingDiscord: sauce.createText(`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support.`),
+	settingDiscord: sauce.createText(
+		`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support.`
+	),
 	beginGeneral: sauce.createHeading('h3', 'General'),
 	BuffsPerRow: sauce.createNumberSetting(
 		'buffsPerRow',
@@ -1528,12 +1530,12 @@ const settingsObject = {
 	FadeInactiveBuffs: sauce.createCheckboxSetting(
 		'fadeInactiveBuffs',
 		'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them',
-		false
+		sauce.getSetting('fadeInactiveBuffs') ?? true
 	),
 	BigHeadMode: sauce.createCheckboxSetting(
 		'bigHeadMode',
 		'Big Head Mode - The first buff will be made four times as large and take up two rows of buffs',
-		false
+		sauce.getSetting('bigHeadMode') ?? false
 	),
 	BigHeadPosition: sauce.createDropdownSetting(
 		'bigHeadPosition',
@@ -1547,24 +1549,24 @@ const settingsObject = {
 	OverloadReminder: sauce.createCheckboxSetting(
 		'overloadReminder',
 		'Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire',
-		false
+		sauce.getSetting('overloadReminder') ?? true
 	),
 	BlinkExpiredBuffs: sauce.createCheckboxSetting(
 		'showMaintainableBlinking',
 		'Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)',
-		false
+		sauce.getSetting('showMaintainableBlinking') ?? true
 	),
 	SingleBOLG: sauce.createCheckboxSetting(
 		'singleBOLG',
 		'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks',
-		false
+		sauce.getSetting('singleBOLG') ?? false
 	),
 	endGeneral: sauce.createSeperator(),
 	delayHeader: sauce.createHeading('h3', 'Overlay Delay Compensation'),
 	DelayAdjustment: sauce.createRangeSetting(
 		'delayAdjustment',
 		`Subtracts time from any timers to compensate for the overlay's delay`,
-		{ defaultValue: '1', min: 0, max: 5, unit: 's' }
+		{ defaultValue: sauce.getSetting('delayAdjustment') ?? '1', min: 0, max: 5, unit: 's' }
 	),
 	endAdjustment: sauce.createSeperator(),
 	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
@@ -1622,11 +1624,7 @@ const settingsObject = {
 		"Debug mode (please don't use this)",
 		false
 	),
-	beta: sauce.createCheckboxSetting(
-		'beta',
-		'Beta Testing',
-		false
-	),
+	beta: sauce.createCheckboxSetting('beta', 'Beta Testing', false),
 };
 
 settingsObject.BuffsPerRow.addEventListener('click', () => {

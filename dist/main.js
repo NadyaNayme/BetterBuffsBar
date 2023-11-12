@@ -19477,7 +19477,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _a;
+var _a, _b, _c, _d, _e, _f, _g;
 // alt1 base libs, provides all the commonly used methods for image matching and capture
 // also gives your editor info about the window.alt1 api
 
@@ -20672,21 +20672,21 @@ var settingsObject = {
     settingDiscord: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Please <a href=\"https://discord.gg/KJ2SgWyJFF\" target=\"_blank\" rel=\"nofollow\">join the Discord</a> for any suggestions or support."),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
-    FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', 'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them', false),
-    BigHeadMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('bigHeadMode', 'Big Head Mode - The first buff will be made four times as large and take up two rows of buffs', false),
+    FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', 'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them', (_a = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('fadeInactiveBuffs')) !== null && _a !== void 0 ? _a : true),
+    BigHeadMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('bigHeadMode', 'Big Head Mode - The first buff will be made four times as large and take up two rows of buffs', (_b = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode')) !== null && _b !== void 0 ? _b : false),
     BigHeadPosition: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createDropdownSetting('bigHeadPosition', 'Position of Big Head Mode', 'start', [
         { value: 'start', name: 'Left Side' },
         { value: 'end', name: 'Right Side' },
     ]),
-    OverloadReminder: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('overloadReminder', 'Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire', false),
-    BlinkExpiredBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showMaintainableBlinking', 'Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)', false),
-    SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('singleBOLG', 'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks', false),
+    OverloadReminder: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('overloadReminder', 'Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire', (_c = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overloadReminder')) !== null && _c !== void 0 ? _c : true),
+    BlinkExpiredBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showMaintainableBlinking', 'Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)', (_d = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showMaintainableBlinking')) !== null && _d !== void 0 ? _d : true),
+    SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('singleBOLG', 'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks', (_e = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('singleBOLG')) !== null && _e !== void 0 ? _e : false),
     endGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     delayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay Delay Compensation'),
-    DelayAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('delayAdjustment', "Subtracts time from any timers to compensate for the overlay's delay", { defaultValue: '1', min: 0, max: 5, unit: 's' }),
+    DelayAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('delayAdjustment', "Subtracts time from any timers to compensate for the overlay's delay", { defaultValue: (_f = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('delayAdjustment')) !== null && _f !== void 0 ? _f : '1', min: 0, max: 5, unit: 's' }),
     endAdjustment: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
-    OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', 'Enable Overlay', (_a = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _a !== void 0 ? _a : false),
+    OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', 'Enable Overlay', (_g = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _g !== void 0 ? _g : false),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("Make sure the \"Show overlay\" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right."),
     OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition),
     endOverlay: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
