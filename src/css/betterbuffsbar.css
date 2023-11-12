@@ -859,34 +859,6 @@ body {
   padding: 4px;
 }
 
-#BetterBuffsBar.show-labels #Buffs {
-  max-height: 100% !important;
-  transform: scale(1) !important;
-}
-
-#BetterBuffsBar:not(.show-labels) #Buffs .buff-name,
-#BetterBuffsBar:not(.show-labels) #UntrackedBuffs .buff-name {
-  display: none;
-}
-
-#BetterBuffsBar.show-labels #Buffs,
-#BetterBuffsBar.show-labels #UntrackedBuffs {
-  display: block;
-  width: 100% !important;
-  max-width: 100%;
-}
-
-#BetterBuffsBar.show-labels #Buffs li,
-#BetterBuffsBar.show-labels #UntrackedBuffs li {
-  width: 100%;
-}
-
-#BetterBuffsBar.show-labels #Buffs .buff-name,
-#BetterBuffsBar.show-labels #UntrackedBuffs .buff-name {
-  padding-left: 35px;
-  align-self: center;
-}
-
 #ToggleOverlayButton {
   position: fixed;
   top: 3px;
