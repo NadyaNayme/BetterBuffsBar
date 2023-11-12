@@ -293,14 +293,14 @@ function paintCanvas(canvas: HTMLCanvasElement) {
 	);
 }
 
-let maxAttempts = 10;
+let maxAttempts = 0;
 function watchBuffs() {
 	let loopSpeed = sauce.getSetting('loopSpeed');
 	const interval = setInterval(() => {
 		let buffs = getActiveBuffs();
 		let debuffs = getActiveDebuffs();
 		if (sauce.getSetting('buffsLocation')) {
-			maxAttempts = 10;
+			maxAttempts = 0;
 
 			//TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
 
@@ -594,7 +594,7 @@ function watchBuffs() {
 			noDetection(maxAttempts, interval, 'buff');
 		}
 		if (sauce.getSetting('debuffsLocation')) {
-			maxAttempts = 10;
+			maxAttempts = 0;
 			findStatus(
 				debuffs,
 				debuffImages.elvenRitualShard,
@@ -678,7 +678,7 @@ async function checkBuffsForHidingOverlay(buffsReader: BuffReader.Buff[]) {
 }
 
 async function noDetection(maxAttempts: number, interval: any, bar: string) {
-	if (maxAttempts == 0) {
+	if (maxAttempts == 10) {
 		helperItems.Output.insertAdjacentHTML(
 			'beforeend',
 			`<p>Unable to find ${bar} bar location.\nPlease login to the game or make sure that Alt1 can detect your ${bar} bar then reload the app.\nRemember - the Buffs setting must be set to "Small" and you must have at least 1 ${bar}. \nTo reload, right click this interface and select Reload.</p>`
@@ -686,8 +686,9 @@ async function noDetection(maxAttempts: number, interval: any, bar: string) {
 		clearInterval(interval);
 		return;
 	}
-	if (maxAttempts > -0) {
-		maxAttempts--;
+	if (maxAttempts < 10) {
+		setTimeout(() => {}, 1000 * maxAttempts ** 2)
+		maxAttempts++;
 	}
 	console.log(
 		`Failed to read buffs - attempting again. Attempts left: ${maxAttempts}.`

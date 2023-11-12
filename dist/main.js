@@ -19730,14 +19730,14 @@ function paintCanvas(canvas) {
         100, (helperItems.TrackedBuffs.offsetHeight * uiScale) /
         100);
 }
-var maxAttempts = 10;
+var maxAttempts = 0;
 function watchBuffs() {
     var loopSpeed = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('loopSpeed');
     var interval = setInterval(function () {
         var buffs = getActiveBuffs();
         var debuffs = getActiveDebuffs();
         if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsLocation')) {
-            maxAttempts = 10;
+            maxAttempts = 0;
             //TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
             findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
             findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 80, true);
@@ -19791,7 +19791,7 @@ function watchBuffs() {
             noDetection(maxAttempts, interval, 'buff');
         }
         if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debuffsLocation')) {
-            maxAttempts = 10;
+            maxAttempts = 0;
             findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 90);
             findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 300);
             findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 90);
@@ -19835,13 +19835,14 @@ function checkBuffsForHidingOverlay(buffsReader) {
 function noDetection(maxAttempts, interval, bar) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            if (maxAttempts == 0) {
+            if (maxAttempts == 10) {
                 helperItems.Output.insertAdjacentHTML('beforeend', "<p>Unable to find ".concat(bar, " bar location.\nPlease login to the game or make sure that Alt1 can detect your ").concat(bar, " bar then reload the app.\nRemember - the Buffs setting must be set to \"Small\" and you must have at least 1 ").concat(bar, ". \nTo reload, right click this interface and select Reload.</p>"));
                 clearInterval(interval);
                 return [2 /*return*/];
             }
-            if (maxAttempts > -0) {
-                maxAttempts--;
+            if (maxAttempts < 10) {
+                setTimeout(function () { }, 1000 * Math.pow(maxAttempts, 2));
+                maxAttempts++;
             }
             console.log("Failed to read buffs - attempting again. Attempts left: ".concat(maxAttempts, "."));
             return [2 /*return*/];
