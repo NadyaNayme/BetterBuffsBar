@@ -1086,7 +1086,7 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 	 */
 
 	if (!sauce.getSetting('singleBOLG')) {
-		let canvas = <HTMLCanvasElement>document.getElementById('canvas');
+		let canvas = <HTMLCanvasElement>document.getElementById('bolgCanvas');
 		let ctx = canvas.getContext('2d');
 		ctx.drawImage(
 			buffImages.perfectEquilibriumNoBorder.toImage(),
@@ -1095,7 +1095,7 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 			canvas.width,
 			canvas.height
 		);
-		for (let a in buffs.reverse()) {
+		firstBOLG: for (let a in buffs.reverse()) {
 			if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
 				let buffsImage = buffs[a].buffer.toImage();
 				ctx.drawImage(
@@ -1121,6 +1121,7 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 					bolgBuffImage.toPngBase64() +
 					'")';
 			}
+			break firstBOLG;
 		}
 	} else {
 		for (let [_key, value] of Object.entries(buffs).reverse()) {

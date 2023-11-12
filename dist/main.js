@@ -20304,10 +20304,10 @@ function findBolgStacks(buffs) {
                 case 0:
                     bolgFound = false;
                     if (!!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('singleBOLG')) return [3 /*break*/, 1];
-                    canvas = document.getElementById('canvas');
+                    canvas = document.getElementById('bolgCanvas');
                     ctx = canvas.getContext('2d');
                     ctx.drawImage(buffImages.perfectEquilibriumNoBorder.toImage(), 0, 0, canvas.width, canvas.height);
-                    for (a in buffs.reverse()) {
+                    firstBOLG: for (a in buffs.reverse()) {
                         if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder)) {
                             buffsImage = buffs[a].buffer.toImage();
                             ctx.drawImage(buffsImage, buffs[a].bufferx, buffs[a].buffery, 27, 27, 0, 0, canvas.width, canvas.height);
@@ -20318,6 +20318,7 @@ function findBolgStacks(buffs) {
                                     bolgBuffImage.toPngBase64() +
                                     '")';
                         }
+                        break firstBOLG;
                     }
                     return [3 /*break*/, 9];
                 case 1:
