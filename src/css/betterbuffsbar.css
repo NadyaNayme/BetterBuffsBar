@@ -126,7 +126,7 @@ body {
 }
 
 #BetterBuffsBar.hide-overlay #Buffs {
-  display: none;
+  opacity: 0;
 }
 
 #UntrackedBuffs {

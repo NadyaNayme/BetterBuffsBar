@@ -1146,7 +1146,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 }
 
 #BetterBuffsBar.hide-overlay #Buffs {
-  display: none;
+  opacity: 0;
 }
 
 #UntrackedBuffs {
