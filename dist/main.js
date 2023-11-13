@@ -1134,15 +1134,15 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-color: red !important;
 }
 
-#Buffs:hover::before {
-  width: calc(100% + 2px);
-  height: calc(100% + 2px);
+#Buffs::before {
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
   content:'';
   display: block;
   position: absolute;
-  top: -1px;
-  left: -1px;
-  border: solid 1px green;
+  top: -4px;
+  left: -4px;
+  border: solid 4px black;
 }
 
 #BetterBuffsBar.hide-overlay #Buffs {
