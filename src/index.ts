@@ -5,6 +5,8 @@ import * as BuffReader from 'alt1/buffs';
 import * as sauce from './a1sauce';
 import { Sortable, MultiDrag } from 'sortablejs';
 import html2canvas from 'html2canvas';
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 Sortable.mount(new MultiDrag());
 
@@ -231,66 +233,14 @@ export function startBetterBuffsBar() {
 
 	watchBuffs();
 	if (sauce.getSetting('activeOverlay')) {
-		startOverlay();
+		if (sauce.getSetting('beta')) {
+			startBetaOverlay();
+		} else {
+			startOverlay();
+		}
 	} else {
 		helperItems.BetterBuffsBar.classList.add('overlay-disabled');
 	}
-}
-
-function createCanvas() {
-	let overlayCanvas = document.createElement('canvas');
-	overlayCanvas.id = 'OverlayCanvas';
-
-	let bbb = getByID('Buffs');
-	let overlayWidth = bbb.offsetWidth;
-	let overlayHeight = bbb.offsetHeight;
-	overlayCanvas.width = overlayWidth;
-	overlayCanvas.height = overlayHeight;
-	return overlayCanvas;
-}
-
-function captureOverlay() {
-	let overlayCanvas = createCanvas();
-	html2canvas(document.querySelector('#Buffs'), {
-		allowTaint: true,
-		canvas: overlayCanvas,
-		backgroundColor: 'transparent',
-		useCORS: true,
-		removeContainer: true,
-	})
-		.then((canvas) => {
-			try {
-				paintCanvas(canvas);
-			} catch (e) {
-				console.log('Error saving image? ' + e);
-			}
-		})
-		.catch(() => {
-			console.log('Overlay failed to capture.');
-		});
-}
-
-function paintCanvas(canvas: HTMLCanvasElement) {
-	let uiScale = sauce.getSetting('uiScale');
-	let overlayCanvasOutput = getByID('OverlayCanvasOutput');
-	let overlayCanvasContext = overlayCanvasOutput
-		.querySelector('canvas')
-		.getContext('2d', { willReadFrequently: true });
-	overlayCanvasContext.clearRect(
-		0,
-		0,
-		overlayCanvasContext.canvas.width,
-		overlayCanvasContext.canvas.height
-	);
-	overlayCanvasContext.drawImage(
-		canvas,
-		0,
-		0,
-		(helperItems.TrackedBuffs.offsetWidth * uiScale) /
-			100,
-		(helperItems.TrackedBuffs.offsetHeight * uiScale) /
-			100
-	);
 }
 
 let maxAttempts = 0;
@@ -1241,23 +1191,59 @@ function updateLocation(e) {
 	sauce.updateSetting('updatingOverlayPosition', false);
 }
 
+async function startBetaOverlay() {
+	let uiScale = sauce.getSetting('uiScale');
+	let overlay = getByID('Buffs');
+	let styles = getComputedStyle(overlay);
+	await new Promise((done) => setTimeout(done, 1000));
+		while (true) {
+			let overlayPosition = currentOverlayPosition;
+
+			htmlToImage
+				.toCanvas(overlay, {
+					backgroundColor: 'transparent',
+					width: parseInt(styles.minWidth, 10),
+					height:
+						parseInt(styles.minHeight, 10) + 27 * (uiScale / 100),
+					quality: 1,
+					pixelRatio: uiScale / 100,
+					skipAutoScale: true,
+				})
+				.then((dataUrl) => {
+					let base64ImageString = dataUrl.getContext('2d').getImageData(0, 0, dataUrl.width, dataUrl.height);
+					alt1.overLaySetGroup('betterBuffsBar');
+					alt1.overLayFreezeGroup('betterBuffsBar');
+					alt1.overLayClearGroup('betterBuffsBar');
+					alt1.overLayImage(
+						overlayPosition.x,
+						overlayPosition.y,
+						a1lib.encodeImageString(base64ImageString),
+						base64ImageString.width,
+						30
+					);
+					alt1.overLayRefreshGroup('betterBuffsBar');
+				})
+				.catch((e) => {
+					console.error(`html-to-image failed to capture`, e);
+				});
+			await new Promise((done) => setTimeout(done, 30));
+		}
+}
+
+
 async function startOverlay() {
 	let cnv = document.createElement('canvas');
 	let ctx = cnv.getContext('2d', { willReadFrequently: true });
 	let overlay = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0];
-
 	while (true) {
 		captureOverlay();
 		cnv.width = helperItems.TrackedBuffs.offsetWidth + 200;
 		cnv.height = helperItems.TrackedBuffs.offsetHeight + 200;
-
 		let overlayPosition = currentOverlayPosition;
-
 		alt1.overLaySetGroup('betterBuffsBar');
 		alt1.overLayFreezeGroup('betterBuffsBar');
 		/* If I try and use the overlay instead of copying the overlay it doesn't work. No idea why. */
 		ctx.drawImage(overlay, 0, 0);
-
 		let data = ctx.getImageData(
 			0,
 			0,
@@ -1275,6 +1261,57 @@ async function startOverlay() {
 		alt1.overLayRefreshGroup('betterBuffsBar');
 		await new Promise((done) => setTimeout(done, 75));
 	}
+}
+
+function createCanvas() {
+	let overlayCanvas = document.createElement('canvas');
+	overlayCanvas.id = 'OverlayCanvas';
+	let bbb = getByID('Buffs');
+	let overlayWidth = bbb.offsetWidth;
+	let overlayHeight = bbb.offsetHeight;
+	overlayCanvas.width = overlayWidth;
+	overlayCanvas.height = overlayHeight;
+	return overlayCanvas;
+}
+function captureOverlay() {
+	let overlayCanvas = createCanvas();
+	html2canvas(document.querySelector('#Buffs'), {
+		allowTaint: true,
+		canvas: overlayCanvas,
+		backgroundColor: 'transparent',
+		useCORS: true,
+		removeContainer: true,
+	})
+		.then((canvas) => {
+			try {
+				paintCanvas(canvas);
+			} catch (e) {
+				console.log('Error saving image? ' + e);
+			}
+		})
+		.catch(() => {
+			console.log('Overlay failed to capture.');
+		});
+}
+function paintCanvas(canvas: HTMLCanvasElement) {
+	let uiScale = sauce.getSetting('uiScale');
+	let overlayCanvasOutput = getByID('OverlayCanvasOutput');
+	let overlayCanvasContext = overlayCanvasOutput
+		.querySelector('canvas')
+		.getContext('2d', { willReadFrequently: true });
+	overlayCanvasContext.clearRect(
+		0,
+		0,
+		overlayCanvasContext.canvas.width,
+		overlayCanvasContext.canvas.height
+	);
+	overlayCanvasContext.drawImage(
+		canvas,
+		0,
+		0,
+		(helperItems.TrackedBuffs.offsetWidth * uiScale) / 100,
+		(helperItems.TrackedBuffs.offsetHeight * uiScale) / 100
+	);
 }
 
 function initSettings() {
