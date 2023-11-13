@@ -1115,7 +1115,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   --maxcount: 5;
   --scale: 100;
   --totalitems: 48;
-  min-width: calc(((var(--maxcount) + 1) * 27px) + ((var(--maxcount) * 1px)));
+  min-width: calc(((var(--maxcount) + 1) * 27px) + ((var(--maxcount) * 1px)) + ((var(--totalitems) + 5) * 27px));
   width: calc(((var(--maxcount) + 1) * (clamp(1, var(--scale) / 100, 2) * 27px)) + ((clamp(1, var(--scale) / 100, 2) * (var(--maxcount) * 1px))));
   min-height: calc(((var(--totalitems) / var(--maxcount)) + 1) * (clamp(1, var(--scale) / 100, 2) * 27px) + (clamp(1, var(--scale) / 100, 2) * 27px));
   display: grid;
