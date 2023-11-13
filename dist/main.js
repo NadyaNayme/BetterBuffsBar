@@ -21483,7 +21483,7 @@ function updateLocation(e) {
 }
 function startBetaOverlay() {
     return __awaiter(this, void 0, void 0, function () {
-        var uiScale, overlay, styles, totalTrackeDItems, buffsPerRow, _loop_1;
+        var uiScale, overlay, styles, totalTrackeDItems, buffsPerRow, refreshRate, _loop_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -21492,6 +21492,7 @@ function startBetaOverlay() {
                     styles = getComputedStyle(overlay);
                     totalTrackeDItems = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('totalTrackedItems');
                     buffsPerRow = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerrow');
+                    refreshRate = parseInt(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayRefreshRate'), 10);
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 1:
                     _a.sent();
@@ -21514,13 +21515,13 @@ function startBetaOverlay() {
                                         alt1.overLaySetGroup('betterBuffsBar');
                                         alt1.overLayFreezeGroup('betterBuffsBar');
                                         alt1.overLayClearGroup('betterBuffsBar');
-                                        alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, 30);
+                                        alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
                                         alt1.overLayRefreshGroup('betterBuffsBar');
                                     })
                                         .catch(function (e) {
                                         console.error("html-to-image failed to capture", e);
                                     });
-                                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 30); })];
+                                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, refreshRate); })];
                                 case 1:
                                     _b.sent();
                                     return [2 /*return*/];
@@ -21814,6 +21815,7 @@ var settingsObject = {
     OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', 'Enable Overlay', (_g = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _g !== void 0 ? _g : false),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("Make sure the \"Show overlay\" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right."),
     OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition),
+    OverlayRefreshRate: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('overlayRefreshRate', 'The rate that the overlay should refresh - in milliseconds. Requires reloading to take effect.', { defaultValue: '50', min: 20, max: 500, unit: 'ms' }),
     endOverlay: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     ScaleHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'UI Scale'),
     UIScale: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('uiScale', 'Adjusts the display size of the Overlay.', {

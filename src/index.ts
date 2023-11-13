@@ -1197,10 +1197,10 @@ async function startBetaOverlay() {
 	let styles = getComputedStyle(overlay);
 	let totalTrackeDItems = sauce.getSetting('totalTrackedItems');
 	let buffsPerRow = sauce.getSetting('buffsPerrow');
+	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
 	await new Promise((done) => setTimeout(done, 1000));
 		while (true) {
 			let overlayPosition = currentOverlayPosition;
-
 			htmlToImage
 				.toCanvas(overlay, {
 					backgroundColor: 'transparent',
@@ -1221,14 +1221,14 @@ async function startBetaOverlay() {
 						overlayPosition.y,
 						a1lib.encodeImageString(base64ImageString),
 						base64ImageString.width,
-						30
+						refreshRate
 					);
 					alt1.overLayRefreshGroup('betterBuffsBar');
 				})
 				.catch((e) => {
 					console.error(`html-to-image failed to capture`, e);
 				});
-			await new Promise((done) => setTimeout(done, 30));
+			await new Promise((done) => setTimeout(done, refreshRate));
 		}
 }
 
@@ -1644,6 +1644,7 @@ const settingsObject = {
 		'Set Overlay Position',
 		setOverlayPosition
 	),
+	OverlayRefreshRate: sauce.createRangeSetting('overlayRefreshRate', 'The rate that the overlay should refresh - in milliseconds. Requires reloading to take effect.', {defaultValue: '50', min: 20, max: 500, unit: 'ms'}),
 	endOverlay: sauce.createSeperator(),
 	ScaleHeader: sauce.createHeading('h3', 'UI Scale'),
 	UIScale: sauce.createRangeSetting(
