@@ -21483,13 +21483,15 @@ function updateLocation(e) {
 }
 function startBetaOverlay() {
     return __awaiter(this, void 0, void 0, function () {
-        var uiScale, overlay, styles, _loop_1;
+        var uiScale, overlay, styles, totalTrackeDItems, buffsPerRow, _loop_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale');
                     overlay = getByID('Buffs');
                     styles = getComputedStyle(overlay);
+                    totalTrackeDItems = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('totalTrackedItems');
+                    buffsPerRow = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerrow');
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 1:
                     _a.sent();
@@ -21502,7 +21504,7 @@ function startBetaOverlay() {
                                     html_to_image__WEBPACK_IMPORTED_MODULE_3__.toCanvas(overlay, {
                                         backgroundColor: 'transparent',
                                         width: parseInt(styles.minWidth, 10),
-                                        height: parseInt(styles.minHeight, 10) + 27 * (uiScale / 100),
+                                        height: parseInt(styles.minHeight, 10) + (Math.floor((totalTrackeDItems / buffsPerRow) + 1) * 27) * (uiScale / 100),
                                         quality: 1,
                                         pixelRatio: uiScale / 100 - 0.00999999999999999999,
                                         skipAutoScale: true,
@@ -21710,6 +21712,7 @@ function setBuffsPerRow() {
     setGridSize();
     helperItems.TrackedBuffs.addEventListener('change', function () {
         getByID('Buffs').style.setProperty('--totalitems', helperItems.TrackedBuffs.children.length.toString());
+        _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('totalTrackedItems', helperItems.TrackedBuffs.children.length.toString);
     });
 }
 function setGridSize() {

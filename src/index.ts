@@ -1195,6 +1195,8 @@ async function startBetaOverlay() {
 	let uiScale = sauce.getSetting('uiScale');
 	let overlay = getByID('Buffs');
 	let styles = getComputedStyle(overlay);
+	let totalTrackeDItems = sauce.getSetting('totalTrackedItems');
+	let buffsPerRow = sauce.getSetting('buffsPerrow');
 	await new Promise((done) => setTimeout(done, 1000));
 		while (true) {
 			let overlayPosition = currentOverlayPosition;
@@ -1204,7 +1206,7 @@ async function startBetaOverlay() {
 					backgroundColor: 'transparent',
 					width: parseInt(styles.minWidth, 10),
 					height:
-						parseInt(styles.minHeight, 10) + 27 * (uiScale / 100),
+						parseInt(styles.minHeight, 10) + (Math.floor((totalTrackeDItems / buffsPerRow) + 1) * 27) * (uiScale / 100),
 					quality: 1,
 					pixelRatio: uiScale / 100 - 0.00999999999999999999,
 					skipAutoScale: true,
@@ -1448,6 +1450,10 @@ function setBuffsPerRow() {
 		getByID('Buffs').style.setProperty(
 			'--totalitems',
 			helperItems.TrackedBuffs.children.length.toString()
+		);
+		sauce.updateSetting(
+			'totalTrackedItems',
+			helperItems.TrackedBuffs.children.length.toString
 		);
 	});
 }
