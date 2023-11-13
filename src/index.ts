@@ -1206,7 +1206,7 @@ async function startBetaOverlay() {
 					height:
 						parseInt(styles.minHeight, 10) + 27 * (uiScale / 100),
 					quality: 1,
-					pixelRatio: uiScale / 100,
+					pixelRatio: uiScale / 100 - 0.00999999999999999999,
 					skipAutoScale: true,
 				})
 				.then((dataUrl) => {
