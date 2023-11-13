@@ -1192,7 +1192,6 @@ function updateLocation(e) {
 }
 
 async function startBetaOverlay() {
-	let uiScale = sauce.getSetting('uiScale');
 	let overlay = getByID('Buffs');
 	let styles = getComputedStyle(overlay);
 	let totalTrackeDItems = sauce.getSetting('totalTrackedItems');
@@ -1200,6 +1199,7 @@ async function startBetaOverlay() {
 	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
 	await new Promise((done) => setTimeout(done, 1000));
 		while (true) {
+			let uiScale = sauce.getSetting('uiScale');
 			let overlayPosition = currentOverlayPosition;
 			htmlToImage
 				.toCanvas(overlay, {

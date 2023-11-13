@@ -21483,11 +21483,10 @@ function updateLocation(e) {
 }
 function startBetaOverlay() {
     return __awaiter(this, void 0, void 0, function () {
-        var uiScale, overlay, styles, totalTrackeDItems, buffsPerRow, refreshRate, _loop_1;
+        var overlay, styles, totalTrackeDItems, buffsPerRow, refreshRate, _loop_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale');
                     overlay = getByID('Buffs');
                     styles = getComputedStyle(overlay);
                     totalTrackeDItems = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('totalTrackedItems');
@@ -21497,10 +21496,11 @@ function startBetaOverlay() {
                 case 1:
                     _a.sent();
                     _loop_1 = function () {
-                        var overlayPosition;
+                        var uiScale, overlayPosition;
                         return __generator(this, function (_b) {
                             switch (_b.label) {
                                 case 0:
+                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale');
                                     overlayPosition = currentOverlayPosition;
                                     html_to_image__WEBPACK_IMPORTED_MODULE_3__.toCanvas(overlay, {
                                         backgroundColor: 'transparent',
