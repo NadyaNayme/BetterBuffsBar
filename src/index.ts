@@ -4,9 +4,7 @@ import * as a1lib from 'alt1';
 import * as BuffReader from 'alt1/buffs';
 import * as sauce from './a1sauce';
 import { Sortable, MultiDrag } from 'sortablejs';
-import html2canvas from 'html2canvas';
 import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 Sortable.mount(new MultiDrag());
 
@@ -233,11 +231,7 @@ export function startBetterBuffsBar() {
 
 	watchBuffs();
 	if (sauce.getSetting('activeOverlay')) {
-		if (sauce.getSetting('beta')) {
-			startBetaOverlay();
-		} else {
-			startOverlay();
-		}
+		startOverlay();
 	} else {
 		helperItems.BetterBuffsBar.classList.add('overlay-disabled');
 	}
@@ -1191,7 +1185,7 @@ function updateLocation(e) {
 	sauce.updateSetting('updatingOverlayPosition', false);
 }
 
-async function startBetaOverlay() {
+async function startOverlay() {
 	let overlay = getByID('Buffs');
 	let styles = getComputedStyle(overlay);
 	let totalTrackeDItems = sauce.getSetting('totalTrackedItems');
@@ -1232,93 +1226,13 @@ async function startBetaOverlay() {
 		}
 }
 
-
-async function startOverlay() {
-	let cnv = document.createElement('canvas');
-	let ctx = cnv.getContext('2d', { willReadFrequently: true });
-	let overlay = <HTMLCanvasElement>document.getElementsByTagName('canvas')[0];
-	while (true) {
-		captureOverlay();
-		cnv.width = helperItems.TrackedBuffs.offsetWidth + 200;
-		cnv.height = helperItems.TrackedBuffs.offsetHeight + 200;
-		let overlayPosition = currentOverlayPosition;
-		alt1.overLaySetGroup('betterBuffsBar');
-		alt1.overLayFreezeGroup('betterBuffsBar');
-		/* If I try and use the overlay instead of copying the overlay it doesn't work. No idea why. */
-		ctx.drawImage(overlay, 0, 0);
-		let data = ctx.getImageData(
-			0,
-			0,
-			helperItems.BetterBuffsBar.offsetWidth,
-			helperItems.BetterBuffsBar.offsetHeight
-		);
-		alt1.overLayClearGroup('betterBuffsBar');
-		alt1.overLayImage(
-			overlayPosition.x,
-			overlayPosition.y,
-			a1lib.encodeImageString(data),
-			data.width,
-			75
-		);
-		alt1.overLayRefreshGroup('betterBuffsBar');
-		await new Promise((done) => setTimeout(done, 75));
-	}
-}
-
-function createCanvas() {
-	let overlayCanvas = document.createElement('canvas');
-	overlayCanvas.id = 'OverlayCanvas';
-	let bbb = getByID('Buffs');
-	let overlayWidth = bbb.offsetWidth;
-	let overlayHeight = bbb.offsetHeight;
-	overlayCanvas.width = overlayWidth;
-	overlayCanvas.height = overlayHeight;
-	return overlayCanvas;
-}
-function captureOverlay() {
-	let overlayCanvas = createCanvas();
-	html2canvas(document.querySelector('#Buffs'), {
-		allowTaint: true,
-		canvas: overlayCanvas,
-		backgroundColor: 'transparent',
-		useCORS: true,
-		removeContainer: true,
-	})
-		.then((canvas) => {
-			try {
-				paintCanvas(canvas);
-			} catch (e) {
-				console.log('Error saving image? ' + e);
-			}
-		})
-		.catch(() => {
-			console.log('Overlay failed to capture.');
-		});
-}
-function paintCanvas(canvas: HTMLCanvasElement) {
-	let uiScale = sauce.getSetting('uiScale');
-	let overlayCanvasOutput = getByID('OverlayCanvasOutput');
-	let overlayCanvasContext = overlayCanvasOutput
-		.querySelector('canvas')
-		.getContext('2d', { willReadFrequently: true });
-	overlayCanvasContext.clearRect(
-		0,
-		0,
-		overlayCanvasContext.canvas.width,
-		overlayCanvasContext.canvas.height
-	);
-	overlayCanvasContext.drawImage(
-		canvas,
-		0,
-		0,
-		(helperItems.TrackedBuffs.offsetWidth * uiScale) / 100,
-		(helperItems.TrackedBuffs.offsetHeight * uiScale) / 100
-	);
-}
-
 function initSettings() {
 	if (!localStorage[config.appName]) {
 		setDefaultSettings();
+	}
+	if (sauce.getSetting('betaUpgrade' == undefined)) {
+		sauce.updateSetting('betaUpgrade', 'upgraded to 2.0.0');
+		sauce.updateSetting('delayAdjustment', 1);
 	}
 	loadSettings();
 }
@@ -1332,6 +1246,7 @@ function setDefaultSettings() {
 			bigHeadPosition: 'start',
 			buffsLocation: findPlayerBuffs,
 			buffsPerRow: 10,
+			delayAdjustment: 1,
 			debuffsLocation: findPlayerDebuffs,
 			fadeInactiveBuffs: true,
 			loopSpeed: 150,
@@ -1579,7 +1494,7 @@ function roundedToFixed(input, digits) {
 
 /* Settings */
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings - v1.50'),
+	settingsHeader: sauce.createHeading('h2', 'Settings - v2.0.0'),
 	settingDiscord: sauce.createText(
 		`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support.`
 	),
