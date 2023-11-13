@@ -845,12 +845,12 @@ body {
 
 #BetterBuffsBar:not(.fade) #Buffs li.inactive,
 #BetterBuffsBar:not(.fade) #Buffs li.cooldown {
-  display: none;
+  opacity: 0;
 }
 
 #BetterBuffsBar:not(.fade):hover #Buffs li.inactive,
 #BetterBuffsBar:not(.fade):hover #Buffs li.cooldown {
-  display: block;
+  opacity: 1;
 }
 
 #UntrackedBuffs {

@@ -1865,12 +1865,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 
 #BetterBuffsBar:not(.fade) #Buffs li.inactive,
 #BetterBuffsBar:not(.fade) #Buffs li.cooldown {
-  display: none;
+  opacity: 0;
 }
 
 #BetterBuffsBar:not(.fade):hover #Buffs li.inactive,
 #BetterBuffsBar:not(.fade):hover #Buffs li.cooldown {
-  display: block;
+  opacity: 1;
 }
 
 #UntrackedBuffs {
@@ -21794,7 +21794,7 @@ function roundedToFixed(input, digits) {
 }
 /* Settings */
 var settingsObject = {
-    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.49'),
+    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v1.50'),
     settingDiscord: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Please <a href=\"https://discord.gg/KJ2SgWyJFF\" target=\"_blank\" rel=\"nofollow\">join the Discord</a> for any suggestions or support."),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs per row', { defaultValue: 10, min: 1, max: 20 }),
