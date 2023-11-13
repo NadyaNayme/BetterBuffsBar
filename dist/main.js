@@ -1135,14 +1135,14 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 }
 
 #Buffs::before {
-  width: calc(100% + 8px);
-  height: calc(100% + 8px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
   content:'';
   display: block;
   position: absolute;
-  top: -4px;
-  left: -4px;
-  border: solid 4px black;
+  top: -2px;
+  left: -2px;
+  border: solid 2px green;
 }
 
 #BetterBuffsBar.hide-overlay #Buffs {
