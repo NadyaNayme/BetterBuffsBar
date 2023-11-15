@@ -70,6 +70,9 @@ let buffsList = {
 	Reflect: getByID('Reflect'),
 	Resonance: getByID('Resonance'),
 	SplitSoulBuff: getByID('SplitSoulBuff'),
+	AntiFire: getByID('AntifireBuff'),
+	PrayerRenewal: getByID('PrayerRenewalBuff'),
+	DeathSpark: getByID('DeathSparkBuff'),
 };
 
 let debuffsList = {
@@ -114,7 +117,6 @@ let ultimatesList = {
 // use `await imgs.promise` if you want to use the images as soon as they are loaded
 var buffImages = a1lib.webpackImages({
 	animateDead: require('./asset/data/Animate_Dead-noborder.data.png'),
-	antifireActive: require('./asset/data/Anti-Fire_Active-noborder.data.png'),
 	antipoisonActive: require('./asset/data/Anti-poison_Active-noborder.data.png'),
 	chronicleAttraction: require('./asset/data/Chronicle_Attraction-noborder.data.png'),
 	darkness: require('./asset/data/Darkness-noborder.data.png'),
@@ -143,6 +145,9 @@ var buffImages = a1lib.webpackImages({
 	Reflect: require('./asset/data/Reflect.data.png'),
 	Resonance: require('./asset/data/Resonance.data.png'),
 	SplitSoul: require('./asset/data/Split_Soul.data.png'),
+	Antifire: require('./asset/data/antifire_top.data.png'),
+	PrayerRenewal: require('./asset/data/Prayer_Renew_Active-noborder.data.png'),
+	DeathSpark: require('./asset/data/Death_Spark.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
@@ -170,7 +175,7 @@ var debuffImages = a1lib.webpackImages({
 
 var ultimateImages = a1lib.webpackImages({
 	berserk: require('./asset/data/Berserk-noborder.data.png'),
-	deathsSwiftness: require("./asset/data/Deaths_Swiftness-top.data.png"),
+	deathsSwiftness: require('./asset/data/Deaths_Swiftness-top.data.png'),
 	greaterDeathsSwiftness: require("./asset/data/Greater_Death's_Swiftness-noborder.data.png"),
 	greaterSunshine: require('./asset/data/Greater_Sunshine-noborder.data.png'),
 	livingDeath: require('./asset/data/Living_Death-noborder.data.png'),
@@ -356,6 +361,17 @@ function watchBuffs() {
 				buffsList.KwuarmIncense,
 				150
 			);
+
+			findStatus(buffs, buffImages.Antifire, buffsList.AntiFire, 225);
+
+			findStatus(
+				buffs,
+				buffImages.prayerRenewActive,
+				buffsList.PrayerRenewal,
+				225
+			);
+
+			findStatus(buffs, buffImages.DeathSpark, buffsList.DeathSpark, 500);
 
 			findStatus(
 				buffs,
@@ -631,7 +647,7 @@ async function noDetection(maxAttempts: number, interval: any, bar: string) {
 		return;
 	}
 	if (maxAttempts < 10) {
-		setTimeout(() => {}, 1000 * maxAttempts ** 2)
+		setTimeout(() => {}, 1000 * maxAttempts ** 2);
 		maxAttempts++;
 	}
 	console.log(
@@ -700,11 +716,27 @@ async function findStatus(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-		if (findBuffImage.passed > threshold || findBuffImage.failed == 0) {
+		if (
+			findBuffImage.passed > threshold ||
+			(findBuffImage.failed == 0 && buffImage == buffImages.DeathSpark)
+		) {
+			setActive(element);
+			return;
+		} else if (buffImage == buffImages.DeathSpark) {
+			setInactive(element);
+			return;
+		}
+		if (
+			findBuffImage.passed > threshold ||
+			(findBuffImage.failed == 0 && buffImage !== buffImages.DeathSpark)
+		) {
 			// If we find a match for the buff it will always exceed the threshold
 			// the threshold depends largely on which buff is being matched against
 
-			if (sauce.getSetting('debugMode') && buffImage == ultimateImages.deathsSwiftness) {
+			if (
+				sauce.getSetting('debugMode') &&
+				buffImage == buffImages.DeathSpark
+			) {
 				console.log(findBuffImage);
 			}
 
@@ -744,9 +776,17 @@ async function findStatus(
 				}
 			} else if (timearg.time > minRange && timearg.time < maxRange) {
 				let buffTimeRemaining = timearg.time - cooldownAdjustment;
-				if (buffTimeRemaining > 0 && buffImage != buffImages.necrosis && element != buffsList.BolgStacksBuff ) {
+				if (
+					buffTimeRemaining > 0 &&
+					buffImage != buffImages.necrosis &&
+					element != buffsList.BolgStacksBuff
+				) {
 					element.dataset.time = buffTimeRemaining.toString();
-				} else if (buffTimeRemaining > 0 && (buffImage == buffImages.necrosis || element == buffsList.BolgStacksBuff)) {
+				} else if (
+					buffTimeRemaining > 0 &&
+					(buffImage == buffImages.necrosis ||
+						element == buffsList.BolgStacksBuff)
+				) {
 					element.dataset.time = timearg.time;
 				} else {
 					await setInactive(element);
@@ -760,7 +800,9 @@ async function findStatus(
 		} else if (!showCooldown) {
 			await setInactive(element);
 		}
+
 	}
+
 	// If we didn't find the buff try again after a brief timeout
 	if (timearg == undefined && foundBuff) {
 		// The FoundBuff ensures we don't wait 10s to add inactive when BBB first loads
@@ -811,9 +853,7 @@ function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
 	}
 }
 
-async function findVirus(
-	debuffs: BuffReader.Buff[]
-) {
+async function findVirus(debuffs: BuffReader.Buff[]) {
 	if (!debuffs) {
 		return;
 	}
@@ -1041,7 +1081,10 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 			canvas.height
 		);
 		for (let a in buffs.reverse()) {
-			if (buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder) && bolgFound == false) {
+			if (
+				buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder) &&
+				bolgFound == false
+			) {
 				bolgFound = true;
 				let buffsImage = buffs[a].buffer.toImage();
 				ctx.drawImage(
@@ -1192,38 +1235,43 @@ async function startOverlay() {
 	let buffsPerRow = sauce.getSetting('buffsPerrow');
 	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
 	await new Promise((done) => setTimeout(done, 1000));
-		while (true) {
-			let uiScale = sauce.getSetting('uiScale');
-			let overlayPosition = currentOverlayPosition;
-			htmlToImage
-				.toCanvas(overlay, {
-					backgroundColor: 'transparent',
-					width: parseInt(styles.minWidth, 10),
-					height:
-						parseInt(styles.minHeight, 10) + (Math.floor((totalTrackeDItems / buffsPerRow) + 1) * 27) * (uiScale / 100),
-					quality: 1,
-					pixelRatio: uiScale / 100 - 0.00999999999999999999,
-					skipAutoScale: true,
-				})
-				.then((dataUrl) => {
-					let base64ImageString = dataUrl.getContext('2d').getImageData(0, 0, dataUrl.width, dataUrl.height);
-					alt1.overLaySetGroup('betterBuffsBar');
-					alt1.overLayFreezeGroup('betterBuffsBar');
-					alt1.overLayClearGroup('betterBuffsBar');
-					alt1.overLayImage(
-						overlayPosition.x,
-						overlayPosition.y,
-						a1lib.encodeImageString(base64ImageString),
-						base64ImageString.width,
-						refreshRate
-					);
-					alt1.overLayRefreshGroup('betterBuffsBar');
-				})
-				.catch((e) => {
-					console.error(`html-to-image failed to capture`, e);
-				});
-			await new Promise((done) => setTimeout(done, refreshRate));
-		}
+	while (true) {
+		let uiScale = sauce.getSetting('uiScale');
+		let overlayPosition = currentOverlayPosition;
+		htmlToImage
+			.toCanvas(overlay, {
+				backgroundColor: 'transparent',
+				width: parseInt(styles.minWidth, 10),
+				height:
+					parseInt(styles.minHeight, 10) +
+					Math.floor(totalTrackeDItems / buffsPerRow + 1) *
+						27 *
+						(uiScale / 100),
+				quality: 1,
+				pixelRatio: uiScale / 100 - 0.00999999999999999999,
+				skipAutoScale: true,
+			})
+			.then((dataUrl) => {
+				let base64ImageString = dataUrl
+					.getContext('2d')
+					.getImageData(0, 0, dataUrl.width, dataUrl.height);
+				alt1.overLaySetGroup('betterBuffsBar');
+				alt1.overLayFreezeGroup('betterBuffsBar');
+				alt1.overLayClearGroup('betterBuffsBar');
+				alt1.overLayImage(
+					overlayPosition.x,
+					overlayPosition.y,
+					a1lib.encodeImageString(base64ImageString),
+					base64ImageString.width,
+					refreshRate
+				);
+				alt1.overLayRefreshGroup('betterBuffsBar');
+			})
+			.catch((e) => {
+				console.error(`html-to-image failed to capture`, e);
+			});
+		await new Promise((done) => setTimeout(done, refreshRate));
+	}
 }
 
 function initSettings() {
@@ -1543,7 +1591,12 @@ const settingsObject = {
 	DelayAdjustment: sauce.createRangeSetting(
 		'delayAdjustment',
 		`Subtracts time from any timers to compensate for the overlay's delay`,
-		{ defaultValue: sauce.getSetting('delayAdjustment') ?? '1', min: 0, max: 5, unit: 's' }
+		{
+			defaultValue: sauce.getSetting('delayAdjustment') ?? '1',
+			min: 0,
+			max: 5,
+			unit: 's',
+		}
 	),
 	endAdjustment: sauce.createSeperator(),
 	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
@@ -1559,7 +1612,11 @@ const settingsObject = {
 		'Set Overlay Position',
 		setOverlayPosition
 	),
-	OverlayRefreshRate: sauce.createRangeSetting('overlayRefreshRate', 'The rate that the overlay should refresh - in milliseconds. Requires reloading to take effect.', {defaultValue: '50', min: 20, max: 500, unit: 'ms'}),
+	OverlayRefreshRate: sauce.createRangeSetting(
+		'overlayRefreshRate',
+		'The rate that the overlay should refresh - in milliseconds. Requires reloading to take effect.',
+		{ defaultValue: '50', min: 20, max: 500, unit: 'ms' }
+	),
 	endOverlay: sauce.createSeperator(),
 	ScaleHeader: sauce.createHeading('h3', 'UI Scale'),
 	UIScale: sauce.createRangeSetting(
