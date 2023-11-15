@@ -13021,49 +13021,155 @@ function watchBuffs() {
         if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsLocation')) {
             maxAttempts = 0;
             //TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
-            findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, 300, true);
-            findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, 80, true);
-            findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, 300, true);
-            findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, 400, false, 0, 43260);
-            findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, 90);
-            findStatus(buffs, buffImages.fsoaWeaponSpec, buffsList.FsoaSpecBuff, 80, false, 0, 31);
-            findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 450);
-            findStatus(buffs, buffImages.gladiatorsRage, buffsList.GladiatorsRageBuff, 50, false, 0, 16);
-            findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, 150);
-            findStatus(buffs, buffImages.aura, buffsList.Aura, 500);
-            findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, 400);
-            findStatus(buffs, buffImages.grimoire, buffsList.ErethdorsGrimoire, 55);
-            findStatus(buffs, incenseImages.lantadyme, buffsList.LantadymeIncense, 119);
-            findStatus(buffs, incenseImages.dwarfWeed, buffsList.DwarfWeedIncense, 150);
-            findStatus(buffs, incenseImages.fellstalk, buffsList.FellstalkIncense, 150);
-            findStatus(buffs, incenseImages.kwuarm, buffsList.KwuarmIncense, 150);
-            findStatus(buffs, buffImages.Antifire, buffsList.AntiFire, 225);
-            findStatus(buffs, buffImages.prayerRenewActive, buffsList.PrayerRenewal, 225);
-            findStatus(buffs, buffImages.DeathSpark, buffsList.DeathSpark, 500);
-            findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, 300);
-            findStatus(buffs, buffImages.Barricade, buffsList.Barricade, 300);
-            findStatus(buffs, buffImages.Devotion, buffsList.Devotion, 300);
-            findStatus(buffs, buffImages.Divert, buffsList.Divert, 300);
-            findStatus(buffs, buffImages.Freedom, buffsList.Freedom, 300);
-            findStatus(buffs, buffImages.Immortality, buffsList.Immortality, 300);
-            findStatus(buffs, buffImages.Reflect, buffsList.Reflect, 300);
-            findStatus(buffs, buffImages.Resonance, buffsList.Resonance, 300);
-            findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, 350);
-            findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, 250, false, 0, Infinity, true, 83);
-            findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, 400, false, 0, Infinity, true, 50);
-            findStatus(buffs, sigilImages.dragonSlayer, sigilsList.DragonSlayer, 400, false, 0, Infinity, true, 50);
-            findStatus(buffs, sigilImages.undeadSlayer, sigilsList.UndeadSlayer, 400, false, 0, Infinity, true, 50);
-            findStatus(buffs, sigilImages.ingenuityOfTheHumans, sigilsList.IngenuityOfTheHumans, 400, false, 0, Infinity, true, 83);
+            findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, {
+                threshold: 300,
+                expirationPulse: true,
+            });
+            findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, {
+                threshold: 80,
+                expirationPulse: true,
+            });
+            findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, {
+                threshold: 300,
+                expirationPulse: true,
+            });
+            findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, {
+                threshold: 400,
+                maxRange: 43260,
+            });
+            findStatus(buffs, buffImages.animateDead, buffsList.AnimateDeadBuff, {
+                threshold: 90,
+            });
+            findStatus(buffs, buffImages.fsoaWeaponSpec, buffsList.FsoaSpecBuff, {
+                threshold: 80,
+                maxRange: 31,
+            });
+            findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, {
+                threshold: 450,
+            });
+            findStatus(buffs, buffImages.gladiatorsRage, buffsList.GladiatorsRageBuff, {
+                threshold: 50,
+                expirationPulse: false,
+                minRange: 0,
+                maxRange: 16,
+            });
+            findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, {
+                threshold: 150,
+            });
+            findStatus(buffs, buffImages.aura, buffsList.Aura, {
+                threshold: 500,
+            });
+            findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, {
+                threshold: 400,
+            });
+            findStatus(buffs, buffImages.grimoire, buffsList.ErethdorsGrimoire, {
+                threshold: 55,
+            });
+            findStatus(buffs, incenseImages.lantadyme, buffsList.LantadymeIncense, {
+                threshold: 119,
+            });
+            findStatus(buffs, incenseImages.dwarfWeed, buffsList.DwarfWeedIncense, {
+                threshold: 150,
+            });
+            findStatus(buffs, incenseImages.fellstalk, buffsList.FellstalkIncense, {
+                threshold: 150,
+            });
+            findStatus(buffs, incenseImages.kwuarm, buffsList.KwuarmIncense, {
+                threshold: 150,
+            });
+            findStatus(buffs, buffImages.Antifire, buffsList.AntiFire, {
+                threshold: 225,
+            });
+            findStatus(buffs, buffImages.prayerRenewActive, buffsList.PrayerRenewal, { threshold: 225 });
+            findStatus(buffs, buffImages.DeathSpark, buffsList.DeathSpark, {
+                threshold: 300,
+            });
+            findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, {
+                threshold: 300,
+            });
+            findStatus(buffs, buffImages.Barricade, buffsList.Barricade, {
+                threshold: 300,
+            });
+            findStatus(buffs, buffImages.Devotion, buffsList.Devotion, {
+                threshold: 300,
+            });
+            findStatus(buffs, buffImages.Divert, buffsList.Divert, {
+                threshold: 300,
+            });
+            findStatus(buffs, buffImages.Freedom, buffsList.Freedom, {
+                threshold: 300,
+            });
+            findStatus(buffs, buffImages.Immortality, buffsList.Immortality, {
+                threshold: 300,
+            });
+            findStatus(buffs, buffImages.Reflect, buffsList.Reflect, {
+                threshold: 300,
+            });
+            findStatus(buffs, buffImages.Resonance, buffsList.Resonance, {
+                threshold: 300,
+            });
+            findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, {
+                threshold: 350,
+            });
+            findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, {
+                threshold: 250,
+                showCooldown: true,
+                cooldownTimer: 83,
+            });
+            findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, {
+                threshold: 400,
+                showCooldown: true,
+                cooldownTimer: 50,
+            });
+            findStatus(buffs, sigilImages.dragonSlayer, sigilsList.DragonSlayer, {
+                threshold: 400,
+                showCooldown: true,
+                cooldownTimer: 50,
+            });
+            findStatus(buffs, sigilImages.undeadSlayer, sigilsList.UndeadSlayer, {
+                threshold: 400,
+                showCooldown: true,
+                cooldownTimer: 50,
+            });
+            findStatus(buffs, sigilImages.ingenuityOfTheHumans, sigilsList.IngenuityOfTheHumans, {
+                threshold: 400,
+                showCooldown: true,
+                cooldownTimer: 83,
+            });
             /* BOLG is currently still special */
             if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
                 findBolgStacks(buffs);
             }
-            findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, 200, false, 0, Infinity, true, 40);
-            findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, 270, false, 0, Infinity, true, 30);
-            findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, 450, false, 0, Infinity, true, 23);
-            findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, 500, false, 0, Infinity, true, 30);
-            findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, 100, false, 0, Infinity, true, 23);
-            findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, 400, false, 0, Infinity, true, 59);
+            findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, {
+                threshold: 200,
+                showCooldown: true,
+                cooldownTimer: 40,
+            });
+            findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, {
+                threshold: 270,
+                showCooldown: true,
+                cooldownTimer: 30,
+            });
+            findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, {
+                threshold: 450,
+                showCooldown: true,
+                cooldownTimer: 23,
+            });
+            findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, {
+                threshold: 500,
+                showCooldown: true,
+                cooldownTimer: 30,
+            });
+            findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, {
+                threshold: 100,
+                showCooldown: true,
+                cooldownTimer: 23,
+            });
+            findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, {
+                threshold: 400,
+                showCooldown: true,
+                cooldownTimer: 59,
+            });
             checkBuffsForHidingOverlay(buffs);
             if ((buffs === null || buffs === void 0 ? void 0 : buffs.length) == 0) {
                 for (var _i = 0, _a = Object.entries(buffsList); _i < _a.length; _i++) {
@@ -13077,15 +13183,17 @@ function watchBuffs() {
         }
         if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debuffsLocation')) {
             maxAttempts = 0;
-            findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, 90);
-            findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, 300);
-            findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, 90);
-            findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, 60);
-            findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, 15);
-            findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, 60);
-            findStatus(debuffs, debuffImages.stunnedDebuff, debuffsList.StunnedDebuff, 60);
-            findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, 20);
-            findStatus(debuffs, debuffImages.powerburstPrevention, debuffsList.PowerburstPrevention, 20);
+            findStatus(debuffs, debuffImages.elvenRitualShard, debuffsList.AncientElvenRitualShardDebuff, {
+                threshold: 90,
+            });
+            findStatus(debuffs, debuffImages.adrenalinePotion, debuffsList.AdrenalinePotionDebuff, { threshold: 300 });
+            findStatus(debuffs, debuffImages.deathGraspDebuff, debuffsList.DeathGuardDebuff, { threshold: 90 });
+            findStatus(debuffs, debuffImages.deathEssenceDebuff, debuffsList.OmniGuardDebuff, { threshold: 60 });
+            findStatus(debuffs, debuffImages.enhancedExcaliburDebuff, debuffsList.EnhancedExcaliburDebuff, { threshold: 15 });
+            findStatus(debuffs, debuffImages.crystalRainMinimal, debuffsList.CrystalRainDebuff, { threshold: 60 });
+            findStatus(debuffs, debuffImages.stunnedDebuff, debuffsList.StunnedDebuff, { threshold: 60 });
+            findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, { threshold: 20 });
+            findStatus(debuffs, debuffImages.powerburstPrevention, debuffsList.PowerburstPrevention, { threshold: 20 });
             findVirus(debuffs);
             findPrayer(buffs, debuffs);
             if ((debuffs === null || debuffs === void 0 ? void 0 : debuffs.length) == 0) {
@@ -13157,16 +13265,14 @@ function showTooltip(msg, duration) {
  * "The everything function"
  * coolDownTimer should be the remaining cooldown in SECONDS after Active Duration & 1s have elapsed
  */
-function findStatus(buffsReader, buffImage, element, threshold, expirationPulse, minRange, maxRange, showCooldown, cooldownTimer) {
-    if (expirationPulse === void 0) { expirationPulse = false; }
-    if (minRange === void 0) { minRange = 0; }
-    if (maxRange === void 0) { maxRange = Infinity; }
-    if (showCooldown === void 0) { showCooldown = false; }
+function findStatus(buffsReader, buffImage, element, options) {
+    var _a, _b, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function () {
-        var timearg, foundBuff, onCooldown, cooldownAdjustment, highlander, _i, _a, _b, _key, value, findBuffImage, _c, _d, _e, _key, value, findBuffImage, buffTimeRemaining;
-        return __generator(this, function (_f) {
-            switch (_f.label) {
+        var _f, threshold, _g, expirationPulse, _h, minRange, _j, maxRange, _k, showCooldown, _l, cooldownTimer, timearg, foundBuff, onCooldown, cooldownAdjustment, highlander, _i, _m, _o, _key, value, findBuffImage, _p, _q, _r, _key, value, findBuffImage, buffTimeRemaining;
+        return __generator(this, function (_s) {
+            switch (_s.label) {
                 case 0:
+                    _f = options.threshold, threshold = _f === void 0 ? (_a = options.threshold) !== null && _a !== void 0 ? _a : 100 : _f, _g = options.expirationPulse, expirationPulse = _g === void 0 ? (_b = options.expirationPulse) !== null && _b !== void 0 ? _b : false : _g, _h = options.minRange, minRange = _h === void 0 ? (_c = options.minRange) !== null && _c !== void 0 ? _c : 0 : _h, _j = options.maxRange, maxRange = _j === void 0 ? (_d = options.maxRange) !== null && _d !== void 0 ? _d : Infinity : _j, _k = options.showCooldown, showCooldown = _k === void 0 ? (_e = options.showCooldown) !== null && _e !== void 0 ? _e : false : _k, _l = options.cooldownTimer, cooldownTimer = _l === void 0 ? options.cooldownTimer : _l;
                     // Exit early if our buff isn't in the Tracked Buffs list
                     if (!getByID('Buffs').contains(element) || !buffsReader) {
                         return [2 /*return*/];
@@ -13176,19 +13282,19 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     cooldownAdjustment = parseInt(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('delayAdjustment'), 10);
                     highlander = [];
                     if (buffImage == buffImages.gladiatorsRage) {
-                        for (_i = 0, _a = Object.entries(buffsReader); _i < _a.length; _i++) {
-                            _b = _a[_i], _key = _b[0], value = _b[1];
+                        for (_i = 0, _m = Object.entries(buffsReader); _i < _m.length; _i++) {
+                            _o = _m[_i], _key = _o[0], value = _o[1];
                             findBuffImage = value.countMatch(buffImage, false);
                             if (findBuffImage.passed > threshold) {
                                 highlander.push(foundBuff);
                             }
                         }
                     }
-                    _c = 0, _d = Object.entries(buffsReader);
-                    _f.label = 1;
+                    _p = 0, _q = Object.entries(buffsReader);
+                    _s.label = 1;
                 case 1:
-                    if (!(_c < _d.length)) return [3 /*break*/, 23];
-                    _e = _d[_c], _key = _e[0], value = _e[1];
+                    if (!(_p < _q.length)) return [3 /*break*/, 23];
+                    _r = _q[_p], _key = _r[0], value = _r[1];
                     if (foundBuff) {
                         return [2 /*return*/];
                     }
@@ -13199,13 +13305,9 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (findBuffImage.passed > threshold ||
-                        (findBuffImage.failed == 0 && buffImage == buffImages.DeathSpark)) {
+                    if (findBuffImage.passed > threshold &&
+                        buffImage == buffImages.DeathSpark) {
                         setActive(element);
-                        return [2 /*return*/];
-                    }
-                    else if (buffImage == buffImages.DeathSpark) {
-                        setInactive(element);
                         return [2 /*return*/];
                     }
                     if (!(findBuffImage.passed > threshold ||
@@ -13219,7 +13321,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     foundBuff = true;
                     return [4 /*yield*/, setActive(element)];
                 case 2:
-                    _f.sent();
+                    _s.sent();
                     timearg = value.readArg('timearg');
                     if (!(element.dataset.time == '1' && showCooldown && !onCooldown)) return [3 /*break*/, 4];
                     if (debugMode) {
@@ -13228,7 +13330,7 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     onCooldown = true;
                     return [4 /*yield*/, startCooldownTimer(element, cooldownTimer - cooldownAdjustment)];
                 case 3:
-                    _f.sent();
+                    _s.sent();
                     return [2 /*return*/];
                 case 4:
                     if (!(timearg.time > 59 &&
@@ -13243,22 +13345,22 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                 case 5:
                     // Pause the check for a tick since we don't need to rapidly update
                     //a buff that won't have a more precise value for 1 minute
-                    _f.sent();
+                    _s.sent();
                     return [3 /*break*/, 19];
                 case 6:
                     if (!(expirationPulse && timearg.time == 11 && !onCooldown)) return [3 /*break*/, 10];
                     element.dataset.time = '<10s';
                     return [4 /*yield*/, setActive(element)];
                 case 7:
-                    _f.sent();
+                    _s.sent();
                     // This can be desynced from in-game 10s but it's accurate enough
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
                 case 8:
                     // This can be desynced from in-game 10s but it's accurate enough
-                    _f.sent();
+                    _s.sent();
                     return [4 /*yield*/, setInactive(element)];
                 case 9:
-                    _f.sent();
+                    _s.sent();
                     if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showTooltipReminders')) {
                         showTooltip('Overload expired', 3000);
                     }
@@ -13279,46 +13381,46 @@ function findStatus(buffsReader, buffImage, element, threshold, expirationPulse,
                     return [3 /*break*/, 14];
                 case 12: return [4 /*yield*/, setInactive(element)];
                 case 13:
-                    _f.sent();
-                    _f.label = 14;
+                    _s.sent();
+                    _s.label = 14;
                 case 14:
                     if (!(timearg.time - 1 == 0 && !showCooldown)) return [3 /*break*/, 16];
                     return [4 /*yield*/, setInactive(element)];
                 case 15:
-                    _f.sent();
-                    _f.label = 16;
+                    _s.sent();
+                    _s.label = 16;
                 case 16: return [3 /*break*/, 19];
                 case 17: return [4 /*yield*/, setInactive(element)];
                 case 18:
-                    _f.sent();
-                    _f.label = 19;
+                    _s.sent();
+                    _s.label = 19;
                 case 19: return [3 /*break*/, 22];
                 case 20:
                     if (!!showCooldown) return [3 /*break*/, 22];
                     return [4 /*yield*/, setInactive(element)];
                 case 21:
-                    _f.sent();
-                    _f.label = 22;
+                    _s.sent();
+                    _s.label = 22;
                 case 22:
-                    _c++;
+                    _p++;
                     return [3 /*break*/, 1];
                 case 23:
                     if (!(timearg == undefined && foundBuff)) return [3 /*break*/, 27];
                     if (!expirationPulse) return [3 /*break*/, 25];
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
                 case 24:
-                    _f.sent();
-                    _f.label = 25;
+                    _s.sent();
+                    _s.label = 25;
                 case 25: return [4 /*yield*/, setInactive(element)];
                 case 26:
-                    _f.sent();
-                    _f.label = 27;
+                    _s.sent();
+                    _s.label = 27;
                 case 27: 
                 // Give a very brief pause before checking again
                 return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
                 case 28:
                     // Give a very brief pause before checking again
-                    _f.sent();
+                    _s.sent();
                     return [2 /*return*/, timearg];
             }
         });

@@ -253,217 +253,222 @@ function watchBuffs() {
 
 			//TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
 
-			findStatus(
-				buffs,
-				buffImages.overloaded,
-				buffsList.OverloadBuff,
-				300,
-				true
-			);
+			findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, {
+				threshold: 300,
+				expirationPulse: true,
+			});
 
 			findStatus(
 				buffs,
 				buffImages.elderOverload,
 				buffsList.ElderOverloadBuff,
-				80,
-				true
+				{
+					threshold: 80,
+					expirationPulse: true,
+				}
 			);
 
 			findStatus(
 				buffs,
 				buffImages.poisonous,
 				buffsList.WeaponPoisonBuff,
-				300,
-				true
+				{
+					threshold: 300,
+					expirationPulse: true,
+				}
 			);
 
-			findStatus(
-				buffs,
-				buffImages.darkness,
-				buffsList.DarknessBuff,
-				400,
-				false,
-				0,
-				43260
-			);
+			findStatus(buffs, buffImages.darkness, buffsList.DarknessBuff, {
+				threshold: 400,
+				maxRange: 43260,
+			});
 
 			findStatus(
 				buffs,
 				buffImages.animateDead,
 				buffsList.AnimateDeadBuff,
-				90
+				{
+					threshold: 90,
+				}
 			);
 
 			findStatus(
 				buffs,
 				buffImages.fsoaWeaponSpec,
 				buffsList.FsoaSpecBuff,
-				80,
-				false,
-				0,
-				31
+				{
+					threshold: 80,
+					maxRange: 31,
+				}
 			);
 
-			findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, 450);
+			findStatus(buffs, buffImages.timeRift, buffsList.TimeRiftBuff, {
+				threshold: 450,
+			});
 
 			findStatus(
 				buffs,
 				buffImages.gladiatorsRage,
 				buffsList.GladiatorsRageBuff,
-				50,
-				false,
-				0,
-				16
+				{
+					threshold: 50,
+					expirationPulse: false,
+					minRange: 0,
+					maxRange: 16,
+				}
 			);
 
-			findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, 150);
+			findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, {
+				threshold: 150,
+			});
 
-			findStatus(buffs, buffImages.aura, buffsList.Aura, 500);
+			findStatus(buffs, buffImages.aura, buffsList.Aura, {
+				threshold: 500,
+			});
 
-			findStatus(
-				buffs,
-				buffImages.bonfireBoost,
-				buffsList.BonfireBoost,
-				400
-			);
+			findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, {
+				threshold: 400,
+			});
 
 			findStatus(
 				buffs,
 				buffImages.grimoire,
 				buffsList.ErethdorsGrimoire,
-				55
+				{
+					threshold: 55,
+				}
 			);
 
 			findStatus(
 				buffs,
 				incenseImages.lantadyme,
 				buffsList.LantadymeIncense,
-				119
+				{
+					threshold: 119,
+				}
 			);
 
 			findStatus(
 				buffs,
 				incenseImages.dwarfWeed,
 				buffsList.DwarfWeedIncense,
-				150
+				{
+					threshold: 150,
+				}
 			);
 
 			findStatus(
 				buffs,
 				incenseImages.fellstalk,
 				buffsList.FellstalkIncense,
-				150
+				{
+					threshold: 150,
+				}
 			);
 
-			findStatus(
-				buffs,
-				incenseImages.kwuarm,
-				buffsList.KwuarmIncense,
-				150
-			);
+			findStatus(buffs, incenseImages.kwuarm, buffsList.KwuarmIncense, {
+				threshold: 150,
+			});
 
-			findStatus(buffs, buffImages.Antifire, buffsList.AntiFire, 225);
+			findStatus(buffs, buffImages.Antifire, buffsList.AntiFire, {
+				threshold: 225,
+			});
 
 			findStatus(
 				buffs,
 				buffImages.prayerRenewActive,
 				buffsList.PrayerRenewal,
-				225
+				{ threshold: 225 }
 			);
 
-			findStatus(buffs, buffImages.DeathSpark, buffsList.DeathSpark, 500);
+			findStatus(buffs, buffImages.DeathSpark, buffsList.DeathSpark, {
+				threshold: 300,
+			});
 
-			findStatus(
-				buffs,
-				buffImages.Anticipation,
-				buffsList.Anticipation,
-				300
-			);
+			findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, {
+				threshold: 300,
+			});
 
-			findStatus(buffs, buffImages.Barricade, buffsList.Barricade, 300);
+			findStatus(buffs, buffImages.Barricade, buffsList.Barricade, {
+				threshold: 300,
+			});
 
-			findStatus(buffs, buffImages.Devotion, buffsList.Devotion, 300);
+			findStatus(buffs, buffImages.Devotion, buffsList.Devotion, {
+				threshold: 300,
+			});
 
-			findStatus(buffs, buffImages.Divert, buffsList.Divert, 300);
+			findStatus(buffs, buffImages.Divert, buffsList.Divert, {
+				threshold: 300,
+			});
 
-			findStatus(buffs, buffImages.Freedom, buffsList.Freedom, 300);
+			findStatus(buffs, buffImages.Freedom, buffsList.Freedom, {
+				threshold: 300,
+			});
 
-			findStatus(
-				buffs,
-				buffImages.Immortality,
-				buffsList.Immortality,
-				300
-			);
+			findStatus(buffs, buffImages.Immortality, buffsList.Immortality, {
+				threshold: 300,
+			});
 
-			findStatus(buffs, buffImages.Reflect, buffsList.Reflect, 300);
+			findStatus(buffs, buffImages.Reflect, buffsList.Reflect, {
+				threshold: 300,
+			});
 
-			findStatus(buffs, buffImages.Resonance, buffsList.Resonance, 300);
+			findStatus(buffs, buffImages.Resonance, buffsList.Resonance, {
+				threshold: 300,
+			});
 
-			findStatus(
-				buffs,
-				buffImages.SplitSoul,
-				buffsList.SplitSoulBuff,
-				350
-			);
+			findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, {
+				threshold: 350,
+			});
 
 			findStatus(
 				buffs,
 				sigilImages.limitless,
 				sigilsList.LimitlessSigil,
-				250,
-				false,
-				0,
-				Infinity,
-				true,
-				83
+				{
+					threshold: 250,
+					showCooldown: true,
+					cooldownTimer: 83,
+				}
 			);
 
-			findStatus(
-				buffs,
-				sigilImages.demonSlayer,
-				sigilsList.DemonSlayer,
-				400,
-				false,
-				0,
-				Infinity,
-				true,
-				50
-			);
+			findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, {
+				threshold: 400,
+				showCooldown: true,
+				cooldownTimer: 50,
+			});
 
 			findStatus(
 				buffs,
 				sigilImages.dragonSlayer,
 				sigilsList.DragonSlayer,
-				400,
-				false,
-				0,
-				Infinity,
-				true,
-				50
+				{
+					threshold: 400,
+					showCooldown: true,
+					cooldownTimer: 50,
+				}
 			);
 
 			findStatus(
 				buffs,
 				sigilImages.undeadSlayer,
 				sigilsList.UndeadSlayer,
-				400,
-				false,
-				0,
-				Infinity,
-				true,
-				50
+				{
+					threshold: 400,
+					showCooldown: true,
+					cooldownTimer: 50,
+				}
 			);
 
 			findStatus(
 				buffs,
 				sigilImages.ingenuityOfTheHumans,
 				sigilsList.IngenuityOfTheHumans,
-				400,
-				false,
-				0,
-				Infinity,
-				true,
-				83
+				{
+					threshold: 400,
+					showCooldown: true,
+					cooldownTimer: 83,
+				}
 			);
 
 			/* BOLG is currently still special */
@@ -471,76 +476,60 @@ function watchBuffs() {
 				findBolgStacks(buffs);
 			}
 
-			findStatus(
-				buffs,
-				ultimateImages.berserk,
-				ultimatesList.Berserk,
-				200,
-				false,
-				0,
-				Infinity,
-				true,
-				40
-			);
+			findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, {
+				threshold: 200,
+				showCooldown: true,
+				cooldownTimer: 40,
+			});
 
 			findStatus(
 				buffs,
 				ultimateImages.deathsSwiftness,
 				ultimatesList.DeathsSwiftness,
-				270,
-				false,
-				0,
-				Infinity,
-				true,
-				30
+				{
+					threshold: 270,
+					showCooldown: true,
+					cooldownTimer: 30,
+				}
 			);
 
 			findStatus(
 				buffs,
 				ultimateImages.greaterDeathsSwiftness,
 				ultimatesList.GreaterDeathsSwiftness,
-				450,
-				false,
-				0,
-				Infinity,
-				true,
-				23
+				{
+					threshold: 450,
+					showCooldown: true,
+					cooldownTimer: 23,
+				}
 			);
 
-			findStatus(
-				buffs,
-				ultimateImages.sunshine,
-				ultimatesList.Sunshine,
-				500,
-				false,
-				0,
-				Infinity,
-				true,
-				30
-			);
+			findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, {
+				threshold: 500,
+				showCooldown: true,
+				cooldownTimer: 30,
+			});
 
 			findStatus(
 				buffs,
 				ultimateImages.greaterSunshine,
 				ultimatesList.GreaterSunshine,
-				100,
-				false,
-				0,
-				Infinity,
-				true,
-				23
+				{
+					threshold: 100,
+					showCooldown: true,
+					cooldownTimer: 23,
+				}
 			);
 
 			findStatus(
 				buffs,
 				ultimateImages.livingDeath,
 				ultimatesList.LivingDeath,
-				400,
-				false,
-				0,
-				Infinity,
-				true,
-				59
+				{
+					threshold: 400,
+					showCooldown: true,
+					cooldownTimer: 59,
+				}
 			);
 
 			checkBuffsForHidingOverlay(buffs);
@@ -559,56 +548,58 @@ function watchBuffs() {
 				debuffs,
 				debuffImages.elvenRitualShard,
 				debuffsList.AncientElvenRitualShardDebuff,
-				90
+				{
+					threshold: 90,
+				}
 			);
 			findStatus(
 				debuffs,
 				debuffImages.adrenalinePotion,
 				debuffsList.AdrenalinePotionDebuff,
-				300
+				{ threshold: 300 }
 			);
 			findStatus(
 				debuffs,
 				debuffImages.deathGraspDebuff,
 				debuffsList.DeathGuardDebuff,
-				90
+				{ threshold: 90 }
 			);
 			findStatus(
 				debuffs,
 				debuffImages.deathEssenceDebuff,
 				debuffsList.OmniGuardDebuff,
-				60
+				{ threshold: 60 }
 			);
 			findStatus(
 				debuffs,
 				debuffImages.enhancedExcaliburDebuff,
 				debuffsList.EnhancedExcaliburDebuff,
-				15
+				{ threshold: 15 }
 			);
 			findStatus(
 				debuffs,
 				debuffImages.crystalRainMinimal,
 				debuffsList.CrystalRainDebuff,
-				60
+				{ threshold: 60 }
 			);
 			findStatus(
 				debuffs,
 				debuffImages.stunnedDebuff,
 				debuffsList.StunnedDebuff,
-				60
+				{ threshold: 60 }
 			);
 			findStatus(
 				debuffs,
 				debuffImages.signOfLifeDebuff,
 				debuffsList.SignOfLifeDebuff,
-				20
+				{ threshold: 20 }
 			);
 
 			findStatus(
 				debuffs,
 				debuffImages.powerburstPrevention,
 				debuffsList.PowerburstPrevention,
-				20
+				{ threshold: 20 }
 			);
 
 			findVirus(debuffs);
@@ -674,13 +665,23 @@ async function findStatus(
 	buffsReader: BuffReader.Buff[],
 	buffImage: ImageData,
 	element: HTMLElement,
-	threshold: number,
-	expirationPulse: boolean = false,
-	minRange: number = 0,
-	maxRange: number = Infinity,
-	showCooldown: boolean = false,
-	cooldownTimer?: number
+	options: {
+		threshold: number;
+		expirationPulse?: boolean;
+		minRange?: number;
+		maxRange?: number;
+		showCooldown?: boolean;
+		cooldownTimer?: number;
+	}
 ) {
+	let {
+		threshold = options.threshold ?? 100,
+		expirationPulse = options.expirationPulse ?? false,
+		minRange = options.minRange ?? 0,
+		maxRange = options.maxRange ?? Infinity,
+		showCooldown = options.showCooldown ?? false,
+		cooldownTimer = options.cooldownTimer,
+	} = options;
 	// Exit early if our buff isn't in the Tracked Buffs list
 	if (!getByID('Buffs').contains(element) || !buffsReader) {
 		return;
@@ -717,13 +718,10 @@ async function findStatus(
 
 		let findBuffImage = value.countMatch(buffImage, false);
 		if (
-			findBuffImage.passed > threshold ||
-			(findBuffImage.failed == 0 && buffImage == buffImages.DeathSpark)
+			findBuffImage.passed > threshold &&
+			buffImage == buffImages.DeathSpark
 		) {
 			setActive(element);
-			return;
-		} else if (buffImage == buffImages.DeathSpark) {
-			setInactive(element);
 			return;
 		}
 		if (
@@ -800,7 +798,6 @@ async function findStatus(
 		} else if (!showCooldown) {
 			await setInactive(element);
 		}
-
 	}
 
 	// If we didn't find the buff try again after a brief timeout
