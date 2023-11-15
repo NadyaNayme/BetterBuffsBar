@@ -843,17 +843,17 @@ async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
 	 */
 	await new Promise((done) => setTimeout(done, 1000));
 	await setCooldown(element, cooldownTimer);
-	if (element.dataset.cooldown != '' && !runOnlyOnce) {
+	if (element.dataset.cooldown != '0' && !runOnlyOnce) {
 		runOnlyOnce = true;
 		element.dataset.cooldown = cooldownTimer.toString();
 		await new Promise((done) => setTimeout(done, 1000));
 		let timer = setInterval(() => {
 			countdown(element, cooldownTimer, timer);
 		}, 1000);
-		await new Promise((done) => setTimeout(done, 3000));
+		await new Promise((done) => setTimeout(done, 50));
 		runOnlyOnce = false;
 		await new Promise((done) =>
-			setTimeout(done, cooldownTimer * 1000 - 3000)
+			setTimeout(done, cooldownTimer * 1000)
 		);
 		clearInterval(timer);
 	}

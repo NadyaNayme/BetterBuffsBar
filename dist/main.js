@@ -13474,7 +13474,7 @@ function startCooldownTimer(element, cooldownTimer) {
                     return [4 /*yield*/, setCooldown(element, cooldownTimer)];
                 case 2:
                     _a.sent();
-                    if (!(element.dataset.cooldown != '' && !runOnlyOnce)) return [3 /*break*/, 6];
+                    if (!(element.dataset.cooldown != '0' && !runOnlyOnce)) return [3 /*break*/, 6];
                     runOnlyOnce = true;
                     element.dataset.cooldown = cooldownTimer.toString();
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
@@ -13483,12 +13483,12 @@ function startCooldownTimer(element, cooldownTimer) {
                     timer_1 = setInterval(function () {
                         countdown(element, cooldownTimer, timer_1);
                     }, 1000);
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 3000); })];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 50); })];
                 case 4:
                     _a.sent();
                     runOnlyOnce = false;
                     return [4 /*yield*/, new Promise(function (done) {
-                            return setTimeout(done, cooldownTimer * 1000 - 3000);
+                            return setTimeout(done, cooldownTimer * 1000);
                         })];
                 case 5:
                     _a.sent();
