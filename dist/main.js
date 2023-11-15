@@ -1408,7 +1408,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_37___});
 }
 
-#Anticipation.inactive {
+#Anticipation.inactive,
+#Anticipation.cooldown {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_38___});
 }
 
@@ -1416,7 +1417,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_39___});
 }
 
-#Barricade.inactive {
+#Barricade.inactive,
+#Barricade.cooldown {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_40___});
 }
 
@@ -1424,7 +1426,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_41___});
 }
 
-#Devotion.inactive {
+#Devotion.inactive,
+#Devotion.cooldown {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_42___});
 }
 
@@ -1432,7 +1435,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_43___});
 }
 
-#Divert.inactive {
+#Divert.inactive,
+#Divert.cooldown {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_44___});
 }
 
@@ -1440,7 +1444,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_45___});
 }
 
-#Freedom.inactive {
+#Freedom.inactive,
+#Freedom.cooldown {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_46___});
 }
 
@@ -1448,7 +1453,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_47___});
 }
 
-#Immortality.inactive {
+#Immortality.inactive,
+#Immortality.cooldown {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_48___});
 }
 
@@ -1456,7 +1462,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_49___});
 }
 
-#Reflect.inactive {
+#Reflect.inactive,
+#Reflect.cooldown {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_50___});
 }
 
@@ -1464,7 +1471,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_51___});
 }
 
-#Resonance.inactive {
+#Resonance.inactive,
+#Resonance.cooldown {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_52___});
 }
 
@@ -13086,27 +13094,43 @@ function watchBuffs() {
             });
             findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, {
                 threshold: 300,
+                showCooldown: true,
+                cooldownTimer: 13,
             });
             findStatus(buffs, buffImages.Barricade, buffsList.Barricade, {
                 threshold: 300,
+                showCooldown: true,
+                cooldownTimer: 49,
             });
             findStatus(buffs, buffImages.Devotion, buffsList.Devotion, {
                 threshold: 300,
+                showCooldown: true,
+                cooldownTimer: 49,
             });
             findStatus(buffs, buffImages.Divert, buffsList.Divert, {
                 threshold: 300,
+                showCooldown: true,
+                cooldownTimer: 23,
             });
             findStatus(buffs, buffImages.Freedom, buffsList.Freedom, {
                 threshold: 300,
+                showCooldown: true,
+                cooldownTimer: 22,
             });
             findStatus(buffs, buffImages.Immortality, buffsList.Immortality, {
                 threshold: 300,
+                showCooldown: true,
+                cooldownTimer: 89,
             });
             findStatus(buffs, buffImages.Reflect, buffsList.Reflect, {
                 threshold: 300,
+                showCooldown: true,
+                cooldownTimer: 19,
             });
             findStatus(buffs, buffImages.Resonance, buffsList.Resonance, {
                 threshold: 300,
+                showCooldown: true,
+                cooldownTimer: 23,
             });
             findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, {
                 threshold: 350,
@@ -13405,6 +13429,9 @@ function findStatus(buffsReader, buffImage, element, options) {
                     _r++;
                     return [3 /*break*/, 1];
                 case 23:
+                    if (cooldownTimer > 0 && element.dataset.cooldown == '0' && !element.classList.contains('active')) {
+                        setInactive(element);
+                    }
                     if (!(timearg == undefined && foundBuff)) return [3 /*break*/, 27];
                     if (!expirationPulse) return [3 /*break*/, 25];
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];

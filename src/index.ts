@@ -387,34 +387,50 @@ function watchBuffs() {
 
 			findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, {
 				threshold: 300,
+				showCooldown: true,
+				cooldownTimer: 13,
 			});
 
 			findStatus(buffs, buffImages.Barricade, buffsList.Barricade, {
 				threshold: 300,
+				showCooldown: true,
+				cooldownTimer: 49,
 			});
 
 			findStatus(buffs, buffImages.Devotion, buffsList.Devotion, {
 				threshold: 300,
+				showCooldown: true,
+				cooldownTimer: 49,
 			});
 
 			findStatus(buffs, buffImages.Divert, buffsList.Divert, {
 				threshold: 300,
+				showCooldown: true,
+				cooldownTimer: 23,
 			});
 
 			findStatus(buffs, buffImages.Freedom, buffsList.Freedom, {
 				threshold: 300,
+				showCooldown: true,
+				cooldownTimer: 22,
 			});
 
 			findStatus(buffs, buffImages.Immortality, buffsList.Immortality, {
 				threshold: 300,
+				showCooldown: true,
+				cooldownTimer: 89,
 			});
 
 			findStatus(buffs, buffImages.Reflect, buffsList.Reflect, {
 				threshold: 300,
+				showCooldown: true,
+				cooldownTimer: 19,
 			});
 
 			findStatus(buffs, buffImages.Resonance, buffsList.Resonance, {
 				threshold: 300,
+				showCooldown: true,
+				cooldownTimer: 23,
 			});
 
 			findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, {
@@ -800,6 +816,10 @@ async function findStatus(
 		} else if (!showCooldown) {
 			await setInactive(element);
 		}
+	}
+
+	if (cooldownTimer > 0 && element.dataset.cooldown == '0' && !element.classList.contains('active')) {
+		setInactive(element);
 	}
 
 	// If we didn't find the buff try again after a brief timeout
