@@ -263,9 +263,8 @@ function watchBuffs() {
 				buffImages.elderOverload,
 				buffsList.ElderOverloadBuff,
 				{
-					threshold: 80,
+					threshold: 60,
 					expirationPulse: true,
-					debug: true,
 				}
 			);
 

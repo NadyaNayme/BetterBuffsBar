@@ -13026,9 +13026,8 @@ function watchBuffs() {
                 expirationPulse: true,
             });
             findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, {
-                threshold: 80,
+                threshold: 60,
                 expirationPulse: true,
-                debug: true,
             });
             findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, {
                 threshold: 300,
