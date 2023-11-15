@@ -265,6 +265,7 @@ function watchBuffs() {
 				{
 					threshold: 80,
 					expirationPulse: true,
+					debug: true,
 				}
 			);
 
@@ -672,6 +673,7 @@ async function findStatus(
 		maxRange?: number;
 		showCooldown?: boolean;
 		cooldownTimer?: number;
+		debug?: boolean;
 	}
 ) {
 	let {
@@ -681,6 +683,7 @@ async function findStatus(
 		maxRange = options.maxRange ?? Infinity,
 		showCooldown = options.showCooldown ?? false,
 		cooldownTimer = options.cooldownTimer,
+		debug = options.debug ?? false,
 	} = options;
 	// Exit early if our buff isn't in the Tracked Buffs list
 	if (!getByID('Buffs').contains(element) || !buffsReader) {
@@ -733,9 +736,9 @@ async function findStatus(
 
 			if (
 				sauce.getSetting('debugMode') &&
-				buffImage == buffImages.DeathSpark
+				debug
 			) {
-				console.log(findBuffImage);
+				console.log(`Debugging ${element.id.toString()} | Threshold: ${JSON.stringify(findBuffImage)}`);
 			}
 
 			foundBuff = true;
