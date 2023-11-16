@@ -13369,22 +13369,22 @@ function watchBuffs() {
             findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, {
                 threshold: 300,
                 showCooldown: true,
-                cooldownTimer: 13,
+                cooldownTimer: 12,
             });
             findStatus(buffs, buffImages.Barricade, buffsList.Barricade, {
                 threshold: 300,
                 showCooldown: true,
-                cooldownTimer: 49,
+                cooldownTimer: 48,
             });
             findStatus(buffs, buffImages.Devotion, buffsList.Devotion, {
                 threshold: 300,
                 showCooldown: true,
-                cooldownTimer: 49,
+                cooldownTimer: 48,
             });
             findStatus(buffs, buffImages.Divert, buffsList.Divert, {
                 threshold: 300,
                 showCooldown: true,
-                cooldownTimer: 23,
+                cooldownTimer: 22,
             });
             findStatus(buffs, buffImages.Freedom, buffsList.Freedom, {
                 threshold: 300,
@@ -13394,45 +13394,47 @@ function watchBuffs() {
             findStatus(buffs, buffImages.Immortality, buffsList.Immortality, {
                 threshold: 300,
                 showCooldown: true,
-                cooldownTimer: 89,
+                cooldownTimer: 88,
             });
             findStatus(buffs, buffImages.Reflect, buffsList.Reflect, {
                 threshold: 300,
                 showCooldown: true,
-                cooldownTimer: 19,
+                cooldownTimer: 18,
             });
             findStatus(buffs, buffImages.Resonance, buffsList.Resonance, {
                 threshold: 300,
                 showCooldown: true,
-                cooldownTimer: 23,
+                cooldownTimer: 22,
             });
             findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, {
                 threshold: 350,
+                showCooldown: true,
+                cooldownTimer: 38,
             });
             findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, {
                 threshold: 250,
                 showCooldown: true,
-                cooldownTimer: 83,
+                cooldownTimer: 82,
             });
             findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, {
                 threshold: 400,
                 showCooldown: true,
-                cooldownTimer: 50,
+                cooldownTimer: 49,
             });
             findStatus(buffs, sigilImages.dragonSlayer, sigilsList.DragonSlayer, {
                 threshold: 400,
                 showCooldown: true,
-                cooldownTimer: 50,
+                cooldownTimer: 49,
             });
             findStatus(buffs, sigilImages.undeadSlayer, sigilsList.UndeadSlayer, {
                 threshold: 400,
                 showCooldown: true,
-                cooldownTimer: 50,
+                cooldownTimer: 49,
             });
             findStatus(buffs, sigilImages.ingenuityOfTheHumans, sigilsList.IngenuityOfTheHumans, {
                 threshold: 400,
                 showCooldown: true,
-                cooldownTimer: 83,
+                cooldownTimer: 82,
             });
             /* BOLG is currently still special */
             if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
@@ -13441,32 +13443,32 @@ function watchBuffs() {
             findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, {
                 threshold: 200,
                 showCooldown: true,
-                cooldownTimer: 40,
+                cooldownTimer: 39,
             });
             findStatus(buffs, ultimateImages.deathsSwiftness, ultimatesList.DeathsSwiftness, {
                 threshold: 270,
                 showCooldown: true,
-                cooldownTimer: 30,
+                cooldownTimer: 29,
             });
             findStatus(buffs, ultimateImages.greaterDeathsSwiftness, ultimatesList.GreaterDeathsSwiftness, {
                 threshold: 450,
                 showCooldown: true,
-                cooldownTimer: 23,
+                cooldownTimer: 22,
             });
             findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, {
                 threshold: 500,
                 showCooldown: true,
-                cooldownTimer: 30,
+                cooldownTimer: 29,
             });
             findStatus(buffs, ultimateImages.greaterSunshine, ultimatesList.GreaterSunshine, {
                 threshold: 100,
                 showCooldown: true,
-                cooldownTimer: 23,
+                cooldownTimer: 22,
             });
             findStatus(buffs, ultimateImages.livingDeath, ultimatesList.LivingDeath, {
                 threshold: 400,
                 showCooldown: true,
-                cooldownTimer: 59,
+                cooldownTimer: 58,
             });
             checkBuffsForHidingOverlay(buffs);
             if ((buffs === null || buffs === void 0 ? void 0 : buffs.length) == 0) {
@@ -13593,135 +13595,137 @@ function findStatus(buffsReader, buffImage, element, options) {
                     _r = 0, _s = Object.entries(buffsReader);
                     _u.label = 1;
                 case 1:
-                    if (!(_r < _s.length)) return [3 /*break*/, 23];
+                    if (!(_r < _s.length)) return [3 /*break*/, 17];
                     _t = _s[_r], _key = _t[0], value = _t[1];
+                    // If the buff has been found do an early return
                     if (foundBuff) {
                         return [2 /*return*/];
                     }
+                    // If Ful book is being used and there is not also a proc found set the proc to inactive
                     if (highlander.length == 1) {
                         setInactive(buffsList.GladiatorsRageBuff);
                     }
+                    // Only bother scanning for proc if we have both the book and proc active
                     if (highlander.length != 2 && buffImage == buffImages.gladiatorsRage) {
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
+                    // Death Spark doesn't have a readarg so if it is found set it to active and stop evaluating it
                     if (findBuffImage.passed > threshold &&
                         buffImage == buffImages.DeathSpark) {
                         setActive(element);
                         return [2 /*return*/];
                     }
                     if (!(findBuffImage.passed > threshold ||
-                        (findBuffImage.failed == 0 && buffImage !== buffImages.DeathSpark))) return [3 /*break*/, 20];
+                        (findBuffImage.failed == 0 && buffImage !== buffImages.DeathSpark))) return [3 /*break*/, 14];
                     // If we find a match for the buff it will always exceed the threshold
                     // the threshold depends largely on which buff is being matched against
-                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') &&
-                        debug) {
+                    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode') && debug) {
                         console.log("Debugging ".concat(element.id.toString(), " | Threshold: ").concat(JSON.stringify(findBuffImage)));
                     }
+                    // If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
                     foundBuff = true;
                     return [4 /*yield*/, setActive(element)];
                 case 2:
                     _u.sent();
                     timearg = value.readArg('timearg');
-                    if (!(element.dataset.time == '1' && showCooldown && !onCooldown)) return [3 /*break*/, 4];
-                    if (debugMode) {
-                        console.log("Starting cooldown timer for ".concat(element.id));
+                    // If the time remaining is 1 and the buff is supposed to show a cooldown - start the cooldown timer and stop evaluating
+                    if (element.dataset.time == '0' ||
+                        element.dataset.time == '1' &&
+                            showCooldown &&
+                            element.dataset.startedTimer == 'false') {
+                        if (debugMode) {
+                            console.log("Starting cooldown timer for ".concat(element.id));
+                        }
+                        element.dataset.startedTimer = 'true';
+                        startCooldownTimer(element, cooldownTimer - cooldownAdjustment);
+                        return [2 /*return*/];
                     }
-                    onCooldown = true;
-                    return [4 /*yield*/, startCooldownTimer(element, cooldownTimer - cooldownAdjustment)];
-                case 3:
-                    _u.sent();
-                    return [2 /*return*/];
-                case 4:
-                    if (!(timearg.time > 59 &&
-                        !onCooldown &&
-                        timearg.time < maxRange)) return [3 /*break*/, 6];
+                    if (!(timearg.time > 59 && timearg.time < maxRange)) return [3 /*break*/, 4];
                     element.dataset.time =
                         Math.floor(value.readArg('timearg').time / 60).toString() +
                             'm';
                     // Pause the check for a tick since we don't need to rapidly update
                     //a buff that won't have a more precise value for 1 minute
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 600); })];
-                case 5:
+                case 3:
                     // Pause the check for a tick since we don't need to rapidly update
                     //a buff that won't have a more precise value for 1 minute
                     _u.sent();
-                    return [3 /*break*/, 19];
-                case 6:
-                    if (!(expirationPulse && timearg.time == 11 && !onCooldown)) return [3 /*break*/, 10];
+                    return [3 /*break*/, 13];
+                case 4:
+                    if (!(expirationPulse && timearg.time == 11 && !onCooldown)) return [3 /*break*/, 8];
                     element.dataset.time = '<10s';
                     return [4 /*yield*/, setActive(element)];
-                case 7:
+                case 5:
                     _u.sent();
                     // This can be desynced from in-game 10s but it's accurate enough
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
-                case 8:
+                case 6:
                     // This can be desynced from in-game 10s but it's accurate enough
                     _u.sent();
                     return [4 /*yield*/, setInactive(element)];
-                case 9:
+                case 7:
                     _u.sent();
                     if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showTooltipReminders')) {
                         showTooltip('Overload expired', 3000);
                     }
-                    return [3 /*break*/, 19];
-                case 10:
-                    if (!(timearg.time > minRange && timearg.time < maxRange)) return [3 /*break*/, 17];
+                    return [3 /*break*/, 13];
+                case 8:
+                    if (!(timearg.time > minRange && timearg.time < maxRange)) return [3 /*break*/, 11];
                     buffTimeRemaining = timearg.time - cooldownAdjustment;
-                    if (!(buffTimeRemaining > 0 &&
+                    // And the buff has time remaining and is not Necrosis or BOLG Stacks - display the remaining time
+                    if (buffTimeRemaining > 0 &&
                         buffImage != buffImages.necrosis &&
-                        element != buffsList.BolgStacksBuff)) return [3 /*break*/, 11];
-                    element.dataset.time = buffTimeRemaining.toString();
-                    return [3 /*break*/, 14];
-                case 11:
-                    if (!(buffTimeRemaining > 0 &&
+                        element != buffsList.BolgStacksBuff) {
+                        element.dataset.time = buffTimeRemaining.toString();
+                    }
+                    // Otherwise if the buff is Necrosis or BolgStacks display the stacks
+                    else if (buffTimeRemaining > 0 &&
                         (buffImage == buffImages.necrosis ||
-                            element == buffsList.BolgStacksBuff))) return [3 /*break*/, 12];
-                    element.dataset.time = timearg.time;
-                    return [3 /*break*/, 14];
-                case 12: return [4 /*yield*/, setInactive(element)];
-                case 13:
+                            element == buffsList.BolgStacksBuff)) {
+                        element.dataset.time = timearg.time;
+                    }
+                    if (!(timearg.time - 1 == 0 && !showCooldown)) return [3 /*break*/, 10];
+                    return [4 /*yield*/, setInactive(element)];
+                case 9:
                     _u.sent();
-                    _u.label = 14;
+                    _u.label = 10;
+                case 10: return [3 /*break*/, 13];
+                case 11:
+                    if (!!showCooldown) return [3 /*break*/, 13];
+                    return [4 /*yield*/, setInactive(element)];
+                case 12:
+                    _u.sent();
+                    _u.label = 13;
+                case 13: return [3 /*break*/, 16];
                 case 14:
-                    if (!(timearg.time - 1 == 0 && !showCooldown)) return [3 /*break*/, 16];
+                    if (!!showCooldown) return [3 /*break*/, 16];
                     return [4 /*yield*/, setInactive(element)];
                 case 15:
                     _u.sent();
                     _u.label = 16;
-                case 16: return [3 /*break*/, 19];
-                case 17: return [4 /*yield*/, setInactive(element)];
-                case 18:
-                    _u.sent();
-                    _u.label = 19;
-                case 19: return [3 /*break*/, 22];
-                case 20:
-                    if (!!showCooldown) return [3 /*break*/, 22];
-                    return [4 /*yield*/, setInactive(element)];
-                case 21:
-                    _u.sent();
-                    _u.label = 22;
-                case 22:
+                case 16:
                     _r++;
                     return [3 /*break*/, 1];
-                case 23:
+                case 17:
                     if (cooldownTimer > 0 && element.dataset.cooldown == '0' && !element.classList.contains('active')) {
                         setInactive(element);
                     }
-                    if (!(timearg == undefined && foundBuff)) return [3 /*break*/, 27];
-                    if (!expirationPulse) return [3 /*break*/, 25];
+                    if (!(timearg == undefined && foundBuff && !showCooldown)) return [3 /*break*/, 21];
+                    if (!expirationPulse) return [3 /*break*/, 19];
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
-                case 24:
+                case 18:
                     _u.sent();
-                    _u.label = 25;
-                case 25: return [4 /*yield*/, setInactive(element)];
-                case 26:
+                    _u.label = 19;
+                case 19: return [4 /*yield*/, setInactive(element)];
+                case 20:
                     _u.sent();
-                    _u.label = 27;
-                case 27: 
+                    _u.label = 21;
+                case 21: 
                 // Give a very brief pause before checking again
                 return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 28:
+                case 22:
                     // Give a very brief pause before checking again
                     _u.sent();
                     return [2 /*return*/, timearg];
@@ -13729,7 +13733,6 @@ function findStatus(buffsReader, buffImage, element, options) {
         });
     });
 }
-var runOnlyOnce;
 function startCooldownTimer(element, cooldownTimer) {
     return __awaiter(this, void 0, void 0, function () {
         var timer_1;
@@ -13740,7 +13743,7 @@ function startCooldownTimer(element, cooldownTimer) {
                  * Wait the final 1s then set buff to 'cooldown' state
                  * After its cooldown has finished set it back to 'inactive' state (actually 'readyToBeUsed')
                  */
-                return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1050); })];
                 case 1:
                     /*
                      * Wait the final 1s then set buff to 'cooldown' state
@@ -13750,27 +13753,14 @@ function startCooldownTimer(element, cooldownTimer) {
                     return [4 /*yield*/, setCooldown(element, cooldownTimer)];
                 case 2:
                     _a.sent();
-                    if (!(element.dataset.cooldown != '0' && !runOnlyOnce)) return [3 /*break*/, 6];
-                    runOnlyOnce = true;
-                    element.dataset.cooldown = cooldownTimer.toString();
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
-                case 3:
-                    _a.sent();
-                    timer_1 = setInterval(function () {
-                        countdown(element, cooldownTimer, timer_1);
-                    }, 1000);
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 50); })];
-                case 4:
-                    _a.sent();
-                    runOnlyOnce = false;
-                    return [4 /*yield*/, new Promise(function (done) {
-                            return setTimeout(done, cooldownTimer * 1000);
-                        })];
-                case 5:
-                    _a.sent();
-                    clearInterval(timer_1);
-                    _a.label = 6;
-                case 6: return [2 /*return*/, false];
+                    if (element.dataset.cooldown != '0' && element.dataset.startedTimer !== 'true') {
+                        element.dataset.startedTimer = 'true';
+                        element.dataset.cooldown = cooldownTimer.toString();
+                        timer_1 = setInterval(function () {
+                            countdown(element, cooldownTimer, timer_1);
+                        }, 1000);
+                    }
+                    return [2 /*return*/];
             }
         });
     });
@@ -13779,10 +13769,11 @@ function countdown(element, cooldownTimer, timer) {
     if (parseInt(element.dataset.cooldown, 10) > 0) {
         element.dataset.cooldown = (parseInt(element.dataset.cooldown, 10) - 1).toString();
     }
-    else {
-        clearInterval(timer);
-        runOnlyOnce = false;
+    else if (element.dataset.cooldown == '0') {
+        element.dataset.startedTimer = 'false';
+        element.dataset.cooldown = '';
         setInactive(element);
+        clearInterval(timer);
     }
 }
 function findVirus(debuffs) {
@@ -14000,38 +13991,31 @@ function getMaxValueKey(obj) {
 function setCooldown(element, cooldownTimer) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            element.classList.remove('inactive');
-            element.classList.remove('active');
-            element.classList.add('cooldown');
-            element.dataset.time = '';
-            element.dataset.cooldown = cooldownTimer.toString();
-            /* Sanity checking that we're really meant to be on cooldown :) and yes this is jank */
-            setTimeout(function () {
-                element.classList.add('cooldown');
-            }, 1000);
-            setTimeout(function () {
-                element.classList.add('cooldown');
-            }, 2000);
-            setTimeout(function () {
-                element.classList.add('cooldown');
-            }, 3000);
-            setTimeout(function () {
-                element.classList.add('cooldown');
-            }, 4000);
-            setTimeout(function () {
-                element.classList.add('cooldown');
-            }, 5000);
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    element.classList.add('cooldown');
+                    element.classList.remove('inactive');
+                    element.classList.remove('active');
+                    element.dataset.time = '';
+                    element.dataset.startedTimer = 'false';
+                    element.dataset.cooldown = cooldownTimer.toString();
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 2000); })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
     });
 }
 function setInactive(element) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            element.classList.add('inactive');
-            element.classList.remove('active');
-            element.dataset.time = '';
-            if (parseInt(element.dataset.cooldown, 10) <= 2) {
+            if (!(element.dataset.startedTimer == 'true')) {
+                element.classList.add('inactive');
+                element.classList.remove('active');
+                element.dataset.time = '';
+            }
+            else if (element.dataset.startedFimer == 'false') {
                 element.classList.remove('cooldown');
                 element.dataset.cooldown = '';
             }

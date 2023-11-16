@@ -396,25 +396,25 @@ function watchBuffs() {
 			findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, {
 				threshold: 300,
 				showCooldown: true,
-				cooldownTimer: 13,
+				cooldownTimer: 12,
 			});
 
 			findStatus(buffs, buffImages.Barricade, buffsList.Barricade, {
 				threshold: 300,
 				showCooldown: true,
-				cooldownTimer: 49,
+				cooldownTimer: 48,
 			});
 
 			findStatus(buffs, buffImages.Devotion, buffsList.Devotion, {
 				threshold: 300,
 				showCooldown: true,
-				cooldownTimer: 49,
+				cooldownTimer: 48,
 			});
 
 			findStatus(buffs, buffImages.Divert, buffsList.Divert, {
 				threshold: 300,
 				showCooldown: true,
-				cooldownTimer: 23,
+				cooldownTimer: 22,
 			});
 
 			findStatus(buffs, buffImages.Freedom, buffsList.Freedom, {
@@ -426,23 +426,25 @@ function watchBuffs() {
 			findStatus(buffs, buffImages.Immortality, buffsList.Immortality, {
 				threshold: 300,
 				showCooldown: true,
-				cooldownTimer: 89,
+				cooldownTimer: 88,
 			});
 
 			findStatus(buffs, buffImages.Reflect, buffsList.Reflect, {
 				threshold: 300,
 				showCooldown: true,
-				cooldownTimer: 19,
+				cooldownTimer: 18,
 			});
 
 			findStatus(buffs, buffImages.Resonance, buffsList.Resonance, {
 				threshold: 300,
 				showCooldown: true,
-				cooldownTimer: 23,
+				cooldownTimer: 22,
 			});
 
 			findStatus(buffs, buffImages.SplitSoul, buffsList.SplitSoulBuff, {
 				threshold: 350,
+				showCooldown: true,
+				cooldownTimer: 38,
 			});
 
 			findStatus(
@@ -452,14 +454,14 @@ function watchBuffs() {
 				{
 					threshold: 250,
 					showCooldown: true,
-					cooldownTimer: 83,
+					cooldownTimer: 82,
 				}
 			);
 
 			findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, {
 				threshold: 400,
 				showCooldown: true,
-				cooldownTimer: 50,
+				cooldownTimer: 49,
 			});
 
 			findStatus(
@@ -469,7 +471,7 @@ function watchBuffs() {
 				{
 					threshold: 400,
 					showCooldown: true,
-					cooldownTimer: 50,
+					cooldownTimer: 49,
 				}
 			);
 
@@ -480,7 +482,7 @@ function watchBuffs() {
 				{
 					threshold: 400,
 					showCooldown: true,
-					cooldownTimer: 50,
+					cooldownTimer: 49,
 				}
 			);
 
@@ -491,7 +493,7 @@ function watchBuffs() {
 				{
 					threshold: 400,
 					showCooldown: true,
-					cooldownTimer: 83,
+					cooldownTimer: 82,
 				}
 			);
 
@@ -503,7 +505,7 @@ function watchBuffs() {
 			findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, {
 				threshold: 200,
 				showCooldown: true,
-				cooldownTimer: 40,
+				cooldownTimer: 39,
 			});
 
 			findStatus(
@@ -513,7 +515,7 @@ function watchBuffs() {
 				{
 					threshold: 270,
 					showCooldown: true,
-					cooldownTimer: 30,
+					cooldownTimer: 29,
 				}
 			);
 
@@ -524,14 +526,14 @@ function watchBuffs() {
 				{
 					threshold: 450,
 					showCooldown: true,
-					cooldownTimer: 23,
+					cooldownTimer: 22,
 				}
 			);
 
 			findStatus(buffs, ultimateImages.sunshine, ultimatesList.Sunshine, {
 				threshold: 500,
 				showCooldown: true,
-				cooldownTimer: 30,
+				cooldownTimer: 29,
 			});
 
 			findStatus(
@@ -541,7 +543,7 @@ function watchBuffs() {
 				{
 					threshold: 100,
 					showCooldown: true,
-					cooldownTimer: 23,
+					cooldownTimer: 22,
 				}
 			);
 
@@ -552,7 +554,7 @@ function watchBuffs() {
 				{
 					threshold: 400,
 					showCooldown: true,
-					cooldownTimer: 59,
+					cooldownTimer: 58,
 				}
 			);
 
@@ -732,19 +734,25 @@ async function findStatus(
 	}
 
 	for (let [_key, value] of Object.entries(buffsReader)) {
+
+		// If the buff has been found do an early return
 		if (foundBuff) {
 			return;
 		}
 
+		// If Ful book is being used and there is not also a proc found set the proc to inactive
 		if (highlander.length == 1) {
 			setInactive(buffsList.GladiatorsRageBuff);
 		}
 
+		// Only bother scanning for proc if we have both the book and proc active
 		if (highlander.length != 2 && buffImage == buffImages.gladiatorsRage) {
 			return;
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
+
+		// Death Spark doesn't have a readarg so if it is found set it to active and stop evaluating it
 		if (
 			findBuffImage.passed > threshold &&
 			buffImage == buffImages.DeathSpark
@@ -752,6 +760,7 @@ async function findStatus(
 			setActive(element);
 			return;
 		}
+
 		if (
 			findBuffImage.passed > threshold ||
 			(findBuffImage.failed == 0 && buffImage !== buffImages.DeathSpark)
@@ -759,31 +768,37 @@ async function findStatus(
 			// If we find a match for the buff it will always exceed the threshold
 			// the threshold depends largely on which buff is being matched against
 
-			if (
-				sauce.getSetting('debugMode') &&
-				debug
-			) {
-				console.log(`Debugging ${element.id.toString()} | Threshold: ${JSON.stringify(findBuffImage)}`);
+			if (sauce.getSetting('debugMode') && debug) {
+				console.log(
+					`Debugging ${element.id.toString()} | Threshold: ${JSON.stringify(
+						findBuffImage
+					)}`
+				);
 			}
 
+			// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
 			foundBuff = true;
 			await setActive(element);
+
 			timearg = value.readArg('timearg');
-			if (element.dataset.time == '1' && showCooldown && !onCooldown) {
+
+			// If the time remaining is 1 and the buff is supposed to show a cooldown - start the cooldown timer and stop evaluating
+			if (
+				element.dataset.time == '0' ||
+				element.dataset.time == '1' &&
+				showCooldown &&
+				element.dataset.startedTimer == 'false'
+			) {
 				if (debugMode) {
 					console.log(`Starting cooldown timer for ${element.id}`);
 				}
-				onCooldown = true;
-				await startCooldownTimer(
-					element,
-					cooldownTimer - cooldownAdjustment
-				);
+				element.dataset.startedTimer = 'true';
+				startCooldownTimer(element, cooldownTimer - cooldownAdjustment);
 				return;
-			} else if (
-				timearg.time > 59 &&
-				!onCooldown &&
-				timearg.time < maxRange
-			) {
+			}
+
+			// If the timer exceeds 60s show the time in minutes
+			if (timearg.time > 59 && timearg.time < maxRange) {
 				element.dataset.time =
 					Math.floor(value.readArg('timearg').time / 60).toString() +
 					'm';
@@ -791,7 +806,9 @@ async function findStatus(
 				// Pause the check for a tick since we don't need to rapidly update
 				//a buff that won't have a more precise value for 1 minute
 				await new Promise((done) => setTimeout(done, 600));
-			} else if (expirationPulse && timearg.time == 11 && !onCooldown) {
+			}
+			// If we've reached 11 seconds force the item active for 10s and then set it to inactive
+			else if (expirationPulse && timearg.time == 11 && !onCooldown) {
 				element.dataset.time = '<10s';
 				await setActive(element);
 				// This can be desynced from in-game 10s but it's accurate enough
@@ -800,30 +817,40 @@ async function findStatus(
 				if (sauce.getSetting('showTooltipReminders')) {
 					showTooltip('Overload expired', 3000);
 				}
-			} else if (timearg.time > minRange && timearg.time < maxRange) {
+			}
+			// If time exceeds the minimum match range and is under the maximum match range
+			else if (timearg.time > minRange && timearg.time < maxRange) {
 				let buffTimeRemaining = timearg.time - cooldownAdjustment;
+
+				// And the buff has time remaining and is not Necrosis or BOLG Stacks - display the remaining time
 				if (
 					buffTimeRemaining > 0 &&
 					buffImage != buffImages.necrosis &&
 					element != buffsList.BolgStacksBuff
 				) {
 					element.dataset.time = buffTimeRemaining.toString();
-				} else if (
+				}
+				// Otherwise if the buff is Necrosis or BolgStacks display the stacks
+				else if (
 					buffTimeRemaining > 0 &&
 					(buffImage == buffImages.necrosis ||
 						element == buffsList.BolgStacksBuff)
 				) {
 					element.dataset.time = timearg.time;
-				} else {
-					await setInactive(element);
 				}
+
+				// If our time is at 1 second and we are not going to display a cooldown - set the element to inactive
 				if (timearg.time - 1 == 0 && !showCooldown) {
 					await setInactive(element);
 				}
-			} else {
+			}
+			// Failing all else - as long as we are not displaying a cooldown set the item to inactive
+			else if (!showCooldown) {
 				await setInactive(element);
 			}
-		} else if (!showCooldown) {
+		}
+		// Failing all else - as long as we are not displaying a cooldown set the item to inactive
+		else if (!showCooldown) {
 			await setInactive(element);
 		}
 	}
@@ -833,7 +860,7 @@ async function findStatus(
 	}
 
 	// If we didn't find the buff try again after a brief timeout
-	if (timearg == undefined && foundBuff) {
+	if (timearg == undefined && foundBuff && !showCooldown) {
 		// The FoundBuff ensures we don't wait 10s to add inactive when BBB first loads
 		if (expirationPulse) {
 			await new Promise((done) => setTimeout(done, 10000));
@@ -845,29 +872,20 @@ async function findStatus(
 	return timearg;
 }
 
-let runOnlyOnce;
 async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
 	/*
 	 * Wait the final 1s then set buff to 'cooldown' state
 	 * After its cooldown has finished set it back to 'inactive' state (actually 'readyToBeUsed')
 	 */
-	await new Promise((done) => setTimeout(done, 1000));
+	await new Promise((done) => setTimeout(done, 1050));
 	await setCooldown(element, cooldownTimer);
-	if (element.dataset.cooldown != '0' && !runOnlyOnce) {
-		runOnlyOnce = true;
+	if (element.dataset.cooldown != '0' && element.dataset.startedTimer !== 'true') {
+		element.dataset.startedTimer = 'true';
 		element.dataset.cooldown = cooldownTimer.toString();
-		await new Promise((done) => setTimeout(done, 1000));
 		let timer = setInterval(() => {
 			countdown(element, cooldownTimer, timer);
 		}, 1000);
-		await new Promise((done) => setTimeout(done, 50));
-		runOnlyOnce = false;
-		await new Promise((done) =>
-			setTimeout(done, cooldownTimer * 1000)
-		);
-		clearInterval(timer);
 	}
-	return false;
 }
 
 function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
@@ -875,10 +893,11 @@ function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
 		element.dataset.cooldown = (
 			parseInt(element.dataset.cooldown, 10) - 1
 		).toString();
-	} else {
-		clearInterval(timer);
-		runOnlyOnce = false;
+	} else if (element.dataset.cooldown == '0') {
+		element.dataset.startedTimer = 'false';
+		element.dataset.cooldown = '';
 		setInactive(element);
+		clearInterval(timer);
 	}
 }
 
@@ -1120,35 +1139,21 @@ function getMaxValueKey(obj: { [key: string]: number }): string {
 }
 
 async function setCooldown(element: HTMLElement, cooldownTimer: number) {
+	element.classList.add('cooldown');
 	element.classList.remove('inactive');
 	element.classList.remove('active');
-	element.classList.add('cooldown');
 	element.dataset.time = '';
+	element.dataset.startedTimer = 'false';
 	element.dataset.cooldown = cooldownTimer.toString();
-
-	/* Sanity checking that we're really meant to be on cooldown :) and yes this is jank */
-	setTimeout(() => {
-		element.classList.add('cooldown');
-	}, 1000);
-	setTimeout(() => {
-		element.classList.add('cooldown');
-	}, 2000);
-	setTimeout(() => {
-		element.classList.add('cooldown');
-	}, 3000);
-	setTimeout(() => {
-		element.classList.add('cooldown');
-	}, 4000);
-	setTimeout(() => {
-		element.classList.add('cooldown');
-	}, 5000);
+	await new Promise((done) => setTimeout(done, 2000));
 }
 
 async function setInactive(element: HTMLElement) {
-	element.classList.add('inactive');
-	element.classList.remove('active');
-	element.dataset.time = '';
-	if (parseInt(element.dataset.cooldown, 10) <= 2) {
+	if (!(element.dataset.startedTimer == 'true')) {
+		element.classList.add('inactive');
+		element.classList.remove('active');
+		element.dataset.time = '';
+	} else if (element.dataset.startedFimer == 'false') {
 		element.classList.remove('cooldown');
 		element.dataset.cooldown = '';
 	}
