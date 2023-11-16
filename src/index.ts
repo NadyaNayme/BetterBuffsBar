@@ -567,7 +567,7 @@ function watchBuffs() {
 				{
 					threshold: 300,
 					showCooldown: true,
-					cooldownTimer: 35,
+					cooldownTimer: 36,
 				}
 			);
 

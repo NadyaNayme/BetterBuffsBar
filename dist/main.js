@@ -13522,7 +13522,7 @@ function watchBuffs() {
             findStatus(buffs, buffImages.ThreadsOfFate, buffsList.ThreadsOfFate, {
                 threshold: 300,
                 showCooldown: true,
-                cooldownTimer: 35,
+                cooldownTimer: 36,
             });
             checkBuffsForHidingOverlay(buffs);
             if ((buffs === null || buffs === void 0 ? void 0 : buffs.length) == 0) {
