@@ -76,6 +76,7 @@ let buffsList = {
 	AntiFire: getByID('AntifireBuff'),
 	PrayerRenewal: getByID('PrayerRenewalBuff'),
 	DeathSpark: getByID('DeathSparkBuff'),
+	ThreadsOfFate: getByID('ThreadsOfFateBuff'),
 };
 
 let debuffsList = {
@@ -151,6 +152,7 @@ var buffImages = a1lib.webpackImages({
 	Antifire: require('./asset/data/antifire_top.data.png'),
 	PrayerRenewal: require('./asset/data/Prayer_Renew_Active-noborder.data.png'),
 	DeathSpark: require('./asset/data/Death_Spark.data.png'),
+	ThreadsOfFate: require('./asset/data/Threads_Of_Fate.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
@@ -555,6 +557,17 @@ function watchBuffs() {
 					threshold: 400,
 					showCooldown: true,
 					cooldownTimer: 58,
+				}
+			);
+
+			findStatus(
+				buffs,
+				buffImages.ThreadsOfFate,
+				buffsList.ThreadsOfFate,
+				{
+					threshold: 300,
+					showCooldown: true,
+					cooldownTimer: 35,
 				}
 			);
 
