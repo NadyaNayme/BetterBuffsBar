@@ -1644,30 +1644,31 @@ function roundedToFixed(input, digits) {
 }
 
 /* Settings */
+const currentVersion = "2.0.2";
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings - v2.0.2'),
+	settingsHeader: sauce.createHeading('h2', 'Settings - v' + currentVersion),
 	settingDiscord: sauce.createText(
-		`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support.`
+		`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support`
 	),
 	beginGeneral: sauce.createHeading('h3', 'General'),
 	BuffsPerRow: sauce.createNumberSetting(
 		'buffsPerRow',
-		'Number of buffs per row',
+		'Number of buffs displayed per row',
 		{ defaultValue: 10, min: 1, max: 20 }
 	),
 	FadeInactiveBuffs: sauce.createCheckboxSetting(
 		'fadeInactiveBuffs',
-		'Fade Buffs - Fades buffs that are inactive/on cooldown instead of removing them',
+		'<u>Explicitly Inactive</u> - Instead of hiding inactive buffs - displays them darker and desaturated',
 		sauce.getSetting('fadeInactiveBuffs') ?? true
 	),
 	BigHeadMode: sauce.createCheckboxSetting(
 		'bigHeadMode',
-		'Big Head Mode - The first buff will be made four times as large and take up two rows of buffs',
+		'<u>Big Head Mode</u> - The first buff tracked  is made x4 larger. </br>Set display position to Left or Right side:',
 		sauce.getSetting('bigHeadMode') ?? false
 	),
 	BigHeadPosition: sauce.createDropdownSetting(
 		'bigHeadPosition',
-		'Position of Big Head Mode',
+		'',
 		'start',
 		[
 			{ value: 'start', name: 'Left Side' },
@@ -1676,32 +1677,20 @@ const settingsObject = {
 	),
 	OverloadReminder: sauce.createCheckboxSetting(
 		'overloadReminder',
-		'Overload Reminder - Displays a mouse tooltip for 3 seconds after Overloads expire',
+		'<u>Overload Reminder</u> - Display a tooltip after Overloads expires which lasts 3 seconds',
 		sauce.getSetting('overloadReminder') ?? true
 	),
 	BlinkExpiredBuffs: sauce.createCheckboxSetting(
 		'showMaintainableBlinking',
-		'Blink "Expired" Buffs - A blinking effect around any inactive buffs that can have 100% uptime (eg. Overloads, Weapon Poison)',
+		'<u>100% Uptime</u> - Adds a blinking "!!" effect for inactive buffs that can and should be maintained with 100% uptime',
 		sauce.getSetting('showMaintainableBlinking') ?? true
 	),
 	SingleBOLG: sauce.createCheckboxSetting(
 		'singleBOLG',
-		'Split BOLG tracking into two separate buffs. One for weapon special timer and one for stacks',
+		'<u>Split BOLG Weapon Special / Stacks</u> - Tracks Balance by Force and Perfect Equlibrium stacks as separate buffs',
 		sauce.getSetting('singleBOLG') ?? false
 	),
 	endGeneral: sauce.createSeperator(),
-	delayHeader: sauce.createHeading('h3', 'Overlay Delay Compensation'),
-	DelayAdjustment: sauce.createRangeSetting(
-		'delayAdjustment',
-		`Subtracts time from any timers to compensate for the overlay's delay`,
-		{
-			defaultValue: sauce.getSetting('delayAdjustment') ?? '1',
-			min: 0,
-			max: 5,
-			unit: 's',
-		}
-	),
-	endAdjustment: sauce.createSeperator(),
 	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
 	OverlayActive: sauce.createCheckboxSetting(
 		'activeOverlay',
@@ -1709,32 +1698,43 @@ const settingsObject = {
 		sauce.getSetting('activeOverlay') ?? false
 	),
 	OverlaySmallText: sauce.createSmallText(
-		`Make sure the "Show overlay" permission has been enabled for this plugin. You can check by clicking the wrench icon in the top right.`
+		`If the overlay does not show - check the "Show overlay" permission is enabled for this plugin in Alt1's settings or try setting the position using the button below.`
 	),
 	OverlayPositionButton: sauce.createButton(
 		'Set Overlay Position',
 		setOverlayPosition
 	),
-	OverlayRefreshRate: sauce.createRangeSetting(
-		'overlayRefreshRate',
-		'The rate that the overlay should refresh - in milliseconds. Requires reloading to take effect.',
-		{ defaultValue: '50', min: 20, max: 500, unit: 'ms' }
-	),
-	endOverlay: sauce.createSeperator(),
-	ScaleHeader: sauce.createHeading('h3', 'UI Scale'),
+	ScaleHeader: sauce.createHeading('h3', 'Scale'),
 	UIScale: sauce.createRangeSetting(
 		'uiScale',
-		'Adjusts the display size of the Overlay.',
+		'Adjusts the size of the Overlay',
 		{
 			defaultValue: '100',
 			min: 50,
 			max: 200,
 		}
 	),
-	endScale: sauce.createSeperator(),
+	delayHeader: sauce.createHeading('h3', 'Delay Compensation'),
+	DelayAdjustment: sauce.createRangeSetting(
+		'delayAdjustment',
+		`Subtracts time from visible countdowns to adjust for overlay delay`,
+		{
+			defaultValue: sauce.getSetting('delayAdjustment') ?? '1',
+			min: 0,
+			max: 5,
+			unit: 's',
+		}
+	),
+	OverlayRefreshHeader: sauce.createHeading('h3', 'Refresh Rate'),
+	OverlayRefreshRate: sauce.createRangeSetting(
+		'overlayRefreshRate',
+		'The rate that the overlay should refresh - in milliseconds. Requires reloading to take effect.',
+		{ defaultValue: '50', min: 20, max: 500, unit: 'ms' }
+	),
+	endOverlay: sauce.createSeperator(),
 	SearchHeader: sauce.createHeading('h3', 'Interface Search Speed'),
 	SearchText: sauce.createText(
-		`Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. You must reload the app for the new value to take effect.`
+		`Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. Requires reloading to take effect.`
 	),
 	SearchSpeed: sauce.createRangeSetting('loopSpeed', '', {
 		defaultValue: '150',
@@ -1744,9 +1744,9 @@ const settingsObject = {
 	}),
 	endSearch: sauce.createSeperator(),
 	ProfileManager: sauce.createProfileManager(),
-	ResetHeader: sauce.createHeading('h3', 'Hard Reset'),
+	ResetHeader: sauce.createHeading('h3', 'Reset Config'),
 	ResetText: sauce.createText(
-		`Bad configuration values can break the plugin. This attempts to reset your configuration and reload the plugin. When troubleshooting this should be the first thing you should try to resolve your problem.`
+		`This will reset your configuration and reload the plugin in an attempt to solve any problems caused by missing or bad values`
 	),
 	resetButton: sauce.createButton(
 		'Reset All Settings',
@@ -1757,11 +1757,7 @@ const settingsObject = {
 		'h3',
 		'Here is trouble (Make it double!)'
 	),
-	debugMode: sauce.createCheckboxSetting(
-		'debugMode',
-		"Debug mode (please don't use this)",
-		false
-	),
+	debugMode: sauce.createCheckboxSetting('debugMode', 'Debug mode', false),
 	beta: sauce.createCheckboxSetting('beta', 'Beta Testing', false),
 };
 
