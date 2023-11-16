@@ -2,6 +2,7 @@
 // also gives your editor info about the window.alt1 api
 import * as a1lib from 'alt1';
 import * as BuffReader from 'alt1/buffs';
+import * as TargetMob from 'alt1/targetmob';
 import * as sauce from './a1sauce';
 import { Sortable, MultiDrag } from 'sortablejs';
 import * as htmlToImage from 'html-to-image';
@@ -20,6 +21,8 @@ import './css/betterbuffsbar.css';
 var buffs = new BuffReader.default();
 var debuffs = new BuffReader.default();
 debuffs.debuffs = true;
+
+var targetDisplay = new TargetMob.default();
 
 var debugMode = sauce.getSetting('debugMode');
 var currentOverlayPosition = sauce.getSetting('overlayPosition');
@@ -209,6 +212,11 @@ var prayerImages = a1lib.webpackImages({
 	soulSplit: require('./asset/data/Soul_Split-noborder.data.png'),
 	torment: require('./asset/data/Torment-noborder.data.png'),
 	turmoil: require('./asset/data/Turmoil-noborder.data.png'),
+});
+
+var enemyImages = a1lib.webpackImages({
+	DeathMark: require('./asset/data/Death_Mark.data.png'),
+	Vulnerability: require('./asset/data/Vulnerability_bordered.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -630,6 +638,8 @@ function watchBuffs() {
 		} else {
 			noDetection(maxAttempts, interval, 'debuff');
 		}
+		findDeathMark();
+		findVulnerability();
 	}, loopSpeed);
 }
 
@@ -912,6 +922,75 @@ async function findVirus(debuffs: BuffReader.Buff[]) {
 		debuffsList.Virus.classList.add('active');
 	}
 }
+
+function findDeathMark() {
+	targetDisplay.read();
+	if (targetDisplay.lastpos === null) {
+		return;
+	}
+
+	if (!getByID('Buffs').contains(getByID('DeathMarkDebuff'))) {
+		return;
+	}
+
+	var target_display_loc = {
+		x: targetDisplay?.lastpos.x - 120,
+		y: targetDisplay?.lastpos.y + 20,
+		w: 150,
+		h: 60,
+	};
+	var targetDebuffs = a1lib.captureHold(
+		target_display_loc.x,
+		target_display_loc.y,
+		target_display_loc.w,
+		target_display_loc.h
+	);
+	var targetIsDeathMarked = targetDebuffs.findSubimage(enemyImages.DeathMark).length;
+	if (targetIsDeathMarked) {
+		setActive(getByID('DeathMarkDebuff'));
+	} else if (!targetIsDeathMarked) {
+		setInactive(getByID('DeathMarkDebuff'));
+	}
+}
+
+function findVulnerability() {
+	targetDisplay.read();
+	if (targetDisplay.lastpos === null) {
+		setInactive(getByID('VulnerabilityDebuff'));
+		return;
+	}
+
+	if (!getByID('Buffs').contains(getByID('VulnerabilityDebuff'))) {
+		return;
+	}
+
+	var target_display_loc = {
+		x: targetDisplay?.lastpos.x - 120,
+		y: targetDisplay?.lastpos.y + 20,
+		w: 150,
+		h: 60,
+	};
+	var targetDebuffs = a1lib.captureHold(
+		target_display_loc.x,
+		target_display_loc.y,
+		target_display_loc.w,
+		target_display_loc.h
+	);
+	var targetIsVulnerable = targetDebuffs.findSubimage(
+		enemyImages.Vulnerability
+	).length;
+
+	var targetIsVulnerable = targetDebuffs.findSubimage(
+		enemyImages.Vulnerability
+	).length;
+	if (targetIsVulnerable) {
+		setActive(getByID('VulnerabilityDebuff'));
+		setTimeout(() => {
+			setInactive(getByID('VulnerabilityDebuff'));
+		}, 60000);
+	}
+}
+
 
 async function findPrayer(
 	buffsList: BuffReader.Buff[],
@@ -1561,7 +1640,7 @@ function roundedToFixed(input, digits) {
 
 /* Settings */
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings - v2.0.0'),
+	settingsHeader: sauce.createHeading('h2', 'Settings - v2.0.2'),
 	settingDiscord: sauce.createText(
 		`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support.`
 	),
