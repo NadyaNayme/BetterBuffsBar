@@ -13,9 +13,12 @@
 		<div id="BetterBuffsBar">
 			<h2>Tracked</h2>
 			<p>Drag & drop buffs in your desired display order. </br><small>Only track buffs you need - tracking too many hurts performance of the overlay</small></p>
-			<div style="display:flex;justify-content:center;width:100%;">
-			<ul id="Buffs">
-			</ul>
+			<div style="display:flex;justify-content:center;width:100%;flex-wrap:wrap;">
+			<ul class="tracked-region" id="Buffs"></ul>
+			<h3 class="beta-only" style="width:100%;">Group 2</h3>
+			<ul class="tracked-region beta-only" id="Buffs2"></ul>
+			<h3 class="beta-only" style="width:100%;">Group 3</h3>
+			<ul class="tracked-region beta-only" id="Buffs3"></ul>
 			</div>
 			<div id="NameOutput"></div>
 			<h2>Untracked</h2>

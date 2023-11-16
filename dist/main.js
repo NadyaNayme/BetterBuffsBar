@@ -1131,12 +1131,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   display: none;
 }
 
-#BetterBuffsBar.overlay-disabled > *:not(#Buffs) {
+#BetterBuffsBar.overlay-disabled > *:not(.tracked-region) {
   opacity: 0;
   height: 0;
 }
 
-#BetterBuffsBar.overlay-disabled:hover > *:not(#Buffs) {
+#BetterBuffsBar.overlay-disabled:hover > *:not(.tracked-region) {
   opacity: 1;
   height: initial;
 }
@@ -1150,7 +1150,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   opacity: 1;
 }
 
-#BetterBuffsBar.big-head-mode #Buffs {
+#BetterBuffsBar.big-head-mode .tracked-region {
   display: grid;
   width: 100%;
   grid-template-areas:
@@ -1162,7 +1162,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
     ". . . . . . ."
 }
 
-#BetterBuffsBar.big-head-mode #Buffs li:nth-child(1) {
+#BetterBuffsBar.big-head-mode .tracked-region li:nth-child(1) {
   grid-area: first;
   width: 58px;
   height: 58px;
@@ -1175,10 +1175,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   margin-top: 1rem;
 }
 
-#Buffs {
+.tracked-region {
   --maxcount: 5;
   --scale: 100;
-  --totalitems: 48;
+  --totalitems: 10;
   width: auto;
   min-height: calc(((var(--totalitems) / var(--maxcount)) + 1) * (clamp(1, var(--scale) / 100, 2) * 27px) + (clamp(1, var(--scale) / 100, 2) * 27px));
   display: grid;
@@ -1193,11 +1193,21 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   position: relative;
 }
 
-#Buffs:hover .spacer {
+html:not(.beta) .beta-only,
+html:not(.beta) #Settings > button:nth-child(16),
+html:not(.beta) #Settings > button:nth-child(17) {
+  display: none !important;
+}
+
+.tracked-region .spacer {
+  background-color: transparent !important;
+}
+
+.tracked-region:hover .spacer {
   background-color: red !important;
 }
 
-#Buffs::before {
+.tracked-region::before {
   width: calc(100% + 4px);
   height: calc(100% + 4px);
   content:'';
@@ -1208,7 +1218,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   border: solid 2px green;
 }
 
-#BetterBuffsBar.hide-overlay #Buffs {
+#BetterBuffsBar.hide-overlay .tracked-region {
   opacity: 0;
 }
 
@@ -1224,7 +1234,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   flex-wrap: wrap;
 }
 
-#Buffs li,
+.tracked-region li,
 #UntrackedBuffs li {
   position: relative;
   display: flex;
@@ -1235,7 +1245,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-repeat: no-repeat;
 }
 
-#Buffs li::after,
+.tracked-region li::after,
 #UntrackedBuffs li::after {
   display: block;
   content: attr(data-time);
@@ -1249,7 +1259,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   font-weight: 300;
 }
 
-#Buffs li::before,
+.tracked-region li::before,
 #UntrackedBuffs li::before {
   display: block;
   content: attr(data-time);
@@ -1263,7 +1273,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   font-weight: 300;
 }
 
-#Buffs .spacer {
+.tracked-region .spacoer {
   background-color: transparent !important;
 }
 
@@ -1907,13 +1917,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_129___});
 }
 
-#Buffs li.cooldown::before,
-#Buffs li.cooldown::after {
+.tracked-region li.cooldown::before,
+.tracked-region li.cooldown::after {
   content:  attr(data-cooldown) !important;
 }
 
-.blink-maintainables #Buffs li.inactive.maintainable::before,
-.blink-maintainables #Buffs li.inactive.maintainable::after {
+.blink-maintainables .tracked-region li.inactive.maintainable::before,
+.blink-maintainables .tracked-region li.inactive.maintainable::after {
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,.15);
@@ -1996,13 +2006,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   left: calc(50% + 1px);
 }
 
-#BetterBuffsBar:not(.fade) #Buffs li.inactive,
-#BetterBuffsBar:not(.fade) #Buffs li.cooldown {
+#BetterBuffsBar:not(.fade) .tracked-region li.inactive,
+#BetterBuffsBar:not(.fade) .tracked-region li.cooldown {
   opacity: 0;
 }
 
-#BetterBuffsBar:not(.fade):hover #Buffs li.inactive,
-#BetterBuffsBar:not(.fade):hover #Buffs li.cooldown {
+#BetterBuffsBar:not(.fade):hover .tracked-region li.inactive,
+#BetterBuffsBar:not(.fade):hover .tracked-region li.cooldown {
   opacity: 1;
 }
 
@@ -13141,7 +13151,10 @@ var debuffs = new (alt1_buffs__WEBPACK_IMPORTED_MODULE_7___default())();
 debuffs.debuffs = true;
 var targetDisplay = new (alt1_targetmob__WEBPACK_IMPORTED_MODULE_8___default())();
 var debugMode = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('debugMode');
+var betaTesting = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('beta');
 var currentOverlayPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
+var currentOverlay2Position = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay2Position');
+var currentOverlay3Position = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay3Position');
 function getByID(id) {
     return document.getElementById(id);
 }
@@ -13337,6 +13350,10 @@ function startBetterBuffsBar() {
     watchBuffs();
     if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) {
         startOverlay();
+        if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('beta')) {
+            startOverlay2();
+            startOverlay3();
+        }
     }
     else {
         helperItems.BetterBuffsBar.classList.add('overlay-disabled');
@@ -13485,7 +13502,9 @@ function watchBuffs() {
                 cooldownTimer: 82,
             });
             /* BOLG is currently still special */
-            if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
+            if (document.querySelectorAll('#Buffs #BolgStacksBuff').length ||
+                document.querySelectorAll('#Buffs2 #BolgStacksBuff').length ||
+                document.querySelectorAll('#Buffs3 #BolgStacksBuff').length) {
                 findBolgStacks(buffs);
             }
             findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, {
@@ -13629,7 +13648,10 @@ function findStatus(buffsReader, buffImage, element, options) {
                 case 0:
                     _g = options.threshold, threshold = _g === void 0 ? (_a = options.threshold) !== null && _a !== void 0 ? _a : 100 : _g, _h = options.expirationPulse, expirationPulse = _h === void 0 ? (_b = options.expirationPulse) !== null && _b !== void 0 ? _b : false : _h, _j = options.minRange, minRange = _j === void 0 ? (_c = options.minRange) !== null && _c !== void 0 ? _c : 0 : _j, _k = options.maxRange, maxRange = _k === void 0 ? (_d = options.maxRange) !== null && _d !== void 0 ? _d : Infinity : _k, _l = options.showCooldown, showCooldown = _l === void 0 ? (_e = options.showCooldown) !== null && _e !== void 0 ? _e : false : _l, _m = options.cooldownTimer, cooldownTimer = _m === void 0 ? options.cooldownTimer : _m, _o = options.debug, debug = _o === void 0 ? (_f = options.debug) !== null && _f !== void 0 ? _f : false : _o;
                     // Exit early if our buff isn't in the Tracked Buffs list
-                    if (!getByID('Buffs').contains(element) || !buffsReader) {
+                    if (!getByID('Buffs').contains(element) &&
+                        !getByID('Buffs2').contains(element) &&
+                        !getByID('Buffs3').contains(element) ||
+                        !buffsReader) {
                         return [2 /*return*/];
                     }
                     foundBuff = false;
@@ -13878,7 +13900,9 @@ function findDeathMark() {
     if (targetDisplay.lastpos === null) {
         return;
     }
-    if (!getByID('Buffs').contains(getByID('DeathMarkDebuff'))) {
+    if (!getByID('Buffs').contains(getByID('DeathMarkDebuff')) &&
+        !getByID('Buffs2').contains(getByID('DeathMarkDebuff')) &&
+        !getByID('Buffs3').contains(getByID('DeathMarkDebuff'))) {
         return;
     }
     var target_display_loc = {
@@ -13902,7 +13926,9 @@ function findVulnerability() {
         setInactive(getByID('VulnerabilityDebuff'));
         return;
     }
-    if (!getByID('Buffs').contains(getByID('VulnerabilityDebuff'))) {
+    if (!getByID('Buffs').contains(getByID('VulnerabilityDebuff')) &&
+        !getByID('Buffs2').contains(getByID('VulnerabilityDebuff')) &&
+        !getByID('Buffs3').contains(getByID('VulnerabilityDebuff'))) {
         return;
     }
     var target_display_loc = {
@@ -13936,7 +13962,10 @@ function findPrayer(buffsList, debuffsList) {
                     prayersActive++;
                 }
             }
-            if (prayersActive > 0 && getByID('Buffs').contains(prayersList.DpsPrayer)) {
+            if ((prayersActive > 0 &&
+                getByID('Buffs').contains(prayersList.DpsPrayer)) ||
+                getByID('Buffs2').contains(prayersList.DpsPrayer) ||
+                getByID('Buffs3').contains(prayersList.DpsPrayer)) {
                 for (_c = 0, _d = Object.entries(buffsList); _c < _d.length; _c++) {
                     _e = _d[_c], _key = _e[0], value = _e[1];
                     lastActiveDPS = testDpsPrayers(value);
@@ -13946,8 +13975,10 @@ function findPrayer(buffsList, debuffsList) {
                 prayersList.DpsPrayer.dataset.prayer = '';
                 prayersList.DpsPrayer.classList.add('inactive');
             }
-            if (prayersActive > 0 &&
-                getByID('Buffs').contains(prayersList.OverheadPrayer)) {
+            if ((prayersActive > 0 &&
+                getByID('Buffs').contains(prayersList.OverheadPrayer)) ||
+                getByID('Buffs2').contains(prayersList.OverheadPrayer) ||
+                getByID('Buffs3').contains(prayersList.OverheadPrayer)) {
                 for (_f = 0, _g = Object.entries(buffsList); _f < _g.length; _f++) {
                     _h = _g[_f], _key = _h[0], value = _h[1];
                     lastActiveOverhead = testOverheadPrayers(value);
@@ -13965,7 +13996,9 @@ function testDpsPrayers(buff) {
     return __awaiter(this, void 0, void 0, function () {
         var affliction, anguish, desolation, malevolence, ruination, sorrow, torment, turmoil, prayerTests, _i, _a, _b, key, value;
         return __generator(this, function (_c) {
-            if (getByID('Buffs').contains(prayersList.DpsPrayer)) {
+            if (getByID('Buffs').contains(prayersList.DpsPrayer) ||
+                getByID('Buffs2').contains(prayersList.DpsPrayer) ||
+                getByID('Buffs3').contains(prayersList.DpsPrayer)) {
                 affliction = buff.countMatch(prayerImages.affliction, false);
                 anguish = buff.countMatch(prayerImages.anguish, false);
                 desolation = buff.countMatch(prayerImages.desolation, false);
@@ -14003,7 +14036,9 @@ function testOverheadPrayers(buff) {
     return __awaiter(this, void 0, void 0, function () {
         var deflectMagic, deflectMelee, deflectNecromancy, deflectRanged, protectFromMagic, protectFromMelee, protectFromNecromancy, protectFromRanged, soulSplit, prayerTests, _i, _a, _b, key, value;
         return __generator(this, function (_c) {
-            if (getByID('Buffs').contains(prayersList.OverheadPrayer)) {
+            if (getByID('Buffs').contains(prayersList.OverheadPrayer) ||
+                getByID('Buffs2').contains(prayersList.OverheadPrayer) ||
+                getByID('Buffs3').contains(prayersList.OverheadPrayer)) {
                 deflectMagic = buff.countMatch(prayerImages.deflectMagic, false);
                 deflectMelee = buff.countMatch(prayerImages.deflectMelee, false);
                 deflectNecromancy = buff.countMatch(prayerImages.deflectNecromancy, false);
@@ -14240,7 +14275,75 @@ function setOverlayPosition() {
                             (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
                     });
                     currentOverlayPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
-                    alt1.overLayRefreshGroup('betterBuffsBar');
+                    alt1.overLayRefreshGroup('group1');
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 200); })];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 1];
+                case 3:
+                    alt1.clearTooltip();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function setOverlayPosition2() {
+    return __awaiter(this, void 0, void 0, function () {
+        var oldPosition, bbb;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    alt1__WEBPACK_IMPORTED_MODULE_9__.once('alt1pressed', updateLocation2);
+                    oldPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay2Position');
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('oldOverlay2Position', oldPosition);
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
+                    _a.label = 1;
+                case 1:
+                    if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
+                    alt1.setTooltip('Press Alt+1 to save position');
+                    bbb = getByID('Buffs2');
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlay2Position', {
+                        x: Math.floor(alt1__WEBPACK_IMPORTED_MODULE_9__.getMousePosition().x -
+                            (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
+                        y: Math.floor(alt1__WEBPACK_IMPORTED_MODULE_9__.getMousePosition().y -
+                            (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
+                    });
+                    currentOverlay2Position = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay2Position');
+                    alt1.overLayRefreshGroup('group2');
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 200); })];
+                case 2:
+                    _a.sent();
+                    return [3 /*break*/, 1];
+                case 3:
+                    alt1.clearTooltip();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function setOverlayPosition3() {
+    return __awaiter(this, void 0, void 0, function () {
+        var oldPosition, bbb;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    alt1__WEBPACK_IMPORTED_MODULE_9__.once('alt1pressed', updateLocation3);
+                    oldPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay3Position');
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('oldOverlay3Position', oldPosition);
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
+                    _a.label = 1;
+                case 1:
+                    if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
+                    alt1.setTooltip('Press Alt+1 to save position');
+                    bbb = getByID('Buffs3');
+                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlay3Position', {
+                        x: Math.floor(alt1__WEBPACK_IMPORTED_MODULE_9__.getMousePosition().x -
+                            (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
+                        y: Math.floor(alt1__WEBPACK_IMPORTED_MODULE_9__.getMousePosition().y -
+                            (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
+                    });
+                    currentOverlay3Position = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay3Position');
+                    alt1.overLayRefreshGroup('group3');
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 200); })];
                 case 2:
                     _a.sent();
@@ -14255,6 +14358,22 @@ function setOverlayPosition() {
 function updateLocation(e) {
     var bbb = getByID('Buffs');
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayPosition', {
+        x: Math.floor(e.x - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
+        y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
+    });
+    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
+}
+function updateLocation2(e) {
+    var bbb = getByID('Buffs2');
+    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlay2Position', {
+        x: Math.floor(e.x - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
+        y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
+    });
+    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
+}
+function updateLocation3(e) {
+    var bbb = getByID('Buffs3');
+    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlay3Position', {
         x: Math.floor(e.x - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
         y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
     });
@@ -14296,11 +14415,11 @@ function startOverlay() {
                                         var base64ImageString = dataUrl
                                             .getContext('2d')
                                             .getImageData(0, 0, dataUrl.width, dataUrl.height);
-                                        alt1.overLaySetGroup('betterBuffsBar');
-                                        alt1.overLayFreezeGroup('betterBuffsBar');
-                                        alt1.overLayClearGroup('betterBuffsBar');
+                                        alt1.overLaySetGroup('region1');
+                                        alt1.overLayFreezeGroup('region1');
+                                        alt1.overLayClearGroup('region1');
                                         alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
-                                        alt1.overLayRefreshGroup('betterBuffsBar');
+                                        alt1.overLayRefreshGroup('region1');
                                     })
                                         .catch(function (e) {
                                         console.error("html-to-image failed to capture", e);
@@ -14324,6 +14443,134 @@ function startOverlay() {
         });
     });
 }
+function startOverlay2() {
+    return __awaiter(this, void 0, void 0, function () {
+        var overlay, styles, totalTrackeDItems, buffsPerRow, refreshRate, _loop_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    overlay = getByID('Buffs2');
+                    styles = getComputedStyle(overlay);
+                    totalTrackeDItems = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('totalTrackedItems');
+                    buffsPerRow = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerrow');
+                    refreshRate = parseInt(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayRefreshRate'), 10);
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 1:
+                    _a.sent();
+                    _loop_2 = function () {
+                        var uiScale, overlayPosition;
+                        return __generator(this, function (_b) {
+                            switch (_b.label) {
+                                case 0:
+                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale');
+                                    overlayPosition = currentOverlay2Position;
+                                    html_to_image__WEBPACK_IMPORTED_MODULE_2__.toCanvas(overlay, {
+                                        backgroundColor: 'transparent',
+                                        width: parseInt(styles.minWidth, 10),
+                                        height: parseInt(styles.minHeight, 10) +
+                                            Math.floor(totalTrackeDItems / buffsPerRow + 1) *
+                                                27 *
+                                                (uiScale / 100),
+                                        quality: 1,
+                                        pixelRatio: uiScale / 100 - 0.00999999999999999999,
+                                        skipAutoScale: true,
+                                    })
+                                        .then(function (dataUrl) {
+                                        var base64ImageString = dataUrl
+                                            .getContext('2d')
+                                            .getImageData(0, 0, dataUrl.width, dataUrl.height);
+                                        alt1.overLaySetGroup('region2');
+                                        alt1.overLayFreezeGroup('region2');
+                                        alt1.overLayClearGroup('region2');
+                                        alt1.overLayImage(overlayPosition.x + 300, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
+                                        alt1.overLayRefreshGroup('region2');
+                                    })
+                                        .catch(function (e) {
+                                        console.error("html-to-image failed to capture", e);
+                                    });
+                                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, refreshRate); })];
+                                case 1:
+                                    _b.sent();
+                                    return [2 /*return*/];
+                            }
+                        });
+                    };
+                    _a.label = 2;
+                case 2:
+                    if (false) {}
+                    return [5 /*yield**/, _loop_2()];
+                case 3:
+                    _a.sent();
+                    return [3 /*break*/, 2];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+function startOverlay3() {
+    return __awaiter(this, void 0, void 0, function () {
+        var overlay, styles, totalTrackeDItems, buffsPerRow, refreshRate, _loop_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    overlay = getByID('Buffs3');
+                    styles = getComputedStyle(overlay);
+                    totalTrackeDItems = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('totalTrackedItems');
+                    buffsPerRow = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerrow');
+                    refreshRate = parseInt(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayRefreshRate'), 10);
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 1:
+                    _a.sent();
+                    _loop_3 = function () {
+                        var uiScale, overlayPosition;
+                        return __generator(this, function (_b) {
+                            switch (_b.label) {
+                                case 0:
+                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale');
+                                    overlayPosition = currentOverlay3Position;
+                                    html_to_image__WEBPACK_IMPORTED_MODULE_2__.toCanvas(overlay, {
+                                        backgroundColor: 'transparent',
+                                        width: parseInt(styles.minWidth, 10),
+                                        height: parseInt(styles.minHeight, 10) +
+                                            Math.floor(totalTrackeDItems / buffsPerRow + 1) *
+                                                27 *
+                                                (uiScale / 100),
+                                        quality: 1,
+                                        pixelRatio: uiScale / 100 - 0.00999999999999999999,
+                                        skipAutoScale: true,
+                                    })
+                                        .then(function (dataUrl) {
+                                        var base64ImageString = dataUrl
+                                            .getContext('2d')
+                                            .getImageData(0, 0, dataUrl.width, dataUrl.height);
+                                        alt1.overLaySetGroup('region3');
+                                        alt1.overLayFreezeGroup('region3');
+                                        alt1.overLayClearGroup('region3');
+                                        alt1.overLayImage(overlayPosition.x + 300, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
+                                        alt1.overLayRefreshGroup('region3');
+                                    })
+                                        .catch(function (e) {
+                                        console.error("html-to-image failed to capture", e);
+                                    });
+                                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, refreshRate); })];
+                                case 1:
+                                    _b.sent();
+                                    return [2 /*return*/];
+                            }
+                        });
+                    };
+                    _a.label = 2;
+                case 2:
+                    if (false) {}
+                    return [5 /*yield**/, _loop_3()];
+                case 3:
+                    _a.sent();
+                    return [3 /*break*/, 2];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
 function initSettings() {
     if (!localStorage[config.appName]) {
         setDefaultSettings();
@@ -14331,6 +14578,10 @@ function initSettings() {
     if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('betaUpgrade' == undefined)) {
         _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('betaUpgrade', 'upgraded to 2.0.0');
         _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('delayAdjustment', 1);
+    }
+    if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('beta') == true) {
+        helperItems.BetterBuffsBar.classList.add('beta-tester');
+        document.querySelector('html').classList.add('beta');
     }
     loadSettings();
 }
@@ -14349,6 +14600,8 @@ function setDefaultSettings() {
         showMaintainableBlinking: true,
         showTooltipReminders: true,
         overlayPosition: { x: 100, y: 100 },
+        overlay2Position: { x: 300, y: 100 },
+        overlay3Position: { x: 500, y: 100 },
         uiScale: 100,
         updatingOverlayPosition: false,
     }));
@@ -14356,7 +14609,13 @@ function setDefaultSettings() {
 function loadSettings() {
     getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
     getByID('Buffs').style.setProperty('--totalitems', helperItems.TrackedBuffs.children.length.toString());
+    getByID('Buffs2').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
+    getByID('Buffs2').style.setProperty('--totalitems', helperItems.TrackedBuffs.children.length.toString());
+    getByID('Buffs3').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
+    getByID('Buffs3').style.setProperty('--totalitems', helperItems.TrackedBuffs.children.length.toString());
     getByID('Buffs').style.setProperty('--scale', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale'));
+    getByID('Buffs2').style.setProperty('--scale', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale'));
+    getByID('Buffs3').style.setProperty('--scale', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale'));
     helperItems.BetterBuffsBar.classList.toggle('fade', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('fadeInactiveBuffs'));
     helperItems.BetterBuffsBar.classList.toggle('big-head-mode', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode'));
     helperItems.BetterBuffsBar.classList.toggle('blink-maintainables', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showMaintainableBlinking'));
@@ -14373,7 +14632,7 @@ function loadSettings() {
     disableNameSetting();
 }
 function setSortables() {
-    var sortables = ['Buffs', 'UntrackedBuffs'];
+    var sortables = ['Buffs', 'Buffs2', 'Buffs3', 'UntrackedBuffs'];
     // Create the sortables
     sortables.forEach(function (sortable) {
         var el = getByID(sortable);
@@ -14426,9 +14685,13 @@ function setSortables() {
 }
 function setBuffsPerRow() {
     getByID('Buffs').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
+    getByID('Buffs2').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
+    getByID('Buffs3').style.setProperty('--maxcount', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow'));
     setGridSize();
     helperItems.TrackedBuffs.addEventListener('change', function () {
         getByID('Buffs').style.setProperty('--totalitems', helperItems.TrackedBuffs.children.length.toString());
+        getByID('Buffs2').style.setProperty('--totalitems', helperItems.TrackedBuffs.children.length.toString());
+        getByID('Buffs3').style.setProperty('--totalitems', helperItems.TrackedBuffs.children.length.toString());
         _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('totalTrackedItems', helperItems.TrackedBuffs.children.length.toString);
     });
 }
@@ -14529,6 +14792,8 @@ var settingsObject = {
     OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', 'Enable Overlay', (_f = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _f !== void 0 ? _f : false),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("If the overlay does not show - check the \"Show overlay\" permission is enabled for this plugin in Alt1's settings or try setting the position using the button below."),
     OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition),
+    Overlay2PositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay 2 Position', setOverlayPosition2),
+    Overlay3PositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay 3 Position', setOverlayPosition3),
     ScaleHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Scale'),
     UIScale: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('uiScale', 'Adjusts the size of the Overlay', {
         defaultValue: '100',

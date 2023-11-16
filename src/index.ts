@@ -25,7 +25,10 @@ debuffs.debuffs = true;
 var targetDisplay = new TargetMob.default();
 
 var debugMode = sauce.getSetting('debugMode');
+var betaTesting = sauce.getSetting('beta');
 var currentOverlayPosition = sauce.getSetting('overlayPosition');
+var currentOverlay2Position = sauce.getSetting('overlay2Position');
+var currentOverlay3Position = sauce.getSetting('overlay3Position');
 
 function getByID(id: string) {
 	return document.getElementById(id);
@@ -247,6 +250,10 @@ export function startBetterBuffsBar() {
 	watchBuffs();
 	if (sauce.getSetting('activeOverlay')) {
 		startOverlay();
+		if (sauce.getSetting('beta')) {
+			startOverlay2();
+			startOverlay3();
+		}
 	} else {
 		helperItems.BetterBuffsBar.classList.add('overlay-disabled');
 	}
@@ -500,7 +507,11 @@ function watchBuffs() {
 			);
 
 			/* BOLG is currently still special */
-			if (document.querySelectorAll('#Buffs #BolgStacksBuff').length) {
+			if (
+				document.querySelectorAll('#Buffs #BolgStacksBuff').length ||
+				document.querySelectorAll('#Buffs2 #BolgStacksBuff').length ||
+				document.querySelectorAll('#Buffs3 #BolgStacksBuff').length
+			) {
 				findBolgStacks(buffs);
 			}
 
@@ -726,7 +737,12 @@ async function findStatus(
 		debug = options.debug ?? false,
 	} = options;
 	// Exit early if our buff isn't in the Tracked Buffs list
-	if (!getByID('Buffs').contains(element) || !buffsReader) {
+	if (
+		!getByID('Buffs').contains(element) &&
+		!getByID('Buffs2').contains(element) &&
+		!getByID('Buffs3').contains(element) ||
+		!buffsReader
+	) {
 		return;
 	}
 
@@ -961,7 +977,11 @@ function findDeathMark() {
 		return;
 	}
 
-	if (!getByID('Buffs').contains(getByID('DeathMarkDebuff'))) {
+	if (
+		!getByID('Buffs').contains(getByID('DeathMarkDebuff')) &&
+		!getByID('Buffs2').contains(getByID('DeathMarkDebuff')) &&
+		!getByID('Buffs3').contains(getByID('DeathMarkDebuff'))
+	) {
 		return;
 	}
 
@@ -992,7 +1012,11 @@ function findVulnerability() {
 		return;
 	}
 
-	if (!getByID('Buffs').contains(getByID('VulnerabilityDebuff'))) {
+	if (
+		!getByID('Buffs').contains(getByID('VulnerabilityDebuff')) &&
+		!getByID('Buffs2').contains(getByID('VulnerabilityDebuff')) &&
+		!getByID('Buffs3').contains(getByID('VulnerabilityDebuff'))
+	) {
 		return;
 	}
 
@@ -1043,7 +1067,12 @@ async function findPrayer(
 		}
 	}
 
-	if (prayersActive > 0 && getByID('Buffs').contains(prayersList.DpsPrayer)) {
+	if (
+		(prayersActive > 0 &&
+			getByID('Buffs').contains(prayersList.DpsPrayer)) ||
+		getByID('Buffs2').contains(prayersList.DpsPrayer) ||
+		getByID('Buffs3').contains(prayersList.DpsPrayer)
+	) {
 		for (let [_key, value] of Object.entries(buffsList)) {
 			lastActiveDPS = testDpsPrayers(value);
 		}
@@ -1053,8 +1082,10 @@ async function findPrayer(
 	}
 
 	if (
-		prayersActive > 0 &&
-		getByID('Buffs').contains(prayersList.OverheadPrayer)
+		(prayersActive > 0 &&
+			getByID('Buffs').contains(prayersList.OverheadPrayer)) ||
+			getByID('Buffs2').contains(prayersList.OverheadPrayer) ||
+			getByID('Buffs3').contains(prayersList.OverheadPrayer)
 	) {
 		for (let [_key, value] of Object.entries(buffsList)) {
 			lastActiveOverhead = testOverheadPrayers(value);
@@ -1066,7 +1097,11 @@ async function findPrayer(
 }
 
 async function testDpsPrayers(buff: BuffReader.Buff) {
-	if (getByID('Buffs').contains(prayersList.DpsPrayer)) {
+	if (
+		getByID('Buffs').contains(prayersList.DpsPrayer) ||
+		getByID('Buffs2').contains(prayersList.DpsPrayer) ||
+		getByID('Buffs3').contains(prayersList.DpsPrayer)
+	) {
 		let affliction = buff.countMatch(prayerImages.affliction, false);
 		let anguish = buff.countMatch(prayerImages.anguish, false);
 		let desolation = buff.countMatch(prayerImages.desolation, false);
@@ -1098,7 +1133,11 @@ async function testDpsPrayers(buff: BuffReader.Buff) {
 }
 
 async function testOverheadPrayers(buff: BuffReader.Buff) {
-	if (getByID('Buffs').contains(prayersList.OverheadPrayer)) {
+	if (
+		getByID('Buffs').contains(prayersList.OverheadPrayer) ||
+		getByID('Buffs2').contains(prayersList.OverheadPrayer) ||
+		getByID('Buffs3').contains(prayersList.OverheadPrayer)
+	) {
 		/* Overhead Prayers */
 		let deflectMagic = buff.countMatch(prayerImages.deflectMagic, false);
 		let deflectMelee = buff.countMatch(prayerImages.deflectMelee, false);
@@ -1324,7 +1363,59 @@ async function setOverlayPosition() {
 			),
 		});
 		currentOverlayPosition = sauce.getSetting('overlayPosition');
-		alt1.overLayRefreshGroup('betterBuffsBar');
+		alt1.overLayRefreshGroup('group1');
+		await new Promise((done) => setTimeout(done, 200));
+	}
+	alt1.clearTooltip();
+	return;
+}
+
+async function setOverlayPosition2() {
+	a1lib.once('alt1pressed', updateLocation2);
+	let oldPosition = sauce.getSetting('overlay2Position');
+	sauce.updateSetting('oldOverlay2Position', oldPosition);
+	sauce.updateSetting('updatingOverlayPosition', true);
+	while (sauce.getSetting('updatingOverlayPosition')) {
+		alt1.setTooltip('Press Alt+1 to save position');
+		let bbb = getByID('Buffs2');
+		sauce.updateSetting('overlay2Position', {
+			x: Math.floor(
+				a1lib.getMousePosition().x -
+					(sauce.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)
+			),
+			y: Math.floor(
+				a1lib.getMousePosition().y -
+					(sauce.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
+			),
+		});
+		currentOverlay2Position = sauce.getSetting('overlay2Position');
+		alt1.overLayRefreshGroup('group2');
+		await new Promise((done) => setTimeout(done, 200));
+	}
+	alt1.clearTooltip();
+	return;
+}
+
+async function setOverlayPosition3() {
+	a1lib.once('alt1pressed', updateLocation3);
+	let oldPosition = sauce.getSetting('overlay3Position');
+	sauce.updateSetting('oldOverlay3Position', oldPosition);
+	sauce.updateSetting('updatingOverlayPosition', true);
+	while (sauce.getSetting('updatingOverlayPosition')) {
+		alt1.setTooltip('Press Alt+1 to save position');
+		let bbb = getByID('Buffs3');
+		sauce.updateSetting('overlay3Position', {
+			x: Math.floor(
+				a1lib.getMousePosition().x -
+					(sauce.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)
+			),
+			y: Math.floor(
+				a1lib.getMousePosition().y -
+					(sauce.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
+			),
+		});
+		currentOverlay3Position = sauce.getSetting('overlay3Position');
+		alt1.overLayRefreshGroup('group3');
 		await new Promise((done) => setTimeout(done, 200));
 	}
 	alt1.clearTooltip();
@@ -1334,6 +1425,32 @@ async function setOverlayPosition() {
 function updateLocation(e) {
 	let bbb = getByID('Buffs');
 	sauce.updateSetting('overlayPosition', {
+		x: Math.floor(
+			e.x - (sauce.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)
+		),
+		y: Math.floor(
+			e.y - (sauce.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
+		),
+	});
+	sauce.updateSetting('updatingOverlayPosition', false);
+}
+
+function updateLocation2(e) {
+	let bbb = getByID('Buffs2');
+	sauce.updateSetting('overlay2Position', {
+		x: Math.floor(
+			e.x - (sauce.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)
+		),
+		y: Math.floor(
+			e.y - (sauce.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
+		),
+	});
+	sauce.updateSetting('updatingOverlayPosition', false);
+}
+
+function updateLocation3(e) {
+	let bbb = getByID('Buffs3');
+	sauce.updateSetting('overlay3Position', {
 		x: Math.floor(
 			e.x - (sauce.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)
 		),
@@ -1371,9 +1488,9 @@ async function startOverlay() {
 				let base64ImageString = dataUrl
 					.getContext('2d')
 					.getImageData(0, 0, dataUrl.width, dataUrl.height);
-				alt1.overLaySetGroup('betterBuffsBar');
-				alt1.overLayFreezeGroup('betterBuffsBar');
-				alt1.overLayClearGroup('betterBuffsBar');
+				alt1.overLaySetGroup('region1');
+				alt1.overLayFreezeGroup('region1');
+				alt1.overLayClearGroup('region1');
 				alt1.overLayImage(
 					overlayPosition.x,
 					overlayPosition.y,
@@ -1381,7 +1498,99 @@ async function startOverlay() {
 					base64ImageString.width,
 					refreshRate
 				);
-				alt1.overLayRefreshGroup('betterBuffsBar');
+				alt1.overLayRefreshGroup('region1');
+			})
+			.catch((e) => {
+				console.error(`html-to-image failed to capture`, e);
+			});
+		await new Promise((done) => setTimeout(done, refreshRate));
+	}
+}
+
+async function startOverlay2() {
+	let overlay = getByID('Buffs2');
+	let styles = getComputedStyle(overlay);
+	let totalTrackeDItems = sauce.getSetting('totalTrackedItems');
+	let buffsPerRow = sauce.getSetting('buffsPerrow');
+	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
+	await new Promise((done) => setTimeout(done, 1000));
+	while (true) {
+		let uiScale = sauce.getSetting('uiScale');
+		let overlayPosition = currentOverlay2Position;
+		htmlToImage
+			.toCanvas(overlay, {
+				backgroundColor: 'transparent',
+				width: parseInt(styles.minWidth, 10),
+				height:
+					parseInt(styles.minHeight, 10) +
+					Math.floor(totalTrackeDItems / buffsPerRow + 1) *
+						27 *
+						(uiScale / 100),
+				quality: 1,
+				pixelRatio: uiScale / 100 - 0.00999999999999999999,
+				skipAutoScale: true,
+			})
+			.then((dataUrl) => {
+				let base64ImageString = dataUrl
+					.getContext('2d')
+					.getImageData(0, 0, dataUrl.width, dataUrl.height);
+				alt1.overLaySetGroup('region2');
+				alt1.overLayFreezeGroup('region2');
+				alt1.overLayClearGroup('region2');
+				alt1.overLayImage(
+					overlayPosition.x + 300,
+					overlayPosition.y,
+					a1lib.encodeImageString(base64ImageString),
+					base64ImageString.width,
+					refreshRate
+				);
+				alt1.overLayRefreshGroup('region2');
+			})
+			.catch((e) => {
+				console.error(`html-to-image failed to capture`, e);
+			});
+		await new Promise((done) => setTimeout(done, refreshRate));
+	}
+}
+
+async function startOverlay3() {
+	let overlay = getByID('Buffs3');
+	let styles = getComputedStyle(overlay);
+	let totalTrackeDItems = sauce.getSetting('totalTrackedItems');
+	let buffsPerRow = sauce.getSetting('buffsPerrow');
+	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
+	await new Promise((done) => setTimeout(done, 1000));
+	while (true) {
+		let uiScale = sauce.getSetting('uiScale');
+		let overlayPosition = currentOverlay3Position;
+		htmlToImage
+			.toCanvas(overlay, {
+				backgroundColor: 'transparent',
+				width: parseInt(styles.minWidth, 10),
+				height:
+					parseInt(styles.minHeight, 10) +
+					Math.floor(totalTrackeDItems / buffsPerRow + 1) *
+						27 *
+						(uiScale / 100),
+				quality: 1,
+				pixelRatio: uiScale / 100 - 0.00999999999999999999,
+				skipAutoScale: true,
+			})
+			.then((dataUrl) => {
+				let base64ImageString = dataUrl
+					.getContext('2d')
+					.getImageData(0, 0, dataUrl.width, dataUrl.height);
+				alt1.overLaySetGroup('region3');
+				alt1.overLayFreezeGroup('region3');
+				alt1.overLayClearGroup('region3');
+				alt1.overLayImage(
+					overlayPosition.x + 300,
+					overlayPosition.y,
+					a1lib.encodeImageString(base64ImageString),
+					base64ImageString.width,
+					refreshRate
+				);
+				alt1.overLayRefreshGroup('region3');
 			})
 			.catch((e) => {
 				console.error(`html-to-image failed to capture`, e);
@@ -1397,6 +1606,10 @@ function initSettings() {
 	if (sauce.getSetting('betaUpgrade' == undefined)) {
 		sauce.updateSetting('betaUpgrade', 'upgraded to 2.0.0');
 		sauce.updateSetting('delayAdjustment', 1);
+	}
+	if (sauce.getSetting('beta') == true) {
+		helperItems.BetterBuffsBar.classList.add('beta-tester');
+		document.querySelector('html').classList.add('beta');
 	}
 	loadSettings();
 }
@@ -1418,6 +1631,8 @@ function setDefaultSettings() {
 			showMaintainableBlinking: true,
 			showTooltipReminders: true,
 			overlayPosition: { x: 100, y: 100 },
+			overlay2Position: { x: 300, y: 100 },
+			overlay3Position: { x: 500, y: 100 },
 			uiScale: 100,
 			updatingOverlayPosition: false,
 		})
@@ -1433,7 +1648,25 @@ function loadSettings() {
 		'--totalitems',
 		helperItems.TrackedBuffs.children.length.toString()
 	);
+	getByID('Buffs2').style.setProperty(
+		'--maxcount',
+		sauce.getSetting('buffsPerRow')
+	);
+	getByID('Buffs2').style.setProperty(
+		'--totalitems',
+		helperItems.TrackedBuffs.children.length.toString()
+	);
+	getByID('Buffs3').style.setProperty(
+		'--maxcount',
+		sauce.getSetting('buffsPerRow')
+	);
+	getByID('Buffs3').style.setProperty(
+		'--totalitems',
+		helperItems.TrackedBuffs.children.length.toString()
+	);
 	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('uiScale'));
+	getByID('Buffs2').style.setProperty('--scale', sauce.getSetting('uiScale'));
+	getByID('Buffs3').style.setProperty('--scale', sauce.getSetting('uiScale'));
 	helperItems.BetterBuffsBar.classList.toggle(
 		'fade',
 		sauce.getSetting('fadeInactiveBuffs')
@@ -1463,7 +1696,7 @@ function loadSettings() {
 }
 
 function setSortables() {
-	const sortables = ['Buffs', 'UntrackedBuffs'];
+	const sortables = ['Buffs', 'Buffs2', 'Buffs3', 'UntrackedBuffs'];
 	// Create the sortables
 	sortables.forEach((sortable) => {
 		const el = getByID(sortable);
@@ -1523,10 +1756,26 @@ function setBuffsPerRow() {
 		'--maxcount',
 		sauce.getSetting('buffsPerRow')
 	);
+	getByID('Buffs2').style.setProperty(
+		'--maxcount',
+		sauce.getSetting('buffsPerRow')
+	);
+	getByID('Buffs3').style.setProperty(
+		'--maxcount',
+		sauce.getSetting('buffsPerRow')
+	);
 	setGridSize();
 
 	helperItems.TrackedBuffs.addEventListener('change', () => {
 		getByID('Buffs').style.setProperty(
+			'--totalitems',
+			helperItems.TrackedBuffs.children.length.toString()
+		);
+		getByID('Buffs2').style.setProperty(
+			'--totalitems',
+			helperItems.TrackedBuffs.children.length.toString()
+		);
+		getByID('Buffs3').style.setProperty(
 			'--totalitems',
 			helperItems.TrackedBuffs.children.length.toString()
 		);
@@ -1716,6 +1965,14 @@ const settingsObject = {
 	OverlayPositionButton: sauce.createButton(
 		'Set Overlay Position',
 		setOverlayPosition
+	),
+	Overlay2PositionButton: sauce.createButton(
+		'Set Overlay 2 Position',
+		setOverlayPosition2
+	),
+	Overlay3PositionButton: sauce.createButton(
+		'Set Overlay 3 Position',
+		setOverlayPosition3
 	),
 	ScaleHeader: sauce.createHeading('h3', 'Scale'),
 	UIScale: sauce.createRangeSetting(
