@@ -1703,7 +1703,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 
 #VulnerabilityDebuff.inactive::before,
 #VulnerabilityDebuff.inactive::after {
-  content:  'bomb' !important;
+  content:  'vuln' !important;
   font-size: 8px !important;
   left: 1px !important;
 }
