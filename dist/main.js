@@ -13339,7 +13339,7 @@ function watchBuffs() {
                 threshold: 150,
             });
             findStatus(buffs, buffImages.aura, buffsList.Aura, {
-                threshold: 500,
+                threshold: 400,
             });
             findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, {
                 threshold: 400,
