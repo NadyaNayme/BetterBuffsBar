@@ -1930,7 +1930,7 @@ const settingsObject = {
 	),
 	BigHeadPosition: sauce.createDropdownSetting(
 		'bigHeadPosition',
-		'Set display position to Left or Right side',
+		'<u>Big Head Position</u> Set display position to Left or Right side',
 		'start',
 		[
 			{ value: 'start', name: 'Left Side' },

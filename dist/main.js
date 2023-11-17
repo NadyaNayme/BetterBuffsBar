@@ -14919,7 +14919,7 @@ var settingsObject = {
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs displayed per row', { defaultValue: 10, min: 1, max: 20 }),
     FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', '<u>Explicitly Inactive</u> Instead of hiding inactive buffs - displays them darker and desaturated', (_a = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('fadeInactiveBuffs')) !== null && _a !== void 0 ? _a : true),
     BigHeadMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('bigHeadMode', '<u>Big Head Mode</u> The first buff tracked  is made x4 larger.', (_b = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode')) !== null && _b !== void 0 ? _b : false),
-    BigHeadPosition: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createDropdownSetting('bigHeadPosition', 'Set display position to Left or Right side', 'start', [
+    BigHeadPosition: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createDropdownSetting('bigHeadPosition', '<u>Big Head Position</u> Set display position to Left or Right side', 'start', [
         { value: 'start', name: 'Left Side' },
         { value: 'end', name: 'Right Side' },
     ]),
