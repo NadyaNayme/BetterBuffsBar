@@ -245,127 +245,183 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #OverloadBuff {
-  background-image: url('/asset/buffs/overload.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -88px -226px;
 }
 
 #OverloadBuff.inactive {
-  background-image: url('/asset/buffs/desat/overload-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -117px -313px;
 }
 
 #ElderOverloadBuff {
-  background-image: url('/asset/buffs/elder_overload.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -117px -197px;
 }
 
 #ElderOverloadBuff.inactive {
-  background-image: url('/asset/buffs/desat/elder_overload-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -313px -59px;
 }
 
 #WeaponPoisonBuff {
-  background-image: url('/asset/buffs/weapon_poison.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -284px -88px;
 }
 
 #WeaponPoisonBuff.inactive {
-  background-image: url('/asset/buffs/desat/weapon_poison-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -342px -175px;
 }
 
 #DarknessBuff {
-  background-image: url('/asset/buffs/darkness.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -117px -168px;
 }
 
 #DarknessBuff.inactive {
-  background-image: url('/asset/buffs/desat/darkness-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -117px -284px;
 }
 
 #AnimateDeadBuff {
-  background-image: url('/asset/buffs/animate_dead.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -121px -137px;
 }
 
 #AnimateDeadBuff.inactive {
-  background-image: url('/asset/buffs/desat/animate_dead-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -284px -117px;
 }
 
 #BolgStacksBuff {
-  background-image: url('/asset/buffs/perfect_eqilibrium.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -117px -226px;
 }
 
 #BolgStacksBuff.inactive {
-  background-image: url('/asset/buffs/desat/perfect_eqilibrium-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -146px -313px;
 }
 
 #BalanceByForceBuff {
-  background-image: url('/asset/buffs/balance_by_force.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -168px -88px;
 }
 
 #BalanceByForceBuff.inactive {
-  background-image: url('/asset/buffs/desat/balance_by_force-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -284px -233px;
 }
 
 #TimeRiftBuff {
-  background-image: url('/asset/buffs/time_rift.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -117px -255px;
 }
 
 #TimeRiftBuff.inactive {
-  background-image: url('/asset/buffs/desat/time_rift-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -342px -88px;
 }
 
 #FsoaSpecBuff {
-  background-image: url('/asset/buffs/instability.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -226px -117px;
 }
 
 #FsoaSpecBuff.inactive {
-  background-image: url('/asset/buffs/desat/instability-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -313px -262px;
 }
 
 #GladiatorsRageBuff {
-  background-image: url('/asset/buffs/gladiators_rage.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -175px -197px;
 }
 
 #GladiatorsRageBuff.inactive {
-  background-image: url('/asset/buffs/desat/gladiators_rage-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -313px -117px;
 }
 
 #NecrosisBuff {
-  background-image: url('/asset/buffs/necrosis.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -30px -226px;
 }
 
 #NecrosisBuff.inactive {
-  background-image: url('/asset/buffs/desat/necrosis-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -59px -313px;
 }
 
 #Aura {
-  background-image: url('/asset/buffs/aura.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -168px -59px;
 }
 
 #Aura.inactive {
-  background-image: url('/asset/buffs/desat/aura-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -284px -204px;
 }
 
 #BonfireBoost {
-  background-image: url('/asset/buffs/bonfire.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -59px -168px;
 }
 
 #BonfireBoost.inactive {
-  background-image: url('/asset/buffs/desat/bonfire-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -59px -284px;
 }
 
 #ErethdorsGrimoire {
-  background-image: url('/asset/buffs/erethdors_grimoire.png');
-  background-size: contain;
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -106px;
 }
 
 #ErethdorsGrimoire.inactive {
-  background-image: url('/asset/buffs/desat/erethdors_grimoire-desat.png');
-  background-size: contain;
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -137px -94px;
 }
 
 #LantadymeIncense {
-  background-image: url('/asset/buffs/lantadyme_incense.png');
-  background-size: contain;
+  width: 33px;
+  height: 33px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -36px -36px;
 }
 
 #LantadymeIncense.inactive {
-  background-image: url('/asset/buffs/desat/lantadyme_incense-desat.png');
-  background-size: contain;
+  width: 33px;
+  height: 33px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -36px -71px;
 }
 
 #LantadymeIncense.inactive::before,
@@ -375,13 +431,15 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #DwarfWeedIncense {
-  background-image: url('/asset/buffs/dwarf_weed_incense.png');
-  background-size: contain;
+  width: 33px;
+  height: 33px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -1px;
 }
 
 #DwarfWeedIncense.inactive {
-  background-image: url('/asset/buffs/desat/dwarf_weed_incense-desat.png');
-  background-size: contain;
+  width: 33px;
+  height: 33px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -71px -1px;
 }
 
 #DwarfWeedIncense.inactive::before,
@@ -391,13 +449,15 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #FellstalkIncense {
-  background-image: url('/asset/buffs/fellstalk_incense.png');
-  background-size: contain;
+  width: 33px;
+  height: 33px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -36px -1px;
 }
 
 #FellstalkIncense.inactive {
-  background-image: url('/asset/buffs/desat/fellstalk_incense-desat.png');
-  background-size: contain;
+  width: 33px;
+  height: 33px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -71px -36px;
 }
 
 #FellstalkIncense.inactive::before,
@@ -407,13 +467,15 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #KwuarmIncense {
-  background-image: url('/asset/buffs/kwuarm_incense.png');
-  background-size: contain;
+  width: 33px;
+  height: 33px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -36px;
 }
 
 #KwuarmIncense.inactive {
-  background-image: url('/asset/buffs/desat/kwuarm_incense-desat.png');
-  background-size: contain;
+  width: 33px;
+  height: 33px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -71px;
 }
 
 #KwuarmIncense.inactive::before,
@@ -423,117 +485,167 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #Anticipation {
-  background-image: url('/asset/buffs/anticipation.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -168px -1px;
 }
 
 #Anticipation.inactive,
 #Anticipation.cooldown {
-  background-image: url('/asset/buffs/desat/anticipation-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -284px -146px;
 }
 
 #Barricade {
-  background-image: url('/asset/buffs/barricade.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -168px -117px;
 }
 
 #Barricade.inactive,
 #Barricade.cooldown {
-  background-image: url('/asset/buffs/desat/barricade-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -284px;
 }
 
 #Devotion {
-  background-image: url('/asset/buffs/devotion.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -30px -197px;
 }
 
 #Devotion.inactive,
 #Devotion.cooldown {
-  background-image: url('/asset/buffs/desat/devotion-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -262px -284px;
 }
 
 #Divert {
-  background-image: url('/asset/buffs/divert.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -59px -197px;
 }
 
 #Divert.inactive,
 #Divert.cooldown {
-  background-image: url('/asset/buffs/desat/divert-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -313px -1px;
 }
 
 #Freedom {
-  background-image: url('/asset/buffs/freedom.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -146px -197px;
 }
 
 #Freedom.inactive,
 #Freedom.cooldown {
-  background-image: url('/asset/buffs/desat/freedom-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -313px -88px;
 }
 
 #Immortality {
-  background-image: url('/asset/buffs/immortality.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -226px -59px;
 }
 
 #Immortality.inactive,
 #Immortality.cooldown {
-  background-image: url('/asset/buffs/desat/immortality-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -313px -204px;
 }
 
 #Reflect {
-  background-image: url('/asset/buffs/reflect.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -255px -88px;
 }
 
 #Reflect.inactive,
 #Reflect.cooldown {
-  background-image: url('/asset/buffs/desat/reflect-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -233px -313px;
 }
 
 #Resonance {
-  background-image: url('/asset/buffs/resonance.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -255px -117px;
 }
 
 #Resonance.inactive,
 #Resonance.cooldown {
-  background-image: url('/asset/buffs/desat/resonance-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -262px -313px;
 }
 
 #SplitSoulBuff {
-  background-image: url('/asset/buffs/split_soul.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -255px;
 }
 
 #SplitSoulBuff.inactive {
-  background-image: url('/asset/buffs/desat/split_soul-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -291px -313px;
 }
 
 #AntifireBuff {
-  background-image: url('/asset/buffs/antifire.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -168px -30px;
 }
 
 #AntifireBuff.inactive {
-  background-image: url('/asset/buffs/desat/antifire-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -284px -175px;
 }
 
 #PrayerRenewalBuff {
-  background-image: url('/asset/buffs/prayer_renewal.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -175px -226px;
 }
 
 #PrayerRenewalBuff.inactive {
-  background-image: url('/asset/buffs/desat/prayer_renewal-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -204px -313px;
 }
 
 #DeathSparkBuff {
-  background-image: url('/asset/buffs/death_spark.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -197px -1px;
 }
 
 #DeathSparkBuff.inactive {
-  background-image: url('/asset/buffs/desat/death_spark-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -175px -284px;
 }
 
 #AncientElvenRitualShardDebuff {
-  background-image: url('/asset/buffs/ancient_elven_ritual_shard.png');
-  background-size: contain;
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -106px -1px;
 }
 
 #AncientElvenRitualShardDebuff.inactive {
-  background-image: url('/asset/buffs/desat/ancient_elven_ritual_shard-desat.png');
-  background-size: contain;
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -137px -1px;
 }
 
 #AncientElvenRitualShardDebuff.inactive::before,
@@ -542,13 +654,15 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #EnhancedExcaliburDebuff {
-  background-image: url('/asset/buffs/enhanced_excalibur.png');
-  background-size: contain;
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -106px -63px;
 }
 
 #EnhancedExcaliburDebuff.inactive {
-  background-image: url('/asset/buffs/desat/enhanced_excalibur-desat.png');
-  background-size: contain;
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -137px -63px;
 }
 
 #EnhancedExcaliburDebuff.inactive::before,
@@ -557,12 +671,15 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #AdrenalinePotionDebuff {
-  background-image: url('/asset/buffs/adrenaline_potion.png');
-  background-size: contain;
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -71px -71px;
 }
 
 #AdrenalinePotionDebuff.inactive {
-  background-image: url('/asset/buffs/desat/adrenaline_potion-desat.png');
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -94px -106px;
 }
 
 #AdrenalinePotionDebuff.inactive::before,
@@ -571,69 +688,87 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #DeathGuardDebuff {
-  background-image: url('/asset/buffs/death_guard.png');
-  background-size: contain;
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -146px -168px;
 }
 
 #DeathGuardDebuff.inactive {
-  background-image: url('/asset/buffs/desat/death_guard-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -146px -284px;
 }
 
 #OmniGuardDebuff {
-  background-image: url('/asset/buffs/omni_guard.png');
-  background-size: contain;
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -59px -226px;
 }
 
 #OmniGuardDebuff.inactive {
-  background-image: url('/asset/buffs/desat/omni_guard-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -88px -313px;
 }
 
 #CrystalRainDebuff {
-  background-image: url('/asset/buffs/crystal_rain.png');
-  background-size: contain;
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -88px -168px;
 }
 
 #CrystalRainDebuff.inactive {
-  background-image: url('/asset/buffs/desat/crystal_rain-desat.png');
-  background-size: contain;
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -88px -284px;
 }
 
 #StunnedDebuff {
-  background-image: url('/asset/buffs/stunned.png');
-  background-size: contain;
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -30px -255px;
 }
 
 #StunnedDebuff.inactive {
-  background-image: url('/asset/buffs/desat/stunned-desat.png');
-  background-size: contain;
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -342px -1px;
 }
 
 #SignOfLifeDebuff {
-  background-image: url('/asset/buffs/sign_of_life.png');
-  background-size: contain;
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -32px -106px;
 }
 
 #SignOfLifeDebuff.inactive {
-  background-image: url('/asset/buffs/desat/sign_of_life-desat.png');
-  background-size: contain;
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -137px;
 }
 
 #PowerburstPreventionDebuff {
-  background-image: url('/asset/buffs/powerburst_prevention.png');
-  background-size: contain;
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -146px -226px;
 }
 
 #PowerburstPreventionDebuff.inactive {
-  background-image: url('/asset/buffs/desat/powerburst_prevention-desat.png');
-  background-size: contain;
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -175px -313px;
 }
 
 #VirusDebuff[data-virus=""] {
-  background-image: url('/asset/buffs/desat/virus-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -342px -146px;
 }
 
 #VirusDebuff[data-virus="BLK"] {
-  background-image: url('/asset/buffs/virus_black.webp');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -233px -255px;
 }
 
 #VirusDebuff[data-virus="BLK"]::before,
@@ -642,7 +777,9 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #VirusDebuff[data-virus="BLU"] {
-  background-image: url('/asset/buffs/virus_blue.webp');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -284px -1px;
 }
 
 #VirusDebuff[data-virus="BLU"]::before,
@@ -651,7 +788,9 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #VirusDebuff[data-virus="RED"] {
-  background-image: url('/asset/buffs/virus_red.webp');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -284px -59px;
 }
 
 #VirusDebuff[data-virus="RED"]::before,
@@ -660,7 +799,9 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #VirusDebuff[data-virus="GRN"] {
-  background-image: url('/asset/buffs/virus_green.webp');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -284px -30px;
 }
 
 #VirusDebuff[data-virus="GRN"]::before,
@@ -669,31 +810,40 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #ThreadsOfFateBuff {
-  background-image: url('/asset/buffs/threads_of_fate.png');
-  background-size: contain;
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -88px -255px;
 }
 
 #ThreadsOfFateBuff.inactive,
 #ThreadsOfFateBuff.cooldown {
-  background-image: url('/asset/buffs/desat/threads_of_fate-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -342px -59px;
 }
 
 #DeathMarkDebuff {
-  background-image: url('/asset/buffs/death_mark.png');
-  background-size: contain;
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -106px -32px;
 }
 
 #DeathMarkDebuff.inactive {
-  background-image: url('/asset/buffs/desat/death_mark-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -137px -32px;
 }
 
 #VulnerabilityDebuff {
-  background-image: url('/asset/buffs/vulnerability.png');
-  background-size: contain;
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -63px -106px;
 }
 
 #VulnerabilityDebuff.inactive {
-  background-image: url('/asset/buffs/desat/vulnerability-desat.png');
+  width: 29px;
+  height: 29px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -32px -137px;
 }
 
 #VulnerabilityDebuff.inactive::before,
@@ -704,178 +854,257 @@ html:not(.beta) #Settings > button:nth-child(17) {
 }
 
 #BerserkUltimate {
-  background-image: url('/asset/buffs/berserk.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -168px;
 }
 
 #BerserkUltimate.inactive,
 #BerserkUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/berserk-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -30px -284px;
 }
 
 #DeathsSwiftnessUltimate {
-  background-image: url('/asset/buffs/deaths_swiftness.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -197px -30px;
 }
 
 #DeathsSwiftnessUltimate.inactive,
 #DeathsSwiftnessUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/deaths_swiftness-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -204px -284px;
 }
 
 #GreaterDeathsSwiftnessUltimate {
-background-image: url('/asset/buffs/greater_deaths_swiftness.png');
+  width: 27px;
+  height: 27px;
+background: url('/asset/buffs/buffs_spritesheet.png') -226px -1px
 }
 
 #GreaterDeathsSwiftnessUltimate.inactive,
 #GreaterDeathsSwiftnessUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/greater_deaths_swiftness-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -313px -146px;
 }
 
 #SunshineUltimate {
-  background-image: url('/asset/buffs/sunshine.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -59px -255px;
 }
 
 #SunshineUltimate.inactive,
 #SunshineUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/sunshine-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -342px -30px;
 }
 
 #GreaterSunshineUltimate {
-  background-image: url('/asset/buffs/greater_sunshine.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -226px -30px;
 }
 
 #GreaterSunshineUltimate.inactive,
 #GreaterSunshineUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/greater_sunshine-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -313px -175px;
 }
 
 #LivingDeathUltimate {
-  background-image: url('/asset/buffs/living_death.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -226px -175px;
 }
 
 #LivingDeathUltimate.inactive,
 #LivingDeathUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/living_death-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -30px -313px;
 }
 
 #LimitlessSigil,
 #LimitlessSigil.cooldown {
-  background-image: url('/asset/buffs/limitless.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -226px -146px;
 }
 
 #LimitlessSigil:not(.cooldown) {
-  background-image: url('/asset/buffs/desat/limitless-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -313px;
 }
 
 #DemonSlayerSigil,
 #DemonSlayerSigil.cooldown {
-  background-image: url('/asset/buffs/demon_slayer.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -197px -146px;
 }
 
 #DemonSlayerSigil:not(.cooldown) {
-  background-image: url('/asset/buffs/desat/demon_slayer-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -233px -284px;
 }
 
 #DragonSlayerSigil,
 #DragonSlayerSigil.cooldown {
-  background-image: url('/asset/buffs/dragon_slayer.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -88px -197px;
 }
 
 #DragonSlayerSigil:not(.cooldown) {
-  background-image: url('/asset/buffs/desat/dragon_slayer-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -313px -30px;
 }
 
 #UndeadSlayerSigil,
 #UndeadSlayerSigil.cooldown {
-  background-image: url('/asset/buffs/undead_slayer.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -204px -255px;
 }
 
 #UndeadSlayerSigil:not(.cooldown) {
-  background-image: url('/asset/buffs/desat/undead_slayer-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -342px -117px;
 }
 
 #IngenuityOfTheHumansSigil,
 #IngenuityOfTheHumansSigil.cooldown {
-  background-image: url('/asset/buffs/ingenuity_of_the_humans.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -226px -88px;
 }
 
 #IngenuityOfTheHumansSigil:not(.cooldown) {
-  background-image: url('/asset/buffs/desat/ingenuity_of_the_humans-desat.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -313px -233px;
 }
 
 #DpsPrayer[data-prayer="affliction"] {
-  background-image: url('/asset/buffs/affliction.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -63px -137px;
 }
 
 #DpsPrayer[data-prayer="anguish"] {
-  background-image: url('/asset/buffs/anguish.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -92px -137px;
 }
 
 #DpsPrayer[data-prayer="desolation"] {
-  background-image: url('/asset/buffs/desolation.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -197px;
 }
 
 #DpsPrayer[data-prayer="malevolence"] {
-  background-image: url('/asset/buffs/malevolence.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -1px -226px;
 }
 
 #DpsPrayer[data-prayer="ruination"] {
-  background-image: url('/asset/buffs/ruination.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -255px -146px;
 }
 
 #DpsPrayer[data-prayer="sorrow"] {
-  background-image: url('/asset/buffs/sorrow.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -255px -175px;
 }
 
 #DpsPrayer[data-prayer="torment"] {
-  background-image: url('/asset/buffs/torment.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -146px -255px;
 }
 
 #DpsPrayer[data-prayer="turmoil"] {
-  background-image: url('/asset/buffs/turmoil.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -175px -255px;
 }
 
 #OverheadPrayer[data-prayer="deflectmagic"] {
-  background-image: url("data:image/png;base64,");
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -197px -59px;
 }
 
 #OverheadPrayer[data-prayer="deflectmelee"] {
-  background-image: url('/asset/buffs/deflect_magic.png');
 }
 
 #OverheadPrayer[data-prayer="deflectnecromancy"] {
-  background-image: url('/asset/buffs/deflect_necromancy.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -197px -88px;
 }
 
 #OverheadPrayer[data-prayer="deflectranged"] {
-  background-image: url('/asset/buffs/deflect_ranged.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -197px -117px;
 }
 
 #OverheadPrayer[data-prayer="protectfrommagic"] {
-  background-image: url('/asset/buffs/protect_from_magic.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -204px -226px;
 }
 
 #OverheadPrayer[data-prayer="protectfrommelee"] {
-  background-image: url('/asset/buffs/protect_from_melee.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -255px -1px;
 }
 
 #OverheadPrayer[data-prayer="protectfromnecromancy"] {
-  background-image: url('/asset/buffs/protect_from_necromancy.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -255px -30px;
 }
 
 #OverheadPrayer[data-prayer="protectfromranged"] {
-  background-image: url('/asset/buffs/protect_from_ranged.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -255px -59px;
 }
 
 #OverheadPrayer[data-prayer="soulsplit"] {
-  background-image: url('/asset/buffs/soul_split.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -255px -204px;
 }
 
 #DpsPrayer[data-prayer=""] {
-  background-image: url('/asset/buffs/blank.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -30px -168px;
 }
 
 #OverheadPrayer[data-prayer=""] {
-  background-image: url('/asset/buffs/blank.png');
+  width: 27px;
+  height: 27px;
+  background: url('/asset/buffs/buffs_spritesheet.png') -30px -168px;
 }
 
 .tracked-region li.cooldown::before,
@@ -1159,7 +1388,10 @@ hr {
 .nisbutton {
     height: 32px;
     position: relative;
+    width: 27px;
+    height: 27px;
     background: url('/asset/nis/button.png') 0px -100%/24px 400% repeat content-box;
+
     cursor: pointer;
     text-align: center;
     color: #000;
@@ -1180,7 +1412,10 @@ hr {
     position: absolute;
     top: 0px;
     left: 0px;
+    width: 27px;
+    height: 27px;
     background: url('/asset/nis/button.png') 0px 0px / 24px 400%;
+
 }
 
 .nisbutton::after {
@@ -1190,7 +1425,10 @@ hr {
     position: absolute;
     top: 0px;
     right: 0px;
+    width: 27px;
+    height: 27px;
     background: url('/asset/nis/button.png') -12px 0px / 24px 400%;
+
 }
 
 .nisbutton:not([disabled]):hover {
