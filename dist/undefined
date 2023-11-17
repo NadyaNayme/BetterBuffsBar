@@ -1,1 +1,0 @@
-throw new Error("Module build failed: Error: EBUSY: resource busy or locked, open 'D:\\Git\\BetterBuffsBar\\src\\asset\\resource\\nisbutton.png'");
