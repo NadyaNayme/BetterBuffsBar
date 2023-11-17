@@ -1956,7 +1956,7 @@ const settingsObject = {
 	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
 	OverlayActive: sauce.createCheckboxSetting(
 		'activeOverlay',
-		'<u>Enable Overlay</u> When the overlay is toggled off - the app will hide the entire UI unless your mouse is over the app. This is for users who don\'t mind having a background and want to avoid the delay the overlay has',
+		"<u>Enable Overlay</u> When the overlay is toggled off - the app will hide the entire UI unless your mouse is over the app. This is for users who don't mind having a background and want to avoid the delay the overlay has",
 		sauce.getSetting('activeOverlay') ?? false
 	),
 	OverlaySmallText: sauce.createSmallText(
@@ -2006,15 +2006,16 @@ const settingsObject = {
 	),
 	endOverlay: sauce.createSeperator(),
 	SearchHeader: sauce.createHeading('h3', 'Interface Search Speed'),
-	SearchText: sauce.createText(
-		`Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. Requires reloading to take effect.`
+	SearchSpeed: sauce.createRangeSetting(
+		'loopSpeed',
+		'Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. Requires reloading to take effect.',
+		{
+			defaultValue: '150',
+			min: 50,
+			max: 300,
+			unit: 'ms',
+		}
 	),
-	SearchSpeed: sauce.createRangeSetting('loopSpeed', '', {
-		defaultValue: '150',
-		min: 50,
-		max: 300,
-		unit: 'ms',
-	}),
 	endSearch: sauce.createSeperator(),
 	ProfileManager: sauce.createProfileManager(),
 	ResetHeader: sauce.createHeading('h3', 'Reset Config'),

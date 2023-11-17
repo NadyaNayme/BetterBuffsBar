@@ -2132,6 +2132,17 @@ h3 {
   margin-bottom: .65rem;
 }
 
+#Settings input[type="range"] {
+  margin-top: .4rem !important;
+}
+
+#Settings input[type="range"] ~ output {
+  font-size: 14px;
+  color: #94afbd;
+  text-shadow: 1px 1px #000000;
+  margin-top: .4rem;
+}
+
 input[type="color"] {
   margin-right: .5rem;
   width: 21px;
@@ -14944,7 +14955,7 @@ var settingsObject = {
     SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('singleBOLG', '<u>Split BOLG Weapon Special / Stacks</u> Tracks Balance by Force and Perfect Equlibrium stacks as separate buffs', (_e = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('singleBOLG')) !== null && _e !== void 0 ? _e : false),
     endGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
-    OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', '<u>Enable Overlay</u> When the overlay is toggled off - the app will hide the entire UI unless your mouse is over the app. This is for users who don\'t mind having a background and want to avoid the delay the overlay has', (_f = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _f !== void 0 ? _f : false),
+    OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', "<u>Enable Overlay</u> When the overlay is toggled off - the app will hide the entire UI unless your mouse is over the app. This is for users who don't mind having a background and want to avoid the delay the overlay has", (_f = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _f !== void 0 ? _f : false),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("If the overlay does not show - check the \"Show overlay\" permission is enabled for this plugin in Alt1's settings or try setting the position using the button below."),
     OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition, { classes: 'nisbutton' }),
     Overlay2PositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay 2 Position', setOverlayPosition2, { classes: 'nisbutton' }),
@@ -14966,8 +14977,7 @@ var settingsObject = {
     OverlayRefreshRate: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('overlayRefreshRate', 'The rate that the overlay should refresh - in milliseconds. Requires reloading to take effect.', { defaultValue: '50', min: 20, max: 500, unit: 'ms' }),
     endOverlay: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     SearchHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Interface Search Speed'),
-    SearchText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. Requires reloading to take effect."),
-    SearchSpeed: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('loopSpeed', '', {
+    SearchSpeed: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('loopSpeed', 'Lower value will detect changes faster but may cause hits to overall performance. Adjust at your own risk - the default value should generally be fine. Requires reloading to take effect.', {
         defaultValue: '150',
         min: 50,
         max: 300,
