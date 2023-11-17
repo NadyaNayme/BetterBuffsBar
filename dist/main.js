@@ -1115,6 +1115,59 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   color: #57799e;
 }
 
+#Settings h2 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+#Settings h3 {
+  letter-spacing: 1px;
+}
+
+#Settings h2,
+#Settings h3 {
+  color: #ffcb05;
+  text-shadow: 1px 1px #000000;
+}
+
+#Settings label {
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #94afbd;
+  text-shadow: 1px 1px #000000;
+}
+
+#Settings .setting:nth-child(2n+0) {
+  background-color: #1c2c34;
+  padding: 4px;
+}
+
+#Settings .setting:nth-child(2n+0):hover {
+  background-color: #1c3b40;
+}
+
+#Settings .setting:nth-child(2n+1) {
+  background-color: #071820;
+  padding: 4px;
+}
+
+#Settings .setting:nth-child(2n+1):hover {
+  background-color: #03282d;
+}
+
+#Settings .reverse-setting {
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#Settings .reverse-setting u {
+  display: block;
+  text-decoration: none;
+  color: #a4c2d1;
+  margin-bottom: 2px;
+}
+
 #OverlayCanvasOutput {
   display: none;
 }
@@ -7646,7 +7699,7 @@ function createButton(content, fn, options) {
 function createDropdownSetting(name, description, defaultValue, options) {
     var select = createDropdown(name, defaultValue, options);
     var label = createLabel(name, description);
-    var container = createFlexContainer();
+    var container = createFlexContainer('reverse-setting');
     container.appendChild(select);
     container.appendChild(label);
     return container;
@@ -7663,9 +7716,13 @@ function createTextSetting(name, description, defaultValue) {
 function createCheckboxSetting(name, description, defaultValue) {
     var input = createCheckboxInput(name, defaultValue);
     var label = createLabel(name, description);
-    var container = createFlexContainer();
+    var container = createFlexContainer('reverse-setting');
     container.appendChild(input);
     container.appendChild(label);
+    container.addEventListener('click', function (e) {
+        input.checked =
+            !input.checked;
+    });
     return container;
 }
 function createNumberSetting(name, description, options) {
@@ -7676,7 +7733,7 @@ function createNumberSetting(name, description, options) {
     input.setAttribute('min', min.toString());
     input.setAttribute('max', max.toString());
     var label = createLabel(name, description);
-    var container = createFlexContainer();
+    var container = createFlexContainer('reverse-setting');
     container.appendChild(input);
     container.appendChild(label);
     return container;
@@ -7905,10 +7962,13 @@ function createOutput() {
     var output = document.createElement('output');
     return output;
 }
-function createFlexContainer() {
+function createFlexContainer(classes) {
     var container = document.createElement('div');
     container.classList.add('flex');
     container.classList.add('setting');
+    if (classes) {
+        container.classList.add(classes);
+    }
     return container;
 }
 function setDefaultSettings() {
@@ -14857,15 +14917,15 @@ var settingsObject = {
     settingDiscord: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Please <a href=\"https://discord.gg/KJ2SgWyJFF\" target=\"_blank\" rel=\"nofollow\">join the Discord</a> for any suggestions or support"),
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs displayed per row', { defaultValue: 10, min: 1, max: 20 }),
-    FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', '<u>Explicitly Inactive</u> - Instead of hiding inactive buffs - displays them darker and desaturated', (_a = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('fadeInactiveBuffs')) !== null && _a !== void 0 ? _a : true),
-    BigHeadMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('bigHeadMode', '<u>Big Head Mode</u> - The first buff tracked  is made x4 larger. </br>Set display position to Left or Right side:', (_b = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode')) !== null && _b !== void 0 ? _b : false),
-    BigHeadPosition: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createDropdownSetting('bigHeadPosition', '', 'start', [
+    FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', '<u>Explicitly Inactive</u> Instead of hiding inactive buffs - displays them darker and desaturated', (_a = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('fadeInactiveBuffs')) !== null && _a !== void 0 ? _a : true),
+    BigHeadMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('bigHeadMode', '<u>Big Head Mode</u> The first buff tracked  is made x4 larger.', (_b = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode')) !== null && _b !== void 0 ? _b : false),
+    BigHeadPosition: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createDropdownSetting('bigHeadPosition', 'Set display position to Left or Right side', 'start', [
         { value: 'start', name: 'Left Side' },
         { value: 'end', name: 'Right Side' },
     ]),
-    OverloadReminder: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('overloadReminder', '<u>Overload Reminder</u> - Display a tooltip after Overloads expires which lasts 3 seconds', (_c = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overloadReminder')) !== null && _c !== void 0 ? _c : true),
-    BlinkExpiredBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showMaintainableBlinking', '<u>100% Uptime</u> - Adds a blinking "!!" effect for inactive buffs that can and should be maintained with 100% uptime', (_d = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showMaintainableBlinking')) !== null && _d !== void 0 ? _d : true),
-    SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('singleBOLG', '<u>Split BOLG Weapon Special / Stacks</u> - Tracks Balance by Force and Perfect Equlibrium stacks as separate buffs', (_e = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('singleBOLG')) !== null && _e !== void 0 ? _e : false),
+    OverloadReminder: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('overloadReminder', '<u>Overload Reminder</u> Display a tooltip after Overloads expires which lasts 3 seconds', (_c = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overloadReminder')) !== null && _c !== void 0 ? _c : true),
+    BlinkExpiredBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showMaintainableBlinking', '<u>100% Uptime</u> Adds a blinking "!!" effect for inactive buffs that can and should be maintained with 100% uptime', (_d = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showMaintainableBlinking')) !== null && _d !== void 0 ? _d : true),
+    SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('singleBOLG', '<u>Split BOLG Weapon Special / Stacks</u> Tracks Balance by Force and Perfect Equlibrium stacks as separate buffs', (_e = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('singleBOLG')) !== null && _e !== void 0 ? _e : false),
     endGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
     OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', 'Enable Overlay', (_f = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _f !== void 0 ? _f : false),

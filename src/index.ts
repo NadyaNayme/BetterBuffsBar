@@ -1920,17 +1920,17 @@ const settingsObject = {
 	),
 	FadeInactiveBuffs: sauce.createCheckboxSetting(
 		'fadeInactiveBuffs',
-		'<u>Explicitly Inactive</u> - Instead of hiding inactive buffs - displays them darker and desaturated',
+		'<u>Explicitly Inactive</u> Instead of hiding inactive buffs - displays them darker and desaturated',
 		sauce.getSetting('fadeInactiveBuffs') ?? true
 	),
 	BigHeadMode: sauce.createCheckboxSetting(
 		'bigHeadMode',
-		'<u>Big Head Mode</u> - The first buff tracked  is made x4 larger. </br>Set display position to Left or Right side:',
+		'<u>Big Head Mode</u> The first buff tracked  is made x4 larger.',
 		sauce.getSetting('bigHeadMode') ?? false
 	),
 	BigHeadPosition: sauce.createDropdownSetting(
 		'bigHeadPosition',
-		'',
+		'Set display position to Left or Right side',
 		'start',
 		[
 			{ value: 'start', name: 'Left Side' },
@@ -1939,17 +1939,17 @@ const settingsObject = {
 	),
 	OverloadReminder: sauce.createCheckboxSetting(
 		'overloadReminder',
-		'<u>Overload Reminder</u> - Display a tooltip after Overloads expires which lasts 3 seconds',
+		'<u>Overload Reminder</u> Display a tooltip after Overloads expires which lasts 3 seconds',
 		sauce.getSetting('overloadReminder') ?? true
 	),
 	BlinkExpiredBuffs: sauce.createCheckboxSetting(
 		'showMaintainableBlinking',
-		'<u>100% Uptime</u> - Adds a blinking "!!" effect for inactive buffs that can and should be maintained with 100% uptime',
+		'<u>100% Uptime</u> Adds a blinking "!!" effect for inactive buffs that can and should be maintained with 100% uptime',
 		sauce.getSetting('showMaintainableBlinking') ?? true
 	),
 	SingleBOLG: sauce.createCheckboxSetting(
 		'singleBOLG',
-		'<u>Split BOLG Weapon Special / Stacks</u> - Tracks Balance by Force and Perfect Equlibrium stacks as separate buffs',
+		'<u>Split BOLG Weapon Special / Stacks</u> Tracks Balance by Force and Perfect Equlibrium stacks as separate buffs',
 		sauce.getSetting('singleBOLG') ?? false
 	),
 	endGeneral: sauce.createSeperator(),

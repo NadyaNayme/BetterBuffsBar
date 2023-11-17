@@ -48,7 +48,7 @@ export function createDropdownSetting(
 ) {
 	let select = createDropdown(name, defaultValue, options);
 	let label = createLabel(name, description);
-	let container = createFlexContainer();
+	let container = createFlexContainer('reverse-setting');
 	container.appendChild(select);
 	container.appendChild(label);
 	return container;
@@ -75,9 +75,13 @@ export function createCheckboxSetting(
 ) {
 	let input = createCheckboxInput(name, defaultValue);
 	let label = createLabel(name, description);
-	let container = createFlexContainer();
+	let container = createFlexContainer('reverse-setting');
 	container.appendChild(input);
 	container.appendChild(label);
+	container.addEventListener('click', (e) => {
+		input.checked =
+			!input.checked;
+	});
 	return container;
 }
 
@@ -99,7 +103,7 @@ export function createNumberSetting(
 	input.setAttribute('min', min.toString());
 	input.setAttribute('max', max.toString());
 	let label = createLabel(name, description);
-	let container = createFlexContainer();
+	let container = createFlexContainer('reverse-setting');
 	container.appendChild(input);
 	container.appendChild(label);
 	return container;
@@ -376,10 +380,13 @@ function createOutput() {
 	return output;
 }
 
-function createFlexContainer() {
+function createFlexContainer(classes?) {
 	let container = <HTMLElement>document.createElement('div');
 	container.classList.add('flex');
 	container.classList.add('setting');
+	if (classes) {
+		container.classList.add(classes);
+	}
 	return container;
 }
 

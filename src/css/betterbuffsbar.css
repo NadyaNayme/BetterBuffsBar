@@ -29,6 +29,59 @@ body {
   color: #57799e;
 }
 
+#Settings h2 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+#Settings h3 {
+  letter-spacing: 1px;
+}
+
+#Settings h2,
+#Settings h3 {
+  color: #ffcb05;
+  text-shadow: 1px 1px #000000;
+}
+
+#Settings label {
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #94afbd;
+  text-shadow: 1px 1px #000000;
+}
+
+#Settings .setting:nth-child(2n+0) {
+  background-color: #1c2c34;
+  padding: 4px;
+}
+
+#Settings .setting:nth-child(2n+0):hover {
+  background-color: #1c3b40;
+}
+
+#Settings .setting:nth-child(2n+1) {
+  background-color: #071820;
+  padding: 4px;
+}
+
+#Settings .setting:nth-child(2n+1):hover {
+  background-color: #03282d;
+}
+
+#Settings .reverse-setting {
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#Settings .reverse-setting u {
+  display: block;
+  text-decoration: none;
+  color: #a4c2d1;
+  margin-bottom: 2px;
+}
+
 #OverlayCanvasOutput {
   display: none;
 }
