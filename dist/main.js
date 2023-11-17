@@ -1441,7 +1441,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #ErethdorsGrimoire.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_28___});
-  background-size: contain;
 }
 
 #LantadymeIncense {
@@ -1451,7 +1450,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #LantadymeIncense.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_30___});
-  background-size: contain;
 }
 
 #LantadymeIncense.inactive::before,
@@ -1467,7 +1465,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #DwarfWeedIncense.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_32___});
-  background-size: contain;
 }
 
 #DwarfWeedIncense.inactive::before,
@@ -1483,7 +1480,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #FellstalkIncense.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_34___});
-  background-size: contain;
 }
 
 #FellstalkIncense.inactive::before,
@@ -1499,7 +1495,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #KwuarmIncense.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_36___});
-  background-size: contain;
 }
 
 #KwuarmIncense.inactive::before,
@@ -1619,7 +1614,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #AncientElvenRitualShardDebuff.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_62___});
-  background-size: contain;
 }
 
 #AncientElvenRitualShardDebuff.inactive::before,
@@ -1634,7 +1628,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #EnhancedExcaliburDebuff.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_64___});
-  background-size: contain;
 }
 
 #EnhancedExcaliburDebuff.inactive::before,
@@ -1681,7 +1674,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #CrystalRainDebuff.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_72___});
-  background-size: contain;
 }
 
 #StunnedDebuff {
@@ -1691,7 +1683,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #StunnedDebuff.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_74___});
-  background-size: contain;
 }
 
 #SignOfLifeDebuff {
@@ -1701,7 +1692,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #SignOfLifeDebuff.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_76___});
-  background-size: contain;
 }
 
 #PowerburstPreventionDebuff {
@@ -1711,7 +1701,6 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 #PowerburstPreventionDebuff.inactive {
   background-image: url(${___CSS_LOADER_URL_REPLACEMENT_78___});
-  background-size: contain;
 }
 
 #VirusDebuff[data-virus=""] {
