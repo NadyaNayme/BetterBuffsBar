@@ -263,7 +263,7 @@ export function createProfileManager() {
 	var saveButton = createButton('Save', saveProfile, {
 		classes: 'nisbutton',
 	});
-	var profileName = createInput('input', 'ProfileName', '');
+	var profileName = createInput('text', 'ProfileName', '');
 	profileName.classList.add('profile-name');
 	var loadOptions = createDropdownSetting(
 		'Profile',

@@ -2226,6 +2226,19 @@ body::-webkit-scrollbar-corner,
 body *:not(.normalscroll)::-webkit-scrollbar-corner
 {background:#060d11;}
 
+input[type="text"],
+input[type="number"],
+input[type="input"],
+select
+	{height:20px; cursor:text; color:#B1AFAE; outline:none; position:relative; padding:0px 4px; box-sizing:border-box; background:linear-gradient(to bottom, #191714,#292222,#100C0C); border:1px solid #514949; font-family:sans-serif; font-size:13px;}
+
+select{height:19px; cursor:pointer; outline:none; box-sizing:border-box; padding:0px 0px 0px 4px;}
+select>option{background:#1D190D;}
+
+hr {
+  width:100%; height:0px; border-top:1px solid #000; border-bottom:1px solid #41555F;
+}
+
 .nisbutton {
     height: 32px;
     position: relative;
@@ -7860,7 +7873,7 @@ function createProfileManager() {
     var saveButton = createButton('Save', saveProfile, {
         classes: 'nisbutton',
     });
-    var profileName = createInput('input', 'ProfileName', '');
+    var profileName = createInput('text', 'ProfileName', '');
     profileName.classList.add('profile-name');
     var loadOptions = createDropdownSetting('Profile', '', 'Add', profileOptions);
     loadOptions.classList.add('profile-list');
