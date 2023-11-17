@@ -10,7 +10,7 @@
 	"minHeight": 5,
 	"maxWidth": 1000,
 	"maxHeight": 1000,
-	"requestHandlers": [],
+	"requestHandlers": [ ],
 	"activators": [],
 	"permissions": "pixel, gamestate, overlay"
 }
