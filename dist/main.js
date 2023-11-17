@@ -7719,10 +7719,6 @@ function createCheckboxSetting(name, description, defaultValue) {
     var container = createFlexContainer('reverse-setting');
     container.appendChild(input);
     container.appendChild(label);
-    container.addEventListener('click', function (e) {
-        input.checked =
-            !input.checked;
-    });
     return container;
 }
 function createNumberSetting(name, description, options) {
