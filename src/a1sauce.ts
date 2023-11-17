@@ -78,6 +78,13 @@ export function createCheckboxSetting(
 	let container = createFlexContainer('reverse-setting');
 	container.appendChild(input);
 	container.appendChild(label);
+	container.addEventListener('click', (e) => {
+		if (e.target == container) {
+			input.checked = !input.checked;
+			input.dispatchEvent(new CustomEvent('change', { bubbles: true }));
+			updateSetting(name, input.checked);
+		}
+	});
 	return container;
 }
 
