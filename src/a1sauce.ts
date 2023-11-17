@@ -25,9 +25,15 @@ export function createSeperator() {
 	return <HTMLElement>document.createElement('hr');
 }
 
-export function createButton(content: string, fn: Function) {
+export function createButton(
+	content: string,
+	fn: Function,
+	options: { classes: string }
+) {
+	let { classes = options.classes } = options;
 	let button = <HTMLButtonElement>document.createElement('button');
 	button.innerHTML = content;
+	button.classList.add(classes ? classes : 'button');
 	button.addEventListener('click', () => {
 		fn();
 	});
@@ -140,7 +146,6 @@ export function createRangeSetting(
 }
 
 export function createProfileManager() {
-
 	function saveProfile() {
 		let id = container.querySelector('select').selectedIndex;
 		if (id !== 0) {
@@ -158,7 +163,6 @@ export function createProfileManager() {
 				updateSetting('profiles', profiles);
 			}
 
-
 			let name = container.querySelector('input').value;
 			profiles[id].name = name;
 
@@ -166,7 +170,7 @@ export function createProfileManager() {
 			let trackedBuffs = localStorage['Buffs'];
 			let untrackedBuffs = localStorage['UntrackedBuffs'];
 			let settings = JSON.parse(localStorage[config.appName]);
-			let profile_data = {trackedBuffs, untrackedBuffs, settings };
+			let profile_data = { trackedBuffs, untrackedBuffs, settings };
 			data.push(profile_data);
 			profiles[id].value = data;
 			updateSetting('profiles', profiles);
@@ -191,16 +195,15 @@ export function createProfileManager() {
 					profileOptions
 				)
 			);
-			document.querySelector('#Profile').addEventListener(
-				'change',
-				() => {
+			document
+				.querySelector('#Profile')
+				.addEventListener('change', () => {
 					let name: HTMLInputElement =
 						document.querySelector('.profile-name');
 					let dropdown: HTMLSelectElement =
 						document.querySelector('#Profile');
 					name.value = dropdown.value;
-				}
-			);
+				});
 		}
 	}
 
@@ -212,7 +215,7 @@ export function createProfileManager() {
 				localStorage['Buffs'] = key.trackedBuffs;
 				localStorage['UntrackedBuffs'] = key.untrackedBuffs;
 				Object.keys(key.settings).forEach((setting) => {
-					if (setting.toString() !== "profiles") {
+					if (setting.toString() !== 'profiles') {
 						updateSetting(setting, key.settings[setting]);
 					}
 				});
@@ -224,7 +227,7 @@ export function createProfileManager() {
 		let id = container.querySelector('select').selectedIndex;
 		let profiles = getSetting('profiles');
 		if (id !== 0) {
-			profiles.splice(id, 1)
+			profiles.splice(id, 1);
 			updateSetting('profiles', profiles);
 		}
 		loadOptions.parentElement.replaceWith(
@@ -247,16 +250,29 @@ export function createProfileManager() {
 	});
 
 	var profileHeader = createHeading('h3', 'Profiles [Beta]');
-	var profileText = createText('Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.');
-	var saveButton = createButton('Save', saveProfile);
+	var profileText = createText(
+		'Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.'
+	);
+	var saveButton = createButton('Save', saveProfile, {
+		classes: 'nisbutton',
+	});
 	var profileName = createInput('input', 'ProfileName', '');
 	profileName.classList.add('profile-name');
-	var loadOptions = createDropdownSetting( 'Profile', '', 'Add', profileOptions );
+	var loadOptions = createDropdownSetting(
+		'Profile',
+		'',
+		'Add',
+		profileOptions
+	);
 	loadOptions.classList.add('profile-list');
 	loadOptions.querySelector('select').selectedIndex = 0;
-	var loadButton = createButton('Load', loadProfile);
+	var loadButton = createButton('Load', loadProfile, {
+		classes: 'nisbutton',
+	});
 	loadButton.classList.add('load-btn');
-	var deleteButton = createButton('Delete Profile', deleteProfile);
+	var deleteButton = createButton('Delete Profile', deleteProfile, {
+		classes: '',
+	});
 	var container = createFlexContainer();
 	container.classList.remove('flex');
 	var endSeperator = createSeperator();
@@ -379,8 +395,8 @@ export function setDefaultSettings() {
 				);
 				break;
 			case 'checkbox':
-				if (setting.dataset.defaultValue == "false") {
-					updateSetting( setting.dataset.setting, false );
+				if (setting.dataset.defaultValue == 'false') {
+					updateSetting(setting.dataset.setting, false);
 				} else {
 					updateSetting(setting.dataset.setting, true);
 				}
@@ -400,7 +416,9 @@ export function loadSettings() {
 		switch (setting.type) {
 			case 'number':
 			case 'range':
-				setting.value = getSetting(setting.dataset.setting) ?? setting.dataset.defaultValue;
+				setting.value =
+					getSetting(setting.dataset.setting) ??
+					setting.dataset.defaultValue;
 				break;
 			case 'checkbox':
 				setting.checked =

@@ -1086,3 +1086,58 @@ body *:not(.normalscroll)::-webkit-scrollbar-thumb:horizontal
 body::-webkit-scrollbar-corner,
 body *:not(.normalscroll)::-webkit-scrollbar-corner
 {background:#060d11;}
+
+.nisbutton {
+    height: 32px;
+    position: relative;
+    background: url('../asset/resource/nisbutton.png') 0px -100%/24px 400% repeat content-box;
+    cursor: pointer;
+    text-align: center;
+    color: #000;
+    font-family: 'trajan-pro-3';
+    text-shadow: 1px 1px 2px #ecc622;
+    font-size: 18px;
+    margin: 5px;
+    padding: 0px 12px;
+    line-height: 32px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.nisbutton::before {
+    width: 12px;
+    height: 100%;
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: url('../asset/resource/nisbutton.png') 0px 0px / 24px 400%;
+}
+
+.nisbutton::after {
+    width: 12px;
+    height: 100%;
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: url('../asset/resource/nisbutton.png') -12px 0px / 24px 400%;
+}
+
+.nisbutton:not([disabled]):hover {
+    background-position: 0px -300%;
+}
+
+.nisbutton:not([disabled]):hover::before {
+    background-position: 0px -200%;
+}
+
+.nisbutton:not([disabled]):hover::after {
+    background-position: -12px -200%;
+}
+
+.nisbutton[disabled] {
+  opacity: .5;
+  cursor: default;
+  pointer-events: none;
+}

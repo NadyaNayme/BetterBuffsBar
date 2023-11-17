@@ -1964,15 +1964,18 @@ const settingsObject = {
 	),
 	OverlayPositionButton: sauce.createButton(
 		'Set Overlay Position',
-		setOverlayPosition
+		setOverlayPosition,
+		{ classes: 'nisbutton' }
 	),
 	Overlay2PositionButton: sauce.createButton(
 		'Set Overlay 2 Position',
-		setOverlayPosition2
+		setOverlayPosition2,
+		{ classes: 'nisbutton' }
 	),
 	Overlay3PositionButton: sauce.createButton(
 		'Set Overlay 3 Position',
-		setOverlayPosition3
+		setOverlayPosition3,
+		{ classes: 'nisbutton' }
 	),
 	ScaleHeader: sauce.createHeading('h3', 'Scale'),
 	UIScale: sauce.createRangeSetting(
@@ -2020,7 +2023,8 @@ const settingsObject = {
 	),
 	resetButton: sauce.createButton(
 		'Reset All Settings',
-		sauce.setDefaultSettings
+		sauce.setDefaultSettings,
+		{ classes: 'nisbutton' }
 	),
 	endreset: sauce.createSeperator(),
 	troubleshootingHeader: sauce.createHeading(
