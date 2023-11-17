@@ -1186,12 +1186,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   display: none;
 }
 
-#BetterBuffsBar.overlay-disabled > *:not(.tracked-region) {
+#BetterBuffsBar.overlay-disabled > *:not(.tracked-regions) {
   opacity: 0;
   height: 0;
 }
 
-#BetterBuffsBar.overlay-disabled:hover > *:not(.tracked-region) {
+#BetterBuffsBar.overlay-disabled:hover > *:not(.tracked-regions) {
   opacity: 1;
   height: initial;
 }
@@ -14944,7 +14944,7 @@ var settingsObject = {
     SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('singleBOLG', '<u>Split BOLG Weapon Special / Stacks</u> Tracks Balance by Force and Perfect Equlibrium stacks as separate buffs', (_e = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('singleBOLG')) !== null && _e !== void 0 ? _e : false),
     endGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
-    OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', 'Enable Overlay', (_f = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _f !== void 0 ? _f : false),
+    OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', '<u>Enable Overlay</u> When the overlay is toggled off - the app will hide the entire UI unless your mouse is over the app. This is for users who don\'t mind having a background and want to avoid the delay the overlay has', (_f = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _f !== void 0 ? _f : false),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("If the overlay does not show - check the \"Show overlay\" permission is enabled for this plugin in Alt1's settings or try setting the position using the button below."),
     OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition, { classes: 'nisbutton' }),
     Overlay2PositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay 2 Position', setOverlayPosition2, { classes: 'nisbutton' }),

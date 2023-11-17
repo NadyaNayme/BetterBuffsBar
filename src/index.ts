@@ -1956,7 +1956,7 @@ const settingsObject = {
 	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
 	OverlayActive: sauce.createCheckboxSetting(
 		'activeOverlay',
-		'Enable Overlay',
+		'<u>Enable Overlay</u> When the overlay is toggled off - the app will hide the entire UI unless your mouse is over the app. This is for users who don\'t mind having a background and want to avoid the delay the overlay has',
 		sauce.getSetting('activeOverlay') ?? false
 	),
 	OverlaySmallText: sauce.createSmallText(

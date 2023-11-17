@@ -100,12 +100,12 @@ body {
   display: none;
 }
 
-#BetterBuffsBar.overlay-disabled > *:not(.tracked-region) {
+#BetterBuffsBar.overlay-disabled > *:not(.tracked-regions) {
   opacity: 0;
   height: 0;
 }
 
-#BetterBuffsBar.overlay-disabled:hover > *:not(.tracked-region) {
+#BetterBuffsBar.overlay-disabled:hover > *:not(.tracked-regions) {
   opacity: 1;
   height: initial;
 }
