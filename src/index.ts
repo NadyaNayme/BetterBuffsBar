@@ -2198,7 +2198,7 @@ settingsObject.OverlayActive.querySelector('input').addEventListener(
 );
 
 settingsObject.Brightness.querySelector('input').addEventListener('change', (e) => {
-	helperItems.TrackedBuffs.querySelectorAll('li').forEach((buff) => {
+	helperItems.TrackedBuffs.querySelectorAll('img').forEach((buff) => {
 		buff.style.filter = `grayscale(1) brightness(${(parseInt(settingsObject.Brightness.querySelector(
 			'input'
 		).value, 10) / 100).toString()})`;
@@ -2231,7 +2231,7 @@ window.onload = function () {
 		});
 		initSettings();
 		startBetterBuffsBar();
-		helperItems.TrackedBuffs.querySelectorAll('li').forEach((buff) => {
+		helperItems.TrackedBuffs.querySelectorAll('img').forEach((buff) => {
 			buff.style.filter = `grayscale(1) brightness(${(
 				parseInt(
 					settingsObject.Brightness.querySelector('input').value,
@@ -2244,7 +2244,7 @@ window.onload = function () {
 		const callback = (mutationList, observer) => {
 			for (const mutation of mutationList) {
 				if (mutation.type === 'childList') {
-					helperItems.TrackedBuffs.querySelectorAll('li').forEach((buff) => {
+					helperItems.TrackedBuffs.querySelectorAll('img').forEach((buff) => {
 						buff.style.filter = `grayscale(1) brightness(${(
 							parseInt(
 								settingsObject.Brightness.querySelector('input').value,
@@ -2252,7 +2252,7 @@ window.onload = function () {
 							) / 100
 						).toString()})`;
 					});
-					helperItems.UntrackedBuffs.querySelectorAll('li').forEach(
+					helperItems.UntrackedBuffs.querySelectorAll('img').forEach(
 						(buff) => {
 							buff.style.filter = '';
 						}

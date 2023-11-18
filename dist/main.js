@@ -1085,8 +1085,11 @@ html:not(.beta) #Settings > button:nth-child(17) {
   width: 27px;
   height: 27px;
   margin: 1px;
+}
+
+.tracked-region li img,
+#UntrackedBuffs li img {
   background-color: #3e3e3e;
-  background-repeat: no-repeat;
 }
 
 .tracked-region li::after,
@@ -13220,7 +13223,7 @@ settingsObject.OverlayActive.querySelector('input').addEventListener('click', fu
     location.reload();
 });
 settingsObject.Brightness.querySelector('input').addEventListener('change', function (e) {
-    helperItems.TrackedBuffs.querySelectorAll('li').forEach(function (buff) {
+    helperItems.TrackedBuffs.querySelectorAll('img').forEach(function (buff) {
         buff.style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
     });
 });
@@ -13247,7 +13250,7 @@ window.onload = function () {
         });
         initSettings();
         startBetterBuffsBar();
-        helperItems.TrackedBuffs.querySelectorAll('li').forEach(function (buff) {
+        helperItems.TrackedBuffs.querySelectorAll('img').forEach(function (buff) {
             buff.style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
         });
         var mutationConfig = { attributes: false, childList: true, subtree: false };
@@ -13255,10 +13258,10 @@ window.onload = function () {
             for (var _i = 0, mutationList_1 = mutationList; _i < mutationList_1.length; _i++) {
                 var mutation = mutationList_1[_i];
                 if (mutation.type === 'childList') {
-                    helperItems.TrackedBuffs.querySelectorAll('li').forEach(function (buff) {
+                    helperItems.TrackedBuffs.querySelectorAll('img').forEach(function (buff) {
                         buff.style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
                     });
-                    helperItems.UntrackedBuffs.querySelectorAll('li').forEach(function (buff) {
+                    helperItems.UntrackedBuffs.querySelectorAll('img').forEach(function (buff) {
                         buff.style.filter = '';
                     });
                 }

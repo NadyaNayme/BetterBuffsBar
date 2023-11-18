@@ -211,8 +211,11 @@ html:not(.beta) #Settings > button:nth-child(17) {
   width: 27px;
   height: 27px;
   margin: 1px;
+}
+
+.tracked-region li img,
+#UntrackedBuffs li img {
   background-color: #3e3e3e;
-  background-repeat: no-repeat;
 }
 
 .tracked-region li::after,
