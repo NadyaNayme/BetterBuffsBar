@@ -11989,12 +11989,15 @@ function watchBuffs() {
             });
             findStatus(buffs, buffImages.ConjureSkeleton, buffsList.ConjureSkeleton, {
                 threshold: 300,
+                expirationPulse: true,
             });
             findStatus(buffs, buffImages.ConjureZombie, buffsList.ConjureZombie, {
                 threshold: 300,
+                expirationPulse: true,
             });
             findStatus(buffs, buffImages.ConjureGhost, buffsList.ConjureGhost, {
                 threshold: 300,
+                expirationPulse: true,
             });
             checkBuffsForHidingOverlay(buffs);
             if ((buffs === null || buffs === void 0 ? void 0 : buffs.length) == 0) {

@@ -608,6 +608,7 @@ function watchBuffs() {
 				buffsList.ConjureSkeleton,
 				{
 					threshold: 300,
+					expirationPulse: true,
 				}
 			);
 
@@ -617,11 +618,13 @@ function watchBuffs() {
 				buffsList.ConjureZombie,
 				{
 					threshold: 300,
+					expirationPulse: true,
 				}
 			);
 
 			findStatus(buffs, buffImages.ConjureGhost, buffsList.ConjureGhost, {
 				threshold: 300,
+				expirationPulse: true,
 			});
 
 			checkBuffsForHidingOverlay(buffs);
