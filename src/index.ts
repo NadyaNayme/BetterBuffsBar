@@ -83,6 +83,9 @@ let buffsList = {
 	PrayerRenewal: getByID('PrayerRenewalBuff'),
 	DeathSpark: getByID('DeathSparkBuff'),
 	ThreadsOfFate: getByID('ThreadsOfFateBuff'),
+	ConjureSkeleton: getByID('ConjureSkeleton'),
+	ConjureZombie: getByID('ConjureZombie'),
+	ConjureGhost: getByID('ConjureGhost'),
 };
 
 let debuffsList = {
@@ -159,6 +162,9 @@ var buffImages = a1lib.webpackImages({
 	PrayerRenewal: require('./asset/data/Prayer_Renew_Active-noborder.data.png'),
 	DeathSpark: require('./asset/data/Death_Spark.data.png'),
 	ThreadsOfFate: require('./asset/data/Threads_Of_Fate.data.png'),
+	ConjureSkeleton: require('./asset/data/skeleton_warrior.data.png'),
+	ConjureZombie: require('./asset/data/putrid_zombie.data.png'),
+	ConjureGhost: require('./asset/data/vengeful_ghost.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
@@ -225,6 +231,7 @@ var prayerImages = a1lib.webpackImages({
 var enemyImages = a1lib.webpackImages({
 	DeathMark: require('./asset/data/Death_Mark.data.png'),
 	Vulnerability: require('./asset/data/Vulnerability_bordered.data.png'),
+	Bloat: require('./asset/data/bloated.data.png'),
 });
 
 export function startBetterBuffsBar() {
@@ -595,6 +602,28 @@ function watchBuffs() {
 				}
 			);
 
+			findStatus(
+				buffs,
+				buffImages.ConjureSkeleton,
+				buffsList.ConjureSkeleton,
+				{
+					threshold: 300,
+				}
+			);
+
+			findStatus(
+				buffs,
+				buffImages.ConjureZombie,
+				buffsList.ConjureZombie,
+				{
+					threshold: 300,
+				}
+			);
+
+			findStatus(buffs, buffImages.ConjureGhost, buffsList.ConjureGhost, {
+				threshold: 300,
+			});
+
 			checkBuffsForHidingOverlay(buffs);
 
 			if (buffs?.length == 0) {
@@ -679,6 +708,7 @@ function watchBuffs() {
 		}
 		findDeathMark();
 		findVulnerability();
+		findBloated();
 	}, loopSpeed);
 }
 
@@ -1057,6 +1087,42 @@ function findVulnerability() {
 		setTimeout(() => {
 			setInactive(getByID('VulnerabilityDebuff'));
 		}, 60000);
+	}
+}
+
+function findBloated() {
+	targetDisplay.read();
+	if (targetDisplay.lastpos === null) {
+		return;
+	}
+
+	if (
+		!getByID('Buffs').contains(getByID('Bloat')) &&
+		!getByID('Buffs2').contains(getByID('Bloat')) &&
+		!getByID('Buffs3').contains(getByID('Bloat'))
+	) {
+		return;
+	}
+
+	var target_display_loc = {
+		x: targetDisplay?.lastpos.x - 120,
+		y: targetDisplay?.lastpos.y + 20,
+		w: 150,
+		h: 60,
+	};
+	var targetDebuffs = a1lib.captureHold(
+		target_display_loc.x,
+		target_display_loc.y,
+		target_display_loc.w,
+		target_display_loc.h
+	);
+	var targetIsBloated = targetDebuffs.findSubimage(
+		enemyImages.Bloat
+	).length;
+	if (targetIsBloated) {
+		setActive(getByID('Bloat'));
+	} else if (!targetIsBloated) {
+		setInactive(getByID('Bloat'));
 	}
 }
 
