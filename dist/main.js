@@ -11912,12 +11912,21 @@ function checkBuffsForHidingOverlay(buffsReader) {
             // If we don't have an overlay visible - hide it
             if (buffsReader == undefined) {
                 buffsVisible = false;
+                alt1.overLayClearGroup('region1');
+                alt1.overLayClearGroup('region2');
+                alt1.overLayClearGroup('region3');
             }
             else if (Object.entries(buffsReader).length == 0) {
                 buffsVisible = false;
+                alt1.overLayClearGroup('region1');
+                alt1.overLayClearGroup('region2');
+                alt1.overLayClearGroup('region3');
             }
             else {
                 buffsVisible = true;
+                startOverlay();
+                startOverlay2();
+                startOverlay3();
             }
             return [2 /*return*/];
         });
@@ -13224,8 +13233,13 @@ settingsObject.OverlayActive.querySelector('input').addEventListener('click', fu
     location.reload();
 });
 settingsObject.Brightness.querySelector('input').addEventListener('change', function (e) {
-    helperItems.TrackedBuffs.querySelectorAll('img').forEach(function (buff) {
-        buff.style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
+    helperItems.TrackedBuffs.querySelectorAll('.inactive').forEach(function (buff) {
+        if (buff.parentElement.classList.contains('inactive')) {
+            buff.querySelector('img').style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
+        }
+        else {
+            buff.querySelector('img').style.filter = '';
+        }
     });
 });
 settingsObject.debugMode
@@ -13251,16 +13265,26 @@ window.onload = function () {
         });
         initSettings();
         startBetterBuffsBar();
-        helperItems.TrackedBuffs.querySelectorAll('img').forEach(function (buff) {
-            buff.style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
+        helperItems.TrackedBuffs.querySelectorAll('.inactive').forEach(function (buff) {
+            if (buff.parentElement.classList.contains('inactive')) {
+                buff.querySelector('img').style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
+            }
+            else {
+                buff.querySelector('img').style.filter = '';
+            }
         });
         var mutationConfig = { attributes: false, childList: true, subtree: false };
         var callback = function (mutationList, observer) {
             for (var _i = 0, mutationList_1 = mutationList; _i < mutationList_1.length; _i++) {
                 var mutation = mutationList_1[_i];
                 if (mutation.type === 'childList') {
-                    helperItems.TrackedBuffs.querySelectorAll('img').forEach(function (buff) {
-                        buff.style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
+                    helperItems.TrackedBuffs.querySelectorAll('.inactive').forEach(function (buff) {
+                        if (buff.parentElement.classList.contains('inactive')) {
+                            buff.querySelector('img').style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
+                        }
+                        else {
+                            buff.querySelector('img').style.filter = '';
+                        }
                     });
                     helperItems.UntrackedBuffs.querySelectorAll('img').forEach(function (buff) {
                         buff.style.filter = '';
