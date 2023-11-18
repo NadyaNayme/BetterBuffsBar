@@ -1063,6 +1063,11 @@ html:not(.beta) .beta-only {
   border: solid 2px green;
 }
 
+#BetterBuffsBar.big-head-mode .tracked-region li:nth-child(1) img {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 #BetterBuffsBar.hide-overlay .tracked-region {
   opacity: 0;
 }
