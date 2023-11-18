@@ -244,141 +244,10 @@ html:not(.beta) #Settings > button:nth-child(17) {
   background-color: transparent !important;
 }
 
-#OverloadBuff {
-  background-image: url('/asset/buffs/overload.png');
-}
-
-#OverloadBuff.inactive {
-  background-image: url('/asset/buffs/desat/overload-desat.png');
-}
-
-#ElderOverloadBuff {
-  background-image: url('/asset/buffs/elder_overload.png');
-}
-
-#ElderOverloadBuff.inactive {
-  background-image: url('/asset/buffs/desat/elder_overload-desat.png');
-}
-
-#WeaponPoisonBuff {
-  background-image: url('/asset/buffs/weapon_poison.png');
-}
-
-#WeaponPoisonBuff.inactive {
-  background-image: url('/asset/buffs/desat/weapon_poison-desat.png');
-}
-
-#DarknessBuff {
-  background-image: url('/asset/buffs/darkness.png');
-}
-
-#DarknessBuff.inactive {
-  background-image: url('/asset/buffs/desat/darkness-desat.png');
-}
-
-#AnimateDeadBuff {
-  background-image: url('/asset/buffs/animate_dead.png');
-}
-
-#AnimateDeadBuff.inactive {
-  background-image: url('/asset/buffs/desat/animate_dead-desat.png');
-}
-
-#BolgStacksBuff {
-  background-image: url('/asset/buffs/perfect_eqilibrium.png');
-}
-
-#BolgStacksBuff.inactive {
-  background-image: url('/asset/buffs/desat/perfect_eqilibrium-desat.png');
-}
-
-#BalanceByForceBuff {
-  background-image: url('/asset/buffs/balance_by_force.png');
-}
-
-#BalanceByForceBuff.inactive {
-  background-image: url('/asset/buffs/desat/balance_by_force-desat.png');
-}
-
-#TimeRiftBuff {
-  background-image: url('/asset/buffs/time_rift.png');
-}
-
-#TimeRiftBuff.inactive {
-  background-image: url('/asset/buffs/desat/time_rift-desat.png');
-}
-
-#FsoaSpecBuff {
-  background-image: url('/asset/buffs/instability.png');
-}
-
-#FsoaSpecBuff.inactive {
-  background-image: url('/asset/buffs/desat/instability-desat.png');
-}
-
-#GladiatorsRageBuff {
-  background-image: url('/asset/buffs/gladiators_rage.png');
-}
-
-#GladiatorsRageBuff.inactive {
-  background-image: url('/asset/buffs/desat/gladiators_rage-desat.png');
-}
-
-#NecrosisBuff {
-  background-image: url('/asset/buffs/necrosis.png');
-}
-
-#NecrosisBuff.inactive {
-  background-image: url('/asset/buffs/desat/necrosis-desat.png');
-}
-
-#Aura {
-  background-image: url('/asset/buffs/aura.png');
-}
-
-#Aura.inactive {
-  background-image: url('/asset/buffs/desat/aura-desat.png');
-}
-
-#BonfireBoost {
-  background-image: url('/asset/buffs/bonfire.png');
-}
-
-#BonfireBoost.inactive {
-  background-image: url('/asset/buffs/desat/bonfire-desat.png');
-}
-
-#ErethdorsGrimoire {
-  background-image: url('/asset/buffs/erethdors_grimoire.png');
-  background-size: contain;
-}
-
-#ErethdorsGrimoire.inactive {
-  background-image: url('/asset/buffs/desat/erethdors_grimoire-desat.png');
-}
-
-#LantadymeIncense {
-  background-image: url('/asset/buffs/lantadyme_incense.png');
-  background-size: contain;
-}
-
-#LantadymeIncense.inactive {
-  background-image: url('/asset/buffs/desat/lantadyme_incense-desat.png');
-}
-
 #LantadymeIncense.inactive::before,
 #LantadymeIncense.inactive::after {
   font-size: 8px;
   content: 'Lant';
-}
-
-#DwarfWeedIncense {
-  background-image: url('/asset/buffs/dwarf_weed_incense.png');
-  background-size: contain;
-}
-
-#DwarfWeedIncense.inactive {
-  background-image: url('/asset/buffs/desat/dwarf_weed_incense-desat.png');
 }
 
 #DwarfWeedIncense.inactive::before,
@@ -387,28 +256,10 @@ html:not(.beta) #Settings > button:nth-child(17) {
   content: 'Dwrf'
 }
 
-#FellstalkIncense {
-  background-image: url('/asset/buffs/fellstalk_incense.png');
-  background-size: contain;
-}
-
-#FellstalkIncense.inactive {
-  background-image: url('/asset/buffs/desat/fellstalk_incense-desat.png');
-}
-
 #FellstalkIncense.inactive::before,
 #FellstalkIncense.inactive::after {
   font-size: 8px;
   content: 'Fell'
-}
-
-#KwuarmIncense {
-  background-image: url('/asset/buffs/kwuarm_incense.png');
-  background-size: contain;
-}
-
-#KwuarmIncense.inactive {
-  background-image: url('/asset/buffs/desat/kwuarm_incense-desat.png');
 }
 
 #KwuarmIncense.inactive::before,
@@ -417,131 +268,10 @@ html:not(.beta) #Settings > button:nth-child(17) {
   content: 'Kwrm'
 }
 
-#Anticipation {
-  background-image: url('/asset/buffs/anticipation.png');
-}
-
-#Anticipation.inactive,
-#Anticipation.cooldown {
-  background-image: url('/asset/buffs/desat/anticipation-desat.png');
-}
-
-#Barricade {
-  background-image: url('/asset/buffs/barricade.png');
-}
-
-#Barricade.inactive,
-#Barricade.cooldown {
-  background-image: url('/asset/buffs/desat/barricade-desat.png');
-}
-
-#Devotion {
-  background-image: url('/asset/buffs/devotion.png');
-}
-
-#Devotion.inactive,
-#Devotion.cooldown {
-  background-image: url('/asset/buffs/desat/devotion-desat.png');
-}
-
-#Divert {
-  background-image: url('/asset/buffs/divert.png');
-}
-
-#Divert.inactive,
-#Divert.cooldown {
-  background-image: url('/asset/buffs/desat/divert-desat.png');
-}
-
-#Freedom {
-  background-image: url('/asset/buffs/freedom.png');
-}
-
-#Freedom.inactive,
-#Freedom.cooldown {
-  background-image: url('/asset/buffs/desat/freedom-desat.png');
-}
-
-#Immortality {
-  background-image: url('/asset/buffs/immortality.png');
-}
-
-#Immortality.inactive,
-#Immortality.cooldown {
-  background-image: url('/asset/buffs/desat/immortality-desat.png');
-}
-
-#Reflect {
-  background-image: url('/asset/buffs/reflect.png');
-}
-
-#Reflect.inactive,
-#Reflect.cooldown {
-  background-image: url('/asset/buffs/desat/reflect-desat.png');
-}
-
-#Resonance {
-  background-image: url('/asset/buffs/resonance.png');
-}
-
-#Resonance.inactive,
-#Resonance.cooldown {
-  background-image: url('/asset/buffs/desat/resonance-desat.png');
-}
-
-#SplitSoulBuff {
-  background-image: url('/asset/buffs/split_soul.png');
-}
-
-#SplitSoulBuff.inactive {
-  background-image: url('/asset/buffs/desat/split_soul-desat.png');
-}
-
-#AntifireBuff {
-  background-image: url('/asset/buffs/antifire.png');
-}
-
-#AntifireBuff.inactive {
-  background-image: url('/asset/buffs/desat/antifire-desat.png');
-}
-
-#PrayerRenewalBuff {
-  background-image: url('/asset/buffs/prayer_renewal.png');
-}
-
-#PrayerRenewalBuff.inactive {
-  background-image: url('/asset/buffs/desat/prayer_renewal-desat.png');
-}
-
-#DeathSparkBuff {
-  background-image: url('/asset/buffs/death_spark.png');
-}
-
-#DeathSparkBuff.inactive {
-  background-image: url('/asset/buffs/desat/death_spark-desat.png');
-}
-
-#AncientElvenRitualShardDebuff {
-  background-image: url('/asset/buffs/ancient_elven_ritual_shard.png');
-  background-size: contain;
-}
-
-#AncientElvenRitualShardDebuff.inactive {
-  background-image: url('/asset/buffs/desat/ancient_elven_ritual_shard-desat.png');
-}
 
 #AncientElvenRitualShardDebuff.inactive::before,
 #AncientElvenRitualShardDebuff.inactive::after {
   content: 'use'
-}
-
-#EnhancedExcaliburDebuff {
-  background-image: url('/asset/buffs/enhanced_excalibur.png');
-  background-size: contain;
-}
-
-#EnhancedExcaliburDebuff.inactive {
-  background-image: url('/asset/buffs/desat/enhanced_excalibur-desat.png');
 }
 
 #EnhancedExcaliburDebuff.inactive::before,
@@ -549,72 +279,9 @@ html:not(.beta) #Settings > button:nth-child(17) {
   content: 'use'
 }
 
-#AdrenalinePotionDebuff {
-  background-image: url('/asset/buffs/adrenaline_potion.png');
-  background-size: contain;
-}
-
-#AdrenalinePotionDebuff.inactive {
-  background-image: url('/asset/buffs/desat/adrenaline_potion-desat.png');
-}
-
 #AdrenalinePotionDebuff.inactive::before,
 #AdrenalinePotionDebuff.inactive::after {
   content: 'adr'
-}
-
-#DeathGuardDebuff {
-  background-image: url('/asset/buffs/death_guard.png');
-  background-size: contain;
-}
-
-#DeathGuardDebuff.inactive {
-  background-image: url('/asset/buffs/desat/death_guard-desat.png');
-}
-
-#OmniGuardDebuff {
-  background-image: url('/asset/buffs/omni_guard.png');
-  background-size: contain;
-}
-
-#OmniGuardDebuff.inactive {
-  background-image: url('/asset/buffs/desat/omni_guard-desat.png');
-}
-
-#CrystalRainDebuff {
-  background-image: url('/asset/buffs/crystal_rain.png');
-  background-size: contain;
-}
-
-#CrystalRainDebuff.inactive {
-  background-image: url('/asset/buffs/desat/crystal_rain-desat.png');
-}
-
-#StunnedDebuff {
-  background-image: url('/asset/buffs/stunned.png');
-  background-size: contain;
-}
-
-#StunnedDebuff.inactive {
-  background-image: url('/asset/buffs/desat/stunned-desat.png');
-}
-
-#SignOfLifeDebuff {
-  background-image: url('/asset/buffs/sign_of_life.png');
-  background-size: contain;
-}
-
-#SignOfLifeDebuff.inactive {
-  background-image: url('/asset/buffs/desat/sign_of_life-desat.png');
-}
-
-#PowerburstPreventionDebuff {
-  background-image: url('/asset/buffs/powerburst_prevention.png');
-  background-size: contain;
-}
-
-#PowerburstPreventionDebuff.inactive {
-  background-image: url('/asset/buffs/desat/powerburst_prevention-desat.png');
 }
 
 #VirusDebuff[data-virus=""] {
@@ -657,138 +324,11 @@ html:not(.beta) #Settings > button:nth-child(17) {
   content: 'GRN'
 }
 
-#ThreadsOfFateBuff {
-  background-image: url('/asset/buffs/threads_of_fate.png');
-  background-size: contain;
-}
-
-#ThreadsOfFateBuff.inactive,
-#ThreadsOfFateBuff.cooldown {
-  background-image: url('/asset/buffs/desat/threads_of_fate-desat.png');
-}
-
-#DeathMarkDebuff {
-  background-image: url('/asset/buffs/death_mark.png');
-  background-size: contain;
-}
-
-#DeathMarkDebuff.inactive {
-  background-image: url('/asset/buffs/desat/death_mark-desat.png');
-}
-
-#VulnerabilityDebuff {
-  background-image: url('/asset/buffs/vulnerability.png');
-  background-size: contain;
-}
-
-#VulnerabilityDebuff.inactive {
-  background-image: url('/asset/buffs/desat/vulnerability-desat.png');
-}
-
 #VulnerabilityDebuff.inactive::before,
 #VulnerabilityDebuff.inactive::after {
   content:  'vuln' !important;
   font-size: 8px !important;
   left: 1px !important;
-}
-
-#BerserkUltimate {
-  background-image: url('/asset/buffs/berserk.png');
-}
-
-#BerserkUltimate.inactive,
-#BerserkUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/berserk-desat.png');
-}
-
-#DeathsSwiftnessUltimate {
-  background-image: url('/asset/buffs/deaths_swiftness.png');
-}
-
-#DeathsSwiftnessUltimate.inactive,
-#DeathsSwiftnessUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/deaths_swiftness-desat.png');
-}
-
-#GreaterDeathsSwiftnessUltimate {
-background-image: url('/asset/buffs/greater_deaths_swiftness.png');
-}
-
-#GreaterDeathsSwiftnessUltimate.inactive,
-#GreaterDeathsSwiftnessUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/greater_deaths_swiftness-desat.png');
-}
-
-#SunshineUltimate {
-  background-image: url('/asset/buffs/sunshine.png');
-}
-
-#SunshineUltimate.inactive,
-#SunshineUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/sunshine-desat.png');
-}
-
-#GreaterSunshineUltimate {
-  background-image: url('/asset/buffs/greater_sunshine.png');
-}
-
-#GreaterSunshineUltimate.inactive,
-#GreaterSunshineUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/greater_sunshine-desat.png');
-}
-
-#LivingDeathUltimate {
-  background-image: url('/asset/buffs/living_death.png');
-}
-
-#LivingDeathUltimate.inactive,
-#LivingDeathUltimate.cooldown {
-  background-image: url('/asset/buffs/desat/living_death-desat.png');
-}
-
-#LimitlessSigil,
-#LimitlessSigil.cooldown {
-  background-image: url('/asset/buffs/limitless.png');
-}
-
-#LimitlessSigil:not(.cooldown) {
-  background-image: url('/asset/buffs/desat/limitless-desat.png');
-}
-
-#DemonSlayerSigil,
-#DemonSlayerSigil.cooldown {
-  background-image: url('/asset/buffs/demon_slayer.png');
-}
-
-#DemonSlayerSigil:not(.cooldown) {
-  background-image: url('/asset/buffs/desat/demon_slayer-desat.png');
-}
-
-#DragonSlayerSigil,
-#DragonSlayerSigil.cooldown {
-  background-image: url('/asset/buffs/dragon_slayer.png');
-}
-
-#DragonSlayerSigil:not(.cooldown) {
-  background-image: url('/asset/buffs/desat/dragon_slayer-desat.png');
-}
-
-#UndeadSlayerSigil,
-#UndeadSlayerSigil.cooldown {
-  background-image: url('/asset/buffs/undead_slayer.png');
-}
-
-#UndeadSlayerSigil:not(.cooldown) {
-  background-image: url('/asset/buffs/desat/undead_slayer-desat.png');
-}
-
-#IngenuityOfTheHumansSigil,
-#IngenuityOfTheHumansSigil.cooldown {
-  background-image: url('/asset/buffs/ingenuity_of_the_humans.png');
-}
-
-#IngenuityOfTheHumansSigil:not(.cooldown) {
-  background-image: url('/asset/buffs/desat/ingenuity_of_the_humans-desat.png');
 }
 
 #DpsPrayer[data-prayer="affliction"] {
@@ -896,6 +436,11 @@ background-image: url('/asset/buffs/greater_deaths_swiftness.png');
   to {
     visibility: hidden;
   }
+}
+
+.tracked-region .inactive img,
+.tracked-region .cooldown img {
+  filter: brightness(.75) grayscale(1);
 }
 
 #DpsPrayer[data-prayer=""]::before,
