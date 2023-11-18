@@ -675,20 +675,11 @@ function watchBuffs() {
 async function checkBuffsForHidingOverlay(buffsReader: BuffReader.Buff[]) {
 	// If we don't have an overlay visible - hide it
 	if (buffsReader == undefined) {
-		buffsVisible = false;
-		alt1.overLayClearGroup('region1');
-		alt1.overLayClearGroup('region2');
-		alt1.overLayClearGroup('region3');
+		helperItems.BetterBuffsBar.classList.add('hide-overlay');
 	} else if (Object.entries(buffsReader).length == 0) {
-		buffsVisible = false;
-		alt1.overLayClearGroup('region1');
-		alt1.overLayClearGroup('region2');
-		alt1.overLayClearGroup('region3');
+		helperItems.BetterBuffsBar.classList.add('hide-overlay');
 	} else {
-		buffsVisible = true;
-		startOverlay();
-		startOverlay2();
-		startOverlay3();
+		helperItems.BetterBuffsBar.classList.remove('hide-overlay');
 	}
 }
 
@@ -1480,7 +1471,7 @@ async function startOverlay() {
 	let buffsPerRow = sauce.getSetting('buffsPerrow');
 	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
 	await new Promise((done) => setTimeout(done, 1000));
-	while (buffsVisible) {
+	while (true) {
 		let uiScale = sauce.getSetting('uiScale');
 		let overlayPosition = currentOverlayPosition;
 		htmlToImage

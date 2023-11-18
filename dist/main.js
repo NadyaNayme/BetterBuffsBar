@@ -11915,22 +11915,13 @@ function checkBuffsForHidingOverlay(buffsReader) {
         return __generator(this, function (_a) {
             // If we don't have an overlay visible - hide it
             if (buffsReader == undefined) {
-                buffsVisible = false;
-                alt1.overLayClearGroup('region1');
-                alt1.overLayClearGroup('region2');
-                alt1.overLayClearGroup('region3');
+                helperItems.BetterBuffsBar.classList.add('hide-overlay');
             }
             else if (Object.entries(buffsReader).length == 0) {
-                buffsVisible = false;
-                alt1.overLayClearGroup('region1');
-                alt1.overLayClearGroup('region2');
-                alt1.overLayClearGroup('region3');
+                helperItems.BetterBuffsBar.classList.add('hide-overlay');
             }
             else {
-                buffsVisible = true;
-                startOverlay();
-                startOverlay2();
-                startOverlay3();
+                helperItems.BetterBuffsBar.classList.remove('hide-overlay');
             }
             return [2 /*return*/];
         });
@@ -12770,7 +12761,7 @@ function startOverlay() {
                     };
                     _a.label = 2;
                 case 2:
-                    if (!buffsVisible) return [3 /*break*/, 4];
+                    if (false) {}
                     return [5 /*yield**/, _loop_1()];
                 case 3:
                     _a.sent();
