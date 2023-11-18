@@ -28,12 +28,16 @@ export function createSeperator() {
 export function createButton(
 	content: string,
 	fn: Function,
-	options: { classes: string }
+	options: { classes: Array<string> }
 ) {
 	let { classes = options.classes } = options;
-	let button = <HTMLButtonElement>document.createElement('button');
+	const button = <HTMLButtonElement>document.createElement('button');
 	button.innerHTML = content;
-	button.classList.add(classes ? classes : 'button');
+	if (options.classes.length) {
+		for (let i = options.classes.length; i--; i >= 0) {
+			button.classList.add(options.classes[i]);
+		}
+	}
 	button.addEventListener('click', () => {
 		fn();
 	});
@@ -116,6 +120,7 @@ export function createRangeSetting(
 	name: string,
 	description: string,
 	options: {
+		classes?: Array<string>;
 		defaultValue?: string;
 		min?: number;
 		max?: number;
@@ -123,6 +128,7 @@ export function createRangeSetting(
 	} = {}
 ) {
 	let {
+		classes = options.classes ?? '',
 		defaultValue = options.defaultValue ?? '100',
 		min = options.min ?? 0,
 		max = options.max ?? 100,
@@ -142,6 +148,11 @@ export function createRangeSetting(
 	output.innerHTML = input.value + unit;
 	output.after(unit);
 	let container = createFlexContainer();
+	if (classes.length) {
+		for (let i = classes.length; i--; i >= 0) {
+			container.classList.add(classes[i]);
+		}
+	}
 	container.classList.add('flex-wrap');
 	container.appendChild(label);
 	container.appendChild(input);
@@ -261,7 +272,7 @@ export function createProfileManager() {
 		'Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.'
 	);
 	var saveButton = createButton('Save', saveProfile, {
-		classes: 'nisbutton',
+		classes: ['nisbutton'],
 	});
 	var profileName = createInput('text', 'ProfileName', '');
 	profileName.classList.add('profile-name');
@@ -274,11 +285,11 @@ export function createProfileManager() {
 	loadOptions.classList.add('profile-list');
 	loadOptions.querySelector('select').selectedIndex = 0;
 	var loadButton = createButton('Load', loadProfile, {
-		classes: 'nisbutton',
+		classes: ['nisbutton'],
 	});
 	loadButton.classList.add('load-btn');
 	var deleteButton = createButton('Delete Profile', deleteProfile, {
-		classes: '',
+		classes: ['delete'],
 	});
 	var container = createFlexContainer();
 	container.classList.remove('flex');

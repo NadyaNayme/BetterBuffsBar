@@ -1992,7 +1992,11 @@ const settingsObject = {
 		'<u>Explicitly Inactive</u> Instead of hiding inactive buffs - displays them darker and desaturated',
 		sauce.getSetting('fadeInactiveBuffs') ?? true
 	),
-	Brightness: sauce.createRangeSetting('brightness', '<u>Light Level</u> Control how dark inactive buffs should be - lower number being darker', {defaultValue: '75', min: 5, max: 100, unit: '%'} ),
+	Brightness: sauce.createRangeSetting(
+		'brightness',
+		'<u>Light Level</u> Control how dark inactive buffs should be - lower number being darker',
+		{ defaultValue: '75', min: 5, max: 100, unit: '%' }
+	),
 	BigHeadMode: sauce.createCheckboxSetting(
 		'bigHeadMode',
 		'<u>Big Head Mode</u> The first buff tracked  is made x4 larger.',
@@ -2035,17 +2039,17 @@ const settingsObject = {
 	OverlayPositionButton: sauce.createButton(
 		'Set Overlay Position',
 		setOverlayPosition,
-		{ classes: 'nisbutton' }
+		{ classes: ['nisbutton'] }
 	),
 	Overlay2PositionButton: sauce.createButton(
 		'Set Overlay 2 Position',
 		setOverlayPosition2,
-		{ classes: 'nisbutton' }
+		{ classes: ['nisbutton', 'beta-only'] }
 	),
 	Overlay3PositionButton: sauce.createButton(
 		'Set Overlay 3 Position',
 		setOverlayPosition3,
-		{ classes: 'nisbutton' }
+		{ classes: ['nisbutton', 'beta-only'] }
 	),
 	ScaleHeader: sauce.createHeading('h3', 'Scale'),
 	UIScale: sauce.createRangeSetting(
@@ -2061,6 +2065,7 @@ const settingsObject = {
 		'uiScale2',
 		'Adjusts the size of the second Overlay',
 		{
+			classes: ['beta-only'],
 			defaultValue: '100',
 			min: 50,
 			max: 200,
@@ -2070,6 +2075,7 @@ const settingsObject = {
 		'uiScale3',
 		'Adjusts the size of the third Overlay',
 		{
+			classes: ['beta-only'],
 			defaultValue: '100',
 			min: 50,
 			max: 200,
@@ -2113,7 +2119,7 @@ const settingsObject = {
 	resetButton: sauce.createButton(
 		'Reset All Settings',
 		sauce.setDefaultSettings,
-		{ classes: 'nisbutton' }
+		{ classes: ['nisbutton'] }
 	),
 	endreset: sauce.createSeperator(),
 	troubleshootingHeader: sauce.createHeading(

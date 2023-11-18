@@ -1040,11 +1040,7 @@ body {
   position: relative;
 }
 
-html:not(.beta) .beta-only,
-html:not(.beta) #Settings > div:nth-child(20),
-html:not(.beta) #Settings > div:nth-child(21),
-html:not(.beta) #Settings > button:nth-child(16),
-html:not(.beta) #Settings > button:nth-child(17) {
+html:not(.beta) .beta-only {
   display: none !important;
 }
 
@@ -7039,7 +7035,11 @@ function createButton(content, fn, options) {
     var _a = options.classes, classes = _a === void 0 ? options.classes : _a;
     var button = document.createElement('button');
     button.innerHTML = content;
-    button.classList.add(classes ? classes : 'button');
+    if (options.classes.length) {
+        for (var i = options.classes.length; i--; i >= 0) {
+            button.classList.add(options.classes[i]);
+        }
+    }
     button.addEventListener('click', function () {
         fn();
     });
@@ -7091,9 +7091,9 @@ function createNumberSetting(name, description, options) {
     return container;
 }
 function createRangeSetting(name, description, options) {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e;
     if (options === void 0) { options = {}; }
-    var _e = options.defaultValue, defaultValue = _e === void 0 ? (_a = options.defaultValue) !== null && _a !== void 0 ? _a : '100' : _e, _f = options.min, min = _f === void 0 ? (_b = options.min) !== null && _b !== void 0 ? _b : 0 : _f, _g = options.max, max = _g === void 0 ? (_c = options.max) !== null && _c !== void 0 ? _c : 100 : _g, _h = options.unit, unit = _h === void 0 ? (_d = options.unit) !== null && _d !== void 0 ? _d : '%' : _h;
+    var _f = options.classes, classes = _f === void 0 ? (_a = options.classes) !== null && _a !== void 0 ? _a : '' : _f, _g = options.defaultValue, defaultValue = _g === void 0 ? (_b = options.defaultValue) !== null && _b !== void 0 ? _b : '100' : _g, _h = options.min, min = _h === void 0 ? (_c = options.min) !== null && _c !== void 0 ? _c : 0 : _h, _j = options.max, max = _j === void 0 ? (_d = options.max) !== null && _d !== void 0 ? _d : 100 : _j, _k = options.unit, unit = _k === void 0 ? (_e = options.unit) !== null && _e !== void 0 ? _e : '%' : _k;
     var input = createInput('range', name, defaultValue);
     input.setAttribute('min', min.toString());
     input.setAttribute('max', max.toString());
@@ -7108,6 +7108,11 @@ function createRangeSetting(name, description, options) {
     output.innerHTML = input.value + unit;
     output.after(unit);
     var container = createFlexContainer();
+    if (classes.length) {
+        for (var i = classes.length; i--; i >= 0) {
+            container.classList.add(classes[i]);
+        }
+    }
     container.classList.add('flex-wrap');
     container.appendChild(label);
     container.appendChild(input);
@@ -7207,7 +7212,7 @@ function createProfileManager() {
     var profileHeader = createHeading('h3', 'Profiles [Beta]');
     var profileText = createText('Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.');
     var saveButton = createButton('Save', saveProfile, {
-        classes: 'nisbutton',
+        classes: ['nisbutton'],
     });
     var profileName = createInput('text', 'ProfileName', '');
     profileName.classList.add('profile-name');
@@ -7215,11 +7220,11 @@ function createProfileManager() {
     loadOptions.classList.add('profile-list');
     loadOptions.querySelector('select').selectedIndex = 0;
     var loadButton = createButton('Load', loadProfile, {
-        classes: 'nisbutton',
+        classes: ['nisbutton'],
     });
     loadButton.classList.add('load-btn');
     var deleteButton = createButton('Delete Profile', deleteProfile, {
-        classes: '',
+        classes: ['delete'],
     });
     var container = createFlexContainer();
     container.classList.remove('flex');
@@ -13142,9 +13147,9 @@ var settingsObject = {
     OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
     OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', "<u>Enable Overlay</u> When the overlay is toggled off - the app will hide the entire UI unless your mouse is over the app. This is for users who don't mind having a background and want to avoid the delay the overlay has", (_f = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _f !== void 0 ? _f : false),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("If the overlay does not show - check the \"Show overlay\" permission is enabled for this plugin in Alt1's settings or try setting the position using the button below."),
-    OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition, { classes: 'nisbutton' }),
-    Overlay2PositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay 2 Position', setOverlayPosition2, { classes: 'nisbutton' }),
-    Overlay3PositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay 3 Position', setOverlayPosition3, { classes: 'nisbutton' }),
+    OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition, { classes: ['nisbutton'] }),
+    Overlay2PositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay 2 Position', setOverlayPosition2, { classes: ['nisbutton', 'beta-only'] }),
+    Overlay3PositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay 3 Position', setOverlayPosition3, { classes: ['nisbutton', 'beta-only'] }),
     ScaleHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Scale'),
     UIScale: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('uiScale', 'Adjusts the size of the Overlay', {
         defaultValue: '100',
@@ -13152,11 +13157,13 @@ var settingsObject = {
         max: 200,
     }),
     UIScale2: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('uiScale2', 'Adjusts the size of the second Overlay', {
+        classes: ['beta-only'],
         defaultValue: '100',
         min: 50,
         max: 200,
     }),
     UIScale3: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('uiScale3', 'Adjusts the size of the third Overlay', {
+        classes: ['beta-only'],
         defaultValue: '100',
         min: 50,
         max: 200,
@@ -13182,7 +13189,7 @@ var settingsObject = {
     ProfileManager: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createProfileManager(),
     ResetHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Reset Config'),
     ResetText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("This will reset your configuration and reload the plugin in an attempt to solve any problems caused by missing or bad values"),
-    resetButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Reset All Settings', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.setDefaultSettings, { classes: 'nisbutton' }),
+    resetButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Reset All Settings', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.setDefaultSettings, { classes: ['nisbutton'] }),
     endreset: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     troubleshootingHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Here is trouble (Make it double!)'),
     debugMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('debugMode', 'Debug mode', false),

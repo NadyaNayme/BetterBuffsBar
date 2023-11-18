@@ -166,11 +166,7 @@ body {
   position: relative;
 }
 
-html:not(.beta) .beta-only,
-html:not(.beta) #Settings > div:nth-child(20),
-html:not(.beta) #Settings > div:nth-child(21),
-html:not(.beta) #Settings > button:nth-child(16),
-html:not(.beta) #Settings > button:nth-child(17) {
+html:not(.beta) .beta-only {
   display: none !important;
 }
 
