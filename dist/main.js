@@ -881,6 +881,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   overflow-x: hidden;
   overflow-y: auto;
   margin: 0;
+  opacity: 1;
 }
 
 #Settings {
