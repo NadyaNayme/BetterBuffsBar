@@ -1090,6 +1090,10 @@ html:not(.beta) .beta-only {
   background-color: transparent !important;
 }
 
+#UntrackedBuffs .spacer {
+  background-color: #3e3e3e !important;
+}
+
 .tracked-region:hover .spacer {
   background-color: red !important;
 }
