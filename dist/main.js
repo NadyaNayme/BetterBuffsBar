@@ -13262,14 +13262,7 @@ window.onload = function () {
         });
         initSettings();
         startBetterBuffsBar();
-        helperItems.TrackedBuffs.querySelectorAll('.inactive').forEach(function (buff) {
-            if (buff.parentElement.classList.contains('inactive')) {
-                buff.querySelector('img').style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
-            }
-            else {
-                buff.querySelector('img').style.filter = '';
-            }
-        });
+        document.documentElement.style.setProperty('--brightness', (parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString());
         var mutationConfig = { attributes: false, childList: true, subtree: false };
         var callback = function (mutationList, observer) {
             for (var _i = 0, mutationList_1 = mutationList; _i < mutationList_1.length; _i++) {

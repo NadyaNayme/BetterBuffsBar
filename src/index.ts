@@ -2239,25 +2239,18 @@ window.onload = function () {
 		});
 		initSettings();
 		startBetterBuffsBar();
-		helperItems.TrackedBuffs.querySelectorAll(
-			'.inactive'
-		).forEach((buff) => {
-			if (buff.parentElement.classList.contains('inactive')) {
-				buff.querySelector(
-					'img'
-				).style.filter = `grayscale(1) brightness(${(
-					parseInt(
-						settingsObject.Brightness.querySelector(
-							'input'
-						).value,
-						10
-					) / 100
-				).toString()})`;
-			} else {
-				buff.querySelector('img').style.filter = '';
-			}
-		});
 
+		document.documentElement.style.setProperty(
+			'--brightness',
+			(
+				parseInt(
+					settingsObject.Brightness.querySelector(
+						'input'
+					).value,
+					10
+				) / 100
+			).toString()
+		);
 		const mutationConfig = { attributes: false, childList: true, subtree: false };
 		const callback = (mutationList, observer) => {
 			for (const mutation of mutationList) {
