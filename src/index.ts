@@ -342,7 +342,7 @@ function watchBuffs() {
 				threshold: 150,
 			});
 
-			findStatus(buffs, buffImages.aura, buffsList.Aura, {
+			findStatus(buffs.reverse(), buffImages.aura, buffsList.Aura, {
 				threshold: 400,
 			});
 
@@ -360,7 +360,7 @@ function watchBuffs() {
 			);
 
 			findStatus(
-				buffs,
+				buffs.reverse(),
 				incenseImages.lantadyme,
 				buffsList.LantadymeIncense,
 				{
@@ -369,7 +369,7 @@ function watchBuffs() {
 			);
 
 			findStatus(
-				buffs,
+				buffs.reverse(),
 				incenseImages.dwarfWeed,
 				buffsList.DwarfWeedIncense,
 				{
@@ -378,7 +378,7 @@ function watchBuffs() {
 			);
 
 			findStatus(
-				buffs,
+				buffs.reverse(),
 				incenseImages.fellstalk,
 				buffsList.FellstalkIncense,
 				{
@@ -386,9 +386,14 @@ function watchBuffs() {
 				}
 			);
 
-			findStatus(buffs, incenseImages.kwuarm, buffsList.KwuarmIncense, {
-				threshold: 150,
-			});
+			findStatus(
+				buffs.reverse(),
+				incenseImages.kwuarm,
+				buffsList.KwuarmIncense,
+				{
+					threshold: 150,
+				}
+			);
 
 			findStatus(buffs, buffImages.Antifire, buffsList.AntiFire, {
 				threshold: 225,
@@ -460,7 +465,7 @@ function watchBuffs() {
 			});
 
 			findStatus(
-				buffs,
+				buffs.reverse(),
 				sigilImages.limitless,
 				sigilsList.LimitlessSigil,
 				{
@@ -470,14 +475,19 @@ function watchBuffs() {
 				}
 			);
 
-			findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, {
-				threshold: 400,
-				showCooldown: true,
-				cooldownTimer: 49,
-			});
+			findStatus(
+				buffs.reverse(),
+				sigilImages.demonSlayer,
+				sigilsList.DemonSlayer,
+				{
+					threshold: 400,
+					showCooldown: true,
+					cooldownTimer: 49,
+				}
+			);
 
 			findStatus(
-				buffs,
+				buffs.reverse(),
 				sigilImages.dragonSlayer,
 				sigilsList.DragonSlayer,
 				{
@@ -488,7 +498,7 @@ function watchBuffs() {
 			);
 
 			findStatus(
-				buffs,
+				buffs.reverse(),
 				sigilImages.undeadSlayer,
 				sigilsList.UndeadSlayer,
 				{
@@ -499,7 +509,7 @@ function watchBuffs() {
 			);
 
 			findStatus(
-				buffs,
+				buffs.reverse(),
 				sigilImages.ingenuityOfTheHumans,
 				sigilsList.IngenuityOfTheHumans,
 				{
@@ -657,7 +667,7 @@ function watchBuffs() {
 
 			findVirus(debuffs);
 
-			findPrayer(buffs, debuffs);
+			findPrayer(buffs.reverse(), debuffs);
 
 			if (debuffs?.length == 0) {
 				for (let [_key, debuff] of Object.entries(debuffsList)) {

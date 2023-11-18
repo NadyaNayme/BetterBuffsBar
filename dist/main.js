@@ -11742,7 +11742,7 @@ function watchBuffs() {
             findStatus(buffs, buffImages.necrosis, buffsList.NecrosisBuff, {
                 threshold: 150,
             });
-            findStatus(buffs, buffImages.aura, buffsList.Aura, {
+            findStatus(buffs.reverse(), buffImages.aura, buffsList.Aura, {
                 threshold: 400,
             });
             findStatus(buffs, buffImages.bonfireBoost, buffsList.BonfireBoost, {
@@ -11751,16 +11751,16 @@ function watchBuffs() {
             findStatus(buffs, buffImages.grimoire, buffsList.ErethdorsGrimoire, {
                 threshold: 55,
             });
-            findStatus(buffs, incenseImages.lantadyme, buffsList.LantadymeIncense, {
+            findStatus(buffs.reverse(), incenseImages.lantadyme, buffsList.LantadymeIncense, {
                 threshold: 119,
             });
-            findStatus(buffs, incenseImages.dwarfWeed, buffsList.DwarfWeedIncense, {
+            findStatus(buffs.reverse(), incenseImages.dwarfWeed, buffsList.DwarfWeedIncense, {
                 threshold: 150,
             });
-            findStatus(buffs, incenseImages.fellstalk, buffsList.FellstalkIncense, {
+            findStatus(buffs.reverse(), incenseImages.fellstalk, buffsList.FellstalkIncense, {
                 threshold: 150,
             });
-            findStatus(buffs, incenseImages.kwuarm, buffsList.KwuarmIncense, {
+            findStatus(buffs.reverse(), incenseImages.kwuarm, buffsList.KwuarmIncense, {
                 threshold: 150,
             });
             findStatus(buffs, buffImages.Antifire, buffsList.AntiFire, {
@@ -11815,27 +11815,27 @@ function watchBuffs() {
                 showCooldown: true,
                 cooldownTimer: 38,
             });
-            findStatus(buffs, sigilImages.limitless, sigilsList.LimitlessSigil, {
+            findStatus(buffs.reverse(), sigilImages.limitless, sigilsList.LimitlessSigil, {
                 threshold: 250,
                 showCooldown: true,
                 cooldownTimer: 82,
             });
-            findStatus(buffs, sigilImages.demonSlayer, sigilsList.DemonSlayer, {
+            findStatus(buffs.reverse(), sigilImages.demonSlayer, sigilsList.DemonSlayer, {
                 threshold: 400,
                 showCooldown: true,
                 cooldownTimer: 49,
             });
-            findStatus(buffs, sigilImages.dragonSlayer, sigilsList.DragonSlayer, {
+            findStatus(buffs.reverse(), sigilImages.dragonSlayer, sigilsList.DragonSlayer, {
                 threshold: 400,
                 showCooldown: true,
                 cooldownTimer: 49,
             });
-            findStatus(buffs, sigilImages.undeadSlayer, sigilsList.UndeadSlayer, {
+            findStatus(buffs.reverse(), sigilImages.undeadSlayer, sigilsList.UndeadSlayer, {
                 threshold: 400,
                 showCooldown: true,
                 cooldownTimer: 49,
             });
-            findStatus(buffs, sigilImages.ingenuityOfTheHumans, sigilsList.IngenuityOfTheHumans, {
+            findStatus(buffs.reverse(), sigilImages.ingenuityOfTheHumans, sigilsList.IngenuityOfTheHumans, {
                 threshold: 400,
                 showCooldown: true,
                 cooldownTimer: 82,
@@ -11906,7 +11906,7 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, { threshold: 20 });
             findStatus(debuffs, debuffImages.powerburstPrevention, debuffsList.PowerburstPrevention, { threshold: 20 });
             findVirus(debuffs);
-            findPrayer(buffs, debuffs);
+            findPrayer(buffs.reverse(), debuffs);
             if ((debuffs === null || debuffs === void 0 ? void 0 : debuffs.length) == 0) {
                 for (var _c = 0, _d = Object.entries(debuffsList); _c < _d.length; _c++) {
                     var _e = _d[_c], _key = _e[0], debuff = _e[1];
