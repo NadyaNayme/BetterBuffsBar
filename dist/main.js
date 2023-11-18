@@ -1391,7 +1391,8 @@ html:not(.beta) .beta-only {
 #BetterBuffsBar:not(.fade) .tracked-region li.cooldown {
   opacity: 0;
 }
-
+#BetterBuffsBar.positioning .tracked-region li.inactive,
+#BetterBuffsBar.positioning .tracked-region li.cooldown,
 #BetterBuffsBar:not(.fade):hover .tracked-region li.inactive,
 #BetterBuffsBar:not(.fade):hover .tracked-region li.cooldown {
   opacity: 1;
@@ -12601,6 +12602,7 @@ function setOverlayPosition() {
                     oldPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('oldOverlayPosition', oldPosition);
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
+                    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
                     _a.label = 1;
                 case 1:
                     if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
@@ -12635,6 +12637,7 @@ function setOverlayPosition2() {
                     oldPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay2Position');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('oldOverlay2Position', oldPosition);
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
+                    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
                     _a.label = 1;
                 case 1:
                     if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
@@ -12669,6 +12672,7 @@ function setOverlayPosition3() {
                     oldPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay3Position');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('oldOverlay3Position', oldPosition);
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
+                    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
                     _a.label = 1;
                 case 1:
                     if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
@@ -12700,6 +12704,7 @@ function updateLocation(e) {
         y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
     });
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
+    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
 }
 function updateLocation2(e) {
     var bbb = getByID('Buffs2');
@@ -12708,6 +12713,7 @@ function updateLocation2(e) {
         y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
     });
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
+    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
 }
 function updateLocation3(e) {
     var bbb = getByID('Buffs3');
@@ -12716,6 +12722,7 @@ function updateLocation3(e) {
         y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
     });
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
+    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
 }
 function startOverlay() {
     return __awaiter(this, void 0, void 0, function () {

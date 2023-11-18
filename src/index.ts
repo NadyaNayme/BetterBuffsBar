@@ -1352,6 +1352,10 @@ async function setOverlayPosition() {
 	let oldPosition = sauce.getSetting('overlayPosition');
 	sauce.updateSetting('oldOverlayPosition', oldPosition);
 	sauce.updateSetting('updatingOverlayPosition', true);
+	helperItems.BetterBuffsBar.classList.toggle(
+		'positioning',
+		sauce.getSetting('updatingOverlayPosition')
+	);
 	while (sauce.getSetting('updatingOverlayPosition')) {
 		alt1.setTooltip('Press Alt+1 to save position');
 		let bbb = getByID('Buffs');
@@ -1378,6 +1382,10 @@ async function setOverlayPosition2() {
 	let oldPosition = sauce.getSetting('overlay2Position');
 	sauce.updateSetting('oldOverlay2Position', oldPosition);
 	sauce.updateSetting('updatingOverlayPosition', true);
+	helperItems.BetterBuffsBar.classList.toggle(
+		'positioning',
+		sauce.getSetting('updatingOverlayPosition')
+	);
 	while (sauce.getSetting('updatingOverlayPosition')) {
 		alt1.setTooltip('Press Alt+1 to save position');
 		let bbb = getByID('Buffs2');
@@ -1404,6 +1412,10 @@ async function setOverlayPosition3() {
 	let oldPosition = sauce.getSetting('overlay3Position');
 	sauce.updateSetting('oldOverlay3Position', oldPosition);
 	sauce.updateSetting('updatingOverlayPosition', true);
+	helperItems.BetterBuffsBar.classList.toggle(
+		'positioning',
+		sauce.getSetting('updatingOverlayPosition')
+	);
 	while (sauce.getSetting('updatingOverlayPosition')) {
 		alt1.setTooltip('Press Alt+1 to save position');
 		let bbb = getByID('Buffs3');
@@ -1436,6 +1448,10 @@ function updateLocation(e) {
 		),
 	});
 	sauce.updateSetting('updatingOverlayPosition', false);
+	helperItems.BetterBuffsBar.classList.toggle(
+		'positioning',
+		sauce.getSetting('updatingOverlayPosition')
+	);
 }
 
 function updateLocation2(e) {
@@ -1449,6 +1465,10 @@ function updateLocation2(e) {
 		),
 	});
 	sauce.updateSetting('updatingOverlayPosition', false);
+	helperItems.BetterBuffsBar.classList.toggle(
+		'positioning',
+		sauce.getSetting('updatingOverlayPosition')
+	);
 }
 
 function updateLocation3(e) {
@@ -1462,6 +1482,10 @@ function updateLocation3(e) {
 		),
 	});
 	sauce.updateSetting('updatingOverlayPosition', false);
+	helperItems.BetterBuffsBar.classList.toggle(
+		'positioning',
+		sauce.getSetting('updatingOverlayPosition')
+	);
 }
 
 async function startOverlay() {

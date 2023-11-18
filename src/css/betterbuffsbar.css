@@ -517,7 +517,8 @@ html:not(.beta) .beta-only {
 #BetterBuffsBar:not(.fade) .tracked-region li.cooldown {
   opacity: 0;
 }
-
+#BetterBuffsBar.positioning .tracked-region li.inactive,
+#BetterBuffsBar.positioning .tracked-region li.cooldown,
 #BetterBuffsBar:not(.fade):hover .tracked-region li.inactive,
 #BetterBuffsBar:not(.fade):hover .tracked-region li.cooldown {
   opacity: 1;
