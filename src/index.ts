@@ -29,6 +29,7 @@ var betaTesting = sauce.getSetting('beta');
 var currentOverlayPosition = sauce.getSetting('overlayPosition');
 var currentOverlay2Position = sauce.getSetting('overlay2Position');
 var currentOverlay3Position = sauce.getSetting('overlay3Position');
+var buffsVisible;
 
 function getByID(id: string) {
 	return document.getElementById(id);
@@ -43,6 +44,8 @@ let helperItems = {
 	settings: getByID('Settings'),
 	BetterBuffsBar: getByID('BetterBuffsBar'),
 	TrackedBuffs: <HTMLUListElement>getByID('Buffs'),
+	TrackedBuffs2: <HTMLUListElement>getByID('Buffs2'),
+	TrackedBuffs3: <HTMLUListElement>getByID('Buffs3'),
 	UntrackedBuffs: <HTMLUListElement>getByID('UntrackedBuffs'),
 	ToggleOverlayButton: getByID('ToggleOverlayButton'),
 	NameOutput: getByID('NameOutput'),
@@ -672,11 +675,11 @@ function watchBuffs() {
 async function checkBuffsForHidingOverlay(buffsReader: BuffReader.Buff[]) {
 	// If we don't have an overlay visible - hide it
 	if (buffsReader == undefined) {
-		helperItems.BetterBuffsBar.classList.add('hide-overlay');
+		buffsVisible = false;
 	} else if (Object.entries(buffsReader).length == 0) {
-		helperItems.BetterBuffsBar.classList.add('hide-overlay');
-	} else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {
-		helperItems.BetterBuffsBar.classList.remove('hide-overlay');
+		buffsVisible = false;
+	} else {
+		buffsVisible = true;
 	}
 }
 
@@ -1468,7 +1471,7 @@ async function startOverlay() {
 	let buffsPerRow = sauce.getSetting('buffsPerrow');
 	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
 	await new Promise((done) => setTimeout(done, 1000));
-	while (true) {
+	while (buffsVisible) {
 		let uiScale = sauce.getSetting('uiScale');
 		let overlayPosition = currentOverlayPosition;
 		htmlToImage
@@ -1515,7 +1518,7 @@ async function startOverlay2() {
 	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
 	await new Promise((done) => setTimeout(done, 1000));
 	while (true) {
-		let uiScale = sauce.getSetting('uiScale');
+		let uiScale = sauce.getSetting('uiScale2');
 		let overlayPosition = currentOverlay2Position;
 		htmlToImage
 			.toCanvas(overlay, {
@@ -1538,7 +1541,7 @@ async function startOverlay2() {
 				alt1.overLayFreezeGroup('region2');
 				alt1.overLayClearGroup('region2');
 				alt1.overLayImage(
-					overlayPosition.x + 300,
+					overlayPosition.x,
 					overlayPosition.y,
 					a1lib.encodeImageString(base64ImageString),
 					base64ImageString.width,
@@ -1561,7 +1564,7 @@ async function startOverlay3() {
 	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
 	await new Promise((done) => setTimeout(done, 1000));
 	while (true) {
-		let uiScale = sauce.getSetting('uiScale');
+		let uiScale = sauce.getSetting('uiScale3');
 		let overlayPosition = currentOverlay3Position;
 		htmlToImage
 			.toCanvas(overlay, {
@@ -1584,7 +1587,7 @@ async function startOverlay3() {
 				alt1.overLayFreezeGroup('region3');
 				alt1.overLayClearGroup('region3');
 				alt1.overLayImage(
-					overlayPosition.x + 300,
+					overlayPosition.x,
 					overlayPosition.y,
 					a1lib.encodeImageString(base64ImageString),
 					base64ImageString.width,
@@ -1802,6 +1805,18 @@ function setGridSize() {
 	helperItems.TrackedBuffs.style.gridTemplateRows = `repeat(${
 		rowsToGenerate + 1
 	}, calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))`;
+	helperItems.TrackedBuffs2.style.gridTemplateAreas = `"${'. '.repeat(
+		sauce.getSetting('buffsPerRow')
+	)}"`.repeat(rowsToGenerate);
+	helperItems.TrackedBuffs2.style.gridTemplateRows = `repeat(${
+		rowsToGenerate + 1
+	}, calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))`;
+	helperItems.TrackedBuffs3.style.gridTemplateAreas = `"${'. '.repeat(
+		sauce.getSetting('buffsPerRow')
+	)}"`.repeat(rowsToGenerate);
+	helperItems.TrackedBuffs3.style.gridTemplateRows = `repeat(${
+		rowsToGenerate + 1
+	}, calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))`;
 }
 
 function setBigHeadMode() {
@@ -1835,6 +1850,60 @@ function setBigHeadGrid() {
 	}
 	if (!bigHeadModeActive) {
 		helperItems.TrackedBuffs.style.gridTemplateAreas = `
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		`;
+	}
+	if (bigHeadModeActive && bigHeadPosition == 'start') {
+		helperItems.TrackedBuffs2.style.gridTemplateAreas = `
+		"first first ${'. '.repeat(buffsPerRow)}"
+		"first first ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		`;
+	}
+	if (bigHeadModeActive && bigHeadPosition == 'end') {
+		helperItems.TrackedBuffs2.style.gridTemplateAreas = `
+		"${'. '.repeat(buffsPerRow)}first first"
+		"${'. '.repeat(buffsPerRow)}first first"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		`;
+	}
+	if (!bigHeadModeActive) {
+		helperItems.TrackedBuffs2.style.gridTemplateAreas = `
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		"${'. '.repeat(buffsPerRow)}"
+		`;
+	}
+	if (bigHeadModeActive && bigHeadPosition == 'start') {
+		helperItems.TrackedBuffs3.style.gridTemplateAreas = `
+		"first first ${'. '.repeat(buffsPerRow)}"
+		"first first ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		`;
+	}
+	if (bigHeadModeActive && bigHeadPosition == 'end') {
+		helperItems.TrackedBuffs3.style.gridTemplateAreas = `
+		"${'. '.repeat(buffsPerRow)}first first"
+		"${'. '.repeat(buffsPerRow)}first first"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		". . ${'. '.repeat(buffsPerRow)}"
+		`;
+	}
+	if (!bigHeadModeActive) {
+		helperItems.TrackedBuffs3.style.gridTemplateAreas = `
 		"${'. '.repeat(buffsPerRow)}"
 		"${'. '.repeat(buffsPerRow)}"
 		"${'. '.repeat(buffsPerRow)}"
@@ -1923,6 +1992,7 @@ const settingsObject = {
 		'<u>Explicitly Inactive</u> Instead of hiding inactive buffs - displays them darker and desaturated',
 		sauce.getSetting('fadeInactiveBuffs') ?? true
 	),
+	Brightness: sauce.createRangeSetting('brightness', '<u>Light Level</u> Control how dark inactive buffs should be - lower number being darker', {defaultValue: '75', min: 5, max: 100, unit: '%'} ),
 	BigHeadMode: sauce.createCheckboxSetting(
 		'bigHeadMode',
 		'<u>Big Head Mode</u> The first buff tracked  is made x4 larger.',
@@ -1981,6 +2051,24 @@ const settingsObject = {
 	UIScale: sauce.createRangeSetting(
 		'uiScale',
 		'Adjusts the size of the Overlay',
+		{
+			defaultValue: '100',
+			min: 50,
+			max: 200,
+		}
+	),
+	UIScale2: sauce.createRangeSetting(
+		'uiScale2',
+		'Adjusts the size of the second Overlay',
+		{
+			defaultValue: '100',
+			min: 50,
+			max: 200,
+		}
+	),
+	UIScale3: sauce.createRangeSetting(
+		'uiScale3',
+		'Adjusts the size of the third Overlay',
 		{
 			defaultValue: '100',
 			min: 50,
@@ -2109,6 +2197,14 @@ settingsObject.OverlayActive.querySelector('input').addEventListener(
 	}
 );
 
+settingsObject.Brightness.querySelector('input').addEventListener('change', (e) => {
+	helperItems.TrackedBuffs.querySelectorAll('li').forEach((buff) => {
+		buff.style.filter = `grayscale(1) brightness(${(parseInt(settingsObject.Brightness.querySelector(
+			'input'
+		).value, 10) / 100).toString()})`;
+	});
+})
+
 settingsObject.debugMode
 	.querySelector('input')
 	.addEventListener('change', () => {
@@ -2135,6 +2231,38 @@ window.onload = function () {
 		});
 		initSettings();
 		startBetterBuffsBar();
+		helperItems.TrackedBuffs.querySelectorAll('li').forEach((buff) => {
+			buff.style.filter = `grayscale(1) brightness(${(
+				parseInt(
+					settingsObject.Brightness.querySelector('input').value,
+					10
+				) / 100
+			).toString()})`;
+		});
+
+		const mutationConfig = { attributes: false, childList: true, subtree: false };
+		const callback = (mutationList, observer) => {
+			for (const mutation of mutationList) {
+				if (mutation.type === 'childList') {
+					helperItems.TrackedBuffs.querySelectorAll('li').forEach((buff) => {
+						buff.style.filter = `grayscale(1) brightness(${(
+							parseInt(
+								settingsObject.Brightness.querySelector('input').value,
+								10
+							) / 100
+						).toString()})`;
+					});
+					helperItems.UntrackedBuffs.querySelectorAll('li').forEach(
+						(buff) => {
+							buff.style.filter = '';
+						}
+					);
+				}
+			}
+		};
+		const observer = new MutationObserver(callback);
+		observer.observe(helperItems.TrackedBuffs, mutationConfig);
+		observer.observe(helperItems.UntrackedBuffs, mutationConfig);
 	} else {
 		let addappurl = `alt1://addapp/${
 			new URL('./appconfig.json', document.location.href).href

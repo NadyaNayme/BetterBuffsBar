@@ -73,6 +73,7 @@ body {
   justify-content: space-between;
 }
 
+#Settings .flex u,
 #Settings .reverse-setting u {
   display: block;
   text-decoration: none;
@@ -161,6 +162,8 @@ body {
 }
 
 html:not(.beta) .beta-only,
+html:not(.beta) #Settings > div:nth-child(20),
+html:not(.beta) #Settings > div:nth-child(21),
 html:not(.beta) #Settings > button:nth-child(16),
 html:not(.beta) #Settings > button:nth-child(17) {
   display: none !important;

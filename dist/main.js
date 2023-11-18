@@ -947,6 +947,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   justify-content: space-between;
 }
 
+#Settings .flex u,
 #Settings .reverse-setting u {
   display: block;
   text-decoration: none;
@@ -1035,6 +1036,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 }
 
 html:not(.beta) .beta-only,
+html:not(.beta) #Settings > div:nth-child(20),
+html:not(.beta) #Settings > div:nth-child(21),
 html:not(.beta) #Settings > button:nth-child(16),
 html:not(.beta) #Settings > button:nth-child(17) {
   display: none !important;
@@ -11469,6 +11472,7 @@ var betaTesting = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('beta');
 var currentOverlayPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
 var currentOverlay2Position = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay2Position');
 var currentOverlay3Position = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay3Position');
+var buffsVisible;
 function getByID(id) {
     return document.getElementById(id);
 }
@@ -11480,6 +11484,8 @@ var helperItems = {
     settings: getByID('Settings'),
     BetterBuffsBar: getByID('BetterBuffsBar'),
     TrackedBuffs: getByID('Buffs'),
+    TrackedBuffs2: getByID('Buffs2'),
+    TrackedBuffs3: getByID('Buffs3'),
     UntrackedBuffs: getByID('UntrackedBuffs'),
     ToggleOverlayButton: getByID('ToggleOverlayButton'),
     NameOutput: getByID('NameOutput'),
@@ -11901,13 +11907,13 @@ function checkBuffsForHidingOverlay(buffsReader) {
         return __generator(this, function (_a) {
             // If we don't have an overlay visible - hide it
             if (buffsReader == undefined) {
-                helperItems.BetterBuffsBar.classList.add('hide-overlay');
+                buffsVisible = false;
             }
             else if (Object.entries(buffsReader).length == 0) {
-                helperItems.BetterBuffsBar.classList.add('hide-overlay');
+                buffsVisible = false;
             }
-            else if (helperItems.BetterBuffsBar.classList.contains('hide-overlay')) {
-                helperItems.BetterBuffsBar.classList.remove('hide-overlay');
+            else {
+                buffsVisible = true;
             }
             return [2 /*return*/];
         });
@@ -12747,7 +12753,7 @@ function startOverlay() {
                     };
                     _a.label = 2;
                 case 2:
-                    if (false) {}
+                    if (!buffsVisible) return [3 /*break*/, 4];
                     return [5 /*yield**/, _loop_1()];
                 case 3:
                     _a.sent();
@@ -12776,7 +12782,7 @@ function startOverlay2() {
                         return __generator(this, function (_b) {
                             switch (_b.label) {
                                 case 0:
-                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale');
+                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale2');
                                     overlayPosition = currentOverlay2Position;
                                     html_to_image__WEBPACK_IMPORTED_MODULE_2__.toCanvas(overlay, {
                                         backgroundColor: 'transparent',
@@ -12796,7 +12802,7 @@ function startOverlay2() {
                                         alt1.overLaySetGroup('region2');
                                         alt1.overLayFreezeGroup('region2');
                                         alt1.overLayClearGroup('region2');
-                                        alt1.overLayImage(overlayPosition.x + 300, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
+                                        alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
                                         alt1.overLayRefreshGroup('region2');
                                     })
                                         .catch(function (e) {
@@ -12840,7 +12846,7 @@ function startOverlay3() {
                         return __generator(this, function (_b) {
                             switch (_b.label) {
                                 case 0:
-                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale');
+                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale3');
                                     overlayPosition = currentOverlay3Position;
                                     html_to_image__WEBPACK_IMPORTED_MODULE_2__.toCanvas(overlay, {
                                         backgroundColor: 'transparent',
@@ -12860,7 +12866,7 @@ function startOverlay3() {
                                         alt1.overLaySetGroup('region3');
                                         alt1.overLayFreezeGroup('region3');
                                         alt1.overLayClearGroup('region3');
-                                        alt1.overLayImage(overlayPosition.x + 300, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
+                                        alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
                                         alt1.overLayRefreshGroup('region3');
                                     })
                                         .catch(function (e) {
@@ -13015,6 +13021,10 @@ function setGridSize() {
     var rowsToGenerate = parseInt(roundedToFixed(buffsCount / maxLength, 1) + 1, 10);
     helperItems.TrackedBuffs.style.gridTemplateAreas = "\"".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"").repeat(rowsToGenerate);
     helperItems.TrackedBuffs.style.gridTemplateRows = "repeat(".concat(rowsToGenerate + 1, ", calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))");
+    helperItems.TrackedBuffs2.style.gridTemplateAreas = "\"".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"").repeat(rowsToGenerate);
+    helperItems.TrackedBuffs2.style.gridTemplateRows = "repeat(".concat(rowsToGenerate + 1, ", calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))");
+    helperItems.TrackedBuffs3.style.gridTemplateAreas = "\"".concat('. '.repeat(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerRow')), "\"").repeat(rowsToGenerate);
+    helperItems.TrackedBuffs3.style.gridTemplateRows = "repeat(".concat(rowsToGenerate + 1, ", calc(30px * clamp(1, (var(--scale) / 100) / 2, 2)))");
 }
 function setBigHeadMode() {
     var bigHeadMode = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode');
@@ -13034,6 +13044,24 @@ function setBigHeadGrid() {
     }
     if (!bigHeadModeActive) {
         helperItems.TrackedBuffs.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
+    }
+    if (bigHeadModeActive && bigHeadPosition == 'start') {
+        helperItems.TrackedBuffs2.style.gridTemplateAreas = "\n\t\t\"first first ".concat('. '.repeat(buffsPerRow), "\"\n\t\t\"first first ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
+    }
+    if (bigHeadModeActive && bigHeadPosition == 'end') {
+        helperItems.TrackedBuffs2.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(buffsPerRow), "first first\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "first first\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
+    }
+    if (!bigHeadModeActive) {
+        helperItems.TrackedBuffs2.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
+    }
+    if (bigHeadModeActive && bigHeadPosition == 'start') {
+        helperItems.TrackedBuffs3.style.gridTemplateAreas = "\n\t\t\"first first ".concat('. '.repeat(buffsPerRow), "\"\n\t\t\"first first ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
+    }
+    if (bigHeadModeActive && bigHeadPosition == 'end') {
+        helperItems.TrackedBuffs3.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(buffsPerRow), "first first\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "first first\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t\". . ").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
+    }
+    if (!bigHeadModeActive) {
+        helperItems.TrackedBuffs3.style.gridTemplateAreas = "\n\t\t\"".concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t\"").concat('. '.repeat(buffsPerRow), "\"\n\t\t");
     }
 }
 function disableNameSetting() {
@@ -13093,6 +13121,7 @@ var settingsObject = {
     beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs displayed per row', { defaultValue: 10, min: 1, max: 20 }),
     FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', '<u>Explicitly Inactive</u> Instead of hiding inactive buffs - displays them darker and desaturated', (_a = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('fadeInactiveBuffs')) !== null && _a !== void 0 ? _a : true),
+    Brightness: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('brightness', '<u>Light Level</u> Control how dark inactive buffs should be - lower number being darker', { defaultValue: '75', min: 5, max: 100, unit: '%' }),
     BigHeadMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('bigHeadMode', '<u>Big Head Mode</u> The first buff tracked  is made x4 larger.', (_b = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('bigHeadMode')) !== null && _b !== void 0 ? _b : false),
     BigHeadPosition: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createDropdownSetting('bigHeadPosition', '<u>Big Head Position</u> Set display position to Left or Right side', 'start', [
         { value: 'start', name: 'Left Side' },
@@ -13110,6 +13139,16 @@ var settingsObject = {
     Overlay3PositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay 3 Position', setOverlayPosition3, { classes: 'nisbutton' }),
     ScaleHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Scale'),
     UIScale: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('uiScale', 'Adjusts the size of the Overlay', {
+        defaultValue: '100',
+        min: 50,
+        max: 200,
+    }),
+    UIScale2: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('uiScale2', 'Adjusts the size of the second Overlay', {
+        defaultValue: '100',
+        min: 50,
+        max: 200,
+    }),
+    UIScale3: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('uiScale3', 'Adjusts the size of the third Overlay', {
         defaultValue: '100',
         min: 50,
         max: 200,
@@ -13180,6 +13219,11 @@ settingsObject.OverlayActive.querySelector('input').addEventListener('click', fu
     setTimeout(function () { }, 100);
     location.reload();
 });
+settingsObject.Brightness.querySelector('input').addEventListener('change', function (e) {
+    helperItems.TrackedBuffs.querySelectorAll('li').forEach(function (buff) {
+        buff.style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
+    });
+});
 settingsObject.debugMode
     .querySelector('input')
     .addEventListener('change', function () {
@@ -13203,6 +13247,26 @@ window.onload = function () {
         });
         initSettings();
         startBetterBuffsBar();
+        helperItems.TrackedBuffs.querySelectorAll('li').forEach(function (buff) {
+            buff.style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
+        });
+        var mutationConfig = { attributes: false, childList: true, subtree: false };
+        var callback = function (mutationList, observer) {
+            for (var _i = 0, mutationList_1 = mutationList; _i < mutationList_1.length; _i++) {
+                var mutation = mutationList_1[_i];
+                if (mutation.type === 'childList') {
+                    helperItems.TrackedBuffs.querySelectorAll('li').forEach(function (buff) {
+                        buff.style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
+                    });
+                    helperItems.UntrackedBuffs.querySelectorAll('li').forEach(function (buff) {
+                        buff.style.filter = '';
+                    });
+                }
+            }
+        };
+        var observer = new MutationObserver(callback);
+        observer.observe(helperItems.TrackedBuffs, mutationConfig);
+        observer.observe(helperItems.UntrackedBuffs, mutationConfig);
     }
     else {
         var addappurl = "alt1://addapp/".concat(new URL('./appconfig.json', document.location.href).href);

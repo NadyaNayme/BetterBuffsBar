@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
-		<style>
-			#Settings,
-			body {
-				display: none;
-			}
-		</style>
+			<meta charset="utf-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1">
+			<title>Better Buffs Bar</title>
 	</head>
 	<body>
 		<div id="output"></div>
@@ -25,79 +22,79 @@
 			<p>You can select click to select multiple buffs before dragging them all at once</br><small>Shift+Click to quickly select an entire range</small></p>
 			<ul id="UntrackedBuffs" data-last-added="56">
 				<!-- Consumables -->
-				<li id="OverloadBuff" data-id="8" data-time="" data-name="Overload" class="inactive maintainable"><img src="./overload.png"></li>
-				<li id="ElderOverloadBuff" data-id="1" data-time="" data-name="Elder Overload" class="inactive maintainable"><img src="./elder_overload.png"></li>
-				<li id="WeaponPoisonBuff" data-id="2" data-time="" data-name="Weapon Poison" class="inactive maintainable"><img src="./weapon_poison.png"></li>
-				<li id="AdrenalinePotionDebuff" data-id="11" data-time="" data-name="Adrenaline Potion Cooldown" class="inactive"><img src="./adrenaline_potion-desat.png"></li>
-				<li id="AntifireBuff" data-id="51" data-time="" data-name="Anti-fire" class="inactive"><img src="./antifire.png"></li>
-				<li id="PrayerRenewalBuff" data-id="52" data-time="" data-name="Prayer Renewal" class="inactive"><img src="./prayer_renewal.png"></li>
-				<li id="PowerburstPreventionDebuff" data-id="50" data-time="" data-name="Powerburst Potion Prevention" class="inactive"><img src="./powerburst_prevention-desat.png"></li>
-				<li id="LantadymeIncense" data-id="34" data-prayer="" data-name="Lantadyme Incense Sticks" class="inactive maintainable"><img src="./lantadyme_incense.png"></li>
-				<li id="DwarfWeedIncense" data-id="35" data-prayer="" data-name="Dwarf Weed Incense Sticks" class="inactive maintainable"><img src="./dwarf_weed_incense.png"></li>
-				<li id="FellstalkIncense" data-id="36" data-prayer="" data-name="Fellstalk Incense Sticks" class="inactive maintainable"><img src="./fellstalk_incense.png"></li>
-				<li id="KwuarmIncense" data-id="37" data-prayer="" data-name="Kwuarm Incense Sticks" class="inactive maintainable"><img src="./kwuarm_incense.png"></li>
+				<li id="OverloadBuff" data-id="8" data-time="" data-name="Overload" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./overload.png"></li>
+				<li id="ElderOverloadBuff" data-id="1" data-time="" data-name="Elder Overload" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./elder_overload.png"></li>
+				<li id="WeaponPoisonBuff" data-id="2" data-time="" data-name="Weapon Poison" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./weapon_poison.png"></li>
+				<li id="AdrenalinePotionDebuff" data-id="11" data-time="" data-name="Adrenaline Potion Cooldown" class="inactive"><img width="27px" height="27px" alt="" src="./adrenaline_potion-desat.png"></li>
+				<li id="AntifireBuff" data-id="51" data-time="" data-name="Anti-fire" class="inactive"><img width="27px" height="27px" alt="" src="./antifire.png"></li>
+				<li id="PrayerRenewalBuff" data-id="52" data-time="" data-name="Prayer Renewal" class="inactive"><img width="27px" height="27px" alt="" src="./prayer_renewal.png"></li>
+				<li id="PowerburstPreventionDebuff" data-id="50" data-time="" data-name="Powerburst Potion Prevention" class="inactive"><img width="27px" height="27px" alt="" src="./powerburst_prevention-desat.png"></li>
+				<li id="LantadymeIncense" data-id="34" data-prayer="" data-name="Lantadyme Incense Sticks" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./lantadyme_incense.png"></li>
+				<li id="DwarfWeedIncense" data-id="35" data-prayer="" data-name="Dwarf Weed Incense Sticks" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./dwarf_weed_incense.png"></li>
+				<li id="FellstalkIncense" data-id="36" data-prayer="" data-name="Fellstalk Incense Sticks" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./fellstalk_incense.png"></li>
+				<li id="KwuarmIncense" data-id="37" data-prayer="" data-name="Kwuarm Incense Sticks" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./kwuarm_incense.png"></li>
 
 				<!-- Active Items -->
-				<li id="VulnerabilityDebuff" data-id="55" data-time="" data-name="Vulnerability (Enemy Debuff)" class="inactive"><img src="./vulnerability.png"></li>
-				<li id="AncientElvenRitualShardDebuff" data-id="10" data-time="" data-name="Ancient Elven Ritual Shard" class="inactive"><img src="./ancient_elven_ritual_shard-desat.png"></li>
-				<li id="EnhancedExcaliburDebuff" data-id="24" data-time="" data-name="Enhanced Excalibur" class="inactive"><img src="./enhanced_excalibur-desat.png"></li>
+				<li id="VulnerabilityDebuff" data-id="55" data-time="" data-name="Vulnerability (Enemy Debuff)" class="inactive"><img width="27px" height="27px" alt="" src="./vulnerability.png"></li>
+				<li id="AncientElvenRitualShardDebuff" data-id="10" data-time="" data-name="Ancient Elven Ritual Shard" class="inactive"><img width="27px" height="27px" alt="" src="./ancient_elven_ritual_shard-desat.png"></li>
+				<li id="EnhancedExcaliburDebuff" data-id="24" data-time="" data-name="Enhanced Excalibur" class="inactive"><img width="27px" height="27px" alt="" src="./enhanced_excalibur-desat.png"></li>
 
 				<!-- Buffs -->
-				 <li id="Aura" data-id="31" data-prayer="" data-name="Aura" class="inactive maintainable"><img src="./aura.png"></li>
-				<li id="BonfireBoost" data-id="32" data-prayer="" data-name="Bonfire HP Boost" class="inactive maintainable"><img src="./bonfire.png"></li>
+				 <li id="Aura" data-id="31" data-prayer="" data-name="Aura" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./aura.png"></li>
+				<li id="BonfireBoost" data-id="32" data-prayer="" data-name="Bonfire HP Boost" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./bonfire.png"></li>
 
 				<!-- Spells / Incantations  -->
-				<li id="AnimateDeadBuff" data-id="4" data-time="" data-name="Animate Dead" class="inactive maintainable"><img src="./animate_dead.png"></li>
-				<li id="ThreadsOfFateBuff" data-id="56" data-time="" data-started-timer="false" data-name="Threads of Fate" class="inactive"><img src="./threads_of_fate.png"></li>
-				<li id="DeathMarkDebuff" data-id="54" data-time="" data-name="Death Mark (Enemy Debuff)" class="inactive"><img src="./death_mark.png"></li>
-				<li id="DarknessBuff" data-id="3" data-time="" data-name="Darkness" class="inactive maintainable"><img src="./darkness.png"></li>
-				<li id="SplitSoulBuff" data-id="48" data-time="" data-started-timer="false" data-name="Split Soul" class="inactive"><img src="./split_soul.png"></li>
+				<li id="AnimateDeadBuff" data-id="4" data-time="" data-name="Animate Dead" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./animate_dead.png"></li>
+				<li id="ThreadsOfFateBuff" data-id="56" data-time="" data-started-timer="false" data-name="Threads of Fate" class="inactive"><img width="27px" height="27px" alt="" src="./threads_of_fate.png"></li>
+				<li id="DeathMarkDebuff" data-id="54" data-time="" data-name="Death Mark (Enemy Debuff)" class="inactive"><img width="27px" height="27px" alt="" src="./death_mark.png"></li>
+				<li id="DarknessBuff" data-id="3" data-time="" data-name="Darkness" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./darkness.png"></li>
+				<li id="SplitSoulBuff" data-id="48" data-time="" data-started-timer="false" data-name="Split Soul" class="inactive"><img width="27px" height="27px" alt="" src="./split_soul.png"></li>
 
 				<!-- Stacks -->
-				<li id="BolgStacksBuff" data-id="5" data-stacks="" data-name="Perfect Equilibrium (BOLG Stacks)" class="inactive"><img src="./perfect_eqilibrium.png"></li>
-				<li id="NecrosisBuff" data-id="12" data-time="" data-name="Necrosis" class="inactive"><img src="./necrosis.png"></li>
-				<li id="DeathSparkBuff" data-id="53" data-time="" data-name="Death Spark (5 Stacks)" class="inactive"><img src="./death_spark.png"></li>
+				<li id="BolgStacksBuff" data-id="5" data-stacks="" data-name="Perfect Equilibrium (BOLG Stacks)" class="inactive"><img width="27px" height="27px" alt="" src="./perfect_eqilibrium.png"></li>
+				<li id="NecrosisBuff" data-id="12" data-time="" data-name="Necrosis" class="inactive"><img width="27px" height="27px" alt="" src="./necrosis.png"></li>
+				<li id="DeathSparkBuff" data-id="53" data-time="" data-name="Death Spark (5 Stacks)" class="inactive"><img width="27px" height="27px" alt="" src="./death_spark.png"></li>
 
 				<!-- Pocket / Books -->
-				<li id="TimeRiftBuff" data-id="6" data-time="" data-name="Time Rift (Jas Book Proc)" class="inactive"><img src="./time_rift.png"></li>
-				<li id="GladiatorsRageBuff" data-id="9" data-time="" data-name="Gladiator's Rage (Ful Book Proc)" class="inactive"><img src="./gladiators_rage.png"></li>
-				<li id="ErethdorsGrimoire" data-id="33" data-prayer="" data-name="Erethdor's grimoire" class="inactive maintainable"><img src="./erethdors_grimoire.png"></li>
+				<li id="TimeRiftBuff" data-id="6" data-time="" data-name="Time Rift (Jas Book Proc)" class="inactive"><img width="27px" height="27px" alt="" src="./time_rift.png"></li>
+				<li id="GladiatorsRageBuff" data-id="9" data-time="" data-name="Gladiator's Rage (Ful Book Proc)" class="inactive"><img width="27px" height="27px" alt="" src="./gladiators_rage.png"></li>
+				<li id="ErethdorsGrimoire" data-id="33" data-prayer="" data-name="Erethdor's grimoire" class="inactive maintainable"><img width="27px" height="27px" alt="" src="./erethdors_grimoire.png"></li>
 
 				<!-- Abilities -->
-				<li id="LimitlessSigil" data-id="13" data-time="" data-name="Limitless" class="inactive"><img src="./limitless-desat.png"></li>
-				<li id="DemonSlayerSigil" data-id="25" data-time="" data-started-timer="false" data-name="Demon Slayer Ability" class="inactive"><img src="./demon_slayer-desat.png"></li>
-				<li id="DragonSlayerSigil" data-id="26" data-time="" data-started-timer="false" data-name="Dragon Slayer Ability" class="inactive"><img src="./dragon_slayer-desat.png"></li>
-				<li id="UndeadSlayerSigil" data-id="27" data-time="" data-started-timer="false" data-name="Undead Slayer Ability" class="inactive"><img src="./undead_slayer-desat.png"></li>
-				<li id="IngenuityOfTheHumansSigil" data-id="28" data-time="" data-started-timer="false" data-name="Ingenuity of the Humans" class="inactive"><img src="./ingenuity_of_the_humans-desat.png"></li>
+				<li id="LimitlessSigil" data-id="13" data-time="" data-name="Limitless" class="inactive"><img width="27px" height="27px" alt="" src="./limitless-desat.png"></li>
+				<li id="DemonSlayerSigil" data-id="25" data-time="" data-started-timer="false" data-name="Demon Slayer Ability" class="inactive"><img width="27px" height="27px" alt="" src="./demon_slayer-desat.png"></li>
+				<li id="DragonSlayerSigil" data-id="26" data-time="" data-started-timer="false" data-name="Dragon Slayer Ability" class="inactive"><img width="27px" height="27px" alt="" src="./dragon_slayer-desat.png"></li>
+				<li id="UndeadSlayerSigil" data-id="27" data-time="" data-started-timer="false" data-name="Undead Slayer Ability" class="inactive"><img width="27px" height="27px" alt="" src="./undead_slayer-desat.png"></li>
+				<li id="IngenuityOfTheHumansSigil" data-id="28" data-time="" data-started-timer="false" data-name="Ingenuity of the Humans" class="inactive"><img width="27px" height="27px" alt="" src="./ingenuity_of_the_humans-desat.png"></li>
 
 				<!-- Defensives  -->
-				<li id="Anticipation" data-id="38" data-time="" data-started-timer="false" data-name="Anticipation" class="inactive"><img src="./anticipation.png"></li>
-				<li id="Barricade" data-id="39" data-time="" data-started-timer="false" data-name="Barricade" class="inactive"><img src="./barricade.png"></li>
-				<li id="Devotion" data-id="40" data-time="" data-started-timer="false" data-name="Devotion" class="inactive"><img src="./devotion.png"></li>
-				<li id="Divert" data-id="41" data-time="" data-started-timer="false" data-name="Divert" class="inactive"><img src="./divert.png"></li>
-				<li id="Freedom" data-id="42" data-time="" data-started-timer="false" data-name="Freedom" class="inactive"><img src="./freedom.png"></li>
-				<li id="Immortality" data-id="43" data-time="" data-started-timer="false" data-name="Immortality" class="inactive"><img src="./immortality.png"></li>
-				<li id="Reflect" data-id="44" data-time="" data-started-timer="false" data-name="Reflect" class="inactive"><img src="./reflect.png"></li>
-				<li id="Resonance" data-id="45" data-time="" data-started-timer="false" data-name="Resonance" class="inactive"><img src="./resonance.png"></li>
+				<li id="Anticipation" data-id="38" data-time="" data-started-timer="false" data-name="Anticipation" class="inactive"><img width="27px" height="27px" alt="" src="./anticipation.png"></li>
+				<li id="Barricade" data-id="39" data-time="" data-started-timer="false" data-name="Barricade" class="inactive"><img width="27px" height="27px" alt="" src="./barricade.png"></li>
+				<li id="Devotion" data-id="40" data-time="" data-started-timer="false" data-name="Devotion" class="inactive"><img width="27px" height="27px" alt="" src="./devotion.png"></li>
+				<li id="Divert" data-id="41" data-time="" data-started-timer="false" data-name="Divert" class="inactive"><img width="27px" height="27px" alt="" src="./divert.png"></li>
+				<li id="Freedom" data-id="42" data-time="" data-started-timer="false" data-name="Freedom" class="inactive"><img width="27px" height="27px" alt="" src="./freedom.png"></li>
+				<li id="Immortality" data-id="43" data-time="" data-started-timer="false" data-name="Immortality" class="inactive"><img width="27px" height="27px" alt="" src="./immortality.png"></li>
+				<li id="Reflect" data-id="44" data-time="" data-started-timer="false" data-name="Reflect" class="inactive"><img width="27px" height="27px" alt="" src="./reflect.png"></li>
+				<li id="Resonance" data-id="45" data-time="" data-started-timer="false" data-name="Resonance" class="inactive"><img width="27px" height="27px" alt="" src="./resonance.png"></li>
 
 				<!-- Ultimates -->
-				<li id="BerserkUltimate" data-id="18" data-time="" data-started-timer="false" data-name="Berserk" class="inactive"><img src="./berserk.png"></li>
-				<li id="SunshineUltimate" data-id="21" data-time="" data-started-timer="false" data-name="Sunshine" class="inactive"><img src="./sunshine.png"></li>
-				<li id="GreaterSunshineUltimate" data-id="22" data-time="" data-started-timer="false" data-name="Greater Sunshine" class="inactive"><img src="./greater_sunshine.png"></li>
-				<li id="DeathsSwiftnessUltimate" data-id="19" data-time="" data-started-timer="false" data-name="Death's Swiftness" class="inactive"><img src="./deaths_swiftness.png"></li>
-				<li id="GreaterDeathsSwiftnessUltimate" data-id="20" data-time="" data-started-timer="false" data-name="Greater Death's Swiftness" class="inactive"><img src="./greater_deaths_swiftness.png"></li>
-				<li id="LivingDeathUltimate" data-id="23" data-time="" data-started-timer="false" data-name="Living Death" class="inactive"><img src="./living_death.png"></li>
+				<li id="BerserkUltimate" data-id="18" data-time="" data-started-timer="false" data-name="Berserk" class="inactive"><img width="27px" height="27px" alt="" src="./berserk.png"></li>
+				<li id="SunshineUltimate" data-id="21" data-time="" data-started-timer="false" data-name="Sunshine" class="inactive"><img width="27px" height="27px" alt="" src="./sunshine.png"></li>
+				<li id="GreaterSunshineUltimate" data-id="22" data-time="" data-started-timer="false" data-name="Greater Sunshine" class="inactive"><img width="27px" height="27px" alt="" src="./greater_sunshine.png"></li>
+				<li id="DeathsSwiftnessUltimate" data-id="19" data-time="" data-started-timer="false" data-name="Death's Swiftness" class="inactive"><img width="27px" height="27px" alt="" src="./deaths_swiftness.png"></li>
+				<li id="GreaterDeathsSwiftnessUltimate" data-id="20" data-time="" data-started-timer="false" data-name="Greater Death's Swiftness" class="inactive"><img width="27px" height="27px" alt="" src="./greater_deaths_swiftness.png"></li>
+				<li id="LivingDeathUltimate" data-id="23" data-time="" data-started-timer="false" data-name="Living Death" class="inactive"><img width="27px" height="27px" alt="" src="./living_death.png"></li>
 
 				<!-- Weapon Special Attacks -->
-				<li id="FsoaSpecBuff" data-id="7" data-time="" data-name="Instability (FSOA Weapon Spec)" class="inactive"><img src="./instability.png"></li>
-				<li id="BalanceByForceBuff" data-id="14" data-time="" data-name="Balance by Force (BOLG Weapon Spec)" class="inactive"><img src="./balance_by_force.png"></li>
-				<li id="CrystalRainDebuff" data-id="17" data-time="" data-name="Crystal Rain (SGB Weapon Special" class="inactive"><img src="./crystal_rain-desat.png"></li>
-				<li id="DeathGuardDebuff" data-id="15" data-time="" data-name="Death Grasp (Death Guard Weapon Special)" class="inactive"><img src="./death_guard-desat.png"></li>
-				<li id="OmniGuardDebuff" data-id="16" data-time="" data-name="Death Essence (Omni Guard Weapon Special)" class="inactive"><img src="./omni_guard-desat.png"></li>
+				<li id="FsoaSpecBuff" data-id="7" data-time="" data-name="Instability (FSOA Weapon Spec)" class="inactive"><img width="27px" height="27px" alt="" src="./instability.png"></li>
+				<li id="BalanceByForceBuff" data-id="14" data-time="" data-name="Balance by Force (BOLG Weapon Spec)" class="inactive"><img width="27px" height="27px" alt="" src="./balance_by_force.png"></li>
+				<li id="CrystalRainDebuff" data-id="17" data-time="" data-name="Crystal Rain (SGB Weapon Special" class="inactive"><img width="27px" height="27px" alt="" src="./crystal_rain-desat.png"></li>
+				<li id="DeathGuardDebuff" data-id="15" data-time="" data-name="Death Grasp (Death Guard Weapon Special)" class="inactive"><img width="27px" height="27px" alt="" src="./death_guard-desat.png"></li>
+				<li id="OmniGuardDebuff" data-id="16" data-time="" data-name="Death Essence (Omni Guard Weapon Special)" class="inactive"><img width="27px" height="27px" alt="" src="./omni_guard-desat.png"></li>
 
 				<!-- Debuffs -->
-				<li id="SignOfLifeDebuff" data-id="47" data-time="" data-name="Sign of Life Cooldown" class="inactive"><img src="./sign_of_life.png"></li>
-				<li id="StunnedDebuff" data-id="46" data-time="" data-name="Stunned" class="inactive"><img src="./stunned.png"></li>
+				<li id="SignOfLifeDebuff" data-id="47" data-time="" data-name="Sign of Life Cooldown" class="inactive"><img width="27px" height="27px" alt="" src="./sign_of_life.png"></li>
+				<li id="StunnedDebuff" data-id="46" data-time="" data-name="Stunned" class="inactive"><img width="27px" height="27px" alt="" src="./stunned.png"></li>
 				<li id="VirusDebuff" data-id="49" data-time="" data-virus="" data-name="Virus (Telos)" class="inactive"></li>
 
 				<!-- Other -->
