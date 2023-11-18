@@ -611,6 +611,47 @@ select {
   margin-right: .5rem;
 }
 
+input[type="checkbox"] {
+  display: none;
+}
+
+.reverse-setting label {
+  position: relative;
+}
+
+input[type="checkbox"] ~ span.checkbox {
+  display: block;
+  content: '';
+  width: 12px;
+  height: 12px;
+  background-color: #181616;
+  border: solid 2px #3a5462;
+  margin-left: 2.5rem;
+  border-radius: 2px;
+}
+
+.reverse-setting:hover input[type="checkbox"] ~ span.checkbox {
+  background-color: #2a2a29;
+}
+
+input[type="checkbox"]:checked ~ span.checkbox::after {
+  position: absolute;
+  content: '';
+  display: block;
+  width: 12px;
+  height: 11px;
+  top: 50%;
+  right: 2px;
+  transform: translateY(-50%);
+  background-image: url('/asset/nis/checkmark.png');
+  z-index: 2;
+}
+
+.reverse-setting:hover input[type="checkbox"]:checked ~ span.checkbox {
+  background-color: #232323;
+  border-color: #56788b;
+}
+
 input[type="color"]:hover {
   cursor: pointer;
 }

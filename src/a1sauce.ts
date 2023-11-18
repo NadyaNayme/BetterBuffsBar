@@ -79,8 +79,13 @@ export function createCheckboxSetting(
 ) {
 	let input = createCheckboxInput(name, defaultValue);
 	let label = createLabel(name, description);
+	let checkboxLabel = createLabel(name, '');
+	let checkbox = document.createElement('span');
+	checkbox.classList.add('checkbox');
 	let container = createFlexContainer('reverse-setting');
-	container.appendChild(input);
+	checkboxLabel.appendChild(input);
+	checkboxLabel.appendChild(checkbox);
+	container.appendChild(checkboxLabel);
 	container.appendChild(label);
 	container.addEventListener('click', (e) => {
 		if (e.target == container) {
