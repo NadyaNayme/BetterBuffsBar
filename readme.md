@@ -4,7 +4,7 @@ Track only the buffs that actually matter.
 
 ["This is what I'd like our buff bar to be." - Mod Sponge](https://youtu.be/LPV-pZ1hcAU?t=4266)
 
-![Better Buffs Bar](./BetterBuffsBar.png)
+![Better Buffs Bar - Buffs](./BetterBuffsBar-buffs.png)![Better Buffs Bar - Settings](./BetterBuffsBar-settings.png)
 
 ## How to Install & Required Settings
 
@@ -74,6 +74,9 @@ If you do not have Alt1 Toolkit installed already you can [download it from rune
 - Immortality
 - Reflect
 - Resonance
+- Death Spark
+- Vulnerability Bomb
+- Death Mark
 
 
 \* An attempt is made to track cooldowns. It can drift and become inaccurate when the server drops ticks/lags. Outside of DXPW on very laggy worlds it typically shouldn't be off by more than a second or two.
