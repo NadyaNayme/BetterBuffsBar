@@ -1,3 +1,7 @@
+:root {
+  --brightness: ,75;
+}
+
 body {
   display: block;
   padding: 0 .5rem;
@@ -447,7 +451,7 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 .tracked-region .inactive img,
 .tracked-region .cooldown img {
-  filter: brightness(.75) grayscale(1);
+  filter: brightness(var(--brightness)) grayscale(1);
 }
 
 #DpsPrayer[data-prayer=""]::before,

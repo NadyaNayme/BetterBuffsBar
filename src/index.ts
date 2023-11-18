@@ -2207,25 +2207,11 @@ settingsObject.OverlayActive.querySelector('input').addEventListener(
 );
 
 settingsObject.Brightness.querySelector('input').addEventListener('change', (e) => {
-	helperItems.TrackedBuffs.querySelectorAll(
-		'.inactive'
-	).forEach((buff) => {
-		if (buff.parentElement.classList.contains('inactive')) {
-			buff.querySelector(
-				'img'
-			).style.filter = `grayscale(1) brightness(${(
-				parseInt(
-					settingsObject.Brightness.querySelector(
-						'input'
-					).value,
-					10
-				) / 100
-			).toString()})`;
-		} else {
-			buff.querySelector('img').style.filter = '';
-		}
-	});
-})
+	document.documentElement.style.setProperty(
+		'--brightness',
+		(parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString()
+	);
+});
 
 settingsObject.debugMode
 	.querySelector('input')
@@ -2276,22 +2262,16 @@ window.onload = function () {
 		const callback = (mutationList, observer) => {
 			for (const mutation of mutationList) {
 				if (mutation.type === 'childList') {
-					helperItems.TrackedBuffs.querySelectorAll('.inactive').forEach((buff) => {
-						if (buff.parentElement.classList.contains('inactive')) {
-							buff.querySelector('img').style.filter = `grayscale(1) brightness(${(
-								parseInt(
-									settingsObject.Brightness.querySelector('input').value,
-									10
-								) / 100
-							).toString()})`;
-						} else {
-							buff.querySelector('img').style.filter = '';
-						}
-					});
-					helperItems.UntrackedBuffs.querySelectorAll('img').forEach(
-						(buff) => {
-							buff.style.filter = '';
-						}
+					document.documentElement.style.setProperty(
+						'--brightness',
+						(
+							parseInt(
+								settingsObject.Brightness.querySelector(
+									'input'
+								).value,
+								10
+							) / 100
+						).toString()
 					);
 				}
 			}

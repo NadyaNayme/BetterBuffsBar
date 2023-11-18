@@ -872,7 +872,11 @@ var ___CSS_LOADER_URL_REPLACEMENT_26___ = _node_modules_css_loader_dist_runtime_
 var ___CSS_LOADER_URL_REPLACEMENT_27___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_27___);
 var ___CSS_LOADER_URL_REPLACEMENT_28___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_28___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `body {
+___CSS_LOADER_EXPORT___.push([module.id, `:root {
+  --brightness: ,75;
+}
+
+body {
   display: block;
   padding: 0 .5rem;
   background-color: #0F0F0F;
@@ -1321,7 +1325,7 @@ html:not(.beta) #Settings > button:nth-child(17) {
 
 .tracked-region .inactive img,
 .tracked-region .cooldown img {
-  filter: brightness(.75) grayscale(1);
+  filter: brightness(var(--brightness)) grayscale(1);
 }
 
 #DpsPrayer[data-prayer=""]::before,
@@ -13233,14 +13237,7 @@ settingsObject.OverlayActive.querySelector('input').addEventListener('click', fu
     location.reload();
 });
 settingsObject.Brightness.querySelector('input').addEventListener('change', function (e) {
-    helperItems.TrackedBuffs.querySelectorAll('.inactive').forEach(function (buff) {
-        if (buff.parentElement.classList.contains('inactive')) {
-            buff.querySelector('img').style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
-        }
-        else {
-            buff.querySelector('img').style.filter = '';
-        }
-    });
+    document.documentElement.style.setProperty('--brightness', (parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString());
 });
 settingsObject.debugMode
     .querySelector('input')
@@ -13278,17 +13275,7 @@ window.onload = function () {
             for (var _i = 0, mutationList_1 = mutationList; _i < mutationList_1.length; _i++) {
                 var mutation = mutationList_1[_i];
                 if (mutation.type === 'childList') {
-                    helperItems.TrackedBuffs.querySelectorAll('.inactive').forEach(function (buff) {
-                        if (buff.parentElement.classList.contains('inactive')) {
-                            buff.querySelector('img').style.filter = "grayscale(1) brightness(".concat((parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString(), ")");
-                        }
-                        else {
-                            buff.querySelector('img').style.filter = '';
-                        }
-                    });
-                    helperItems.UntrackedBuffs.querySelectorAll('img').forEach(function (buff) {
-                        buff.style.filter = '';
-                    });
+                    document.documentElement.style.setProperty('--brightness', (parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString());
                 }
             }
         };
