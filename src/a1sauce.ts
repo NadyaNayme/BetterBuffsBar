@@ -236,6 +236,8 @@ export function createProfileManager() {
 			let data = getSetting('profiles');
 			data[id].value.forEach((key) => {
 				localStorage['Buffs'] = key.trackedBuffs;
+				localStorage['Buffs2'] = key.trackedBuffs2;
+				localStorage['Buffs3'] = key.trackedBuffs3;
 				localStorage['UntrackedBuffs'] = key.untrackedBuffs;
 				Object.keys(key.settings).forEach((setting) => {
 					if (setting.toString() !== 'profiles') {
