@@ -11806,25 +11806,61 @@ function startBetterBuffsBar() {
     }
     watchBuffs();
     if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) {
-        startOverlay();
+        startOverlay(getByID('Buffs'), '');
         if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('beta')) {
-            startOverlay2();
-            startOverlay3();
+            startOverlay(getByID('Buffs2'), '2');
+            startOverlay(getByID('Buffs3'), '3');
         }
     }
     else {
         helperItems.BetterBuffsBar.classList.add('overlay-disabled');
     }
 }
+var inCombat = false;
+var checkForCombat = true;
+var timeUntilHide = 2;
+var checkCombatState = function () {
+    var haveBuffs = buffs.read().length;
+    //If we don't have a target we aren't in combat (except for target cycle bug...)
+    if (targetDisplay && checkForCombat) {
+        targetDisplay.read();
+        if (targetDisplay.state === null) {
+            timeUntilHide = 0;
+            inCombat = false;
+        }
+        else {
+            timeUntilHide = 2;
+            inCombat = true;
+        }
+    }
+    // If we aren't checking to see if we have a target - pretend we always do
+    if (!checkForCombat && haveBuffs) {
+        timeUntilHide = 2;
+        inCombat = true;
+    }
+    if (!haveBuffs) {
+        // We either have no buffs or they aren't visible (eg. banking) so aren't in combat
+        if (timeUntilHide == 0) {
+            inCombat = false;
+        }
+        else {
+            setTimeout(function () {
+                if (timeUntilHide > 0) {
+                    timeUntilHide--;
+                }
+            }, 1000);
+        }
+    }
+};
 var maxAttempts = 0;
 function watchBuffs() {
     var loopSpeed = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('loopSpeed');
     var interval = setInterval(function () {
         var buffs = getActiveBuffs();
         var debuffs = getActiveDebuffs();
+        checkCombatState();
         if (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsLocation')) {
             maxAttempts = 0;
-            //TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
             findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, {
                 threshold: 300,
                 expirationPulse: true,
@@ -12854,13 +12890,13 @@ function updateLocation3(e) {
     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
     helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
 }
-function startOverlay() {
+function startOverlay(element, region) {
     return __awaiter(this, void 0, void 0, function () {
         var overlay, styles, totalTrackeDItems, buffsPerRow, refreshRate, _loop_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    overlay = getByID('Buffs');
+                    overlay = element;
                     styles = getComputedStyle(overlay);
                     totalTrackeDItems = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('totalTrackedItems');
                     buffsPerRow = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerrow');
@@ -12873,7 +12909,7 @@ function startOverlay() {
                         return __generator(this, function (_b) {
                             switch (_b.label) {
                                 case 0:
-                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale');
+                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale' + region);
                                     overlayPosition = currentOverlayPosition;
                                     html_to_image__WEBPACK_IMPORTED_MODULE_2__.toCanvas(overlay, {
                                         backgroundColor: 'transparent',
@@ -12887,14 +12923,20 @@ function startOverlay() {
                                         skipAutoScale: true,
                                     })
                                         .then(function (dataUrl) {
-                                        var base64ImageString = dataUrl
-                                            .getContext('2d')
-                                            .getImageData(0, 0, dataUrl.width, dataUrl.height);
-                                        alt1.overLaySetGroup('region1');
-                                        alt1.overLayFreezeGroup('region1');
-                                        alt1.overLayClearGroup('region1');
-                                        alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
-                                        alt1.overLayRefreshGroup('region1');
+                                        if (inCombat || element == getByID('Buffs')) {
+                                            var base64ImageString = dataUrl
+                                                .getContext('2d')
+                                                .getImageData(0, 0, dataUrl.width, dataUrl.height);
+                                            alt1.overLaySetGroup('region' + region);
+                                            alt1.overLayFreezeGroup('region' + region);
+                                            alt1.overLayClearGroup('region' + region);
+                                            alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
+                                            alt1.overLayRefreshGroup('region' + region);
+                                        }
+                                        else {
+                                            alt1.overLayClearGroup('region' + region);
+                                            alt1.overLayRefreshGroup('region' + region);
+                                        }
                                     })
                                         .catch(function (e) {
                                         console.error("html-to-image failed to capture", e);
@@ -12910,134 +12952,6 @@ function startOverlay() {
                 case 2:
                     if (false) {}
                     return [5 /*yield**/, _loop_1()];
-                case 3:
-                    _a.sent();
-                    return [3 /*break*/, 2];
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-}
-function startOverlay2() {
-    return __awaiter(this, void 0, void 0, function () {
-        var overlay, styles, totalTrackeDItems, buffsPerRow, refreshRate, _loop_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    overlay = getByID('Buffs2');
-                    styles = getComputedStyle(overlay);
-                    totalTrackeDItems = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('totalTrackedItems');
-                    buffsPerRow = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerrow');
-                    refreshRate = parseInt(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayRefreshRate'), 10);
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
-                case 1:
-                    _a.sent();
-                    _loop_2 = function () {
-                        var uiScale, overlayPosition;
-                        return __generator(this, function (_b) {
-                            switch (_b.label) {
-                                case 0:
-                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale2');
-                                    overlayPosition = currentOverlay2Position;
-                                    html_to_image__WEBPACK_IMPORTED_MODULE_2__.toCanvas(overlay, {
-                                        backgroundColor: 'transparent',
-                                        width: parseInt(styles.minWidth, 10),
-                                        height: parseInt(styles.minHeight, 10) +
-                                            Math.floor(totalTrackeDItems / buffsPerRow + 1) *
-                                                27 *
-                                                (uiScale / 100),
-                                        quality: 1,
-                                        pixelRatio: uiScale / 100 - 0.00999999999999999999,
-                                        skipAutoScale: true,
-                                    })
-                                        .then(function (dataUrl) {
-                                        var base64ImageString = dataUrl
-                                            .getContext('2d')
-                                            .getImageData(0, 0, dataUrl.width, dataUrl.height);
-                                        alt1.overLaySetGroup('region2');
-                                        alt1.overLayFreezeGroup('region2');
-                                        alt1.overLayClearGroup('region2');
-                                        alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
-                                        alt1.overLayRefreshGroup('region2');
-                                    })
-                                        .catch(function (e) {
-                                        console.error("html-to-image failed to capture", e);
-                                    });
-                                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, refreshRate); })];
-                                case 1:
-                                    _b.sent();
-                                    return [2 /*return*/];
-                            }
-                        });
-                    };
-                    _a.label = 2;
-                case 2:
-                    if (false) {}
-                    return [5 /*yield**/, _loop_2()];
-                case 3:
-                    _a.sent();
-                    return [3 /*break*/, 2];
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-}
-function startOverlay3() {
-    return __awaiter(this, void 0, void 0, function () {
-        var overlay, styles, totalTrackeDItems, buffsPerRow, refreshRate, _loop_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    overlay = getByID('Buffs3');
-                    styles = getComputedStyle(overlay);
-                    totalTrackeDItems = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('totalTrackedItems');
-                    buffsPerRow = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('buffsPerrow');
-                    refreshRate = parseInt(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayRefreshRate'), 10);
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
-                case 1:
-                    _a.sent();
-                    _loop_3 = function () {
-                        var uiScale, overlayPosition;
-                        return __generator(this, function (_b) {
-                            switch (_b.label) {
-                                case 0:
-                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale3');
-                                    overlayPosition = currentOverlay3Position;
-                                    html_to_image__WEBPACK_IMPORTED_MODULE_2__.toCanvas(overlay, {
-                                        backgroundColor: 'transparent',
-                                        width: parseInt(styles.minWidth, 10),
-                                        height: parseInt(styles.minHeight, 10) +
-                                            Math.floor(totalTrackeDItems / buffsPerRow + 1) *
-                                                27 *
-                                                (uiScale / 100),
-                                        quality: 1,
-                                        pixelRatio: uiScale / 100 - 0.00999999999999999999,
-                                        skipAutoScale: true,
-                                    })
-                                        .then(function (dataUrl) {
-                                        var base64ImageString = dataUrl
-                                            .getContext('2d')
-                                            .getImageData(0, 0, dataUrl.width, dataUrl.height);
-                                        alt1.overLaySetGroup('region3');
-                                        alt1.overLayFreezeGroup('region3');
-                                        alt1.overLayClearGroup('region3');
-                                        alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
-                                        alt1.overLayRefreshGroup('region3');
-                                    })
-                                        .catch(function (e) {
-                                        console.error("html-to-image failed to capture", e);
-                                    });
-                                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, refreshRate); })];
-                                case 1:
-                                    _b.sent();
-                                    return [2 /*return*/];
-                            }
-                        });
-                    };
-                    _a.label = 2;
-                case 2:
-                    if (false) {}
-                    return [5 /*yield**/, _loop_3()];
                 case 3:
                     _a.sent();
                     return [3 /*break*/, 2];

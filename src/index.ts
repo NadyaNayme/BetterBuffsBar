@@ -259,15 +259,50 @@ export function startBetterBuffsBar() {
 
 	watchBuffs();
 	if (sauce.getSetting('activeOverlay')) {
-		startOverlay();
+		startOverlay(getByID('Buffs'), '');
 		if (sauce.getSetting('beta')) {
-			startOverlay2();
-			startOverlay3();
+			startOverlay(getByID('Buffs2'), '2');
+			startOverlay(getByID('Buffs3'), '3');
 		}
 	} else {
 		helperItems.BetterBuffsBar.classList.add('overlay-disabled');
 	}
 }
+
+let inCombat = false;
+let checkForCombat = true;
+let timeUntilHide = 2;
+let checkCombatState = () => {
+	let haveBuffs = buffs.read().length;
+	//If we don't have a target we aren't in combat (except for target cycle bug...)
+	if (targetDisplay && checkForCombat) {
+		targetDisplay.read();
+		if (targetDisplay.state === null) {
+			timeUntilHide = 0;
+			inCombat = false;
+		} else {
+			timeUntilHide = 2;
+			inCombat = true;
+		}
+	}
+	// If we aren't checking to see if we have a target - pretend we always do
+	if (!checkForCombat && haveBuffs) {
+		timeUntilHide = 2;
+		inCombat = true;
+	}
+	if (!haveBuffs) {
+		// We either have no buffs or they aren't visible (eg. banking) so aren't in combat
+		if (timeUntilHide == 0) {
+			inCombat = false;
+		} else {
+			setTimeout(() => {
+				if (timeUntilHide > 0) {
+					timeUntilHide--;
+				}
+			}, 1000);
+		}
+	}
+};
 
 let maxAttempts = 0;
 function watchBuffs() {
@@ -275,10 +310,9 @@ function watchBuffs() {
 	const interval = setInterval(() => {
 		let buffs = getActiveBuffs();
 		let debuffs = getActiveDebuffs();
+		checkCombatState();
 		if (sauce.getSetting('buffsLocation')) {
 			maxAttempts = 0;
-
-			//TODO: Create buffs object that passes buffImage, element, threshold, expirationPulse, minRange, maxrange, cooldown, and cooldownTimer then loop over the object calling findStatus() on each object
 
 			findStatus(buffs, buffImages.overloaded, buffsList.OverloadBuff, {
 				threshold: 300,
@@ -1520,15 +1554,15 @@ function updateLocation3(e) {
 	);
 }
 
-async function startOverlay() {
-	let overlay = getByID('Buffs');
+async function startOverlay(element: HTMLElement, region?: string) {
+	let overlay = element;
 	let styles = getComputedStyle(overlay);
 	let totalTrackeDItems = sauce.getSetting('totalTrackedItems');
 	let buffsPerRow = sauce.getSetting('buffsPerrow');
 	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
 	await new Promise((done) => setTimeout(done, 1000));
 	while (true) {
-		let uiScale = sauce.getSetting('uiScale');
+		let uiScale = sauce.getSetting('uiScale' + region);
 		let overlayPosition = currentOverlayPosition;
 		htmlToImage
 			.toCanvas(overlay, {
@@ -1544,112 +1578,25 @@ async function startOverlay() {
 				skipAutoScale: true,
 			})
 			.then((dataUrl) => {
-				let base64ImageString = dataUrl
-					.getContext('2d')
-					.getImageData(0, 0, dataUrl.width, dataUrl.height);
-				alt1.overLaySetGroup('region1');
-				alt1.overLayFreezeGroup('region1');
-				alt1.overLayClearGroup('region1');
-				alt1.overLayImage(
-					overlayPosition.x,
-					overlayPosition.y,
-					a1lib.encodeImageString(base64ImageString),
-					base64ImageString.width,
-					refreshRate
-				);
-				alt1.overLayRefreshGroup('region1');
-			})
-			.catch((e) => {
-				console.error(`html-to-image failed to capture`, e);
-			});
-		await new Promise((done) => setTimeout(done, refreshRate));
-	}
-}
-
-async function startOverlay2() {
-	let overlay = getByID('Buffs2');
-	let styles = getComputedStyle(overlay);
-	let totalTrackeDItems = sauce.getSetting('totalTrackedItems');
-	let buffsPerRow = sauce.getSetting('buffsPerrow');
-	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
-	await new Promise((done) => setTimeout(done, 1000));
-	while (true) {
-		let uiScale = sauce.getSetting('uiScale2');
-		let overlayPosition = currentOverlay2Position;
-		htmlToImage
-			.toCanvas(overlay, {
-				backgroundColor: 'transparent',
-				width: parseInt(styles.minWidth, 10),
-				height:
-					parseInt(styles.minHeight, 10) +
-					Math.floor(totalTrackeDItems / buffsPerRow + 1) *
-						27 *
-						(uiScale / 100),
-				quality: 1,
-				pixelRatio: uiScale / 100 - 0.00999999999999999999,
-				skipAutoScale: true,
-			})
-			.then((dataUrl) => {
-				let base64ImageString = dataUrl
-					.getContext('2d')
-					.getImageData(0, 0, dataUrl.width, dataUrl.height);
-				alt1.overLaySetGroup('region2');
-				alt1.overLayFreezeGroup('region2');
-				alt1.overLayClearGroup('region2');
-				alt1.overLayImage(
-					overlayPosition.x,
-					overlayPosition.y,
-					a1lib.encodeImageString(base64ImageString),
-					base64ImageString.width,
-					refreshRate
-				);
-				alt1.overLayRefreshGroup('region2');
-			})
-			.catch((e) => {
-				console.error(`html-to-image failed to capture`, e);
-			});
-		await new Promise((done) => setTimeout(done, refreshRate));
-	}
-}
-
-async function startOverlay3() {
-	let overlay = getByID('Buffs3');
-	let styles = getComputedStyle(overlay);
-	let totalTrackeDItems = sauce.getSetting('totalTrackedItems');
-	let buffsPerRow = sauce.getSetting('buffsPerrow');
-	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
-	await new Promise((done) => setTimeout(done, 1000));
-	while (true) {
-		let uiScale = sauce.getSetting('uiScale3');
-		let overlayPosition = currentOverlay3Position;
-		htmlToImage
-			.toCanvas(overlay, {
-				backgroundColor: 'transparent',
-				width: parseInt(styles.minWidth, 10),
-				height:
-					parseInt(styles.minHeight, 10) +
-					Math.floor(totalTrackeDItems / buffsPerRow + 1) *
-						27 *
-						(uiScale / 100),
-				quality: 1,
-				pixelRatio: uiScale / 100 - 0.00999999999999999999,
-				skipAutoScale: true,
-			})
-			.then((dataUrl) => {
-				let base64ImageString = dataUrl
-					.getContext('2d')
-					.getImageData(0, 0, dataUrl.width, dataUrl.height);
-				alt1.overLaySetGroup('region3');
-				alt1.overLayFreezeGroup('region3');
-				alt1.overLayClearGroup('region3');
-				alt1.overLayImage(
-					overlayPosition.x,
-					overlayPosition.y,
-					a1lib.encodeImageString(base64ImageString),
-					base64ImageString.width,
-					refreshRate
-				);
-				alt1.overLayRefreshGroup('region3');
+				if (inCombat || element == getByID('Buffs')) {
+					let base64ImageString = dataUrl
+						.getContext('2d')
+						.getImageData(0, 0, dataUrl.width, dataUrl.height);
+					alt1.overLaySetGroup('region' + region);
+					alt1.overLayFreezeGroup('region' + region);
+					alt1.overLayClearGroup('region' + region);
+					alt1.overLayImage(
+						overlayPosition.x,
+						overlayPosition.y,
+						a1lib.encodeImageString(base64ImageString),
+						base64ImageString.width,
+						refreshRate
+					);
+					alt1.overLayRefreshGroup('region' + region);
+				} else {
+					alt1.overLayClearGroup('region' + region);
+					alt1.overLayRefreshGroup('region' + region);
+				}
 			})
 			.catch((e) => {
 				console.error(`html-to-image failed to capture`, e);
