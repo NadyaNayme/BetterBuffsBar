@@ -709,9 +709,7 @@ function watchBuffs() {
 		} else {
 			noDetection(maxAttempts, interval, 'debuff');
 		}
-		findDeathMark();
-		findVulnerability();
-		findBloated();
+		findEnemyDebuffs();
 	}, loopSpeed);
 }
 
@@ -1017,16 +1015,26 @@ async function findVirus(debuffs: BuffReader.Buff[]) {
 	}
 }
 
-function findDeathMark() {
+function findEnemyDebuffs() {
 	targetDisplay.read();
 	if (targetDisplay.lastpos === null) {
-		return;
+		setInactive(getByID('VulnerabilityDebuff'));
+	}
+
+	if (!targetDisplay.state?.name) {
+		setInactive(getByID('VulnerabilityDebuff'));
 	}
 
 	if (
-		!getByID('Buffs').contains(getByID('DeathMarkDebuff')) &&
-		!getByID('Buffs2').contains(getByID('DeathMarkDebuff')) &&
-		!getByID('Buffs3').contains(getByID('DeathMarkDebuff'))
+		(!getByID('Buffs').contains(getByID('DeathMarkDebuff')) &&
+			!getByID('Buffs2').contains(getByID('DeathMarkDebuff')) &&
+			!getByID('Buffs3').contains(getByID('DeathMarkDebuff'))) &&
+		(!getByID('Buffs').contains(getByID('VulnerabilityDebuff')) &&
+			!getByID('Buffs2').contains(getByID('VulnerabilityDebuff')) &&
+			!getByID('Buffs3').contains(getByID('VulnerabilityDebuff'))) &&
+		(!getByID('Buffs').contains(getByID('Bloat')) &&
+			!getByID('Buffs2').contains(getByID('Bloat')) &&
+			!getByID('Buffs3').contains(getByID('Bloat')))
 	) {
 		return;
 	}
@@ -1049,35 +1057,14 @@ function findDeathMark() {
 	} else if (!targetIsDeathMarked) {
 		setInactive(getByID('DeathMarkDebuff'));
 	}
-}
 
-function findVulnerability() {
-	targetDisplay.read();
-	if (targetDisplay.lastpos === null) {
-		setInactive(getByID('VulnerabilityDebuff'));
-		return;
+	var targetIsBloated = targetDebuffs.findSubimage(enemyImages.Bloat).length;
+	if (targetIsBloated) {
+		setActive(getByID('Bloat'));
+	} else if (!targetIsBloated) {
+		setInactive(getByID('Bloat'));
 	}
 
-	if (
-		!getByID('Buffs').contains(getByID('VulnerabilityDebuff')) &&
-		!getByID('Buffs2').contains(getByID('VulnerabilityDebuff')) &&
-		!getByID('Buffs3').contains(getByID('VulnerabilityDebuff'))
-	) {
-		return;
-	}
-
-	var target_display_loc = {
-		x: targetDisplay?.lastpos.x - 120,
-		y: targetDisplay?.lastpos.y + 20,
-		w: 150,
-		h: 60,
-	};
-	var targetDebuffs = a1lib.captureHold(
-		target_display_loc.x,
-		target_display_loc.y,
-		target_display_loc.w,
-		target_display_loc.h
-	);
 	var targetIsVulnerable = targetDebuffs.findSubimage(
 		enemyImages.Vulnerability
 	).length;
@@ -1090,40 +1077,6 @@ function findVulnerability() {
 		setTimeout(() => {
 			setInactive(getByID('VulnerabilityDebuff'));
 		}, 60000);
-	}
-}
-
-function findBloated() {
-	targetDisplay.read();
-	if (targetDisplay.lastpos === null) {
-		return;
-	}
-
-	if (
-		!getByID('Buffs').contains(getByID('Bloat')) &&
-		!getByID('Buffs2').contains(getByID('Bloat')) &&
-		!getByID('Buffs3').contains(getByID('Bloat'))
-	) {
-		return;
-	}
-
-	var target_display_loc = {
-		x: targetDisplay?.lastpos.x - 120,
-		y: targetDisplay?.lastpos.y + 20,
-		w: 150,
-		h: 60,
-	};
-	var targetDebuffs = a1lib.captureHold(
-		target_display_loc.x,
-		target_display_loc.y,
-		target_display_loc.w,
-		target_display_loc.h
-	);
-	var targetIsBloated = targetDebuffs.findSubimage(
-		enemyImages.Bloat
-	).length;
-	if (targetIsBloated) {
-		setActive(getByID('Bloat'));
 	} else if (!targetIsBloated) {
 		setInactive(getByID('Bloat'));
 	}
