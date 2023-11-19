@@ -12892,7 +12892,7 @@ function updateLocation3(e) {
 }
 function startOverlay(element, region) {
     return __awaiter(this, void 0, void 0, function () {
-        var overlay, styles, totalTrackeDItems, buffsPerRow, refreshRate, _loop_1;
+        var overlay, styles, totalTrackeDItems, buffsPerRow, refreshRate, overlayPosition, uiScale;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -12904,54 +12904,50 @@ function startOverlay(element, region) {
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 1:
                     _a.sent();
-                    _loop_1 = function () {
-                        var uiScale, overlayPosition;
-                        return __generator(this, function (_b) {
-                            switch (_b.label) {
-                                case 0:
-                                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale' + region);
-                                    overlayPosition = currentOverlayPosition;
-                                    html_to_image__WEBPACK_IMPORTED_MODULE_2__.toCanvas(overlay, {
-                                        backgroundColor: 'transparent',
-                                        width: parseInt(styles.minWidth, 10),
-                                        height: parseInt(styles.minHeight, 10) +
-                                            Math.floor(totalTrackeDItems / buffsPerRow + 1) *
-                                                27 *
-                                                (uiScale / 100),
-                                        quality: 1,
-                                        pixelRatio: uiScale / 100 - 0.00999999999999999999,
-                                        skipAutoScale: true,
-                                    })
-                                        .then(function (dataUrl) {
-                                        if (inCombat || element == getByID('Buffs')) {
-                                            var base64ImageString = dataUrl
-                                                .getContext('2d')
-                                                .getImageData(0, 0, dataUrl.width, dataUrl.height);
-                                            alt1.overLaySetGroup('region' + region);
-                                            alt1.overLayFreezeGroup('region' + region);
-                                            alt1.overLayClearGroup('region' + region);
-                                            alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
-                                            alt1.overLayRefreshGroup('region' + region);
-                                        }
-                                        else {
-                                            alt1.overLayClearGroup('region' + region);
-                                            alt1.overLayRefreshGroup('region' + region);
-                                        }
-                                    })
-                                        .catch(function (e) {
-                                        console.error("html-to-image failed to capture", e);
-                                    });
-                                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, refreshRate); })];
-                                case 1:
-                                    _b.sent();
-                                    return [2 /*return*/];
-                            }
-                        });
-                    };
                     _a.label = 2;
                 case 2:
                     if (false) {}
-                    return [5 /*yield**/, _loop_1()];
+                    uiScale = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale' + region);
+                    if (region == '') {
+                        overlayPosition = currentOverlayPosition;
+                    }
+                    else if (region == '2') {
+                        overlayPosition = currentOverlay2Position;
+                    }
+                    else if (region == '3') {
+                        overlayPosition = currentOverlay3Position;
+                    }
+                    html_to_image__WEBPACK_IMPORTED_MODULE_2__.toCanvas(overlay, {
+                        backgroundColor: 'transparent',
+                        width: parseInt(styles.minWidth, 10),
+                        height: parseInt(styles.minHeight, 10) +
+                            Math.floor(totalTrackeDItems / buffsPerRow + 1) *
+                                27 *
+                                (uiScale / 100),
+                        quality: 1,
+                        pixelRatio: uiScale / 100 - 0.00999999999999999999,
+                        skipAutoScale: true,
+                    })
+                        .then(function (dataUrl) {
+                        if (inCombat || element == getByID('Buffs')) {
+                            var base64ImageString = dataUrl
+                                .getContext('2d')
+                                .getImageData(0, 0, dataUrl.width, dataUrl.height);
+                            alt1.overLaySetGroup('region' + region);
+                            alt1.overLayFreezeGroup('region' + region);
+                            alt1.overLayClearGroup('region' + region);
+                            alt1.overLayImage(overlayPosition.x, overlayPosition.y, alt1__WEBPACK_IMPORTED_MODULE_9__.encodeImageString(base64ImageString), base64ImageString.width, refreshRate);
+                            alt1.overLayRefreshGroup('region' + region);
+                        }
+                        else {
+                            alt1.overLayClearGroup('region' + region);
+                            alt1.overLayRefreshGroup('region' + region);
+                        }
+                    })
+                        .catch(function (e) {
+                        console.error("html-to-image failed to capture", e);
+                    });
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, refreshRate); })];
                 case 3:
                     _a.sent();
                     return [3 /*break*/, 2];

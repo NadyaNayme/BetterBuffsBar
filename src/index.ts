@@ -1560,10 +1560,17 @@ async function startOverlay(element: HTMLElement, region?: string) {
 	let totalTrackeDItems = sauce.getSetting('totalTrackedItems');
 	let buffsPerRow = sauce.getSetting('buffsPerrow');
 	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
+	let overlayPosition;
 	await new Promise((done) => setTimeout(done, 1000));
 	while (true) {
 		let uiScale = sauce.getSetting('uiScale' + region);
-		let overlayPosition = currentOverlayPosition;
+		if (region == '') {
+			overlayPosition = currentOverlayPosition;
+		} else if (region == '2') {
+			overlayPosition = currentOverlay2Position;
+		} else if (region == '3') {
+			overlayPosition = currentOverlay3Position;
+		}
 		htmlToImage
 			.toCanvas(overlay, {
 				backgroundColor: 'transparent',
