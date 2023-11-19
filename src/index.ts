@@ -2247,11 +2247,11 @@ window.onload = function () {
 		//also updates app settings if they are changed
 		alt1.identifyAppUrl('./appconfig.json');
 
+		initSettings();
 		let settings = document.querySelector('#Settings .container');
 		Object.values(settingsObject).forEach((val) => {
 			settings.before(val);
 		});
-		initSettings();
 		startBetterBuffsBar();
 
 		document.documentElement.style.setProperty(

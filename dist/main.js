@@ -13311,11 +13311,11 @@ window.onload = function () {
         //this makes alt1 show the add app button when running inside the embedded browser
         //also updates app settings if they are changed
         alt1.identifyAppUrl('./appconfig.json');
+        initSettings();
         var settings_1 = document.querySelector('#Settings .container');
         Object.values(settingsObject).forEach(function (val) {
             settings_1.before(val);
         });
-        initSettings();
         startBetterBuffsBar();
         document.documentElement.style.setProperty('--brightness', (parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString());
         var mutationConfig = { attributes: false, childList: true, subtree: false };
