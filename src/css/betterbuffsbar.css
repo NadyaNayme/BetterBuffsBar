@@ -35,6 +35,11 @@ body {
 #Settings h2 {
   text-transform: uppercase;
   letter-spacing: 2px;
+  text-align: center;
+}
+
+#Settings h2 + p {
+  text-align: center;
 }
 
 #Settings h3 {

@@ -2078,13 +2078,13 @@ function roundedToFixed(input, digits) {
 }
 
 /* Settings */
-const currentVersion = "2.0.2";
+const currentVersion = "2.0.5";
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Settings - v' + currentVersion),
+	settingsHeader: sauce.createHeading('h2', 'Better Buffs Bar - v' + currentVersion),
 	settingDiscord: sauce.createText(
 		`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support`
 	),
-	beginGeneral: sauce.createHeading('h3', 'General'),
+	beginGeneral: sauce.createHeading('h2', 'Settings'),
 	BuffsPerRow: sauce.createNumberSetting(
 		'buffsPerRow',
 		'Number of buffs displayed per row',
@@ -2130,7 +2130,7 @@ const settingsObject = {
 		sauce.getSetting('singleBOLG') ?? false
 	),
 	endGeneral: sauce.createSeperator(),
-	OverlayHeader: sauce.createHeading('h3', 'Overlay'),
+	OverlayHeader: sauce.createHeading('h2', 'Overlay'),
 	OverlayActive: sauce.createCheckboxSetting(
 		'activeOverlay',
 		"<u>Enable Overlay</u> When the overlay is toggled off - the app will hide the entire UI unless your mouse is over the app. This is for users who don't mind having a background and want to avoid the delay the overlay has",

@@ -951,6 +951,11 @@ body {
 #Settings h2 {
   text-transform: uppercase;
   letter-spacing: 2px;
+  text-align: center;
+}
+
+#Settings h2 + p {
+  text-align: center;
 }
 
 #Settings h3 {
@@ -13290,11 +13295,11 @@ function roundedToFixed(input, digits) {
     return (Math.round(input * rounder) / rounder).toFixed(digits);
 }
 /* Settings */
-var currentVersion = "2.0.2";
+var currentVersion = "2.0.5";
 var settingsObject = {
-    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings - v' + currentVersion),
+    settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Better Buffs Bar - v' + currentVersion),
     settingDiscord: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Please <a href=\"https://discord.gg/KJ2SgWyJFF\" target=\"_blank\" rel=\"nofollow\">join the Discord</a> for any suggestions or support"),
-    beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'General'),
+    beginGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Settings'),
     BuffsPerRow: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createNumberSetting('buffsPerRow', 'Number of buffs displayed per row', { defaultValue: 10, min: 1, max: 20 }),
     FadeInactiveBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('fadeInactiveBuffs', '<u>Explicitly Inactive</u> Instead of hiding inactive buffs - displays them darker and desaturated', (_a = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('fadeInactiveBuffs')) !== null && _a !== void 0 ? _a : true),
     Brightness: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createRangeSetting('brightness', '<u>Light Level</u> Control how dark inactive buffs should be - lower number being darker', { defaultValue: '75', min: 5, max: 100, unit: '%' }),
@@ -13307,7 +13312,7 @@ var settingsObject = {
     BlinkExpiredBuffs: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('showMaintainableBlinking', '<u>100% Uptime</u> Adds a blinking "!!" effect for inactive buffs that can and should be maintained with 100% uptime', (_d = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('showMaintainableBlinking')) !== null && _d !== void 0 ? _d : true),
     SingleBOLG: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('singleBOLG', '<u>Split BOLG Weapon Special / Stacks</u> Tracks Balance by Force and Perfect Equlibrium stacks as separate buffs', (_e = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('singleBOLG')) !== null && _e !== void 0 ? _e : false),
     endGeneral: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
-    OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Overlay'),
+    OverlayHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Overlay'),
     OverlayActive: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('activeOverlay', "<u>Enable Overlay</u> When the overlay is toggled off - the app will hide the entire UI unless your mouse is over the app. This is for users who don't mind having a background and want to avoid the delay the overlay has", (_f = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('activeOverlay')) !== null && _f !== void 0 ? _f : false),
     OverlaySmallText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSmallText("If the overlay does not show - check the \"Show overlay\" permission is enabled for this plugin in Alt1's settings or try setting the position using the button below."),
     OverlayPositionButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Set Overlay Position', setOverlayPosition, { classes: ['nisbutton'] }),
