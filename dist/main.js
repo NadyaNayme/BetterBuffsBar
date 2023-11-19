@@ -12407,6 +12407,9 @@ function findVirus(debuffs) {
 function findEnemyDebuffs() {
     var _a;
     targetDisplay.read();
+    if (!targetDisplay.read()) {
+        return;
+    }
     if (targetDisplay.lastpos === null) {
         setInactive(getByID('VulnerabilityDebuff'));
     }
@@ -12975,6 +12978,14 @@ function initSettings() {
     }
     loadSettings();
 }
+function deleteLocalStorage() {
+    localStorage.removeItem(config.appName);
+    localStorage.removeItem('Buffs');
+    localStorage.removeItem('Buffs2');
+    localStorage.removeItem('Buffs3');
+    localStorage.removeItem('UntrackedBuffs');
+    location.reload();
+}
 function setDefaultSettings() {
     localStorage.setItem(config.appName, JSON.stringify({
         activeOverlay: true,
@@ -13246,7 +13257,7 @@ var settingsObject = {
     ProfileManager: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createProfileManager(),
     ResetHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Reset Config'),
     ResetText: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("This will reset your configuration and reload the plugin in an attempt to solve any problems caused by missing or bad values"),
-    resetButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Reset All Settings', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.setDefaultSettings, { classes: ['nisbutton'] }),
+    resetButton: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createButton('Reset All Settings', deleteLocalStorage, { classes: ['nisbutton'] }),
     endreset: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createSeperator(),
     troubleshootingHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h3', 'Here is trouble (Make it double!)'),
     debugMode: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createCheckboxSetting('debugMode', 'Debug mode', false),

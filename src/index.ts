@@ -1058,6 +1058,9 @@ async function findVirus(debuffs: BuffReader.Buff[]) {
 
 function findEnemyDebuffs() {
 	targetDisplay.read();
+	if (!targetDisplay.read()) {
+		return;
+	}
 	if (targetDisplay.lastpos === null) {
 		setInactive(getByID('VulnerabilityDebuff'));
 	}
@@ -1634,6 +1637,15 @@ function initSettings() {
 	loadSettings();
 }
 
+function deleteLocalStorage() {
+	localStorage.removeItem(config.appName);
+	localStorage.removeItem('Buffs');
+	localStorage.removeItem('Buffs2');
+	localStorage.removeItem('Buffs3');
+	localStorage.removeItem('UntrackedBuffs');
+	location.reload();
+}
+
 function setDefaultSettings() {
 	localStorage.setItem(
 		config.appName,
@@ -1994,7 +2006,10 @@ function roundedToFixed(input, digits) {
 /* Settings */
 const currentVersion = "2.0.5";
 const settingsObject = {
-	settingsHeader: sauce.createHeading('h2', 'Better Buffs Bar - v' + currentVersion),
+	settingsHeader: sauce.createHeading(
+		'h2',
+		'Better Buffs Bar - v' + currentVersion
+	),
 	settingDiscord: sauce.createText(
 		`Please <a href="https://discord.gg/KJ2SgWyJFF" target="_blank" rel="nofollow">join the Discord</a> for any suggestions or support`
 	),
@@ -2135,7 +2150,7 @@ const settingsObject = {
 	),
 	resetButton: sauce.createButton(
 		'Reset All Settings',
-		sauce.setDefaultSettings,
+		deleteLocalStorage,
 		{ classes: ['nisbutton'] }
 	),
 	endreset: sauce.createSeperator(),
