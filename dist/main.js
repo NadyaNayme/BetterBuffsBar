@@ -7307,7 +7307,7 @@ function createProfileManager() {
         profileOptions[index].value = profile.name;
         profileOptions[index].name = profile.name;
     });
-    var profileHeader = createHeading('h3', 'Profiles [Beta]');
+    var profileHeader = createHeading('h3', 'Profiles');
     var profileText = createText('Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.');
     var saveButton = createButton('Save', saveProfile, {
         classes: ['nisbutton'],
@@ -7328,6 +7328,7 @@ function createProfileManager() {
     container.classList.remove('flex');
     var endSeperator = createSeperator();
     container.classList.add('flex-wrap');
+    container.classList.add('beta-only');
     container.appendChild(profileHeader);
     container.appendChild(profileText);
     container.appendChild(loadOptions);
