@@ -271,8 +271,15 @@ export function startBetterBuffsBar() {
 
 let inCombat = false;
 let checkForCombat = true;
+let updatingOverlayPosition = false;
 let timeUntilHide = 2;
 let checkCombatState = () => {
+
+	if (updatingOverlayPosition) {
+		inCombat = true;
+		return;
+	}
+
 	let haveBuffs = buffs.read().length;
 	//If we don't have a target we aren't in combat (except for target cycle bug...)
 	if (targetDisplay && checkForCombat) {
@@ -1417,12 +1424,12 @@ async function setOverlayPosition() {
 	a1lib.once('alt1pressed', updateLocation);
 	let oldPosition = sauce.getSetting('overlayPosition');
 	sauce.updateSetting('oldOverlayPosition', oldPosition);
-	sauce.updateSetting('updatingOverlayPosition', true);
+	updatingOverlayPosition = true;
 	helperItems.BetterBuffsBar.classList.toggle(
 		'positioning',
-		sauce.getSetting('updatingOverlayPosition')
+		updatingOverlayPosition
 	);
-	while (sauce.getSetting('updatingOverlayPosition')) {
+	while (updatingOverlayPosition) {
 		alt1.setTooltip('Press Alt+1 to save position');
 		let bbb = getByID('Buffs');
 		sauce.updateSetting('overlayPosition', {
@@ -1447,12 +1454,12 @@ async function setOverlayPosition2() {
 	a1lib.once('alt1pressed', updateLocation2);
 	let oldPosition = sauce.getSetting('overlay2Position');
 	sauce.updateSetting('oldOverlay2Position', oldPosition);
-	sauce.updateSetting('updatingOverlayPosition', true);
+	updatingOverlayPosition = true;
 	helperItems.BetterBuffsBar.classList.toggle(
 		'positioning',
-		sauce.getSetting('updatingOverlayPosition')
+		updatingOverlayPosition
 	);
-	while (sauce.getSetting('updatingOverlayPosition')) {
+	while (updatingOverlayPosition) {
 		alt1.setTooltip('Press Alt+1 to save position');
 		let bbb = getByID('Buffs2');
 		sauce.updateSetting('overlay2Position', {
@@ -1477,12 +1484,12 @@ async function setOverlayPosition3() {
 	a1lib.once('alt1pressed', updateLocation3);
 	let oldPosition = sauce.getSetting('overlay3Position');
 	sauce.updateSetting('oldOverlay3Position', oldPosition);
-	sauce.updateSetting('updatingOverlayPosition', true);
+	updatingOverlayPosition = true;
 	helperItems.BetterBuffsBar.classList.toggle(
 		'positioning',
-		sauce.getSetting('updatingOverlayPosition')
+		updatingOverlayPosition
 	);
-	while (sauce.getSetting('updatingOverlayPosition')) {
+	while (updatingOverlayPosition) {
 		alt1.setTooltip('Press Alt+1 to save position');
 		let bbb = getByID('Buffs3');
 		sauce.updateSetting('overlay3Position', {
@@ -1513,10 +1520,10 @@ function updateLocation(e) {
 			e.y - (sauce.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
 		),
 	});
-	sauce.updateSetting('updatingOverlayPosition', false);
+	updatingOverlayPosition = false;
 	helperItems.BetterBuffsBar.classList.toggle(
 		'positioning',
-		sauce.getSetting('updatingOverlayPosition')
+		updatingOverlayPosition
 	);
 }
 
@@ -1530,10 +1537,10 @@ function updateLocation2(e) {
 			e.y - (sauce.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
 		),
 	});
-	sauce.updateSetting('updatingOverlayPosition', false);
+	updatingOverlayPosition = false;
 	helperItems.BetterBuffsBar.classList.toggle(
 		'positioning',
-		sauce.getSetting('updatingOverlayPosition')
+		updatingOverlayPosition
 	);
 }
 
@@ -1547,10 +1554,10 @@ function updateLocation3(e) {
 			e.y - (sauce.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)
 		),
 	});
-	sauce.updateSetting('updatingOverlayPosition', false);
+	updatingOverlayPosition = false;
 	helperItems.BetterBuffsBar.classList.toggle(
 		'positioning',
-		sauce.getSetting('updatingOverlayPosition')
+		updatingOverlayPosition
 	);
 }
 

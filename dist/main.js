@@ -11818,8 +11818,13 @@ function startBetterBuffsBar() {
 }
 var inCombat = false;
 var checkForCombat = true;
+var updatingOverlayPosition = false;
 var timeUntilHide = 2;
 var checkCombatState = function () {
+    if (updatingOverlayPosition) {
+        inCombat = true;
+        return;
+    }
     var haveBuffs = buffs.read().length;
     //If we don't have a target we aren't in combat (except for target cycle bug...)
     if (targetDisplay && checkForCombat) {
@@ -12767,11 +12772,11 @@ function setOverlayPosition() {
                     alt1__WEBPACK_IMPORTED_MODULE_9__.once('alt1pressed', updateLocation);
                     oldPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlayPosition');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('oldOverlayPosition', oldPosition);
-                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
-                    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
+                    updatingOverlayPosition = true;
+                    helperItems.BetterBuffsBar.classList.toggle('positioning', updatingOverlayPosition);
                     _a.label = 1;
                 case 1:
-                    if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
+                    if (!updatingOverlayPosition) return [3 /*break*/, 3];
                     alt1.setTooltip('Press Alt+1 to save position');
                     bbb = getByID('Buffs');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlayPosition', {
@@ -12802,11 +12807,11 @@ function setOverlayPosition2() {
                     alt1__WEBPACK_IMPORTED_MODULE_9__.once('alt1pressed', updateLocation2);
                     oldPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay2Position');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('oldOverlay2Position', oldPosition);
-                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
-                    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
+                    updatingOverlayPosition = true;
+                    helperItems.BetterBuffsBar.classList.toggle('positioning', updatingOverlayPosition);
                     _a.label = 1;
                 case 1:
-                    if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
+                    if (!updatingOverlayPosition) return [3 /*break*/, 3];
                     alt1.setTooltip('Press Alt+1 to save position');
                     bbb = getByID('Buffs2');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlay2Position', {
@@ -12837,11 +12842,11 @@ function setOverlayPosition3() {
                     alt1__WEBPACK_IMPORTED_MODULE_9__.once('alt1pressed', updateLocation3);
                     oldPosition = _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('overlay3Position');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('oldOverlay3Position', oldPosition);
-                    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', true);
-                    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
+                    updatingOverlayPosition = true;
+                    helperItems.BetterBuffsBar.classList.toggle('positioning', updatingOverlayPosition);
                     _a.label = 1;
                 case 1:
-                    if (!_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition')) return [3 /*break*/, 3];
+                    if (!updatingOverlayPosition) return [3 /*break*/, 3];
                     alt1.setTooltip('Press Alt+1 to save position');
                     bbb = getByID('Buffs3');
                     _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('overlay3Position', {
@@ -12869,8 +12874,8 @@ function updateLocation(e) {
         x: Math.floor(e.x - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
         y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
     });
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
-    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
+    updatingOverlayPosition = false;
+    helperItems.BetterBuffsBar.classList.toggle('positioning', updatingOverlayPosition);
 }
 function updateLocation2(e) {
     var bbb = getByID('Buffs2');
@@ -12878,8 +12883,8 @@ function updateLocation2(e) {
         x: Math.floor(e.x - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
         y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
     });
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
-    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
+    updatingOverlayPosition = false;
+    helperItems.BetterBuffsBar.classList.toggle('positioning', updatingOverlayPosition);
 }
 function updateLocation3(e) {
     var bbb = getByID('Buffs3');
@@ -12887,8 +12892,8 @@ function updateLocation3(e) {
         x: Math.floor(e.x - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetWidth / 2)),
         y: Math.floor(e.y - (_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('uiScale') / 100) * (bbb.offsetHeight / 2)),
     });
-    _a1sauce__WEBPACK_IMPORTED_MODULE_0__.updateSetting('updatingOverlayPosition', false);
-    helperItems.BetterBuffsBar.classList.toggle('positioning', _a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('updatingOverlayPosition'));
+    updatingOverlayPosition = false;
+    helperItems.BetterBuffsBar.classList.toggle('positioning', updatingOverlayPosition);
 }
 function startOverlay(element, region) {
     return __awaiter(this, void 0, void 0, function () {
