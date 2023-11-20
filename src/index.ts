@@ -1291,6 +1291,8 @@ async function watchTimers() {
 			parseInt(item.dataset.time, 10) < 60 &&
 			!item.dataset.time.indexOf('m') &&
 			!item.classList.contains('enemy-debuff') &&
+			!item.classList.contains('stacks') &&
+			!item.classList.contains('no-timer') &&
 			item.classList.contains('active')
 		) {
 			setInactive(item);
