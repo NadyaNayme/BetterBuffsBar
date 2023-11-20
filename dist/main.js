@@ -12605,7 +12605,7 @@ function watchTimers() {
                 }
                 if (timersCollection[item.dataset.name] == item.dataset.time &&
                     item.classList.contains('active') &&
-                    item.dataset.startedTimer.length) {
+                    item.dataset.startedTimer) {
                     startCooldownTimer(item, (parseInt(item.dataset.cooldownTime, 10)) + parseInt(item.dataset.time, 10) - 3);
                 }
                 else if (timersCollection[item.dataset.name] == item.dataset.time &&
