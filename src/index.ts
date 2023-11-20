@@ -162,9 +162,9 @@ var buffImages = a1lib.webpackImages({
 	PrayerRenewal: require('./asset/data/Prayer_Renew_Active-noborder.data.png'),
 	DeathSpark: require('./asset/data/Death_Spark.data.png'),
 	ThreadsOfFate: require('./asset/data/Threads_Of_Fate.data.png'),
-	ConjureSkeleton: require('./asset/data/skeleton_warrior.data.png'),
-	ConjureZombie: require('./asset/data/putrid_zombie.data.png'),
-	ConjureGhost: require('./asset/data/vengeful_ghost.data.png'),
+	ConjureSkeleton: require('./asset/data/skeleton_warrior-top.data.png'),
+	ConjureZombie: require('./asset/data/putrid_zombie-top.data.png'),
+	ConjureGhost: require('./asset/data/vengeful_ghost-top.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
