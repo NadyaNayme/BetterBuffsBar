@@ -12609,6 +12609,9 @@ function watchTimers() {
                     startCooldownTimer(item, (parseInt(item.dataset.cooldownTime, 10)) + parseInt(item.dataset.time, 10) - 3);
                 }
                 else if (timersCollection[item.dataset.name] == item.dataset.time &&
+                    parseInt(item.dataset.time, 10) < 60 &&
+                    !item.dataset.time.indexOf('m') &&
+                    !item.classList.contains('enemy-debuff') &&
                     item.classList.contains('active')) {
                     setInactive(item);
                 }
