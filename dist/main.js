@@ -11887,7 +11887,7 @@ function watchBuffs() {
                 expirationPulse: true,
             });
             findStatus(buffs, buffImages.supremeOverloadActive, buffsList.SupremeOverloadBuff, {
-                threshold: 50,
+                threshold: 30,
                 expirationPulse: true,
             });
             findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, {
