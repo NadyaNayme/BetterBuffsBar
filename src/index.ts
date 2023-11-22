@@ -61,6 +61,7 @@ let buffsList = {
 	GladiatorsRageBuff: getByID('GladiatorsRageBuff'),
 	NecrosisBuff: getByID('NecrosisBuff'),
 	OverloadBuff: getByID('OverloadBuff'),
+	SupremeOverloadBuff: getByID('SupremeOverloadBuff'),
 	TimeRiftBuff: getByID('TimeRiftBuff'),
 	WeaponPoisonBuff: getByID('WeaponPoisonBuff'),
 	Aura: getByID('Aura'),
@@ -138,6 +139,7 @@ var buffImages = a1lib.webpackImages({
 	gladiatorsRage: require('./asset/data/Gladiators_Rage-noborder.data.png'),
 	necrosis: require('./asset/data/Necrosis-noborder.data.png'),
 	overloaded: require('./asset/data/Overloaded-noborder.data.png'),
+	supreme_overloaded: require('./asset/data/supreme_overload.data.png'),
 	overloadedNoBorder: require('./asset/data/Overloaded-noborder.data.png'),
 	perfectEquilibrium: require('./asset/data/Perfect_Equilibrium-noborder.data.png'),
 	perfectEquilibriumNoBorder: require('./asset/data/Perfect_Equilibrium-noborder.data.png'),
@@ -332,6 +334,16 @@ function watchBuffs() {
 				buffsList.ElderOverloadBuff,
 				{
 					threshold: 60,
+					expirationPulse: true,
+				}
+			);
+
+			findStatus(
+				buffs,
+				buffImages.supremeOverloadActive,
+				buffsList.SupremeOverloadBuff,
+				{
+					threshold: 50,
 					expirationPulse: true,
 				}
 			);

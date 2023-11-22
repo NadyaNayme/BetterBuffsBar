@@ -821,6 +821,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
+/***/ "./asset/data/supreme_overload.data.png":
+/*!**********************************************!*\
+  !*** ./asset/data/supreme_overload.data.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAXRQTFRFAAAAbJeK1rhVSU42YYp6FzpEKnOMFTpGOqS0KnWMKHeSKXONH1ptJWiBKXeRJWuGKHKLMY2eJ3CJJm2GJW6FKHmQLYWcDicxMZKzMJWzFT1IK4KfJ3WOFD9OKX2XImR/BxYbJXOMLYmqJ3aOHVRpCBofK4KdImmCb63IR4qfGkhXCCgzKn+eJnCIosjarMjYl7LAgZCYVGduLZO5LZvFJHWQtNLis8/fsszbrcPPlZ6lSpGrNLjeLqbPKpa9Jn+fFEBQwtbguNDfuNHdrMTQfoyTP8/gNcHbM7naMKzSHmyIOmd1zNjfzNfeytbessXQdJSkPtPfN8rbNcDaMbPVKpvFH3WUBhohN2V0zNnfvcbMP9bcOM/bNsfcMbraLKXQIXucDR8meouVONDcN8ncMr3bLafRInyeAx4kNL/bLaXPIneXAB4jNcbcMbnYK5/IGV53M8LbLrDVJYuwDjJACyAoJ4GLH3eLG2d/DzpLBRAUBBAUkqXT3gAAAHx0Uk5TAP///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9uim3EAAADRSURBVHicY2BAAEYGXICJGZcMCysuGTZ2HBIcnFw4ZLh5ePmwy/AzMAhglRAUYmAQxq5HRFRMHLuMhKQUDhdIy8hil5CTV1DEKqGkrKKqpo5NRkNTS1tHF4uEnr6BoZGxiSmGhJm5haWVtY2tnb0Dmoyjk7OLq5u7h6edF6qEt4+vn39AYFBwSGhYOIpMRKQvQxRDdExsXHxCIqqmSAYfhiSG5JTUtPQMVBkfCJWSmZWdg81PDLl5+QVYJRgKi4pLMEVLGcoYyisqsWupqkbiAAC3kh+rvrqfOQAAAABJRU5ErkJggg==")
+
+/***/ }),
+
 /***/ "./asset/data/vengeful_ghost-top.data.png":
 /*!************************************************!*\
   !*** ./asset/data/vengeful_ghost-top.data.png ***!
@@ -11630,6 +11640,7 @@ var buffsList = {
     GladiatorsRageBuff: getByID('GladiatorsRageBuff'),
     NecrosisBuff: getByID('NecrosisBuff'),
     OverloadBuff: getByID('OverloadBuff'),
+    SupremeOverloadBuff: getByID('SupremeOverloadBuff'),
     TimeRiftBuff: getByID('TimeRiftBuff'),
     WeaponPoisonBuff: getByID('WeaponPoisonBuff'),
     Aura: getByID('Aura'),
@@ -11702,6 +11713,7 @@ var buffImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     gladiatorsRage: __webpack_require__(/*! ./asset/data/Gladiators_Rage-noborder.data.png */ "./asset/data/Gladiators_Rage-noborder.data.png"),
     necrosis: __webpack_require__(/*! ./asset/data/Necrosis-noborder.data.png */ "./asset/data/Necrosis-noborder.data.png"),
     overloaded: __webpack_require__(/*! ./asset/data/Overloaded-noborder.data.png */ "./asset/data/Overloaded-noborder.data.png"),
+    supreme_overloaded: __webpack_require__(/*! ./asset/data/supreme_overload.data.png */ "./asset/data/supreme_overload.data.png"),
     overloadedNoBorder: __webpack_require__(/*! ./asset/data/Overloaded-noborder.data.png */ "./asset/data/Overloaded-noborder.data.png"),
     perfectEquilibrium: __webpack_require__(/*! ./asset/data/Perfect_Equilibrium-noborder.data.png */ "./asset/data/Perfect_Equilibrium-noborder.data.png"),
     perfectEquilibriumNoBorder: __webpack_require__(/*! ./asset/data/Perfect_Equilibrium-noborder.data.png */ "./asset/data/Perfect_Equilibrium-noborder.data.png"),
@@ -11872,6 +11884,10 @@ function watchBuffs() {
             });
             findStatus(buffs, buffImages.elderOverload, buffsList.ElderOverloadBuff, {
                 threshold: 60,
+                expirationPulse: true,
+            });
+            findStatus(buffs, buffImages.supremeOverloadActive, buffsList.SupremeOverloadBuff, {
+                threshold: 50,
                 expirationPulse: true,
             });
             findStatus(buffs, buffImages.poisonous, buffsList.WeaponPoisonBuff, {
