@@ -876,8 +876,8 @@ var ___CSS_LOADER_URL_IMPORT_10___ = new URL(/* asset import */ __webpack_requir
 var ___CSS_LOADER_URL_IMPORT_11___ = new URL(/* asset import */ __webpack_require__(/*! ../../../asset/buffs/sorrow.png */ "./asset/buffs/sorrow.png"), __webpack_require__.b);
 var ___CSS_LOADER_URL_IMPORT_12___ = new URL(/* asset import */ __webpack_require__(/*! ../../../asset/buffs/torment.png */ "./asset/buffs/torment.png"), __webpack_require__.b);
 var ___CSS_LOADER_URL_IMPORT_13___ = new URL(/* asset import */ __webpack_require__(/*! ../../../asset/buffs/turmoil.png */ "./asset/buffs/turmoil.png"), __webpack_require__.b);
-var ___CSS_LOADER_URL_IMPORT_14___ = new URL(/* asset import */ __webpack_require__(/*! data:image/png;base64, */ "data:image/png;base64,"), __webpack_require__.b);
-var ___CSS_LOADER_URL_IMPORT_15___ = new URL(/* asset import */ __webpack_require__(/*! ../../../asset/buffs/deflect_magic.png */ "./asset/buffs/deflect_magic.png"), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_14___ = new URL(/* asset import */ __webpack_require__(/*! ../../../asset/buffs/deflect_magic.png */ "./asset/buffs/deflect_magic.png"), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_15___ = new URL(/* asset import */ __webpack_require__(/*! ../../../asset/buffs/deflect_melee.png */ "./asset/buffs/deflect_melee.png"), __webpack_require__.b);
 var ___CSS_LOADER_URL_IMPORT_16___ = new URL(/* asset import */ __webpack_require__(/*! ../../../asset/buffs/deflect_necromancy.png */ "./asset/buffs/deflect_necromancy.png"), __webpack_require__.b);
 var ___CSS_LOADER_URL_IMPORT_17___ = new URL(/* asset import */ __webpack_require__(/*! ../../../asset/buffs/deflect_ranged.png */ "./asset/buffs/deflect_ranged.png"), __webpack_require__.b);
 var ___CSS_LOADER_URL_IMPORT_18___ = new URL(/* asset import */ __webpack_require__(/*! ../../../asset/buffs/protect_from_magic.png */ "./asset/buffs/protect_from_magic.png"), __webpack_require__.b);
@@ -7525,17 +7525,6 @@ module.exports = "data:font/opentype;base64,d09GRk9UVE8AAIM0AAwAAAAAr4QAAAAAAAAA
 
 /***/ }),
 
-/***/ "data:image/png;base64,":
-/*!******************************!*\
-  !*** data:image/png;base64, ***!
-  \******************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = "data:image/png;base64,";
-
-/***/ }),
-
 /***/ "./appconfig.json":
 /*!************************!*\
   !*** ./appconfig.json ***!
@@ -7588,6 +7577,17 @@ module.exports = __webpack_require__.p + "blank.png";
 
 "use strict";
 module.exports = __webpack_require__.p + "deflect_magic.png";
+
+/***/ }),
+
+/***/ "./asset/buffs/deflect_melee.png":
+/*!***************************************!*\
+  !*** ./asset/buffs/deflect_melee.png ***!
+  \***************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "deflect_melee.png";
 
 /***/ }),
 
@@ -12593,7 +12593,7 @@ function testOverheadPrayers(buff) {
                 };
                 for (_i = 0, _a = Object.entries(prayerTests); _i < _a.length; _i++) {
                     _b = _a[_i], key = _b[0], value = _b[1];
-                    if (value > 300) {
+                    if (value > 240) {
                         prayersList.OverheadPrayer.dataset.prayer = key
                             .toString()
                             .toLowerCase();

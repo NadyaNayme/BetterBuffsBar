@@ -1270,7 +1270,7 @@ async function testOverheadPrayers(buff: BuffReader.Buff) {
 		};
 
 		for (let [key, value] of Object.entries(prayerTests)) {
-			if (value > 300) {
+			if (value > 240) {
 				prayersList.OverheadPrayer.dataset.prayer = key
 					.toString()
 					.toLowerCase();

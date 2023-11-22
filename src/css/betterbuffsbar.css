@@ -385,11 +385,11 @@ html:not(.beta) .beta-only {
 }
 
 #OverheadPrayer[data-prayer="deflectmagic"] {
-  background-image: url("data:image/png;base64,");
+  background-image: url("/asset/buffs/deflect_magic.png");
 }
 
 #OverheadPrayer[data-prayer="deflectmelee"] {
-  background-image: url('/asset/buffs/deflect_magic.png');
+  background-image: url('/asset/buffs/deflect_melee.png');
 }
 
 #OverheadPrayer[data-prayer="deflectnecromancy"] {
