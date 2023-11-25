@@ -173,6 +173,10 @@ export function createProfileManager() {
 	function createProfile() {
 		let profileNameInput: HTMLInputElement = container.querySelector('#ProfileName');
 		let profileName = profileNameInput.value;
+		if (profileName.indexOf('|') > -1) {
+			console.log('Pipe character is not allowed in profile names.')
+			return
+		}
 		let profiles = localStorage.getItem('bbb_profiles');
 		if (profiles == undefined) {
 			profiles = '';
