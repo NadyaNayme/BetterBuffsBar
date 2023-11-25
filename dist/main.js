@@ -13364,7 +13364,7 @@ function roundedToFixed(input, digits) {
     return (Math.round(input * rounder) / rounder).toFixed(digits);
 }
 /* Settings */
-var currentVersion = "2.0.5";
+var currentVersion = "2.0.6";
 var settingsObject = {
     settingsHeader: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createHeading('h2', 'Better Buffs Bar - v' + currentVersion),
     settingDiscord: _a1sauce__WEBPACK_IMPORTED_MODULE_0__.createText("Please <a href=\"https://discord.gg/KJ2SgWyJFF\" target=\"_blank\" rel=\"nofollow\">join the Discord</a> for any suggestions or support"),

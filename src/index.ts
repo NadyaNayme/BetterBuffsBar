@@ -2146,7 +2146,7 @@ function roundedToFixed(input, digits) {
 }
 
 /* Settings */
-const currentVersion = "2.0.5";
+const currentVersion = "2.0.6";
 const settingsObject = {
 	settingsHeader: sauce.createHeading(
 		'h2',
