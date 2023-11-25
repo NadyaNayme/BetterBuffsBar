@@ -12412,7 +12412,7 @@ function findDeathspores(buffsReader, buffImage, element, options) {
                     return [4 /*yield*/, setActive(element)];
                 case 2:
                     _r.sent();
-                    buffTimeRemaining = timearg.time - cooldownAdjustment;
+                    buffTimeRemaining = timearg - cooldownAdjustment;
                     element.dataset.time = buffTimeRemaining.toString();
                     return [3 /*break*/, 5];
                 case 3: return [4 /*yield*/, setInactive(element)];

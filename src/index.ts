@@ -1076,7 +1076,7 @@ async function findDeathspores(
 				timearg = value.readArg('timearg').time;
 				if (timearg <= 9 && timearg >= 0) {
 					await setActive(element);
-					let buffTimeRemaining = timearg.time - cooldownAdjustment;
+					let buffTimeRemaining = timearg - cooldownAdjustment;
 					element.dataset.time = buffTimeRemaining.toString();
 				} else {
 					await setInactive(element);
