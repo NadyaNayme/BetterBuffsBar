@@ -1055,7 +1055,6 @@ async function findDeathspores(
 	// Declared outside of the loop so that it can be checked to be Undefined if no buffs are found
 	let timearg;
 	let foundBuff = false;
-	let cooldownAdjustment = parseInt(sauce.getSetting('delayAdjustment'), 10);
 
 	for (let [_key, value] of Object.entries(buffsReader)) {
 		// If the buff has been found do an early return
@@ -1065,30 +1064,29 @@ async function findDeathspores(
 
 		let findBuffImage = value.countMatch(buffImage, false);
 
-		if (findBuffImage.passed > threshold && element.classList.contains('inactive')) {
+		if (findBuffImage.passed > threshold && element.classList.contains('inactive') && element.dataset.time == '' && !foundBuff) {
 			// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
 			foundBuff = true;
-			await setActive(element);
-
 			// This is a sin. I do not care.
 			element.dataset.time = '9';
-			await new Promise((done) => setTimeout(done, 1000));
+			await setActive(element);
+			setTimeout(() => {}, 1000);
 			element.dataset.time = '8';
-			await new Promise((done) => setTimeout(done, 1000));
+			setTimeout(() => {}, 1000);
 			element.dataset.time = '7';
-			await new Promise((done) => setTimeout(done, 1000));
+			setTimeout(() => {}, 1000);
 			element.dataset.time = '6';
-			await new Promise((done) => setTimeout(done, 1000));
+			setTimeout(() => {}, 1000);
 			element.dataset.time = '5';
-			await new Promise((done) => setTimeout(done, 1000));
+			setTimeout(() => {}, 1000);
 			element.dataset.time = '4';
-			await new Promise((done) => setTimeout(done, 1000));
+			setTimeout(() => {}, 1000);
 			element.dataset.time = '3';
-			await new Promise((done) => setTimeout(done, 1000));
+			setTimeout(() => {}, 1000);
 			element.dataset.time = '2';
-			await new Promise((done) => setTimeout(done, 1000));
+			setTimeout(() => {}, 1000);
 			element.dataset.time = '1';
-			await new Promise((done) => setTimeout(done, 1000));
+			setTimeout(() => {}, 1000);
 			element.dataset.time = '';
 			setInactive(element);
 		}
@@ -1096,14 +1094,6 @@ async function findDeathspores(
 		else if (!showCooldown) {
 			await setInactive(element);
 		}
-	}
-
-	if (
-		cooldownTimer > 0 &&
-		element.dataset.cooldown == '0' &&
-		!element.classList.contains('active')
-	) {
-		setInactive(element);
 	}
 
 	// If we didn't find the buff try again after a brief timeout
