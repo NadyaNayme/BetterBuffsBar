@@ -7309,13 +7309,13 @@ function createProfileManager() {
             .getItem('bbb_profiles')
             .split('|')
             .filter(function (str) { return str !== ''; });
+        profiles.forEach(function (profile, index) {
+            profileOptions.push({ value: index.toString(), name: profile });
+        });
     }
     else {
         profiles = '|';
     }
-    profiles.forEach(function (profile, index) {
-        profileOptions.push({ value: index.toString(), name: profile });
-    });
     var profileHeader = createHeading('h3', 'Profiles');
     var profileText = createText('Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.');
     var saveButton = createButton('Create', createProfile, {

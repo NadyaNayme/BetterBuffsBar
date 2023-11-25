@@ -252,14 +252,12 @@ export function createProfileManager() {
 			.getItem('bbb_profiles')
 			.split('|')
 			.filter((str) => str !== '');
+		profiles.forEach((profile, index) => {
+			profileOptions.push({ value: index.toString(), name: profile });
+		});
 	} else {
 		profiles = '|';
 	}
-
-
-	profiles.forEach((profile, index) => {
-		profileOptions.push({value: index.toString(), name: profile});
-	});
 
 	var profileHeader = createHeading('h3', 'Profiles');
 	var profileText = createText(
