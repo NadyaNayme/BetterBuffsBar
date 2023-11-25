@@ -12408,7 +12408,7 @@ function findDeathspores(buffsReader, buffImage, element, options) {
                     // If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
                     foundBuff = true;
                     timearg = value.readArg('timearg').time;
-                    if (!(timearg <= 9 && timearg >= 0)) return [3 /*break*/, 3];
+                    if (!(timearg <= 9 && timearg >= 1)) return [3 /*break*/, 3];
                     return [4 /*yield*/, setActive(element)];
                 case 2:
                     _r.sent();
