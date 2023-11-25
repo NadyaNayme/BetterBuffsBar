@@ -12406,9 +12406,7 @@ function findDeathspores(buffsReader, buffImage, element, options) {
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (!(findBuffImage.passed > threshold &&
-                        !element.classList.contains('active') &&
-                        element.dataset.time == '')) return [3 /*break*/, 6];
+                    if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 6];
                     // If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
                     foundBuff = true;
                     timearg = value.readArg('timearg').time;

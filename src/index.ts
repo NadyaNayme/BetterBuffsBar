@@ -1067,9 +1067,7 @@ async function findDeathspores(
 
 		let findBuffImage = value.countMatch(buffImage, false);
 			if (
-				findBuffImage.passed > threshold &&
-				!element.classList.contains('active') &&
-				element.dataset.time == ''
+				findBuffImage.passed > threshold
 			) {
 				// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
 				foundBuff = true;
