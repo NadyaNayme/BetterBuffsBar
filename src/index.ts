@@ -1070,15 +1070,27 @@ async function findDeathspores(
 			foundBuff = true;
 			await setActive(element);
 
-			timearg = value.readArg('timearg');
-
-			// If the time remaining is 1 and the buff is supposed to show a cooldown - start the cooldown timer and stop evaluating
-			if (timearg.time >= '51') {
-				let buffTimeRemaining = timearg.time - 51 - cooldownAdjustment;
-				element.dataset.time = buffTimeRemaining.toString();
-			} else {
-				setInactive(element);
-			}
+			// This is a sin. I do not care.
+			element.dataset.time = '9';
+			await new Promise((done) => setTimeout(done, 1000));
+			element.dataset.time = '8';
+			await new Promise((done) => setTimeout(done, 1000));
+			element.dataset.time = '7';
+			await new Promise((done) => setTimeout(done, 1000));
+			element.dataset.time = '6';
+			await new Promise((done) => setTimeout(done, 1000));
+			element.dataset.time = '5';
+			await new Promise((done) => setTimeout(done, 1000));
+			element.dataset.time = '4';
+			await new Promise((done) => setTimeout(done, 1000));
+			element.dataset.time = '3';
+			await new Promise((done) => setTimeout(done, 1000));
+			element.dataset.time = '2';
+			await new Promise((done) => setTimeout(done, 1000));
+			element.dataset.time = '1';
+			await new Promise((done) => setTimeout(done, 1000));
+			element.dataset.time = '';
+			setInactive(element);
 		}
 		// Failing all else - as long as we are not displaying a cooldown set the item to inactive
 		else if (!showCooldown) {

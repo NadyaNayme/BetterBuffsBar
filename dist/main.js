@@ -12367,7 +12367,7 @@ function findStatus(buffsReader, buffImage, element, options) {
 function findDeathspores(buffsReader, buffImage, element, options) {
     var _a, _b, _c, _d, _e, _f;
     return __awaiter(this, void 0, void 0, function () {
-        var _g, threshold, _h, expirationPulse, _j, minRange, _k, maxRange, _l, showCooldown, _m, cooldownTimer, _o, debug, timearg, foundBuff, cooldownAdjustment, _i, _p, _q, _key, value, findBuffImage, buffTimeRemaining;
+        var _g, threshold, _h, expirationPulse, _j, minRange, _k, maxRange, _l, showCooldown, _m, cooldownTimer, _o, debug, timearg, foundBuff, cooldownAdjustment, _i, _p, _q, _key, value, findBuffImage;
         return __generator(this, function (_r) {
             switch (_r.label) {
                 case 0:
@@ -12384,58 +12384,88 @@ function findDeathspores(buffsReader, buffImage, element, options) {
                     _i = 0, _p = Object.entries(buffsReader);
                     _r.label = 1;
                 case 1:
-                    if (!(_i < _p.length)) return [3 /*break*/, 6];
+                    if (!(_i < _p.length)) return [3 /*break*/, 15];
                     _q = _p[_i], _key = _q[0], value = _q[1];
                     // If the buff has been found do an early return
                     if (foundBuff) {
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 3];
+                    if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 12];
                     // If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
                     foundBuff = true;
                     return [4 /*yield*/, setActive(element)];
                 case 2:
                     _r.sent();
-                    timearg = value.readArg('timearg');
-                    // If the time remaining is 1 and the buff is supposed to show a cooldown - start the cooldown timer and stop evaluating
-                    if (timearg.time >= '51') {
-                        buffTimeRemaining = timearg.time - 51 - cooldownAdjustment;
-                        element.dataset.time = buffTimeRemaining.toString();
-                    }
-                    else {
-                        setInactive(element);
-                    }
-                    return [3 /*break*/, 5];
+                    // This is a sin. I do not care.
+                    element.dataset.time = '9';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 3:
-                    if (!!showCooldown) return [3 /*break*/, 5];
-                    return [4 /*yield*/, setInactive(element)];
+                    _r.sent();
+                    element.dataset.time = '8';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 4:
                     _r.sent();
-                    _r.label = 5;
+                    element.dataset.time = '7';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 5:
+                    _r.sent();
+                    element.dataset.time = '6';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 6:
+                    _r.sent();
+                    element.dataset.time = '5';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 7:
+                    _r.sent();
+                    element.dataset.time = '4';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 8:
+                    _r.sent();
+                    element.dataset.time = '3';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 9:
+                    _r.sent();
+                    element.dataset.time = '2';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 10:
+                    _r.sent();
+                    element.dataset.time = '1';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 11:
+                    _r.sent();
+                    element.dataset.time = '';
+                    setInactive(element);
+                    return [3 /*break*/, 14];
+                case 12:
+                    if (!!showCooldown) return [3 /*break*/, 14];
+                    return [4 /*yield*/, setInactive(element)];
+                case 13:
+                    _r.sent();
+                    _r.label = 14;
+                case 14:
                     _i++;
                     return [3 /*break*/, 1];
-                case 6:
+                case 15:
                     if (cooldownTimer > 0 &&
                         element.dataset.cooldown == '0' &&
                         !element.classList.contains('active')) {
                         setInactive(element);
                     }
-                    if (!(timearg == undefined && foundBuff && !showCooldown)) return [3 /*break*/, 10];
-                    if (!expirationPulse) return [3 /*break*/, 8];
+                    if (!(timearg == undefined && foundBuff && !showCooldown)) return [3 /*break*/, 19];
+                    if (!expirationPulse) return [3 /*break*/, 17];
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
-                case 7:
+                case 16:
                     _r.sent();
-                    _r.label = 8;
-                case 8: return [4 /*yield*/, setInactive(element)];
-                case 9:
+                    _r.label = 17;
+                case 17: return [4 /*yield*/, setInactive(element)];
+                case 18:
                     _r.sent();
-                    _r.label = 10;
-                case 10: 
+                    _r.label = 19;
+                case 19: 
                 // Give a very brief pause before checking again
                 return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 11:
+                case 20:
                     // Give a very brief pause before checking again
                     _r.sent();
                     return [2 /*return*/, timearg];
