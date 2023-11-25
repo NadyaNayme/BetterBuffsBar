@@ -7380,7 +7380,6 @@ function createProfileManager() {
     container.classList.remove('flex');
     var endSeperator = createSeperator();
     container.classList.add('flex-wrap');
-    container.classList.add('beta-only');
     container.appendChild(profileHeader);
     container.appendChild(profileText);
     container.appendChild(loadOptions);
