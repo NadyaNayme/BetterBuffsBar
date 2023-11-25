@@ -791,6 +791,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
+/***/ "./asset/data/deathspore_arrows.data.png":
+/*!***********************************************!*\
+  !*** ./asset/data/deathspore_arrows.data.png ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAEtQTFRFAAAAU1laMTQ2bHR1TVJUOjQohY6QTFFTU1haW2FiHiEiAwIDVWVOJCEaRFA+Pkk4ZnZbHSIaXGpQWltEWmlQS1hESU06UWBJVlM9mDpC4gAAABl0Uk5TAP///////////////////////////////zBTSd0AAABPSURBVHicY2CgEWDEIc5EsknMLDilWLELs5FsBwM7BycXN4LLgyTFi6qSD7ch/NiFBRgYBIWwSwkT5TgUIIJdWBSIxbBLieM2TIJ0+2kFAFDIAS1Y11HCAAAAAElFTkSuQmCC")
+
+/***/ }),
+
 /***/ "./asset/data/fsoaSpecBuff-noborder.data.png":
 /*!***************************************************!*\
   !*** ./asset/data/fsoaSpecBuff-noborder.data.png ***!
@@ -11691,6 +11701,7 @@ var debuffsList = {
     SignOfLifeDebuff: getByID('SignOfLifeDebuff'),
     Virus: getByID('VirusDebuff'),
     PowerburstPrevention: getByID('PowerburstPreventionDebuff'),
+    FeastingSpores: getByID('FestingSporesBuff'),
 };
 var sigilsList = {
     DemonSlayer: getByID('DemonSlayerSigil'),
@@ -11776,6 +11787,7 @@ var debuffImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     blueVirus: __webpack_require__(/*! ./asset/data/Blue_virus.data.png */ "./asset/data/Blue_virus.data.png"),
     greenVirus: __webpack_require__(/*! ./asset/data/Green_virus.data.png */ "./asset/data/Green_virus.data.png"),
     powerburstPrevention: __webpack_require__(/*! ./asset/data/Powerburst_prevention.data.png */ "./asset/data/Powerburst_prevention.data.png"),
+    FeastingSpores: __webpack_require__(/*! ./asset/data/deathspore_arrows.data.png */ "./asset/data/deathspore_arrows.data.png"),
 });
 var ultimateImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     berserk: __webpack_require__(/*! ./asset/data/Berserk-noborder.data.png */ "./asset/data/Berserk-noborder.data.png"),
@@ -12107,6 +12119,7 @@ function watchBuffs() {
             findStatus(debuffs, debuffImages.stunnedDebuff, debuffsList.StunnedDebuff, { threshold: 60 });
             findStatus(debuffs, debuffImages.signOfLifeDebuff, debuffsList.SignOfLifeDebuff, { threshold: 20 });
             findStatus(debuffs, debuffImages.powerburstPrevention, debuffsList.PowerburstPrevention, { threshold: 20 });
+            findDeathspores(debuffs, debuffImages.FeastingSpores, debuffsList.FeastingSpores, { threshold: 22 });
             findVirus(debuffs);
             findPrayer(buffs.reverse(), debuffs);
             if ((debuffs === null || debuffs === void 0 ? void 0 : debuffs.length) == 0) {
@@ -12346,6 +12359,85 @@ function findStatus(buffsReader, buffImage, element, options) {
                 case 22:
                     // Give a very brief pause before checking again
                     _u.sent();
+                    return [2 /*return*/, timearg];
+            }
+        });
+    });
+}
+function findDeathspores(buffsReader, buffImage, element, options) {
+    var _a, _b, _c, _d, _e, _f;
+    return __awaiter(this, void 0, void 0, function () {
+        var _g, threshold, _h, expirationPulse, _j, minRange, _k, maxRange, _l, showCooldown, _m, cooldownTimer, _o, debug, timearg, foundBuff, cooldownAdjustment, _i, _p, _q, _key, value, findBuffImage, buffTimeRemaining;
+        return __generator(this, function (_r) {
+            switch (_r.label) {
+                case 0:
+                    _g = options.threshold, threshold = _g === void 0 ? (_a = options.threshold) !== null && _a !== void 0 ? _a : 100 : _g, _h = options.expirationPulse, expirationPulse = _h === void 0 ? (_b = options.expirationPulse) !== null && _b !== void 0 ? _b : false : _h, _j = options.minRange, minRange = _j === void 0 ? (_c = options.minRange) !== null && _c !== void 0 ? _c : 0 : _j, _k = options.maxRange, maxRange = _k === void 0 ? (_d = options.maxRange) !== null && _d !== void 0 ? _d : Infinity : _k, _l = options.showCooldown, showCooldown = _l === void 0 ? (_e = options.showCooldown) !== null && _e !== void 0 ? _e : false : _l, _m = options.cooldownTimer, cooldownTimer = _m === void 0 ? options.cooldownTimer : _m, _o = options.debug, debug = _o === void 0 ? (_f = options.debug) !== null && _f !== void 0 ? _f : false : _o;
+                    // Exit early if our buff isn't in the Tracked Buffs list
+                    if ((!getByID('Buffs').contains(element) &&
+                        !getByID('Buffs2').contains(element) &&
+                        !getByID('Buffs3').contains(element)) ||
+                        !buffsReader) {
+                        return [2 /*return*/];
+                    }
+                    foundBuff = false;
+                    cooldownAdjustment = parseInt(_a1sauce__WEBPACK_IMPORTED_MODULE_0__.getSetting('delayAdjustment'), 10);
+                    _i = 0, _p = Object.entries(buffsReader);
+                    _r.label = 1;
+                case 1:
+                    if (!(_i < _p.length)) return [3 /*break*/, 6];
+                    _q = _p[_i], _key = _q[0], value = _q[1];
+                    // If the buff has been found do an early return
+                    if (foundBuff) {
+                        return [2 /*return*/];
+                    }
+                    findBuffImage = value.countMatch(buffImage, false);
+                    if (!(findBuffImage.passed > threshold)) return [3 /*break*/, 3];
+                    // If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
+                    foundBuff = true;
+                    return [4 /*yield*/, setActive(element)];
+                case 2:
+                    _r.sent();
+                    timearg = value.readArg('timearg');
+                    // If the time remaining is 1 and the buff is supposed to show a cooldown - start the cooldown timer and stop evaluating
+                    if (timearg.time >= '51') {
+                        buffTimeRemaining = timearg.time - 51 - cooldownAdjustment;
+                        element.dataset.time = buffTimeRemaining.toString();
+                    }
+                    else {
+                        setInactive(element);
+                    }
+                    return [3 /*break*/, 5];
+                case 3:
+                    if (!!showCooldown) return [3 /*break*/, 5];
+                    return [4 /*yield*/, setInactive(element)];
+                case 4:
+                    _r.sent();
+                    _r.label = 5;
+                case 5:
+                    _i++;
+                    return [3 /*break*/, 1];
+                case 6:
+                    if (cooldownTimer > 0 &&
+                        element.dataset.cooldown == '0' &&
+                        !element.classList.contains('active')) {
+                        setInactive(element);
+                    }
+                    if (!(timearg == undefined && foundBuff && !showCooldown)) return [3 /*break*/, 10];
+                    if (!expirationPulse) return [3 /*break*/, 8];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                case 7:
+                    _r.sent();
+                    _r.label = 8;
+                case 8: return [4 /*yield*/, setInactive(element)];
+                case 9:
+                    _r.sent();
+                    _r.label = 10;
+                case 10: 
+                // Give a very brief pause before checking again
+                return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
+                case 11:
+                    // Give a very brief pause before checking again
+                    _r.sent();
                     return [2 /*return*/, timearg];
             }
         });

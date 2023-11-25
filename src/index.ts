@@ -101,6 +101,7 @@ let debuffsList = {
 	SignOfLifeDebuff: getByID('SignOfLifeDebuff'),
 	Virus: getByID('VirusDebuff'),
 	PowerburstPrevention: getByID('PowerburstPreventionDebuff'),
+	FeastingSpores: getByID('FestingSporesBuff'),
 };
 
 let sigilsList = {
@@ -192,6 +193,7 @@ var debuffImages = a1lib.webpackImages({
 	blueVirus: require('./asset/data/Blue_virus.data.png'),
 	greenVirus: require('./asset/data/Green_virus.data.png'),
 	powerburstPrevention: require('./asset/data/Powerburst_prevention.data.png'),
+	FeastingSpores: require('./asset/data/deathspore_arrows.data.png'),
 });
 
 var ultimateImages = a1lib.webpackImages({
@@ -759,6 +761,13 @@ function watchBuffs() {
 				{ threshold: 20 }
 			);
 
+			findDeathspores(
+				debuffs,
+				debuffImages.FeastingSpores,
+				debuffsList.FeastingSpores,
+				{ threshold: 22 }
+			);
+
 			findVirus(debuffs);
 
 			findPrayer(buffs.reverse(), debuffs);
@@ -994,6 +1003,94 @@ async function findStatus(
 	}
 
 	if (cooldownTimer > 0 && element.dataset.cooldown == '0' && !element.classList.contains('active')) {
+		setInactive(element);
+	}
+
+	// If we didn't find the buff try again after a brief timeout
+	if (timearg == undefined && foundBuff && !showCooldown) {
+		// The FoundBuff ensures we don't wait 10s to add inactive when BBB first loads
+		if (expirationPulse) {
+			await new Promise((done) => setTimeout(done, 10000));
+		}
+		await setInactive(element);
+	}
+	// Give a very brief pause before checking again
+	await new Promise((done) => setTimeout(done, 10));
+	return timearg;
+}
+
+async function findDeathspores(
+	buffsReader: BuffReader.Buff[],
+	buffImage: ImageData,
+	element: HTMLElement,
+	options: {
+		threshold: number;
+		expirationPulse?: boolean;
+		minRange?: number;
+		maxRange?: number;
+		showCooldown?: boolean;
+		cooldownTimer?: number;
+		debug?: boolean;
+	}
+) {
+	let {
+		threshold = options.threshold ?? 100,
+		expirationPulse = options.expirationPulse ?? false,
+		minRange = options.minRange ?? 0,
+		maxRange = options.maxRange ?? Infinity,
+		showCooldown = options.showCooldown ?? false,
+		cooldownTimer = options.cooldownTimer,
+		debug = options.debug ?? false,
+	} = options;
+	// Exit early if our buff isn't in the Tracked Buffs list
+	if (
+		(!getByID('Buffs').contains(element) &&
+			!getByID('Buffs2').contains(element) &&
+			!getByID('Buffs3').contains(element)) ||
+		!buffsReader
+	) {
+		return;
+	}
+
+	// Declared outside of the loop so that it can be checked to be Undefined if no buffs are found
+	let timearg;
+	let foundBuff = false;
+	let cooldownAdjustment = parseInt(sauce.getSetting('delayAdjustment'), 10);
+
+	for (let [_key, value] of Object.entries(buffsReader)) {
+		// If the buff has been found do an early return
+		if (foundBuff) {
+			return;
+		}
+
+		let findBuffImage = value.countMatch(buffImage, false);
+
+		if (findBuffImage.passed > threshold) {
+			// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
+			foundBuff = true;
+			await setActive(element);
+
+			timearg = value.readArg('timearg');
+
+			// If the time remaining is 1 and the buff is supposed to show a cooldown - start the cooldown timer and stop evaluating
+			if (timearg.time >= '51') {
+				let buffTimeRemaining = timearg.time - 51 - cooldownAdjustment;
+				element.dataset.time = buffTimeRemaining.toString();
+			} else {
+				setInactive(element);
+			}
+		}
+		// Failing all else - as long as we are not displaying a cooldown set the item to inactive
+		else if (!showCooldown) {
+			await setInactive(element);
+		}
+	}
+
+	if (
+		cooldownTimer > 0 &&
+		element.dataset.cooldown == '0' &&
+		!element.classList.contains('active')
+	) {
 		setInactive(element);
 	}
 
