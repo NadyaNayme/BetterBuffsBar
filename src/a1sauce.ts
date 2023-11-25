@@ -169,116 +169,94 @@ export function createRangeSetting(
 }
 
 export function createProfileManager() {
-	function saveProfile() {
-		let id = container.querySelector('select').selectedIndex;
-		if (id !== 0) {
-			let profiles = getSetting('profiles');
-			let loadOptions = container.querySelector('select');
-			if (!getSetting('profiles')) {
-				profiles = [
-					{ value: '0', name: 'Select Profile' },
-					{ value: 'Melee', name: 'Melee' },
-					{ value: 'Ranged', name: 'Ranged' },
-					{ value: 'Magic', name: 'Magic' },
-					{ value: 'Necromancy', name: 'Necromancy' },
-					{ value: 'Hybrid', name: 'Hybrid' },
-				];
-				updateSetting('profiles', profiles);
-			}
 
-			let name = container.querySelector('input').value;
-			profiles[id].name = name;
-
-			let data = [];
-			let trackedBuffs = localStorage['Buffs'];
-			let untrackedBuffs = localStorage['UntrackedBuffs'];
-			let settings = JSON.parse(localStorage[config.appName]);
-			let profile_data = { trackedBuffs, untrackedBuffs, settings };
-			data.push(profile_data);
-			profiles[id].value = data;
-			updateSetting('profiles', profiles);
-			let profileOptions = [
-				{ value: '0', name: 'Select Profile' },
-				{ value: 'Melee', name: 'Melee' },
-				{ value: 'Ranged', name: 'Ranged' },
-				{ value: 'Magic', name: 'Magic' },
-				{ value: 'Necromancy', name: 'Necromancy' },
-				{ value: 'Hybrid', name: 'Hybrid' },
-			];
-			let savedProfiles = getSetting('profiles');
-			savedProfiles?.forEach((profile, index) => {
-				profileOptions[index].value = profile.name;
-				profileOptions[index].name = profile.name;
-			});
-			loadOptions.parentElement.replaceWith(
-				createDropdownSetting(
-					'Profile',
-					'',
-					'CreateNew',
-					profileOptions
-				)
-			);
-			document
-				.querySelector('#Profile')
-				.addEventListener('change', () => {
-					let name: HTMLInputElement =
-						document.querySelector('.profile-name');
-					let dropdown: HTMLSelectElement =
-						document.querySelector('#Profile');
-					name.value = dropdown.value;
-				});
+	function createProfile() {
+		let profileNameInput: HTMLInputElement = container.querySelector('#ProfileName');
+		let profileName = profileNameInput.value;
+		let profiles = localStorage.getItem('bbb_profiles');
+		if (profiles == undefined) {
+			profiles = '';
 		}
-	}
-
-	function loadProfile() {
-		let id = container.querySelector('select').selectedIndex;
-		if (id !== 0) {
-			let data = getSetting('profiles');
-			data[id].value.forEach((key) => {
-				localStorage['Buffs'] = key.trackedBuffs;
-				localStorage['Buffs2'] = key.trackedBuffs2;
-				localStorage['Buffs3'] = key.trackedBuffs3;
-				localStorage['UntrackedBuffs'] = key.untrackedBuffs;
-				Object.keys(key.settings).forEach((setting) => {
-					if (setting.toString() !== 'profiles') {
-						updateSetting(setting, key.settings[setting]);
-					}
-				});
-			});
-		}
+		profiles = profiles + '|' + profileName + '|';
+		localStorage.setItem('bbb_profiles', profiles);
+		let data = {};
+		data['Buffs'] = localStorage['Buffs'];
+		data['Buffs2'] = localStorage['Buffs2'];
+		data['Buffs3'] = localStorage['Buffs3'];
+		data['UntrackedBuffs'] = localStorage['UntrackedBuffs'];
+		data['Settings'] = JSON.parse(localStorage[config.appName]);
+		localStorage.setItem(`bbb_profile_${profileName}`, JSON.stringify(data));
+		console.log(`${profileName} added to profiles. Existing profiles: \n ${profiles}`);
+		location.reload();
 	}
 
 	function deleteProfile() {
-		let id = container.querySelector('select').selectedIndex;
-		let profiles = getSetting('profiles');
-		if (id !== 0) {
-			profiles.splice(id, 1);
-			updateSetting('profiles', profiles);
-		}
-		loadOptions.parentElement.replaceWith(
-			createDropdownSetting('Profile', '', 'CreateNew', profiles)
-		);
+		let index = container.querySelector('select').selectedIndex;
+		let profileName = container.querySelector('select').options[index].text;
+		console.log(`Deleting: ${profileName} profile`);
+		let profiles = localStorage
+			.getItem('bbb_profiles')
+			.split('|')
+			.filter((str) => str !== '');
+		profiles = profiles.filter((item) => item !== profileName);
+		localStorage.setItem('bbb_profiles', profiles.join('|') + '|');
+		localStorage.removeItem(`bbb_profile_${profileName}`);
+		location.reload();
 	}
+
+	function loadProfile() {
+		let index = container.querySelector('select').selectedIndex;
+		if (index !== 0) {
+			let profiles = localStorage
+				.getItem('bbb_profiles')
+				.split('|')
+				.filter((str) => str !== '');
+			let storageName = profiles[index - 1];
+			let data = JSON.parse(localStorage.getItem(`bbb_profile_${storageName}`));
+				if (data['Buffs'] !== undefined && data['Buffs'] !== '') {
+					localStorage.setItem('Buffs', data['Buffs']);
+				}
+				if (data['Buffs2'] !== undefined && data['Buffs2'] !== "") {
+					localStorage.setItem('Buffs2', data['Buffs2']);
+				}
+				if (data['Buffs3'] !== undefined && data['Buffs3'] !== '') {
+					localStorage.setItem('Buffs3', data['Buffs3']);
+				}
+				if (
+					data['UntrackedBuffs'] !== undefined &&
+					data['UntrackedBuffs'] !== ''
+				) {
+					localStorage.setItem(
+						'UntrackedBuffs',
+						data['UntrackedBuffs']
+					);
+				}
+				Object.entries(data['Settings']).forEach((setting) => {
+					updateSetting(setting[0], setting[1]);
+				});
+		}
+		location.reload();
+	}
+
 
 	let profileOptions = [
 		{ value: '0', name: 'Select Profile' },
-		{ value: 'Melee', name: 'Melee' },
-		{ value: 'Ranged', name: 'Ranged' },
-		{ value: 'Magic', name: 'Magic' },
-		{ value: 'Necromancy', name: 'Necromancy' },
-		{ value: 'Hybrid', name: 'Hybrid' },
 	];
-	let savedProfiles = getSetting('profiles');
-	savedProfiles?.forEach((profile, index) => {
-		profileOptions[index].value = profile.name;
-		profileOptions[index].name = profile.name;
+	let profiles = localStorage
+		.getItem('bbb_profiles')
+		.split('|')
+		.filter((str) => str !== '');
+
+
+	profiles.forEach((profile, index) => {
+		profileOptions.push({value: index.toString(), name: profile});
 	});
 
 	var profileHeader = createHeading('h3', 'Profiles');
 	var profileText = createText(
 		'Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.'
 	);
-	var saveButton = createButton('Save', saveProfile, {
+	var saveButton = createButton('Create', createProfile, {
 		classes: ['nisbutton'],
 	});
 	var profileName = createInput('text', 'ProfileName', '');
@@ -295,8 +273,8 @@ export function createProfileManager() {
 		classes: ['nisbutton'],
 	});
 	loadButton.classList.add('load-btn');
-	var deleteButton = createButton('Delete Profile', deleteProfile, {
-		classes: ['delete'],
+	var deleteButton = createButton('Delete', deleteProfile, {
+		classes: ['nisbutton', 'delete'],
 	});
 	var container = createFlexContainer();
 	container.classList.remove('flex');
@@ -310,6 +288,7 @@ export function createProfileManager() {
 	container.appendChild(saveButton);
 	container.appendChild(profileName);
 	container.appendChild(loadButton);
+	container.appendChild(deleteButton);
 	//container.appendChild(deleteButton);
 	container.appendChild(endSeperator);
 	return container;

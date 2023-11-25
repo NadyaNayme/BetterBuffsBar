@@ -2259,9 +2259,9 @@ settingsObject.ProfileManager.querySelector('.profile-list').addEventListener(
 	() => {
 		let name: HTMLInputElement =
 			settingsObject.ProfileManager.querySelector('.profile-name');
-		let dropdown: HTMLSelectElement =
-			settingsObject.ProfileManager.querySelector('.profile-list select');
-		name.value = dropdown.value;
+		let index = settingsObject.ProfileManager.querySelector('select').selectedIndex;
+		let profileName = settingsObject.ProfileManager.querySelector('select').options[index].text;
+		name.value = profileName;
 	}
 );
 
