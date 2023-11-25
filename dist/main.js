@@ -1184,6 +1184,10 @@ html:not(.beta) .beta-only {
   margin: 1px;
 }
 
+.tracked-region li {
+  background-color: #282828;
+}
+
 .tracked-region li img,
 #UntrackedBuffs li img {
   background-color: #3e3e3e;
