@@ -12383,7 +12383,7 @@ function findDeathspores(buffsReader, buffImage, element, options) {
                     _i = 0, _p = Object.entries(buffsReader);
                     _r.label = 1;
                 case 1:
-                    if (!(_i < _p.length)) return [3 /*break*/, 4];
+                    if (!(_i < _p.length)) return [3 /*break*/, 12];
                     _q = _p[_i], _key = _q[0], value = _q[1];
                     // If the buff has been found do an early return
                     if (foundBuff) {
@@ -12391,71 +12391,73 @@ function findDeathspores(buffsReader, buffImage, element, options) {
                     }
                     console.log('Looking for a matching debuff....');
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (findBuffImage.passed > threshold) {
-                        console.log('Found a match!');
-                    }
-                    if (!element.classList.contains('active')) {
-                        console.log('Debuff is inactive');
-                    }
-                    else {
-                        console.log('Debuff is active');
-                    }
-                    if (element.dataset.time == '') {
-                        console.log('Timer is empty');
-                    }
-                    else {
-                        console.log("Timer is: ".concat(element.dataset.timer));
-                    }
                     if (!(findBuffImage.passed > threshold &&
                         !element.classList.contains('active') &&
-                        element.dataset.time == '')) return [3 /*break*/, 3];
+                        element.dataset.time == '')) return [3 /*break*/, 11];
                     // If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
                     foundBuff = true;
                     timearg = value.readArg('timearg');
-                    console.log("All checks have passed - starting 9s timer");
                     // This is a sin. I do not care.
+                    element.classList.remove('inactive');
+                    element.classList.add('active');
                     element.dataset.time = '9';
-                    return [4 /*yield*/, setActive(element)];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 2:
                     _r.sent();
-                    setTimeout(function () { }, 1000);
                     element.dataset.time = '8';
-                    setTimeout(function () { }, 1000);
-                    element.dataset.time = '7';
-                    setTimeout(function () { }, 1000);
-                    element.dataset.time = '6';
-                    setTimeout(function () { }, 1000);
-                    element.dataset.time = '5';
-                    setTimeout(function () { }, 1000);
-                    element.dataset.time = '4';
-                    setTimeout(function () { }, 1000);
-                    element.dataset.time = '3';
-                    setTimeout(function () { }, 1000);
-                    element.dataset.time = '2';
-                    setTimeout(function () { }, 1000);
-                    element.dataset.time = '1';
-                    setTimeout(function () { }, 1000);
-                    element.dataset.time = '';
-                    setInactive(element);
-                    _r.label = 3;
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 3:
-                    _i++;
-                    return [3 /*break*/, 1];
+                    _r.sent();
+                    element.dataset.time = '7';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 4:
-                    if (!(timearg == undefined && foundBuff && !showCooldown)) return [3 /*break*/, 8];
-                    if (!expirationPulse) return [3 /*break*/, 6];
-                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                    _r.sent();
+                    element.dataset.time = '6';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 5:
                     _r.sent();
-                    _r.label = 6;
-                case 6: return [4 /*yield*/, setInactive(element)];
+                    element.dataset.time = '5';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 6:
+                    _r.sent();
+                    element.dataset.time = '4';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 7:
                     _r.sent();
-                    _r.label = 8;
-                case 8: 
+                    element.dataset.time = '3';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 8:
+                    _r.sent();
+                    element.dataset.time = '2';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 9:
+                    _r.sent();
+                    element.dataset.time = '1';
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 10:
+                    _r.sent();
+                    element.dataset.time = '';
+                    element.classList.remove('active');
+                    element.classList.add('inactive');
+                    _r.label = 11;
+                case 11:
+                    _i++;
+                    return [3 /*break*/, 1];
+                case 12:
+                    if (!(timearg == undefined && foundBuff && !showCooldown)) return [3 /*break*/, 16];
+                    if (!expirationPulse) return [3 /*break*/, 14];
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                case 13:
+                    _r.sent();
+                    _r.label = 14;
+                case 14: return [4 /*yield*/, setInactive(element)];
+                case 15:
+                    _r.sent();
+                    _r.label = 16;
+                case 16: 
                 // Give a very brief pause before checking again
                 return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 9:
+                case 17:
                     // Give a very brief pause before checking again
                     _r.sent();
                     return [2 /*return*/, timearg];
