@@ -273,7 +273,7 @@ export function createProfileManager() {
 
 	var profileHeader = createHeading('h3', 'Profiles');
 	var profileText = createText(
-		'Select a profile and save settings. You can rename the profile using the text field after selecting. To load a profile select the profile and click load.'
+		'Select a profile to load or delete. To save a new profile, give it a name in the field below and then click Create.'
 	);
 	var saveButton = createButton('Create', createProfile, {
 		classes: ['nisbutton'],
