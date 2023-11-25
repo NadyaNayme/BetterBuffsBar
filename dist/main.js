@@ -7326,7 +7326,7 @@ function createProfileManager() {
         profiles = '|';
     }
     var profileHeader = createHeading('h3', 'Profiles');
-    var profileText = createText('Select a profile to load or delete. To save a new profile, give it a name in the field below and then click Create.');
+    var profileText = createText('Select a profile to load or delete. To save a new profile, give it a name in the field below and then click Save. To upadte an existing profile save a profile using the same name.');
     var saveButton = createButton('Save', saveProfile, {
         classes: ['nisbutton'],
     });
