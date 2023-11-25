@@ -686,6 +686,14 @@ function watchBuffs() {
 				{ threshold: 60 }
 			);
 
+			findDeathspores(
+				buffs,
+				debuffImages.FeastingSpores,
+				debuffsList.FeastingSpores,
+				{ threshold: 22 }
+			);
+
+
 			findStatus(buffs, buffImages.ConjureGhost, buffsList.ConjureGhost, {
 				threshold: 300,
 				expirationPulse: true,
@@ -759,13 +767,6 @@ function watchBuffs() {
 				debuffImages.powerburstPrevention,
 				debuffsList.PowerburstPrevention,
 				{ threshold: 20 }
-			);
-
-			findDeathspores(
-				debuffs,
-				debuffImages.FeastingSpores,
-				debuffsList.FeastingSpores,
-				{ threshold: 22 }
 			);
 
 			findVirus(debuffs);
@@ -1055,6 +1056,7 @@ async function findDeathspores(
 	// Declared outside of the loop so that it can be checked to be Undefined if no buffs are found
 	let timearg;
 	let foundBuff = false;
+	let cooldownAdjustment = parseInt(sauce.getSetting('delayAdjustment'), 10);
 
 	for (let [_key, value] of Object.entries(buffsReader)) {
 		// If the buff has been found do an early return
@@ -1071,30 +1073,15 @@ async function findDeathspores(
 				// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
 				foundBuff = true;
 				timearg = value.readArg('timearg');
-				// This is a sin. I do not care.
-				element.classList.remove('inactive');
-				element.classList.add('active');
-				element.dataset.time = '9';
-				await new Promise((done) => setTimeout(done, 1000));
-				element.dataset.time = '8';
-				await new Promise((done) => setTimeout(done, 1000));
-				element.dataset.time = '7';
-				await new Promise((done) => setTimeout(done, 1000));
-				element.dataset.time = '6';
-				await new Promise((done) => setTimeout(done, 1000));
-				element.dataset.time = '5';
-				await new Promise((done) => setTimeout(done, 1000));
-				element.dataset.time = '4';
-				await new Promise((done) => setTimeout(done, 1000));
-				element.dataset.time = '3';
-				await new Promise((done) => setTimeout(done, 1000));
-				element.dataset.time = '2';
-				await new Promise((done) => setTimeout(done, 1000));
-				element.dataset.time = '1';
-				await new Promise((done) => setTimeout(done, 1000));
-				element.dataset.time = '';
-				element.classList.remove('active');
-				element.classList.add('inactive');
+				await setActive(element);
+				if (timearg <= 9 && timearg >= 0) {
+					let buffTimeRemaining = timearg.time - cooldownAdjustment;
+					element.dataset.time = buffTimeRemaining.toString();
+				} else {
+					await setInactive(element);
+				}
+			} else if (!showCooldown) {
+				await setInactive(element);
 			}
 	}
 
