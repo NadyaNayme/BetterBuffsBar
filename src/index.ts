@@ -1073,8 +1073,8 @@ async function findDeathspores(
 				// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
 				foundBuff = true;
 				timearg = value.readArg('timearg');
-				await setActive(element);
 				if (timearg <= 9 && timearg >= 0) {
+					await setActive(element);
 					let buffTimeRemaining = timearg.time - cooldownAdjustment;
 					element.dataset.time = buffTimeRemaining.toString();
 				} else {
