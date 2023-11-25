@@ -170,6 +170,7 @@ var buffImages = a1lib.webpackImages({
 	ConjureZombie: require('./asset/data/putrid_zombie-top.data.png'),
 	ConjureGhost: require('./asset/data/vengeful_ghost-top.data.png'),
 	SplitSoulECB: require('./asset/data/split_soul_ecb.data.png'),
+	FeastingSpores: require('./asset/data/deathspore_arrows-buff.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
@@ -688,9 +689,9 @@ function watchBuffs() {
 
 			findDeathspores(
 				buffs,
-				debuffImages.FeastingSpores,
+				buffImages.FeastingSpores,
 				debuffsList.FeastingSpores,
-				{ threshold: 22 }
+				{ threshold: 18 }
 			);
 
 

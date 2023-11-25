@@ -791,6 +791,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
+/***/ "./asset/data/deathspore_arrows-buff.data.png":
+/*!****************************************************!*\
+  !*** ./asset/data/deathspore_arrows-buff.data.png ***!
+  \****************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAEtQTFRFAAAAU1laMTQ2bHR1TVJUOjQohY6QTFFTU1haW2FiHiEiAwIDVWVOJCEaRFA+Pkk4ZnZbHSIaXGpQWltEWmlQS1hESU06UWBJVlM9mDpC4gAAABl0Uk5TAP///////////////////////////////zBTSd0AAABPSURBVHicY2CgEWDEIc5EsknMLDilWLELs5FsBwM7BycXN4LLgyTFi6qSD7ch/NiFBRgYBIWwSwkT5TgUIIJdWBSIxbBLieM2TIJ0+2kFAFDIAS1Y11HCAAAAAElFTkSuQmCC")
+
+/***/ }),
+
 /***/ "./asset/data/deathspore_arrows.data.png":
 /*!***********************************************!*\
   !*** ./asset/data/deathspore_arrows.data.png ***!
@@ -11766,6 +11776,7 @@ var buffImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     ConjureZombie: __webpack_require__(/*! ./asset/data/putrid_zombie-top.data.png */ "./asset/data/putrid_zombie-top.data.png"),
     ConjureGhost: __webpack_require__(/*! ./asset/data/vengeful_ghost-top.data.png */ "./asset/data/vengeful_ghost-top.data.png"),
     SplitSoulECB: __webpack_require__(/*! ./asset/data/split_soul_ecb.data.png */ "./asset/data/split_soul_ecb.data.png"),
+    FeastingSpores: __webpack_require__(/*! ./asset/data/deathspore_arrows-buff.data.png */ "./asset/data/deathspore_arrows-buff.data.png"),
 });
 var incenseImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     lantadyme: __webpack_require__(/*! ./asset/data/Lantadyme.data.png */ "./asset/data/Lantadyme.data.png"),
@@ -12091,7 +12102,7 @@ function watchBuffs() {
                 expirationPulse: true,
             });
             findStatus(buffs, buffImages.SplitSoulECB, buffsList.SplitSoulECB, { threshold: 60 });
-            findDeathspores(buffs, debuffImages.FeastingSpores, debuffsList.FeastingSpores, { threshold: 22 });
+            findDeathspores(buffs, buffImages.FeastingSpores, debuffsList.FeastingSpores, { threshold: 18 });
             findStatus(buffs, buffImages.ConjureGhost, buffsList.ConjureGhost, {
                 threshold: 300,
                 expirationPulse: true,
