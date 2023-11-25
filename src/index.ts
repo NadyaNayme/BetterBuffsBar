@@ -87,6 +87,7 @@ let buffsList = {
 	ConjureSkeleton: getByID('ConjureSkeleton'),
 	ConjureZombie: getByID('ConjureZombie'),
 	ConjureGhost: getByID('ConjureGhost'),
+	SplitSoulECB: getByID('SplitSoulECBBuff'),
 };
 
 let debuffsList = {
@@ -167,6 +168,7 @@ var buffImages = a1lib.webpackImages({
 	ConjureSkeleton: require('./asset/data/skeleton_warrior-top.data.png'),
 	ConjureZombie: require('./asset/data/putrid_zombie-top.data.png'),
 	ConjureGhost: require('./asset/data/vengeful_ghost-top.data.png'),
+	SplitSoulECB: require('./asset/data/split_soul_ecb.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
@@ -673,6 +675,13 @@ function watchBuffs() {
 					threshold: 300,
 					expirationPulse: true,
 				}
+			);
+
+			findStatus(
+				buffs,
+				buffImages.SplitSoulECB,
+				buffsList.SplitSoulECB,
+				{ threshold: 60 }
 			);
 
 			findStatus(buffs, buffImages.ConjureGhost, buffsList.ConjureGhost, {

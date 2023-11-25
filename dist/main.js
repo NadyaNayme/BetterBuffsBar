@@ -821,6 +821,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
+/***/ "./asset/data/split_soul_ecb.data.png":
+/*!********************************************!*\
+  !*** ./asset/data/split_soul_ecb.data.png ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAbBQTFRFAAAA4bUtwpwn7b4wzaUol3kgAAAQAAAIAAABAAALAAACAAAKxZ4nZYaDIxwU5LcuBwcHC1ZZOC0Xc10X0qgqBCctAjQ/ACEnxKA1u5Yo4rYurpEpvJs1Slo9DZGvACw1ZoxZp5MxhJJcr5NCrowkc2MgxqM5q5JFEabHBEdVDbe/naJJOM24iIdT27AsupUmt5UsSoJgFrbbCGJ2Db7FrZk6Mbi8jpZDNywM5Lgvt5Qotp8ynKlYRY+fIc/UtpY1d397LsK8brl/FtDXqpQv78E22K4uwJonkYZwtZIo160s1astLNLGu5o2i4V/eHJvcl0bX3FvDbK4X7WFnpF8jYaCo4xKzaUqjoeCe3Rw4bg806oq6bsvN9XCpoUhP1BPkZCMXFhVWFImq5Rblo+KinlNyKEolY2Ih4B8sJVM06kqtLdOaL6HqJAsC3p+hpNygnt4WVAbSkdFSERCs5AjuZ9bcGtn47ctqqxJvqQ0QYplOJF1jn0oSkZE160usJpkhX562a8slpI4mootNSsLGBcXSUVE160q160roZR7lIhtalUWooIhuJQkWkkTf3l151/JKgAAAJB0Uk5TAP//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Fh588QAAANpJREFUeJxjYKA6YGTCJcPMwopLio2dA5cMJxcuGTZunMaxIXF4eFGk+PgRHAFBZCkhYREGBlExcSBTAs1ASSlpGVk5eQVFJWV0u1RU1dQ1NLW0dXTRZfT0DQyNjE1MzczRZSwsraxtbO3sHRzhQk7OLgwMrm7uHp7MXt4+vn7+AXCpwKDgkNCw8IjIqOiY2Lj4hES4TBIDQ3JKalp6RmZWdk5uXn4BXKYQiIuKS0pDy8orKquqa2rRXFBSV9/Q6JXW1NzS2oYm1d7R2dXd09uH7mgw6McqSgUAAPsLKdnnTA79AAAAAElFTkSuQmCC")
+
+/***/ }),
+
 /***/ "./asset/data/supreme_overload.data.png":
 /*!**********************************************!*\
   !*** ./asset/data/supreme_overload.data.png ***!
@@ -11668,6 +11678,7 @@ var buffsList = {
     ConjureSkeleton: getByID('ConjureSkeleton'),
     ConjureZombie: getByID('ConjureZombie'),
     ConjureGhost: getByID('ConjureGhost'),
+    SplitSoulECB: getByID('SplitSoulECBBuff'),
 };
 var debuffsList = {
     AdrenalinePotionDebuff: getByID('AdrenalinePotionDebuff'),
@@ -11743,6 +11754,7 @@ var buffImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     ConjureSkeleton: __webpack_require__(/*! ./asset/data/skeleton_warrior-top.data.png */ "./asset/data/skeleton_warrior-top.data.png"),
     ConjureZombie: __webpack_require__(/*! ./asset/data/putrid_zombie-top.data.png */ "./asset/data/putrid_zombie-top.data.png"),
     ConjureGhost: __webpack_require__(/*! ./asset/data/vengeful_ghost-top.data.png */ "./asset/data/vengeful_ghost-top.data.png"),
+    SplitSoulECB: __webpack_require__(/*! ./asset/data/split_soul_ecb.data.png */ "./asset/data/split_soul_ecb.data.png"),
 });
 var incenseImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     lantadyme: __webpack_require__(/*! ./asset/data/Lantadyme.data.png */ "./asset/data/Lantadyme.data.png"),
@@ -12066,6 +12078,7 @@ function watchBuffs() {
                 threshold: 300,
                 expirationPulse: true,
             });
+            findStatus(buffs, buffImages.SplitSoulECB, buffsList.SplitSoulECB, { threshold: 60 });
             findStatus(buffs, buffImages.ConjureGhost, buffsList.ConjureGhost, {
                 threshold: 300,
                 expirationPulse: true,
