@@ -1062,35 +1062,53 @@ async function findDeathspores(
 			return;
 		}
 
+		console.log('Looking for a matching debuff....');
 		let findBuffImage = value.countMatch(buffImage, false);
-
-		if (findBuffImage.passed > threshold && !element.classList.contains('active') && element.dataset.time == '') {
-			// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
-			foundBuff = true;
-			timearg = value.readArg('timearg');
-			// This is a sin. I do not care.
-			element.dataset.time = '9';
-			await setActive(element);
-			setTimeout(() => {}, 1000);
-			element.dataset.time = '8';
-			setTimeout(() => {}, 1000);
-			element.dataset.time = '7';
-			setTimeout(() => {}, 1000);
-			element.dataset.time = '6';
-			setTimeout(() => {}, 1000);
-			element.dataset.time = '5';
-			setTimeout(() => {}, 1000);
-			element.dataset.time = '4';
-			setTimeout(() => {}, 1000);
-			element.dataset.time = '3';
-			setTimeout(() => {}, 1000);
-			element.dataset.time = '2';
-			setTimeout(() => {}, 1000);
-			element.dataset.time = '1';
-			setTimeout(() => {}, 1000);
-			element.dataset.time = '';
-			setInactive(element);
+		if (findBuffImage.passed > threshold) {
+			console.log('Found a match!');
 		}
+		if (!element.classList.contains('active')) {
+			console.log('Debuff is inactive');
+		} else {
+			console.log('Debuff is active');
+		}
+		if (element.dataset.time == '') {
+			console.log('Timer is empty');
+		} else {
+			console.log(`Timer is: ${element.dataset.timer}`)
+		}
+			if (
+				findBuffImage.passed > threshold &&
+				!element.classList.contains('active') &&
+				element.dataset.time == ''
+			) {
+				// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
+				foundBuff = true;
+				timearg = value.readArg('timearg');
+				console.log(`All checks have passed - starting 9s timer`);
+				// This is a sin. I do not care.
+				element.dataset.time = '9';
+				await setActive(element);
+				setTimeout(() => {}, 1000);
+				element.dataset.time = '8';
+				setTimeout(() => {}, 1000);
+				element.dataset.time = '7';
+				setTimeout(() => {}, 1000);
+				element.dataset.time = '6';
+				setTimeout(() => {}, 1000);
+				element.dataset.time = '5';
+				setTimeout(() => {}, 1000);
+				element.dataset.time = '4';
+				setTimeout(() => {}, 1000);
+				element.dataset.time = '3';
+				setTimeout(() => {}, 1000);
+				element.dataset.time = '2';
+				setTimeout(() => {}, 1000);
+				element.dataset.time = '1';
+				setTimeout(() => {}, 1000);
+				element.dataset.time = '';
+				setInactive(element);
+			}
 	}
 
 	// If we didn't find the buff try again after a brief timeout

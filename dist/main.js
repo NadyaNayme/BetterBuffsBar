@@ -12389,11 +12389,30 @@ function findDeathspores(buffsReader, buffImage, element, options) {
                     if (foundBuff) {
                         return [2 /*return*/];
                     }
+                    console.log('Looking for a matching debuff....');
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (!(findBuffImage.passed > threshold && !element.classList.contains('active') && element.dataset.time == '')) return [3 /*break*/, 3];
+                    if (findBuffImage.passed > threshold) {
+                        console.log('Found a match!');
+                    }
+                    if (!element.classList.contains('active')) {
+                        console.log('Debuff is inactive');
+                    }
+                    else {
+                        console.log('Debuff is active');
+                    }
+                    if (element.dataset.time == '') {
+                        console.log('Timer is empty');
+                    }
+                    else {
+                        console.log("Timer is: ".concat(element.dataset.timer));
+                    }
+                    if (!(findBuffImage.passed > threshold &&
+                        !element.classList.contains('active') &&
+                        element.dataset.time == '')) return [3 /*break*/, 3];
                     // If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
                     foundBuff = true;
                     timearg = value.readArg('timearg');
+                    console.log("All checks have passed - starting 9s timer");
                     // This is a sin. I do not care.
                     element.dataset.time = '9';
                     return [4 /*yield*/, setActive(element)];
