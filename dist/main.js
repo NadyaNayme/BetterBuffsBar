@@ -7236,7 +7236,7 @@ function createRangeSetting(name, description, options) {
     return container;
 }
 function createProfileManager() {
-    function createProfile() {
+    function saveProfile() {
         var profileNameInput = container.querySelector('#ProfileName');
         var profileName = profileNameInput.value;
         if (profileName.indexOf('|') > -1) {
@@ -7327,7 +7327,7 @@ function createProfileManager() {
     }
     var profileHeader = createHeading('h3', 'Profiles');
     var profileText = createText('Select a profile to load or delete. To save a new profile, give it a name in the field below and then click Create.');
-    var saveButton = createButton('Create', createProfile, {
+    var saveButton = createButton('Save', saveProfile, {
         classes: ['nisbutton'],
     });
     var profileName = createInput('text', 'ProfileName', '');

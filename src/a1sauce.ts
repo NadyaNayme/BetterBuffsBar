@@ -170,7 +170,7 @@ export function createRangeSetting(
 
 export function createProfileManager() {
 
-	function createProfile() {
+	function saveProfile() {
 		let profileNameInput: HTMLInputElement = container.querySelector('#ProfileName');
 		let profileName = profileNameInput.value;
 		if (profileName.indexOf('|') > -1) {
@@ -275,7 +275,7 @@ export function createProfileManager() {
 	var profileText = createText(
 		'Select a profile to load or delete. To save a new profile, give it a name in the field below and then click Create.'
 	);
-	var saveButton = createButton('Create', createProfile, {
+	var saveButton = createButton('Save', saveProfile, {
 		classes: ['nisbutton'],
 	});
 	var profileName = createInput('text', 'ProfileName', '');
