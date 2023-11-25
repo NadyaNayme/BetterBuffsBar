@@ -246,10 +246,15 @@ export function createProfileManager() {
 	let profileOptions = [
 		{ value: '0', name: 'Select Profile' },
 	];
-	let profiles = localStorage
-		.getItem('bbb_profiles')
-		.split('|')
-		.filter((str) => str !== '');
+	let profiles;
+	if (localStorage.getItem('bbb_profiles')) {
+		profiles = localStorage
+			.getItem('bbb_profiles')
+			.split('|')
+			.filter((str) => str !== '');
+	} else {
+		profiles = '|';
+	}
 
 
 	profiles.forEach((profile, index) => {

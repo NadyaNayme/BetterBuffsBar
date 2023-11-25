@@ -7303,10 +7303,16 @@ function createProfileManager() {
     var profileOptions = [
         { value: '0', name: 'Select Profile' },
     ];
-    var profiles = localStorage
-        .getItem('bbb_profiles')
-        .split('|')
-        .filter(function (str) { return str !== ''; });
+    var profiles;
+    if (localStorage.getItem('bbb_profiles')) {
+        profiles = localStorage
+            .getItem('bbb_profiles')
+            .split('|')
+            .filter(function (str) { return str !== ''; });
+    }
+    else {
+        profiles = '|';
+    }
     profiles.forEach(function (profile, index) {
         profileOptions.push({ value: index.toString(), name: profile });
     });
