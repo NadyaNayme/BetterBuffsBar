@@ -12383,16 +12383,17 @@ function findDeathspores(buffsReader, buffImage, element, options) {
                     _i = 0, _p = Object.entries(buffsReader);
                     _r.label = 1;
                 case 1:
-                    if (!(_i < _p.length)) return [3 /*break*/, 6];
+                    if (!(_i < _p.length)) return [3 /*break*/, 4];
                     _q = _p[_i], _key = _q[0], value = _q[1];
                     // If the buff has been found do an early return
                     if (foundBuff) {
                         return [2 /*return*/];
                     }
                     findBuffImage = value.countMatch(buffImage, false);
-                    if (!(findBuffImage.passed > threshold && element.classList.contains('inactive') && element.dataset.time == '' && !foundBuff)) return [3 /*break*/, 3];
+                    if (!(findBuffImage.passed > threshold && !element.classList.contains('active') && element.dataset.time == '')) return [3 /*break*/, 3];
                     // If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
                     foundBuff = true;
+                    timearg = value.readArg('timearg');
                     // This is a sin. I do not care.
                     element.dataset.time = '9';
                     return [4 /*yield*/, setActive(element)];
@@ -12417,31 +12418,25 @@ function findDeathspores(buffsReader, buffImage, element, options) {
                     setTimeout(function () { }, 1000);
                     element.dataset.time = '';
                     setInactive(element);
-                    return [3 /*break*/, 5];
+                    _r.label = 3;
                 case 3:
-                    if (!!showCooldown) return [3 /*break*/, 5];
-                    return [4 /*yield*/, setInactive(element)];
-                case 4:
-                    _r.sent();
-                    _r.label = 5;
-                case 5:
                     _i++;
                     return [3 /*break*/, 1];
-                case 6:
-                    if (!(timearg == undefined && foundBuff && !showCooldown)) return [3 /*break*/, 10];
-                    if (!expirationPulse) return [3 /*break*/, 8];
+                case 4:
+                    if (!(timearg == undefined && foundBuff && !showCooldown)) return [3 /*break*/, 8];
+                    if (!expirationPulse) return [3 /*break*/, 6];
                     return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10000); })];
+                case 5:
+                    _r.sent();
+                    _r.label = 6;
+                case 6: return [4 /*yield*/, setInactive(element)];
                 case 7:
                     _r.sent();
                     _r.label = 8;
-                case 8: return [4 /*yield*/, setInactive(element)];
-                case 9:
-                    _r.sent();
-                    _r.label = 10;
-                case 10: 
+                case 8: 
                 // Give a very brief pause before checking again
                 return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 10); })];
-                case 11:
+                case 9:
                     // Give a very brief pause before checking again
                     _r.sent();
                     return [2 /*return*/, timearg];

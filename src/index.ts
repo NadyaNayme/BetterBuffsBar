@@ -1064,9 +1064,10 @@ async function findDeathspores(
 
 		let findBuffImage = value.countMatch(buffImage, false);
 
-		if (findBuffImage.passed > threshold && element.classList.contains('inactive') && element.dataset.time == '' && !foundBuff) {
+		if (findBuffImage.passed > threshold && !element.classList.contains('active') && element.dataset.time == '') {
 			// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
 			foundBuff = true;
+			timearg = value.readArg('timearg');
 			// This is a sin. I do not care.
 			element.dataset.time = '9';
 			await setActive(element);
@@ -1089,10 +1090,6 @@ async function findDeathspores(
 			setTimeout(() => {}, 1000);
 			element.dataset.time = '';
 			setInactive(element);
-		}
-		// Failing all else - as long as we are not displaying a cooldown set the item to inactive
-		else if (!showCooldown) {
-			await setInactive(element);
 		}
 	}
 
