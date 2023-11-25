@@ -1062,7 +1062,6 @@ async function findDeathspores(
 			return;
 		}
 
-		console.log('Looking for a matching debuff....');
 		let findBuffImage = value.countMatch(buffImage, false);
 			if (
 				findBuffImage.passed > threshold &&

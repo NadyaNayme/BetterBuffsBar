@@ -12389,7 +12389,6 @@ function findDeathspores(buffsReader, buffImage, element, options) {
                     if (foundBuff) {
                         return [2 /*return*/];
                     }
-                    console.log('Looking for a matching debuff....');
                     findBuffImage = value.countMatch(buffImage, false);
                     if (!(findBuffImage.passed > threshold &&
                         !element.classList.contains('active') &&
