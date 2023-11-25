@@ -7244,11 +7244,20 @@ function createProfileManager() {
             return;
         }
         var profiles = localStorage.getItem('bbb_profiles');
+        var profilesArray = localStorage
+            .getItem('bbb_profiles')
+            .split('|')
+            .filter(function (str) { return str !== ''; });
+        // If we do not have profiles set it to be empty
         if (profiles == undefined) {
             profiles = '';
         }
-        profiles = profiles + '|' + profileName + '|';
-        localStorage.setItem('bbb_profiles', profiles);
+        // If the profile name doesn't exist in our profiles - add it
+        if (!(profilesArray.includes(profileName))) {
+            profiles = profiles + '|' + profileName + '|';
+            localStorage.setItem('bbb_profiles', profiles);
+        }
+        // Create and update or store any data
         var data = {};
         data['Buffs'] = localStorage['Buffs'];
         data['Buffs2'] = localStorage['Buffs2'];
