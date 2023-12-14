@@ -88,6 +88,10 @@ let buffsList = {
 	ConjureZombie: getByID('ConjureZombie'),
 	ConjureGhost: getByID('ConjureGhost'),
 	SplitSoulECB: getByID('SplitSoulECBBuff'),
+	AggressionPotion: getByID('AggressionPotionBuff'),
+	PowderOfProtection: getByID('PowderOfProtectionBuff'),
+	PowderOfPenance: getByID('PowderOfPenanceBuff'),
+	QuiverAmmo: getByID('QuiverAmmo'),
 };
 
 let debuffsList = {
@@ -143,7 +147,9 @@ var buffImages = a1lib.webpackImages({
 	overloaded: require('./asset/data/Overloaded-noborder.data.png'),
 	supreme_overloaded: require('./asset/data/supreme_overload.data.png'),
 	overloadedNoBorder: require('./asset/data/Overloaded-noborder.data.png'),
+	balanceByForce: require('./asset/data/balance_by_force-beta.data.png'),
 	perfectEquilibrium: require('./asset/data/Perfect_Equilibrium-noborder.data.png'),
+	perfectEquilibriumCapped: require('./asset/data/perfect_equilibrium_capped.data.png'),
 	perfectEquilibriumNoBorder: require('./asset/data/Perfect_Equilibrium-noborder.data.png'),
 	poisonous: require('./asset/data/Poisonous-top-noborder.data.png'),
 	prayerRenewActive: require('./asset/data/Prayer_Renew_Active-noborder.data.png'),
@@ -171,6 +177,9 @@ var buffImages = a1lib.webpackImages({
 	ConjureGhost: require('./asset/data/vengeful_ghost-top.data.png'),
 	SplitSoulECB: require('./asset/data/split_soul_ecb.data.png'),
 	FeastingSpores: require('./asset/data/deathspore_arrows-buff.data.png'),
+	AggressionPotion: require('./asset/data/aggression_potion.data.png'),
+	PowderOfProtection: require('./asset/data/powder_of_protection.data.png'),
+	PowderOfPenance: require('./asset/data/powder_of_penance.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
@@ -233,6 +242,19 @@ var prayerImages = a1lib.webpackImages({
 	soulSplit: require('./asset/data/Soul_Split-noborder.data.png'),
 	torment: require('./asset/data/Torment-noborder.data.png'),
 	turmoil: require('./asset/data/Turmoil-noborder.data.png'),
+});
+
+var quiverImages = a1lib.webpackImages({
+	bik: require('./asset/data/bik_arrows.data.png'),
+	ful: require('./asset/data/ful_arrows.data.png'),
+	jas_dragonbane: require('./asset/data/jas_dragonbane.data.png'),
+	wen: require('./asset/data/wen_arrows.data.png'),
+	blackstone: require('./asset/data/blackstone_arrows.data.png'),
+	deathspore: require('./asset/data/deathspore_arrows-quiver.data.png'),
+	diamond_bak: require('./asset/data/diamond_bak_bolts.data.png'),
+	hydrix_bak: require('./asset/data/hydrix_bak_bolts.data.png'),
+	ruby_bak: require('./asset/data/ruby_bak_bolts.data.png'),
+	onyx_bak: require('./asset/data/onyx_bak_bolts.data.png'),
 });
 
 var enemyImages = a1lib.webpackImages({
@@ -466,6 +488,33 @@ function watchBuffs() {
 
 			findStatus(
 				buffs,
+				buffImages.AggressionPotion,
+				buffsList.AggressionPotion,
+				{
+					threshold: 120,
+				}
+			);
+
+			findStatus(
+				buffs,
+				buffImages.PowderOfProtection,
+				buffsList.PowderOfProtection,
+				{
+					threshold: 130,
+				}
+			);
+
+			findStatus(
+				buffs,
+				buffImages.PowderOfPenance,
+				buffsList.PowderOfPenance,
+				{
+					threshold: 130,
+				}
+			);
+
+			findStatus(
+				buffs,
 				buffImages.prayerRenewActive,
 				buffsList.PrayerRenewal,
 				{ threshold: 225 }
@@ -474,6 +523,15 @@ function watchBuffs() {
 			findStatus(buffs, buffImages.DeathSpark, buffsList.DeathSpark, {
 				threshold: 300,
 			});
+
+			findStatus(
+				buffs,
+				buffImages.balanceByForce,
+				buffsList.BalanceByForceBuff,
+				{
+					threshold: 70,
+				}
+			);
 
 			findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, {
 				threshold: 300,
@@ -680,12 +738,9 @@ function watchBuffs() {
 				}
 			);
 
-			findStatus(
-				buffs,
-				buffImages.SplitSoulECB,
-				buffsList.SplitSoulECB,
-				{ threshold: 60 }
-			);
+			findStatus(buffs, buffImages.SplitSoulECB, buffsList.SplitSoulECB, {
+				threshold: 60,
+			});
 
 			findDeathspores(
 				buffs,
@@ -694,11 +749,15 @@ function watchBuffs() {
 				{ threshold: 18 }
 			);
 
-
 			findStatus(buffs, buffImages.ConjureGhost, buffsList.ConjureGhost, {
 				threshold: 300,
 				expirationPulse: true,
 			});
+
+			findAmmo(buffs);
+
+			// TODO: Uncomment when Beta changes for BOLG buffs goes live
+			// findPerfectEquilibriumStacks(buffs);
 
 			checkBuffsForHidingOverlay(buffs);
 
@@ -1164,6 +1223,111 @@ async function findVirus(debuffs: BuffReader.Buff[]) {
 	} else {
 		debuffsList.Virus.dataset.virus = currentVirus;
 		debuffsList.Virus.classList.add('active');
+	}
+}
+
+async function findPerfectEquilibriumStacks(buffs: BuffReader.Buff[]) {
+	if (!buffs) {
+		return;
+	}
+
+	let peActive: number = 0;
+	let capped = '';
+
+	for (let [_key, value] of Object.entries(buffs)) {
+		let checkGreen = value.countMatch(buffImages.perfectEquilibrium, false);
+		let checkRed = value.countMatch(buffImages.perfectEquilibriumCapped, false);
+
+		if (checkGreen.failed == 0 || checkGreen.passed > 380) {
+			buffsList.BolgStacksBuff.dataset.color = 'green';
+			capped = value.readTime().toString();
+			peActive++;
+		}
+		if (checkRed.failed == 0 || checkRed.passed > 300) {
+			buffsList.BolgStacksBuff.dataset.color = 'red';
+			capped = value.readTime().toString();
+			peActive++;
+		}
+	}
+
+	if (!peActive) {
+		buffsList.BolgStacksBuff.dataset.stacks = '';
+		buffsList.BolgStacksBuff.dataset.color = '';
+		buffsList.BolgStacksBuff.classList.add('inactive');
+	} else {
+		buffsList.BolgStacksBuff.dataset.stacks = capped;
+		buffsList.BolgStacksBuff.classList.add('active');
+	}
+}
+
+async function findAmmo(buffs: BuffReader.Buff[]) {
+	if (!buffs) {
+		return;
+	}
+
+	let ammmoActive: number = 0;
+	let currentAmmo = '';
+
+	for (let [_key, value] of Object.entries(buffs)) {
+		let checkBik = value.countMatch(quiverImages.bik, false);
+		let checkFul = value.countMatch(quiverImages.ful, false);
+		let checkWen = value.countMatch(quiverImages.wen, false);
+		let checkJas = value.countMatch(quiverImages.jas_dragonbane, false);
+		let checkBlackstone = value.countMatch(quiverImages.blackstone, false);
+		let checkDeathspores = value.countMatch(quiverImages.deathspore, false);
+		let checkDiamond = value.countMatch(quiverImages.diamond_bak, false);
+		let checkHydrix = value.countMatch(quiverImages.hydrix_bak, false);
+		let checkRuby = value.countMatch(quiverImages.ruby_bak, false);
+		let checkOnyx = value.countMatch(quiverImages.onyx_bak, false);
+
+		if (checkBik.failed == 0 || checkBik.passed > 28) {
+			currentAmmo = 'BIK';
+			ammmoActive++;
+		}
+		if (checkFul.failed == 0 || checkFul.passed > 28) {
+			currentAmmo = 'FUL';
+			ammmoActive++;
+		}
+		if (checkWen.failed == 0 || checkWen.passed > 28) {
+			currentAmmo = 'WEN';
+			ammmoActive++;
+		}
+		if (checkJas.failed == 0 || checkJas.passed > 28) {
+			currentAmmo = 'JAS';
+			ammmoActive++;
+		}
+		if (checkBlackstone.failed == 0 || checkBlackstone.passed > 28) {
+			currentAmmo = 'BSD';
+			ammmoActive++;
+		}
+		if (checkDeathspores.failed == 0 || checkDeathspores.passed > 28) {
+			currentAmmo = 'DSP';
+			ammmoActive++;
+		}
+		if (checkDiamond.failed == 0 || checkDiamond.passed > 180) {
+			currentAmmo = '(D)';
+			ammmoActive++;
+		}
+		if (checkHydrix.failed == 0 || checkHydrix.passed > 180) {
+			currentAmmo = '(H)';
+			ammmoActive++;
+		}
+		if (checkRuby.failed == 0 || checkRuby.passed > 180) {
+			currentAmmo = '(R)';
+			ammmoActive++;
+		}
+		if (checkOnyx.failed == 0 || checkOnyx.passed > 180) {
+			currentAmmo = '(O)';
+			ammmoActive++;
+		}
+	}
+
+	if (!ammmoActive) {
+		buffsList.QuiverAmmo.dataset.ammo = '';
+		buffsList.QuiverAmmo.classList.add('inactive');
+	} else {
+		buffsList.QuiverAmmo.dataset.ammo = currentAmmo;
+		buffsList.QuiverAmmo.classList.add('active');
 	}
 }
 

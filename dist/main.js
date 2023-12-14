@@ -771,6 +771,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
+/***/ "./asset/data/aggression_potion.data.png":
+/*!***********************************************!*\
+  !*** ./asset/data/aggression_potion.data.png ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAX1QTFRFAAAAhnk4fnA0cmYvp5ZGopFDk4Q9dmkwpZRFno1Bj4A7cmYwEQ8ImYk/i305amNDTk5TfH2Hf4CKgYKMdXeBaGlxWVlgfn+Ifn+JfX6HcHF7YGFqQkNJgICLgoONgIGKcnN8XV5mDg4QhIWPdHV/XF1lgIKLgYOMf4GKcXN8XF1kfX+IfoCJfH6Hb3F5X2BoSEpPe3mDe3qFdnV/bGt0ZGRtVFNbinSHiHSGgG1/emp6c2VzZFpmejBhgUNshlZ3dzdidDVgbjRcZS9UcABIcgZLdRJSawBFaQBDZgBBXwA9SwAvaQBEcwBKdABLcwBLcQBJbgBGYwBATwA0XgA9agBEawBGbABGZgBCYwBBXQA9SwAxQAAqawBEaABDZwBDZABBYQA/WgA7TQAyRgAuGAAQcABJbwBHbQBHbQBGZwBCYAA+UwA1SwAwQgAqdQBMcgBKbABFWQA5UAAzdgBNXQA8VAA0SgAwaABCVgA3RwAuWgA6QgArQwArMQAg+n43KQAAAH90Uk5TAP///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////wChbKkAAADhSURBVHicY2CAAUYmZgbsgIWVjR27DAcnFzcPVhlWXj5+AWwSgkLCIqJi2GTEJSSlpGWwycjKySsoKmGTEVKWU1HFKqOmrqGphVVGW0dXT98Am4yhkbGJqRk2GXMLSytrGywStnb2Do5OzlhkXFzd3D08vbwxJHx8/fwDAt2DgtElQjxDw8JDIyKjomPQpWLj4iMSEkOSklNSUSXSXNIzMkOzgrJzcvNQZfLz/RgKGArjEoqKU1BlSkoYShj8GQqzSsvK0ewpgVAVXpVVaDIFEMqzugbDQxBQW4ddHIcwBgAAUpwoHVLIGhQAAAAASUVORK5CYII=")
+
+/***/ }),
+
 /***/ "./asset/data/antifire_top.data.png":
 /*!******************************************!*\
   !*** ./asset/data/antifire_top.data.png ***!
@@ -778,6 +788,36 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAANCAYAAABcrsXuAAADSElEQVQ4T3WSXWhbZRjHz40ycHRa1y7NliZLcpqc74/3nKSr1ZXa5iQz3ehWZ6yFdabJqmXA8MbBcDdWEFBFvBO8FLxzDsS7bQi4IQjeyRTVNl3ztVIju/77vO+aLFAEfnnej+f9//KQSLqbgcGyMImD0adwMEaI+jRs/wQcP4tpT8aMn0DOS2AuE8cs1RmCn7t+RvRxLI43LuB5PJfnS10Bv3g2eQDVfxiqHYZD8gEKS2LWT+JH6zyaZhkN6yJ2Tpto2BfEnp/nScR7Jnxrn6wrkroCfnlYewblloNy08HztG4YFNzHw6KDh2fTaAfj++5KTKcvJcPJTDyR7YmkEBtAiB0ieB3A8oaN5U27t+9SpKlunYrgzisRfDEzihyT8Yk9hdb0FJovFlA338RPZgk5b79IirwwiKX7JmH00d3zaiIyOYjf5+OoLxwXLE7YcFgGL7ka5ij0XpBC62QO23oZWzRVjo31REISf3kYpV+0/0EXNT4zjAfnYqgT24RnOyhkLaye1OAzhu+CY2hM0jTOEolWcM8oIWCp3jRSqhhGPwt3FUIV63TfeX0hisYek7aBq0Ea8+M6ik4SD7QK6tl5qiuCLdpXHQ8nPPZYwj8CV8GWWoF+LoL52ymBvjCKu3MJmKYNSzfQLI2i/UYE7aUI7tP6gzNjCMw4auoKURHBeSeFis1QozWH5wqJ440j76ioKRXYizHMfT8msBePo/ZqFO9Py2C6gp1qGLtrI9i9TFO9FcY3Z8LiTZeiJcNzGQJbwSZJ+VneUZD1PEg5W8MP6uvYSFfBLiTg9eEYBrZ5+DtH0Lk2hH/Xh9Bafw43lkawQSEbSlVQ0BP4+WwUU76LSdfGx8asOOe5PF8qWBr+JgEnb6niX1N7LYrN5WNQVR1aOo3Oh0N49PlhtD8axLerI71+zvpsBK6uoV0+it/Ox2DT+wLl9DIfS3T8laoKCqYGl5paJLgeyFAUDelUCo++HEb7s0HcqISo71KPm2shMEWGpavYvRJCk945zCeJttdDmZQvFUwdf4xdwp8EXzNq2nl7BO+dToJZCn799Ah2v6bfYPWo6Oly890YOl8N0BQyDJJ0rg9hZy0Ml/k4Zeiih+cWTB3/AevtgvCsrUp3AAAAAElFTkSuQmCC")
+
+/***/ }),
+
+/***/ "./asset/data/balance_by_force-beta.data.png":
+/*!***************************************************!*\
+  !*** ./asset/data/balance_by_force-beta.data.png ***!
+  \***************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAALFQTFRFAAAAAAsMCiokG1U5F1E/HlM7FVA+G1M+EWRCFE07DSEWGXRUFUA2CRIQEW9JEDcoCA4METorEzAnFicdEi4lFTErFlRGCycbCBEPDz82EjsvDxUREFAwAwwIHE03G086EV9BFDwyETEqCA8OEB4aEygiFzAoABMNEUsuFD4uFkAvF0MxFDYnBREMBQ8LDzsnE2lGEG9KEVI1GlpEEDkuE0MxF0g1EEMyEDwvG003AB8ew29rlgAAADt0Uk5TAP////////////////////////////////////////////////////////////////////////////+SQC1NAAAAdklEQVR4nGNgoDJgZMIjyYxLgoUVlwwbOy4ZDk4uHDLcPLw4ZPj4BXAZJyiES0ZYRFQMu4y4hKSUNFYZGVyGMcjilIEAOXkFHDKKSso4ZFRU1bCKq2toamnrYNejq6dvYGhkjF3SxNTM3MLcEp87cQErcjQBAQCReQbnR1+wMwAAAABJRU5ErkJggg==")
+
+/***/ }),
+
+/***/ "./asset/data/bik_arrows.data.png":
+/*!****************************************!*\
+  !*** ./asset/data/bik_arrows.data.png ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAFpQTFRFAAAAMFcQKUoMEScAMVcQKUcQK04PCA8EL1MQJ0YQL1QRLVAQNV4XHTMMMlsQCxUEEB0ABAgACRUAFSIAAAMBAgYBFCIAFiMACA4AFCEACRgAEx8AChEABxMA5a7YgAAAAB50Uk5TAP//////////////////////////////////////9DgaNwAAAFpJREFUeJytjTcOwDAMxC69997+/80EgafAHAyEkBZR0kkGT4jPKmBlI4xQxYnSDG3uEFKgKSvVbNU4hDjRsur+S+nRDG9ZGaeZPy7rd7Lx8i4ddnM+ffGh4QaJHgHSZWJtwAAAAABJRU5ErkJggg==")
+
+/***/ }),
+
+/***/ "./asset/data/blackstone_arrows.data.png":
+/*!***********************************************!*\
+  !*** ./asset/data/blackstone_arrows.data.png ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAJxQTFRFAAAAKxMvFgYZBgMMUD4iAAACFgUXEggSJRAoHg0gWUclAAABJRAkGw0bJhEpHRIUEAgTJBEhGQ0cDQsKGRETRUAzDAoHQD44BQQEHhYfBgUHBQQGMCglIx0hMCYULygzY08sFxIZBAMFKCMoRDlLGhUcFhIUTz8xGRQVHRcTIBwhXUkoJB0lFxUdEA4SPzMiGBMbIx8mZFAwGxgfZiWCgAAAADR0Uk5TAP///////////////////////////////////////////////////////////////////wcEN2IAAACCSURBVHictc7HEoJAEATQNqAioKAosGBCDASV8P//Ru1ynJ3yon3oPryqqQG+ZsTKeMLJ1JA9m+tsYQJLSye2I3ulkbUr29tQ2ar2KeyG2XMvBhz8NyEHkVATE0gOAkfgJIicL+kVyG7ae3fg8QRyKgVQVni9CXxqNQ2VIW3HwC/SAxE8BZFmHjlyAAAAAElFTkSuQmCC")
 
 /***/ }),
 
@@ -801,6 +841,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
+/***/ "./asset/data/deathspore_arrows-quiver.data.png":
+/*!******************************************************!*\
+  !*** ./asset/data/deathspore_arrows-quiver.data.png ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAEtQTFRFAAAAVVtdMzY4bnd4TlVWPDUphpCTTlNUVFxcXWVmICIjAwIDV2ZPJSEbRVE+QEs5Z3hcHiMbXWtTXl5HXGtSTFpFS047U2FLWFQ/J3XJ4AAAABl0Uk5TAP///////////////////////////////zBTSd0AAABPSURBVHicY2CgEWDEIc5EsknMLDilWLELs5FsBwM7BycXN4LLgyTFi6qSD7ch/NiFBRgYBIWwSwkT5TgUIIJdWBSIxbBLieM2TIJ0+2kFAFDIAS1Y11HCAAAAAElFTkSuQmCC")
+
+/***/ }),
+
 /***/ "./asset/data/deathspore_arrows.data.png":
 /*!***********************************************!*\
   !*** ./asset/data/deathspore_arrows.data.png ***!
@@ -808,6 +858,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAEtQTFRFAAAAU1laMTQ2bHR1TVJUOjQohY6QTFFTU1haW2FiHiEiAwIDVWVOJCEaRFA+Pkk4ZnZbHSIaXGpQWltEWmlQS1hESU06UWBJVlM9mDpC4gAAABl0Uk5TAP///////////////////////////////zBTSd0AAABPSURBVHicY2CgEWDEIc5EsknMLDilWLELs5FsBwM7BycXN4LLgyTFi6qSD7ch/NiFBRgYBIWwSwkT5TgUIIJdWBSIxbBLieM2TIJ0+2kFAFDIAS1Y11HCAAAAAElFTkSuQmCC")
+
+/***/ }),
+
+/***/ "./asset/data/diamond_bak_bolts.data.png":
+/*!***********************************************!*\
+  !*** ./asset/data/diamond_bak_bolts.data.png ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAgdQTFRFAAAAmo6NU01MCgoLh319Pzo5CAcIc2ppRD8/CQkJi4GBWVJSIR4efnV0MC0thXt7c2lpPzk5CQgJeW9vbmZlSUREHhsbb2dmIiAgT0pKRkBAUEpJU01OODQ0gnh3TEZGGhkZSRgWNCoqa2Jil4yLQj08FxYVX1hXJg0MKCUlfnRzYFhYNTExDQwNgnd4QDw6b2ZmFQQEQhUTgHZ1R0FBY1tbaGBgPDc3enFwUElJBQECVzo6LSYmi4CAXVZWKygomo6OODU1OBEPDQkJaWJhVU1NKigmhXx7W1VUNDEvHQgJAAABcmhohXp6Y1paKiYmbGRjUkxMEhESJQoKOxISFRMTY1hXCAAAJAkJEgwMEQMDFhgTJSUiHxcUDgoJOxQSISEdJyMgHxsYHx8aGRAPGxIQEBAOIQoKFxEOFAYGHxsaGxkYFRUSCgEBDw8NDgEBERIFGBoYHBwYGRkVCAgIAQECGxMSBAICFRUVDw8PAwMCDg4PCgoKAAAAExMTJiUjGQ8OIyAeAgICBwcFFRUTJSQhHBMRIR8cKCglJiYjGhoYDQAADwwMFhYTCwsLGRkZAwMDBgMCFAcGExMSEhIRDg4MBQUEFQcGJCQhHBwZEgUFEBAPKyklJCUhHh4cKysnIyMgFxcSBAQEGxIRExYTGRkWGxsYFxcUFRUUHx8dDQ0NBwcHAwMERIvk+AAAAK10Uk5TAP/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////KvguUAAABRElEQVR4nGNgAAFGJmYgycLKxoAO2Dk4GRi4uHkYePlQJfgFBIUYhEVExRjEJdD0SEqxMbBLy8jKyStgmMfAoKikrMKrqqaOKaPBoKmlraOrpw/iGEAFDYHYCIiNJU1MzcyBDAtLqIwVlLa2kbW1s2dgcBB3RDPQydmF19WNgcHdwxNNxsvbx9fPn4EhIDAILhYMIkJARCgQh5kgVIeDiAgQEQljAEFUdExsHExJPEJ1QmJSckpqGoybjpDJyIxJyMrOgXFzETJ5+QWFRcUlpQxl5WguZaiorKquqa2rb2hEl2Foaq71rm1pbWtHdicMAGU6OruAjG4g7kHV2NvXXzKBgWEiA8OkyWhmTplaOy1h+oyZsyYlYNjnPTthztx58xcsnIAhtShh8ZKly5bXeGPKrFjJ2bdq9SIMCRBYxbmmFsoEAKeTRnPJmktzAAAAAElFTkSuQmCC")
 
 /***/ }),
 
@@ -821,6 +881,76 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 
 /***/ }),
 
+/***/ "./asset/data/ful_arrows.data.png":
+/*!****************************************!*\
+  !*** ./asset/data/ful_arrows.data.png ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZBAMAAAA2x5hQAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAA9QTFRFAAAAAAAAGwkAAAABBQIBhZLXkAAAAAV0Uk5TAP////8c0CZSAAAAP0lEQVR4nGNgAAIBBmTAiMJjUGDAARhRtQmj8VF5uMQF0XSx4LKNKNMYcagioE0ARR+zIapaQZyWCaDwsFgOAOhnAUcqUHS3AAAAAElFTkSuQmCC")
+
+/***/ }),
+
+/***/ "./asset/data/hydrix_bak_bolts.data.png":
+/*!**********************************************!*\
+  !*** ./asset/data/hydrix_bak_bolts.data.png ***!
+  \**********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAhBQTFRFAAAAyZs+aFEgDQoFsYc4RDQVBwUDlHItUD4ZCggEsYk3cVcjKSANjm0sNysTclgjj28sRDQWBwYDeV4ljW0sWUUcHRYKjWwrW0YeNikUXUcdXkkfZ1AfMCQPoXwxXEceFhEISRgWJhkDSzkYqoI0pH00TjwaExAIUz4YJg0MHhcKg2Qod1wnQTMTCwgEqYE1PS4RkXAtFQQEQhUTcFYjXEYbQTMWZU0ggGIoZ1AgBQECTCoYJBcEKSAOmXUvdVslLCEQtos4Pi8VOBEPCwUBYUsfnXgxaVEgJBsNrYU2dFkkMCYSHQgJAAABTTwZf2Inel8mIxsNY0wgZ08iJQoKOxISGhIHVT4bNCgRCAAAJAkJEgMDEQMDFhgTJSUiHxcUDgoJOxQSISEdJyMgHxsYHx8aGRAPGxIQEBAOIQoKFxEOFAYGHxsaGxkYFRUSCgEBDw8NDgEBERIFGBoYHBwYGRkVCAgIAQECGxMSBAICFRUVDw8PAwMCDg4PCgoKAAAAExMTJiUjGQ8OIyAeAgICBwcFFRUTJSQhHBMRIR8cKCglJiYjGhoYDQAADwwLFhYTCwsLGRkZAwMDBgMCFAcGExMSEhIRDg4MBQUEFQcGJCQhHBwZEgUFEBAPKyklJCUhHh4cKysnIyMgFxcSBAQEGxIRExYTGRkWGxsYFxcUFBQUHx8dCQkJDQ0NBwcHAwMEznoh6AAAALB0Uk5TAP/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////KyKimAAABRElEQVR4nGNgAAFGJmYgycLKxoAO2Dk4GRi4uHkYePlQJfgFBIUYhEVExRjExdD0SEiyMUhJy8jKyStgmMfAoKikrKKqpq6BKaPJoKWto6unbwDiGEIFjYDYGIhNTM3MLdSADBFLqIwVlLa2sbWzd2BgcOR1QjPQ2cXVzd2DgcHTyxtNxsfXzz8gkIEhKBjhxBAQEQoiwoA4PAKhOhJERIGIaBgDCGJi4+ITYEoSEaqTklNS09IzYNxMhExWdlxSTm4ejJuPkCkoLCouKS0rZ6ioRHMpQ1V1TW1dfUNjUzO6DENLa71vfVt7RyeyO2EAKNPV3QNk9AJxH6rG/gkTyyYxMExmYJgyFc3MadPrZyTNnDV7zpQkDPt85ybNm79g4aLFkzCkliQtXbZ8xco6X0yZVavXTFi7bgmGBAisXbO+HsoEAF2RSSdLzUoGAAAAAElFTkSuQmCC")
+
+/***/ }),
+
+/***/ "./asset/data/jas_dragonbane.data.png":
+/*!********************************************!*\
+  !*** ./asset/data/jas_dragonbane.data.png ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAFRQTFRFAAAAZmdvWltia2x0ZWduXF1kWFlgVlZdSDshFBAHamtzYmJqbG52PCYEOCUAHhUAOycAPSgAMiEAHRMAOyYAOicAIRYAPSkAPCYANiQAKhsGEA4CxFLivgAAABx0Uk5TAP///////////////////////////////////6l3rVEAAABZSURBVHicrY1JEoAgDARHcV9wV9T//9MTF2FSSNmn1HSSASxJCoai5jMZkHNbhD9SJVVVjaaltgvv+I+eGj1405iSEZj8ZgaW9R1udtid/UPsMdSc1y1eSjxH/QGM9BKC8gAAAABJRU5ErkJggg==")
+
+/***/ }),
+
+/***/ "./asset/data/onyx_bak_bolts.data.png":
+/*!********************************************!*\
+  !*** ./asset/data/onyx_bak_bolts.data.png ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAblQTFRFAAAALysrEBAQAgIDKSYmCAgIAAABGhgYJyMjExISCAQFFxUVBgYHGhYWDgwMGRcXDg0NAwAAHRsbAAAADw8PAQEBCQkJEg0NHBsbDg4OSRgWCQMDHhsbIRwcDQ0NJg0MDgsLExERDQsLKCUlAwMDGhoaFQQEQhUTDAoKDwoKCAAADAsMFRUVFhUVDAwMBQECJw8PBQICFRQUFBQUJCAgHRoaOBEPBAEBDgQEGhcXEhERIiEhFBMTHQgJAQAADwwMBAQEExAQBAMDJQoKOxISBQQEBgICJAkJEQMDFhgTJSUiHxcUDgoJOxQSISEdJyMgHxsYHx8aGRAPGxIQEBAOIQoKFxEOFAYGHxsaGxkYFRUSCgEBDw8NDgEBERIFGBoYHBwYGRkVAQECGxMSBAICAwMCDg4PCgoKExMTJiUjGQ8OIyAeAgICBwcFFRUTJSQhHBMRIR8cKCglJiYjGhoYDQAADwwLFhYTCwsLGRkZBgMCFAcGExMSEhIRDg4MBQUEFQcGJCQhHBwZEgUFEBAPKyklJCUhHh4cKysnIyMgFxcSGxIRExYTGRkWGxsYFxcUHx8dBwcHAwME+R2AsgAAAJN0Uk5TAP//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////MnztaAAAATZJREFUeJxjYAABRiZmIMnCysaADthBYhycXAzcPKgSrLxAGT5+AUEGIWE0PSKibAxiIuLCEpLoMiAgJS0sIysnLIopI8/ApqCoxKasAuKoQgXVgFgdiDU0tbR1WIEMXT2ojD6UNjAUNjIG2mRiqoJmoJm5haUVUMbaBl3Gls3OHiTj4OgEF3MGES4gwhWI3ZDcrgUi3EGENIwBBB6eXt4+MCW+CNV+/gGBQcEhMG4oQiYs3MsvIjIKxo1GyMTExsUnJLImMSSnoLmUQUckNS1dOCMzKxtdhiEnV5hNOC+/oBDZnTAAlCkqLgEySoG4DFVjeUUlKzBIqhgYqmvQzKytE673a2hsaq72w7CPrcWvta29o7MLPTiBAenX3dPb15+OmYIcjCeIVchNdMCQAAE5sUmwcAYAl0MyP/v4af8AAAAASUVORK5CYII=")
+
+/***/ }),
+
+/***/ "./asset/data/perfect_equilibrium_capped.data.png":
+/*!********************************************************!*\
+  !*** ./asset/data/perfect_equilibrium_capped.data.png ***!
+  \********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAABPpJREFUeJxtVllsVFUYnqe5y0xn2tKFQqSlLGOndabb0A1ohe4bnZaauCT6IGqIbxAQwYBRTPSVRFwS9cFEIyoPigkxJsREifiiicZo1DdRX1RQOuXeIb/fd+5/OzeESb45d+6c83///p9YS9ySzcA2Ky53A+1AB3APkAc6ga4I+P6K5cgRy5Kc/p/TMzzbBmQAyqNcyo+1KkFWBfBQN7AD6LfjMgDsdCrg7x9A8pllm+dBvOvD2qvn8iqnTYkoP7ZVNQgJ+oBBHNqNwyPAHmAMmHDjMg7M4vkqSIhhPN8LDEcUKKicKFGsLULQowQUPgaBU8BcIi77FHP4PYn1bduSf0AygX3TeDehypBsyA68EBIxBLGsmkhzL+LgqJLMQNhCMi6LXIFZYMV2ZBH/jULwuyBacisKkIzv6YEddqBwh4YhRrZeO/D/GPAriL6Av+exeVYtISbx7Ne44te6st8NLJ0B5hMVhK59H+eLqjyJYnkN8rCa+wyI/gLRNeCCY69pSIGrLa6UWkHUnJAi3UkLEkGslnH2JwhnrB62gmToUZcZkgF1EbWl0G+w+YbjyEqtI+UmV87WWnKwypKbfQm5OQj0J+XlesucOZC05Fq1Y/YzTk/aFYXpNkPC3N+JH3vVNcVkoLWXhtYbXVltg9CBhJTHkuLtT4t3f7V4y2n5reBKuSchq9mElDa4spJ25LBjGUVpIRVgCPIhyS68GHeCABc1yPS7t9WF5hC+kBLv8Vrxj9SLf6JR/KP1+L1OvGLaWFbCvuOwiHGa1fN7NKWZZbFuJaEGi8mAaE79fCINF9GCx0Dw7Hrxz24S/40WrM3iP9ck3hPrzP+naixTLzNKwCTYGyVhcHbbQU0sJYMNJOEB+vXLdke8w7DglU1S/jAj5QtZKZ/PiP9qi3iHGuRknWXSdjxixbwqyZrpWiNxApLFsOiUhNq92GiJ/3SDscAQXOqS8idZ8d9sFf94o7yA/6nMROLOJGuW7FJL6K59upGbTiOrvGIKsWhQS7aDqE3KH8CS1zaLf2y9eItps4+JE3UX62Xw9piwNYQkjM+pFOKRT4g3VWV87z+/AS5CLN6CBa+D4PRG8Q7WiTedklu5hDkfJRmNxsSkMF7E9MONT7mWlBqQvhnNrmLKZJN/DJl1sgnuY9BBsFQtt1A7y8wm7WvR7OoLScwXPiMRoussRBQY68RDHVzZ4sjPnXi+DzXyYI1Z37nLlsutjiFgTN9DCi84QQegJ0a0GHNh7yIjhT9iV4hKriOfp2wTK7rzTJ0dVPxQ0lT8gWQgiEE/nww6xHVU/IyOCHqnYGvvate2HAr/HS2F67Q2QbqAveshoKS9i+uUzpJzVQHBv+jQf4PkD5wftgPFu3VWmXkyDlzGhpCI/pxT3zJGbBMM7Go12gc6sYeVgaUCtPQlnS9U8BfgW6BXxzLlx4bwdRTzmglQiFg0GSmuWbWG8+Q/aH0Da9hCwu5AFx2CnO9A9hVwCUS5cDJuU8G520joilEdu2G7/xMH6ZLvsU5oXdCSvRqbASdw0QPAp9hzEcjEIXNLaJJ+uvU5vDiEs57B/wiaXsXBM1bQSqLznReKcOxmdewuAB8zxuF1KErUpTePgg40BpHp+Cief4QlS/quXwNc0P2dkZG7nVciwFyJoveujG7I6uYOHaF5DSKFfQ3NeqzKnexOdy4S8BZEuc3A/+Pypy84LTX2AAAAAElFTkSuQmCC")
+
+/***/ }),
+
+/***/ "./asset/data/powder_of_penance.data.png":
+/*!***********************************************!*\
+  !*** ./asset/data/powder_of_penance.data.png ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAW5QTFRFAAAAZlIrUkIrYU4ua1YrblcscFkuZlIqYU0pSDotUUErZVApcFktc1wvdl4weF8xblguaVMqYU4pV0UmSjsiQDQnRzkqZVEqb1ktemEye2Iyd18xYU4oWUckTj4jSDouSjswOi4kQjUnZ1IqdV0wfGMyfWQyaFMqW0olUUAoUEAySzwvQzUnYE0palQqcFoud14xe2MyfWQ0f2U0fmU0emIydF0wb1gtaFMrYk4oUUApQzQqV0UxXEowZlIpbFYsclsudV4weGAxfWMzc1wwbVcsU0IpUEAuQDIpWEY4WEc5YE02Tj0pcVsua1UsXEkrWEYxSjsvPTAmVEQ2WUc6XEo8XUs8Wkg5YE06YU06X0w6XUo5W0k4V0U1UkI1Tj4ySDktEg4MWkc6XEk8XUk8W0g7V0Y3VUU2V0Y4WUc5VUQ2VEM1UUE0RjktRzouTj4xTj8xU0I1STsvOC0jJR0XHRgTHhgTHRcTHRcSHBYSjqcgawAAAHp0Uk5TAP////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9bcsYGAAAAyElEQVR4nGNgGBqAEasoEzMLKxs7B4Y4Jxc3Dy8fv4CgkLAIioSomLgEn6SUlDSPoIysnDxcXEFRSZlVRVVNTU2ST0JdRkNTCyajraOrp29gaGRsYmpmbiFuaWUN12Rja2fv4Ohk6Ozk4qos7ubuAZfx9PL29mHjdTRw9PXzD9AODILLBIeEhoVHRERGRkXHxMbFJyQiOS4pOQVEpYakpWtpo3ooIzMERGVl5+Si+zUvv4ChkEG7qLgEIxhKyxgYyisqMcQHJQAAm8whn6isv2EAAAAASUVORK5CYII=")
+
+/***/ }),
+
+/***/ "./asset/data/powder_of_protection.data.png":
+/*!**************************************************!*\
+  !*** ./asset/data/powder_of_protection.data.png ***!
+  \**************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAWJQTFRFAAAAMUguOz0sPkgxM0wwNE4xNk8zMUkvL0UsSDotPj4sNU8yNlI0OFQ1OVU2NE8yMUovLj8pLTclQDQnPzgqMUkuNE8xOlQ1O1Y3PFc3OFQ2NVAyLkUrKkAnLjomSDouSjswOi4kPDQnN1Q1PFg4PFk6Olc3N1M1K0EqOTwqUEAySzwvOzMoMUUsMkswNU8zOVQ2O1g5PFk5PFo6O1c4MUouMEctL0YtOD0rQzQqSkIzQUYxMEgvM00xNlEzOFM2OlU2O1g4N1E1NE0yOT0rQz0uQDIpWEY4V0c5UEo4T0o4OzoqN1E0M00wOUMuR0MySjsvPTAmVEQ2WUc6XEo8XUs8Wkg5WUs7WUw7WEo7Vkg5VEg4U0Q2UkI1Tj4ySDktEg4MWkc6XEk8XUk8W0g7V0Y3VUU2V0Y4WUc5VUQ2VEM1UUE0RjktRzouTj8xU0I1STsvOC0jJR0XHRcTHBcSGxYS6KpYLQAAAHZ0Uk5TAP///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+7SgR4AAADESURBVHicY2AYGoARqygTMwsrGzsHhjgnFyM3Dy8fvwCHoBCKhLCIqJi4hKSklLSAjKycPFxcQVGJkVVZRVVVVU2dX1RGQ1MLJqOto6unb2BoZGxsos5vamZuYQnXZGVtY2tn72Di6ODkzGjm4uoGl3H38PTyZvORklK28/Xz1w4IhMsEBYeEhoVHRERERkXHxMbFJyA5LjEpGUSlBKemaWmjeig9IxhEZWZl56D7NZchjyGfgaGgsAhrEBWXlGIVH3QAAHgpHz/AKJarAAAAAElFTkSuQmCC")
+
+/***/ }),
+
 /***/ "./asset/data/putrid_zombie-top.data.png":
 /*!***********************************************!*\
   !*** ./asset/data/putrid_zombie-top.data.png ***!
@@ -828,6 +958,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAANCAIAAADTzFK5AAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAulJREFUeJw1U81rVUcUP+fMzHv3XRNNoFThCSl+oPhJ6aKF0kVcCEp1UylFrF256MqNqy4E40JQ/DNcaRNESEDaRSnNIgQEFUys+IW1pYbYF1/ey71v5pz+5ol3cS93Zs7v/D7O+EPbzzELSxAKxESmahEfYSfkmRvYJVIroztcFie2Ppq/w8/rvWdOPbp9k2uamJxMc+8GD7uUzIsIGcociomZ2NjETIU9DxeZPRZld1l/FZdmf+barEw4x5F2Hj/my1b8LHB06cWGJxSIsKHGoThTIyVORKCDncAU2Jm0i1e/z368a9/4nj1LN27Gbh/9/plfHNh6f9Dd/8Op6pcOmgs6c35QmQkaJ1NAgyHeYUjQeIV2HT3+9Nbs5k92UNLl6Rlphd7rN9SgA6e/q9e6blPDf9Dis2vZoACF5pJZZkXkHRaN9KUGHd18cOLJwl0GV29klJoclKlnNF3Hf5N30sCq4zBk4d1718gp7IdgHloJ3Qk+yH9/vXRvUmwZWiIPGVg0xWFaEX6r4IWkUCwue5wtAxyAoEvEaPgLKAnkRgNv2I5vTj6+PaOxQvboZRq7b18VW8ZpNWMV0KZQREPvcpzAhWeEo5Lhsc9pQLQKXfZs7i5FnGbVhI5WDUJzRBrOTPx7p+CAEUvTudJz4Tiy9CzVubXL4aDG9KECNq33Mz5gXdKNCoqK8TGrqsSSE8yMmuy3edof3L6GttRHz3+qPVD3N0uVp84jjAd0aPdZ+lJ6IyvLd27pan+okXzVHHQ3AIP5Ii45HGzKidbCpSvut4JCsHITjPr8/DmZi+6ecT9bZx21e8RL7NoffXrmx4Xr13ighNhfJ+sjI/AKAi72dWPx8lXMl0VkU3O/p+XIHxcufjH1k7OGLDnqWE4bw4EJeJbsPuT61F2jpqeWeI8ZwfiMeTlSLE5dHd5Fi1UN53xZqHft779dG606259ubR8Iv3ruWL5hMBxj0FFRiqq0Xknb2aizdfsfhQlMvDg+e7cAAAAASUVORK5CYII=")
+
+/***/ }),
+
+/***/ "./asset/data/ruby_bak_bolts.data.png":
+/*!********************************************!*\
+  !*** ./asset/data/ruby_bak_bolts.data.png ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAhBQTFRFAAAAcTMvJxIKBAIBZC0rGggIAwABOhoYHQgIBAABXiwmKxMSDwgFUCMgHg4KMBUTNRcWGQgILxYUOBkXIA4NDAMASB8dIA8EFgEBKRERIhERJBINFgoHSSAeIw4OCQAASRgWFgMDHxEQYSwnTCIdHQ0NCAAAJA4OJg0MDQYGNhgVKxISFwsABQICZC4rHQ8FVSYiFQQEQhUTLRMSHgwMGgEBNRkVNRgXKA4OQyAbMhQSBQECNhMSEAMDEgQDSyIeLxUVEAAAaDAqQR4dFQMDOBEPBwEBKhMTQB0ZJhIRDQAAUSMiLBQUEwMDHQgJAAABHxAQMBQULBERKRYOIxAJCAMDJQoKOxISCQQEKBINFgAAJAkJCQMDEQMDFhgTJSUiHxcUDgoJOxQSISEdJyMgHxsYHx8aGRAPGxIQEBAOIQoKFxEOFAYGHxsaGxkYFRUSCgEBDw8NDgEBERIFGBoYHBwYGRkVCAgIAQECGxMSBAICFRUVDw8PAwMCDg4PCgoKAAAAExMTJiUjGQ8OIyAeAgICBwcFFRUTJSQhHBMRIR8cKCglJiYjGhoYDwwLFhYTCwsLGRkZAwMDBgMCFAcGExMSEhIRDg4MBQUEFQcGJCQhHBwZEgUFEBAPKyklJCUhHh4cKysnIyMgFxcSBAQEGxIRExYTGRkWGxsYFxcUFBQUHx8dCQkJDQ0NBwcHAwMEQ68RfAAAALB0Uk5TAP/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////KyKimAAABRElEQVR4nGNgAAFGJmYgycLKxoAO2Dk4GRi4uHkYePlQJfgFBNkYhIRFRBnERNH0iEuwMUhKScvIysljmMfAoKCopKyiqqaOKaPBoKmlraOrpw/iGEAFDYHYCIiNTUzNzC2ADEsrqIw1lLaxtbN3cGRgcHJ2QTPQ1c3dw9OLgcHbxxdNxs8/IDAIKBMcEgoXCwMR4SAiAogjoxCq1UBENIiIgTGAIDYuPiERpiQJoTo5JTUtPSMTxs1CyGTnxCfn5uXDuAUImcKi4pLSsvIKhsoqNJcyVNfU1tU3NDY1t6DLMLS2Nfg3tHd0diG7EwaAMt09vUAG0JsMfaga+ydMLJ/EwDCZgWHKVDQzp01vmJE8c9bsOVOSMezzn5s8b/6ChYsWT8KQWpK8dNnyFSvr/TFlVq1eM2HtuiUYEiCwds36BigTAPb4SWPfXOF4AAAAAElFTkSuQmCC")
 
 /***/ }),
 
@@ -868,6 +1008,16 @@ module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAANCAIAAADTzFK5AAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAypJREFUeJwlU91rFFcUv+ecO/fO7Gay25jSkCr4RWIbwUawFdKUisU+FEGQiiD9A4ogCLF9LIW8tA8+tQ/tYwuBUgyG9qVNzVNQC1W0sR+RTGyNiRpdEzeb3Z3Z+9Fz03kY7tx7zm9+H+fK4Z4xEAiC+C3ACwACSUIjKgAQwlvfsbbjfM4LIcIOhDofFkBCCOfaxhe8kHy8hcWNhEgSS7GsKFEuBqsPz++Awvd/tmgePGqZJ846RuBiBkIARWVN3asXBuLxK+idF06ikBAIEGMRKI3p4uQbGHMLovUFwsLXg9s/T9VM2znrmRCjeRdhnFLfX7Mje0anN1iJYIIgESPhA1tkwoBcPXQ6u32xP+qSDoEpgveL4wNDo0sd23bCemEZTFL8x/Tr6eQ9xo4wkagK25TAvDDY8L9SxkWHolb4JPD1TeNiorVGbNNcbuR2UwQ5ofilr5Yevl/dSRUN6fLE4cqpydDAvw9YEBIgVC6JmOHWnmhNzbTn5ljuv598+OJ43djcCSeCCFXOWvTCTqdx/vJhqD3r8xUZuLA3ILcES3b01kfdURQME8YWd34PVjtXe6vUT0luJGGkMNVRpVbFuFyZ/+UIzf7tXu0ljGWQFh4kCCFyNORZNDsoGj9Oh+iDVN+ZuELwMpFWWM5uH4OCOE9qehl5+/bA5vez2c+H2PtgmQSlqJTInvor2oogL6rbrvfeWVuY5/nh8/LJI9HEkqYu5UpkMV/4J9m9AyIwzfbmpesHvzTZcc0obE9Jy25N6Y2xGjTWkvu22LvfJZ5ndtuFc81rN+OhfRzwrQ9WD3zbw86zkNfOrFw/O8cFoJODX9i2Xe8bmZKMUpa9v42t6U4hnqMzKiejVjKn9+I2gYTp6CGbyk62XGDr7sn1wUu9/R/fzbXRMRVPiuFvSvViJbd1JwoZy+rVwe9KzaN5HiFHJMB56TfWbdMA51flT9icumpbDZsXzxORjfrdM/7PT63ycf7Y5PZZ7hrW5zx3zJKGs3fvmMvw5gnH3eEOMLmKmv/VHBhxT6H+0w8ijjwz9ODajVq1+fTYUgoDft3supZ07GoY9a2L9R+ee2lPH77d2gAAAABJRU5ErkJggg==")
+
+/***/ }),
+
+/***/ "./asset/data/wen_arrows.data.png":
+/*!****************************************!*\
+  !*** ./asset/data/wen_arrows.data.png ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports=(__webpack_require__(/*! alt1/base */ "../node_modules/alt1/dist/base/index.js").ImageDetect.imageDataFromBase64)("iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAAW5vUEUAYtdMlAAAAAlub1BFAAAAAAAAAAAAoYpy1QAAAFpQTFRFAAAAPKO9MoyhCyY5PKS+MIOYNJGoChsgOZqzMIOXOZ63N5euQbHNI2BvPqjDNpWtDCEpAB0jAAgWABUYACQpAAQFAAYHACIoACUrAA4RABgeACAjABEUABMYs3vDEAAAAB50Uk5TAP//////////////////////////////////////9DgaNwAAAFxJREFUeJytjUcOgDAMBJfeCQm9/f+bIJQT8iJZYmRfPLYX8ASghFxFXEnECVVphrygtlSEVNTUDVrDDztFiArLlfsvpadmeEpknGb+cVnfk4/lDdhlc9x98kPPBZbzAd9oXrk7AAAAAElFTkSuQmCC")
 
 /***/ }),
 
@@ -1263,6 +1413,98 @@ html:not(.beta) .beta-only {
 #AdrenalinePotionDebuff.inactive::before,
 #AdrenalinePotionDebuff.inactive::after {
   content: 'adr'
+}
+
+#BolgStacksBuff[data-color=""] .red {
+  display: none !important;
+}
+
+#BolgStacksBuff[data-color="green"] .green {
+  display: block;
+}
+
+#BolgStacksBuff[data-color="green"] .red {
+  display: none !important;
+}
+
+#BolgStacksBuff[data-color="red"] .green {
+  display: none !important;
+}
+
+#BolgStacksBuff[data-color="red"] .red {
+  display: block;
+}
+
+#BolgStacksBuff::before,
+#BolgStacksBuff::after {
+    content: attr(data-stacks)
+}
+
+#QuiverAmmo::before,
+#QuiverAmmo::after {
+    top: calc(50% + 1px);
+    left: calc(50% + 1px);
+    right: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%);
+}
+
+#QuiverAmmo[data-ammo=""]::before,
+#QuiverAmmo[data-ammo=""]::after {
+  font-size: 7px !important;
+  content: 'Ammo'
+}
+
+#QuiverAmmo[data-ammo="BIK"]::before,
+#QuiverAmmo[data-ammo="BIK"]::after {
+  content: 'BIK'
+}
+
+#QuiverAmmo[data-ammo="FUL"]::before,
+#QuiverAmmo[data-ammo="FUL"]::after {
+  content: 'FUL'
+}
+
+#QuiverAmmo[data-ammo="WEN"]::before,
+#QuiverAmmo[data-ammo="WEN"]::after {
+  content: 'WEN'
+}
+
+#QuiverAmmo[data-ammo="JAS"]::before,
+#QuiverAmmo[data-ammo="JAS"]::after {
+  content: 'JAS'
+}
+
+#QuiverAmmo[data-ammo="BSD"]::before,
+#QuiverAmmo[data-ammo="BSD"]::after {
+  content: 'BSD'
+}
+
+#QuiverAmmo[data-ammo="DSP"]::before,
+#QuiverAmmo[data-ammo="DSP"]::after {
+  content: 'DSP'
+}
+
+#QuiverAmmo[data-ammo="(H)"]::before,
+#QuiverAmmo[data-ammo="(H)"]::after {
+  content: 'HYD'
+}
+
+#QuiverAmmo[data-ammo="(R)"]::before,
+#QuiverAmmo[data-ammo="(R)"]::after {
+  font-size: 8px !important;
+  content: 'RUBY'
+}
+
+#QuiverAmmo[data-ammo="(D)"]::before,
+#QuiverAmmo[data-ammo="(D)"]::after {
+  content: 'DIA'
+}
+
+#QuiverAmmo[data-ammo="(O)"]::before,
+#QuiverAmmo[data-ammo="(O)"]::after {
+  font-size: 8px !important;
+  content: 'ONYX'
 }
 
 #VirusDebuff[data-virus=""] {
@@ -11702,6 +11944,10 @@ var buffsList = {
     ConjureZombie: getByID('ConjureZombie'),
     ConjureGhost: getByID('ConjureGhost'),
     SplitSoulECB: getByID('SplitSoulECBBuff'),
+    AggressionPotion: getByID('AggressionPotionBuff'),
+    PowderOfProtection: getByID('PowderOfProtectionBuff'),
+    PowderOfPenance: getByID('PowderOfPenanceBuff'),
+    QuiverAmmo: getByID('QuiverAmmo'),
 };
 var debuffsList = {
     AdrenalinePotionDebuff: getByID('AdrenalinePotionDebuff'),
@@ -11752,7 +11998,9 @@ var buffImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     overloaded: __webpack_require__(/*! ./asset/data/Overloaded-noborder.data.png */ "./asset/data/Overloaded-noborder.data.png"),
     supreme_overloaded: __webpack_require__(/*! ./asset/data/supreme_overload.data.png */ "./asset/data/supreme_overload.data.png"),
     overloadedNoBorder: __webpack_require__(/*! ./asset/data/Overloaded-noborder.data.png */ "./asset/data/Overloaded-noborder.data.png"),
+    balanceByForce: __webpack_require__(/*! ./asset/data/balance_by_force-beta.data.png */ "./asset/data/balance_by_force-beta.data.png"),
     perfectEquilibrium: __webpack_require__(/*! ./asset/data/Perfect_Equilibrium-noborder.data.png */ "./asset/data/Perfect_Equilibrium-noborder.data.png"),
+    perfectEquilibriumCapped: __webpack_require__(/*! ./asset/data/perfect_equilibrium_capped.data.png */ "./asset/data/perfect_equilibrium_capped.data.png"),
     perfectEquilibriumNoBorder: __webpack_require__(/*! ./asset/data/Perfect_Equilibrium-noborder.data.png */ "./asset/data/Perfect_Equilibrium-noborder.data.png"),
     poisonous: __webpack_require__(/*! ./asset/data/Poisonous-top-noborder.data.png */ "./asset/data/Poisonous-top-noborder.data.png"),
     prayerRenewActive: __webpack_require__(/*! ./asset/data/Prayer_Renew_Active-noborder.data.png */ "./asset/data/Prayer_Renew_Active-noborder.data.png"),
@@ -11780,6 +12028,9 @@ var buffImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     ConjureGhost: __webpack_require__(/*! ./asset/data/vengeful_ghost-top.data.png */ "./asset/data/vengeful_ghost-top.data.png"),
     SplitSoulECB: __webpack_require__(/*! ./asset/data/split_soul_ecb.data.png */ "./asset/data/split_soul_ecb.data.png"),
     FeastingSpores: __webpack_require__(/*! ./asset/data/deathspore_arrows-buff.data.png */ "./asset/data/deathspore_arrows-buff.data.png"),
+    AggressionPotion: __webpack_require__(/*! ./asset/data/aggression_potion.data.png */ "./asset/data/aggression_potion.data.png"),
+    PowderOfProtection: __webpack_require__(/*! ./asset/data/powder_of_protection.data.png */ "./asset/data/powder_of_protection.data.png"),
+    PowderOfPenance: __webpack_require__(/*! ./asset/data/powder_of_penance.data.png */ "./asset/data/powder_of_penance.data.png"),
 });
 var incenseImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     lantadyme: __webpack_require__(/*! ./asset/data/Lantadyme.data.png */ "./asset/data/Lantadyme.data.png"),
@@ -11837,6 +12088,18 @@ var prayerImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     soulSplit: __webpack_require__(/*! ./asset/data/Soul_Split-noborder.data.png */ "./asset/data/Soul_Split-noborder.data.png"),
     torment: __webpack_require__(/*! ./asset/data/Torment-noborder.data.png */ "./asset/data/Torment-noborder.data.png"),
     turmoil: __webpack_require__(/*! ./asset/data/Turmoil-noborder.data.png */ "./asset/data/Turmoil-noborder.data.png"),
+});
+var quiverImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
+    bik: __webpack_require__(/*! ./asset/data/bik_arrows.data.png */ "./asset/data/bik_arrows.data.png"),
+    ful: __webpack_require__(/*! ./asset/data/ful_arrows.data.png */ "./asset/data/ful_arrows.data.png"),
+    jas_dragonbane: __webpack_require__(/*! ./asset/data/jas_dragonbane.data.png */ "./asset/data/jas_dragonbane.data.png"),
+    wen: __webpack_require__(/*! ./asset/data/wen_arrows.data.png */ "./asset/data/wen_arrows.data.png"),
+    blackstone: __webpack_require__(/*! ./asset/data/blackstone_arrows.data.png */ "./asset/data/blackstone_arrows.data.png"),
+    deathspore: __webpack_require__(/*! ./asset/data/deathspore_arrows-quiver.data.png */ "./asset/data/deathspore_arrows-quiver.data.png"),
+    diamond_bak: __webpack_require__(/*! ./asset/data/diamond_bak_bolts.data.png */ "./asset/data/diamond_bak_bolts.data.png"),
+    hydrix_bak: __webpack_require__(/*! ./asset/data/hydrix_bak_bolts.data.png */ "./asset/data/hydrix_bak_bolts.data.png"),
+    ruby_bak: __webpack_require__(/*! ./asset/data/ruby_bak_bolts.data.png */ "./asset/data/ruby_bak_bolts.data.png"),
+    onyx_bak: __webpack_require__(/*! ./asset/data/onyx_bak_bolts.data.png */ "./asset/data/onyx_bak_bolts.data.png"),
 });
 var enemyImages = alt1__WEBPACK_IMPORTED_MODULE_9__.webpackImages({
     DeathMark: __webpack_require__(/*! ./asset/data/Death_Mark.data.png */ "./asset/data/Death_Mark.data.png"),
@@ -11981,9 +12244,21 @@ function watchBuffs() {
             findStatus(buffs, buffImages.Antifire, buffsList.AntiFire, {
                 threshold: 225,
             });
+            findStatus(buffs, buffImages.AggressionPotion, buffsList.AggressionPotion, {
+                threshold: 120,
+            });
+            findStatus(buffs, buffImages.PowderOfProtection, buffsList.PowderOfProtection, {
+                threshold: 130,
+            });
+            findStatus(buffs, buffImages.PowderOfPenance, buffsList.PowderOfPenance, {
+                threshold: 130,
+            });
             findStatus(buffs, buffImages.prayerRenewActive, buffsList.PrayerRenewal, { threshold: 225 });
             findStatus(buffs, buffImages.DeathSpark, buffsList.DeathSpark, {
                 threshold: 300,
+            });
+            findStatus(buffs, buffImages.balanceByForce, buffsList.BalanceByForceBuff, {
+                threshold: 70,
             });
             findStatus(buffs, buffImages.Anticipation, buffsList.Anticipation, {
                 threshold: 300,
@@ -12104,12 +12379,17 @@ function watchBuffs() {
                 threshold: 300,
                 expirationPulse: true,
             });
-            findStatus(buffs, buffImages.SplitSoulECB, buffsList.SplitSoulECB, { threshold: 60 });
+            findStatus(buffs, buffImages.SplitSoulECB, buffsList.SplitSoulECB, {
+                threshold: 60,
+            });
             findDeathspores(buffs, buffImages.FeastingSpores, debuffsList.FeastingSpores, { threshold: 18 });
             findStatus(buffs, buffImages.ConjureGhost, buffsList.ConjureGhost, {
                 threshold: 300,
                 expirationPulse: true,
             });
+            findAmmo(buffs);
+            // TODO: Uncomment when Beta changes for BOLG buffs goes live
+            // findPerfectEquilibriumStacks(buffs);
             checkBuffsForHidingOverlay(buffs);
             if ((buffs === null || buffs === void 0 ? void 0 : buffs.length) == 0) {
                 for (var _i = 0, _a = Object.entries(buffsList); _i < _a.length; _i++) {
@@ -12534,6 +12814,117 @@ function findVirus(debuffs) {
             else {
                 debuffsList.Virus.dataset.virus = currentVirus;
                 debuffsList.Virus.classList.add('active');
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+function findPerfectEquilibriumStacks(buffs) {
+    return __awaiter(this, void 0, void 0, function () {
+        var peActive, capped, _i, _a, _b, _key, value, checkGreen, checkRed;
+        return __generator(this, function (_c) {
+            if (!buffs) {
+                return [2 /*return*/];
+            }
+            peActive = 0;
+            capped = '';
+            for (_i = 0, _a = Object.entries(buffs); _i < _a.length; _i++) {
+                _b = _a[_i], _key = _b[0], value = _b[1];
+                checkGreen = value.countMatch(buffImages.perfectEquilibrium, false);
+                checkRed = value.countMatch(buffImages.perfectEquilibriumCapped, false);
+                if (checkGreen.failed == 0 || checkGreen.passed > 380) {
+                    buffsList.BolgStacksBuff.dataset.color = 'green';
+                    capped = value.readTime().toString();
+                    peActive++;
+                }
+                if (checkRed.failed == 0 || checkRed.passed > 300) {
+                    buffsList.BolgStacksBuff.dataset.color = 'red';
+                    capped = value.readTime().toString();
+                    peActive++;
+                }
+            }
+            if (!peActive) {
+                buffsList.BolgStacksBuff.dataset.stacks = '';
+                buffsList.BolgStacksBuff.dataset.color = '';
+                buffsList.BolgStacksBuff.classList.add('inactive');
+            }
+            else {
+                buffsList.BolgStacksBuff.dataset.stacks = capped;
+                buffsList.BolgStacksBuff.classList.add('active');
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+function findAmmo(buffs) {
+    return __awaiter(this, void 0, void 0, function () {
+        var ammmoActive, currentAmmo, _i, _a, _b, _key, value, checkBik, checkFul, checkWen, checkJas, checkBlackstone, checkDeathspores, checkDiamond, checkHydrix, checkRuby, checkOnyx;
+        return __generator(this, function (_c) {
+            if (!buffs) {
+                return [2 /*return*/];
+            }
+            ammmoActive = 0;
+            currentAmmo = '';
+            for (_i = 0, _a = Object.entries(buffs); _i < _a.length; _i++) {
+                _b = _a[_i], _key = _b[0], value = _b[1];
+                checkBik = value.countMatch(quiverImages.bik, false);
+                checkFul = value.countMatch(quiverImages.ful, false);
+                checkWen = value.countMatch(quiverImages.wen, false);
+                checkJas = value.countMatch(quiverImages.jas_dragonbane, false);
+                checkBlackstone = value.countMatch(quiverImages.blackstone, false);
+                checkDeathspores = value.countMatch(quiverImages.deathspore, false);
+                checkDiamond = value.countMatch(quiverImages.diamond_bak, false);
+                checkHydrix = value.countMatch(quiverImages.hydrix_bak, false);
+                checkRuby = value.countMatch(quiverImages.ruby_bak, false);
+                checkOnyx = value.countMatch(quiverImages.onyx_bak, false);
+                if (checkBik.failed == 0 || checkBik.passed > 28) {
+                    currentAmmo = 'BIK';
+                    ammmoActive++;
+                }
+                if (checkFul.failed == 0 || checkFul.passed > 28) {
+                    currentAmmo = 'FUL';
+                    ammmoActive++;
+                }
+                if (checkWen.failed == 0 || checkWen.passed > 28) {
+                    currentAmmo = 'WEN';
+                    ammmoActive++;
+                }
+                if (checkJas.failed == 0 || checkJas.passed > 28) {
+                    currentAmmo = 'JAS';
+                    ammmoActive++;
+                }
+                if (checkBlackstone.failed == 0 || checkBlackstone.passed > 28) {
+                    currentAmmo = 'BSD';
+                    ammmoActive++;
+                }
+                if (checkDeathspores.failed == 0 || checkDeathspores.passed > 28) {
+                    currentAmmo = 'DSP';
+                    ammmoActive++;
+                }
+                if (checkDiamond.failed == 0 || checkDiamond.passed > 180) {
+                    currentAmmo = '(D)';
+                    ammmoActive++;
+                }
+                if (checkHydrix.failed == 0 || checkHydrix.passed > 180) {
+                    currentAmmo = '(H)';
+                    ammmoActive++;
+                }
+                if (checkRuby.failed == 0 || checkRuby.passed > 180) {
+                    currentAmmo = '(R)';
+                    ammmoActive++;
+                }
+                if (checkOnyx.failed == 0 || checkOnyx.passed > 180) {
+                    currentAmmo = '(O)';
+                    ammmoActive++;
+                }
+            }
+            if (!ammmoActive) {
+                buffsList.QuiverAmmo.dataset.ammo = '';
+                buffsList.QuiverAmmo.classList.add('inactive');
+            }
+            else {
+                buffsList.QuiverAmmo.dataset.ammo = currentAmmo;
+                buffsList.QuiverAmmo.classList.add('active');
             }
             return [2 /*return*/];
         });

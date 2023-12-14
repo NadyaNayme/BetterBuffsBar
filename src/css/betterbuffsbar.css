@@ -309,6 +309,98 @@ html:not(.beta) .beta-only {
   content: 'adr'
 }
 
+#BolgStacksBuff[data-color=""] .red {
+  display: none !important;
+}
+
+#BolgStacksBuff[data-color="green"] .green {
+  display: block;
+}
+
+#BolgStacksBuff[data-color="green"] .red {
+  display: none !important;
+}
+
+#BolgStacksBuff[data-color="red"] .green {
+  display: none !important;
+}
+
+#BolgStacksBuff[data-color="red"] .red {
+  display: block;
+}
+
+#BolgStacksBuff::before,
+#BolgStacksBuff::after {
+    content: attr(data-stacks)
+}
+
+#QuiverAmmo::before,
+#QuiverAmmo::after {
+    top: calc(50% + 1px);
+    left: calc(50% + 1px);
+    right: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%);
+}
+
+#QuiverAmmo[data-ammo=""]::before,
+#QuiverAmmo[data-ammo=""]::after {
+  font-size: 7px !important;
+  content: 'Ammo'
+}
+
+#QuiverAmmo[data-ammo="BIK"]::before,
+#QuiverAmmo[data-ammo="BIK"]::after {
+  content: 'BIK'
+}
+
+#QuiverAmmo[data-ammo="FUL"]::before,
+#QuiverAmmo[data-ammo="FUL"]::after {
+  content: 'FUL'
+}
+
+#QuiverAmmo[data-ammo="WEN"]::before,
+#QuiverAmmo[data-ammo="WEN"]::after {
+  content: 'WEN'
+}
+
+#QuiverAmmo[data-ammo="JAS"]::before,
+#QuiverAmmo[data-ammo="JAS"]::after {
+  content: 'JAS'
+}
+
+#QuiverAmmo[data-ammo="BSD"]::before,
+#QuiverAmmo[data-ammo="BSD"]::after {
+  content: 'BSD'
+}
+
+#QuiverAmmo[data-ammo="DSP"]::before,
+#QuiverAmmo[data-ammo="DSP"]::after {
+  content: 'DSP'
+}
+
+#QuiverAmmo[data-ammo="(H)"]::before,
+#QuiverAmmo[data-ammo="(H)"]::after {
+  content: 'HYD'
+}
+
+#QuiverAmmo[data-ammo="(R)"]::before,
+#QuiverAmmo[data-ammo="(R)"]::after {
+  font-size: 8px !important;
+  content: 'RUBY'
+}
+
+#QuiverAmmo[data-ammo="(D)"]::before,
+#QuiverAmmo[data-ammo="(D)"]::after {
+  content: 'DIA'
+}
+
+#QuiverAmmo[data-ammo="(O)"]::before,
+#QuiverAmmo[data-ammo="(O)"]::after {
+  font-size: 8px !important;
+  content: 'ONYX'
+}
+
 #VirusDebuff[data-virus=""] {
   background-image: url('/asset/buffs/desat/virus-desat.png');
 }
