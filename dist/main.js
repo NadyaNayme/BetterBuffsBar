@@ -1415,6 +1415,7 @@ html:not(.beta) .beta-only {
   content: 'adr'
 }
 
+#BolgStacksBuff.inactive .red,
 #BolgStacksBuff[data-color=""] .red {
   display: none !important;
 }
@@ -1442,8 +1443,8 @@ html:not(.beta) .beta-only {
 
 #QuiverAmmo::before,
 #QuiverAmmo::after {
-    top: calc(50% + 1px);
-    left: calc(50% + 1px);
+    top: calc(50% + 1px) !important;
+    left: calc(50% + 1px) !important;
     right: auto !important;
     bottom: auto !important;
     transform: translate(-50%, -50%);
