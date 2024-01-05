@@ -395,7 +395,7 @@ function watchBuffs() {
 				buffImages.animateDead,
 				buffsList.AnimateDeadBuff,
 				{
-					threshold: 90,
+					threshold: 60,
 				}
 			);
 
