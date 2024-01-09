@@ -155,7 +155,7 @@ var buffImages = a1lib.webpackImages({
 	prayerRenewActive: require('./asset/data/Prayer_Renew_Active-noborder.data.png'),
 	superAntifireActive: require('./asset/data/Super_Anti-Fire_Active-noborder.data.png'),
 	supremeOverloadActive: require('./asset/data/Supreme_Overload_Potion_Active-noborder.data.png'),
-	timeRift: require('./asset/data/Time_Rift-noborder.data.png'),
+	timeRift: require('./asset/data/Time_rift-noborder.data.png'),
 	aura: require('./asset/data/Aura-noborder.data.png'),
 	bonfireBoost: require('./asset/data/Bonfire_Boost-noborder.data.png'),
 	grimoire: require("./asset/data/Erethdor's_grimoire-noborder.data.png"),
@@ -171,7 +171,7 @@ var buffImages = a1lib.webpackImages({
 	Antifire: require('./asset/data/antifire_top.data.png'),
 	PrayerRenewal: require('./asset/data/Prayer_Renew_Active-noborder.data.png'),
 	DeathSpark: require('./asset/data/Death_Spark.data.png'),
-	ThreadsOfFate: require('./asset/data/Threads_Of_Fate.data.png'),
+	ThreadsOfFate: require('./asset/data/Threads_of_Fate.data.png'),
 	ConjureSkeleton: require('./asset/data/skeleton_warrior-top.data.png'),
 	ConjureZombie: require('./asset/data/putrid_zombie-top.data.png'),
 	ConjureGhost: require('./asset/data/vengeful_ghost-top.data.png'),
@@ -260,7 +260,7 @@ var quiverImages = a1lib.webpackImages({
 var enemyImages = a1lib.webpackImages({
 	DeathMark: require('./asset/data/Death_Mark.data.png'),
 	Vulnerability: require('./asset/data/Vulnerability_bordered.data.png'),
-	Bloat: require('./asset/data/bloated.data.png'),
+	Bloat: require('./asset/data/Bloated.data.png'),
 });
 
 export function startBetterBuffsBar() {
