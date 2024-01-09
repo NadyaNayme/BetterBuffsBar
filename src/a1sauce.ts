@@ -483,3 +483,9 @@ export function updateSetting(setting, value) {
 	save_data[setting] = value;
 	localStorage.setItem(config.appName, JSON.stringify(save_data));
 }
+
+export async function timeout(millis: number) {
+	return new Promise(function (resolve) {
+		setTimeout(resolve, millis)
+	});
+}
