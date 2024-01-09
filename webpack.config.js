@@ -17,7 +17,7 @@ module.exports = {
 		library: { type: 'umd', name: 'NyusNecroJobGauge' },
 	},
 	devtool: false,
-	mode: 'development',
+	mode: process.env.NODE_ENV || 'development',
 	// prevent webpack from bundling these imports (alt1 libs can use them when running in nodejs)
 	externals: ['sharp', 'canvas', 'electron/common'],
 	resolve: {
