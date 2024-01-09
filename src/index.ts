@@ -303,7 +303,6 @@ let checkForCombat = true;
 let updatingOverlayPosition = false;
 let timeUntilHide = 2;
 let checkCombatState = () => {
-
 	if (updatingOverlayPosition) {
 		inCombat = true;
 		return;
@@ -869,7 +868,7 @@ async function noDetection(maxAttempts: number, interval: any, bar: string) {
 		return;
 	}
 	if (maxAttempts < 10) {
-		setTimeout(() => {}, 1000 * maxAttempts ** 2);
+		await sauce.timeout(1000 * maxAttempts ** 2);
 		maxAttempts++;
 	}
 	console.log(
@@ -879,9 +878,8 @@ async function noDetection(maxAttempts: number, interval: any, bar: string) {
 
 async function showTooltip(msg: string, duration: number) {
 	alt1.setTooltip(msg);
-	await new Promise((done) => setTimeout(done, duration));
+	await sauce.timeout(duration);
 	alt1.clearTooltip();
-	return;
 }
 
 /*
@@ -1013,14 +1011,14 @@ async function findStatus(
 
 				// Pause the check for a tick since we don't need to rapidly update
 				//a buff that won't have a more precise value for 1 minute
-				await new Promise((done) => setTimeout(done, 600));
+				await sauce.timeout(600);
 			}
 			// If we've reached 11 seconds force the item active for 10s and then set it to inactive
 			else if (expirationPulse && timearg.time == 11 && !onCooldown) {
 				element.dataset.time = '<10s';
 				await setActive(element);
 				// This can be desynced from in-game 10s but it's accurate enough
-				await new Promise((done) => setTimeout(done, 10000));
+				await sauce.timeout(10000);
 				await setInactive(element);
 				if (sauce.getSetting('showTooltipReminders')) {
 					showTooltip('Overload expired', 3000);
@@ -1071,12 +1069,12 @@ async function findStatus(
 	if (timearg == undefined && foundBuff && !showCooldown) {
 		// The FoundBuff ensures we don't wait 10s to add inactive when BBB first loads
 		if (expirationPulse) {
-			await new Promise((done) => setTimeout(done, 10000));
+			await sauce.timeout(10000);
 		}
 		await setInactive(element);
 	}
 	// Give a very brief pause before checking again
-	await new Promise((done) => setTimeout(done, 10));
+	await sauce.timeout(10);
 	return timearg;
 }
 
@@ -1147,12 +1145,13 @@ async function findDeathspores(
 	if (timearg == undefined && foundBuff && !showCooldown) {
 		// The FoundBuff ensures we don't wait 10s to add inactive when BBB first loads
 		if (expirationPulse) {
-			await new Promise((done) => setTimeout(done, 10000));
+			await sauce.timeout(10000);
+
 		}
 		await setInactive(element);
 	}
 	// Give a very brief pause before checking again
-	await new Promise((done) => setTimeout(done, 10));
+	await sauce.timeout(10);
 	return timearg;
 }
 
@@ -1161,7 +1160,7 @@ async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
 	 * Wait the final 1s then set buff to 'cooldown' state
 	 * After its cooldown has finished set it back to 'inactive' state (actually 'readyToBeUsed')
 	 */
-	await new Promise((done) => setTimeout(done, 1050));
+	await sauce.timeout(1050);
 	await setCooldown(element, cooldownTimer);
 	if (element.dataset.cooldown != '0' && element.dataset.startedTimer !== 'true') {
 		element.dataset.startedTimer = 'true';
@@ -1582,7 +1581,7 @@ async function setCooldown(element: HTMLElement, cooldownTimer: number) {
 	element.dataset.time = '';
 	element.dataset.startedTimer = 'false';
 	element.dataset.cooldown = cooldownTimer.toString();
-	await new Promise((done) => setTimeout(done, 2000));
+	return sauce.timeout(2000);
 }
 
 async function setInactive(element: HTMLElement) {
@@ -1666,13 +1665,13 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 				let bolgStacks = bolgData[1];
 				buffsList.BolgStacksBuff.dataset.time = bolgStacks;
 				buffsList.BalanceByForceBuff.dataset.time = bolgTime;
-				await new Promise((done) => setTimeout(done, 600));
+				await sauce.timeout(600);
 			}
 		}
 		if (bolgStacksData == undefined) {
 			buffsList.BolgStacksBuff.classList.add('inactive');
 			buffsList.BalanceByForceBuff.classList.add('inactive');
-			await new Promise((done) => setTimeout(done, 600));
+			await sauce.timeout(600);
 			buffsList.BolgStacksBuff.dataset.time = '';
 			buffsList.BalanceByForceBuff.dataset.time = '';
 		} else {
@@ -1680,7 +1679,7 @@ async function findBolgStacks(buffs: BuffReader.Buff[]) {
 			buffsList.BalanceByForceBuff.classList.remove('inactive');
 		}
 	}
-	await new Promise((done) => setTimeout(done, 10));
+	await sauce.timeout(10);
 	return bolgStacksData;
 }
 
@@ -1700,7 +1699,7 @@ async function parseBolgBuff(data: string) {
 			bolgSpecActive = true;
 			bolgSpecTime = '30';
 			bolgStacks = results[0].groups.stacks;
-			await new Promise((done) => setTimeout(done, 30000));
+			await sauce.timeout(30000);
 			bolgSpecActive = false;
 		} else if (bolgSpecActive) {
 			bolgSpecTime = results[0].groups.time ?? 0;
@@ -1710,12 +1709,7 @@ async function parseBolgBuff(data: string) {
 				bolgSpecTime = results[0].groups.time;
 				bolgStacks = '0';
 				bolgSpecActive = true;
-				await new Promise((done) =>
-					setTimeout(
-						done,
-						parseInt(results[0].groups.time, 10) * 1000
-					)
-				);
+				await sauce.timeout(parseInt(results[0].groups.time, 10) * 1000);
 				bolgSpecActive = false;
 			} else {
 				bolgSpecTime = '';
@@ -1753,10 +1747,9 @@ async function setOverlayPosition() {
 		});
 		currentOverlayPosition = sauce.getSetting('overlayPosition');
 		alt1.overLayRefreshGroup('group1');
-		await new Promise((done) => setTimeout(done, 200));
+		await sauce.timeout(200);
 	}
 	alt1.clearTooltip();
-	return;
 }
 
 async function setOverlayPosition2() {
@@ -1783,10 +1776,9 @@ async function setOverlayPosition2() {
 		});
 		currentOverlay2Position = sauce.getSetting('overlay2Position');
 		alt1.overLayRefreshGroup('group2');
-		await new Promise((done) => setTimeout(done, 200));
+		await sauce.timeout(200);
 	}
 	alt1.clearTooltip();
-	return;
 }
 
 async function setOverlayPosition3() {
@@ -1813,10 +1805,9 @@ async function setOverlayPosition3() {
 		});
 		currentOverlay3Position = sauce.getSetting('overlay3Position');
 		alt1.overLayRefreshGroup('group3');
-		await new Promise((done) => setTimeout(done, 200));
+		await sauce.timeout(200);
 	}
 	alt1.clearTooltip();
-	return;
 }
 
 function updateLocation(e) {
@@ -1877,7 +1868,7 @@ async function startOverlay(element: HTMLElement, region?: string) {
 	let buffsPerRow = sauce.getSetting('buffsPerrow');
 	let refreshRate = parseInt(sauce.getSetting('overlayRefreshRate'), 10);
 	let overlayPosition;
-	await new Promise((done) => setTimeout(done, 1000));
+	await sauce.timeout(1000);
 	while (true) {
 		let uiScale = sauce.getSetting('uiScale' + region);
 		if (region == '') {
@@ -1887,44 +1878,43 @@ async function startOverlay(element: HTMLElement, region?: string) {
 		} else if (region == '3') {
 			overlayPosition = currentOverlay3Position;
 		}
-		htmlToImage
-			.toCanvas(overlay, {
+		try {
+			let dataUrl = await htmlToImage.toCanvas(overlay, {
 				backgroundColor: 'transparent',
 				width: parseInt(styles.minWidth, 10),
 				height:
 					parseInt(styles.minHeight, 10) +
 					Math.floor(totalTrackeDItems / buffsPerRow + 1) *
-						27 *
-						(uiScale / 100),
+					27 *
+					(uiScale / 100),
 				quality: 1,
 				pixelRatio: uiScale / 100 - 0.00999999999999999999,
 				skipAutoScale: true,
-			})
-			.then((dataUrl) => {
-				if (inCombat || element == getByID('Buffs')) {
-					let base64ImageString = dataUrl
-						.getContext('2d')
-						.getImageData(0, 0, dataUrl.width, dataUrl.height);
-					alt1.overLaySetGroup('region' + region);
-					alt1.overLayFreezeGroup('region' + region);
-					alt1.overLayClearGroup('region' + region);
-					alt1.overLayImage(
-						overlayPosition.x,
-						overlayPosition.y,
-						a1lib.encodeImageString(base64ImageString),
-						base64ImageString.width,
-						refreshRate
-					);
-					alt1.overLayRefreshGroup('region' + region);
-				} else {
-					alt1.overLayClearGroup('region' + region);
-					alt1.overLayRefreshGroup('region' + region);
-				}
-			})
-			.catch((e) => {
-				console.error(`html-to-image failed to capture`, e);
 			});
-		await new Promise((done) => setTimeout(done, refreshRate));
+
+			if (inCombat || element == getByID('Buffs')) {
+				let base64ImageString = dataUrl
+					.getContext('2d')
+					.getImageData(0, 0, dataUrl.width, dataUrl.height);
+				alt1.overLaySetGroup('region' + region);
+				alt1.overLayFreezeGroup('region' + region);
+				alt1.overLayClearGroup('region' + region);
+				alt1.overLayImage(
+					overlayPosition.x,
+					overlayPosition.y,
+					a1lib.encodeImageString(base64ImageString),
+					base64ImageString.width,
+					refreshRate
+				);
+				alt1.overLayRefreshGroup('region' + region);
+			} else {
+				alt1.overLayClearGroup('region' + region);
+				alt1.overLayRefreshGroup('region' + region);
+			}
+		} catch (e) {
+			console.error(`html-to-image failed to capture`, e);
+		}
+		await sauce.timeout(refreshRate);
 	}
 }
 
@@ -2017,9 +2007,7 @@ function loadSettings() {
 		'blink-maintainables',
 		sauce.getSetting('showMaintainableBlinking')
 	);
-	if (
-		parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100
-	) {
+	if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
 		helperItems.TrackedBuffs.classList.add('scaled');
 	}
 
@@ -2507,9 +2495,7 @@ settingsObject.BlinkExpiredBuffs.addEventListener('change', () => {
 
 settingsObject.UIScale.addEventListener('change', () => {
 	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('uiScale'));
-	if (
-		parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100
-	) {
+	if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
 		helperItems.TrackedBuffs.classList.add('scaled');
 	}
 });
@@ -2525,22 +2511,6 @@ settingsObject.ProfileManager.querySelector('.profile-list').addEventListener(
 	}
 );
 
-settingsObject.ProfileManager.querySelector('.load-btn').addEventListener(
-	'click',
-	() => {
-		setTimeout(function () {}, 100);
-		location.reload();
-	}
-);
-
-settingsObject.OverlayActive.querySelector('input').addEventListener(
-	'click',
-	() => {
-		setTimeout(function () {}, 100);
-		location.reload();
-	}
-);
-
 settingsObject.Brightness.querySelector('input').addEventListener('change', (e) => {
 	document.documentElement.style.setProperty(
 		'--brightness',
@@ -2548,15 +2518,19 @@ settingsObject.Brightness.querySelector('input').addEventListener('change', (e) 
 	);
 });
 
-settingsObject.debugMode
-	.querySelector('input')
-	.addEventListener('change', () => {
-		setTimeout(function () {}, 100);
-		location.reload();
-	});
+settingsObject.ProfileManager.querySelector('.load-btn').addEventListener('click', () => {
+	location.reload();
+});
+
+settingsObject.OverlayActive.querySelector('input').addEventListener('click', () => {
+	location.reload();
+});
+
+settingsObject.debugMode.querySelector('input').addEventListener('change', () => {
+	location.reload();
+});
 
 settingsObject.beta.querySelector('input').addEventListener('change', () => {
-	setTimeout(function () {}, 100);
 	location.reload();
 });
 
