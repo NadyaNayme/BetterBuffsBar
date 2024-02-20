@@ -755,7 +755,7 @@ function watchBuffs() {
 
 			findAmmo(buffs);
 
-			findPerfectEquilibriumStacks(buffs);
+			//findPerfectEquilibriumStacks(buffs);
 
 			checkBuffsForHidingOverlay(buffs);
 

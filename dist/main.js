@@ -12435,7 +12435,7 @@ function watchBuffs() {
                 expirationPulse: true,
             });
             findAmmo(buffs);
-            findPerfectEquilibriumStacks(buffs);
+            //findPerfectEquilibriumStacks(buffs);
             checkBuffsForHidingOverlay(buffs);
             if ((buffs === null || buffs === void 0 ? void 0 : buffs.length) == 0) {
                 for (var _i = 0, _a = Object.entries(buffsList); _i < _a.length; _i++) {
