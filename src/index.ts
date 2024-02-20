@@ -755,8 +755,7 @@ function watchBuffs() {
 
 			findAmmo(buffs);
 
-			// TODO: Uncomment when Beta changes for BOLG buffs goes live
-			// findPerfectEquilibriumStacks(buffs);
+			findPerfectEquilibriumStacks(buffs);
 
 			checkBuffsForHidingOverlay(buffs);
 
@@ -1172,7 +1171,12 @@ async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
 }
 
 function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
-	if (parseInt(element.dataset.cooldown, 10) > 0) {
+	if (element.dataset.cooldown == '') {
+		element.dataset.startedTimer = 'false';
+		element.dataset.cooldown = '';
+		setInactive(element);
+		clearInterval(timer);
+	} else if (parseInt(element.dataset.cooldown, 10) > 0) {
 		element.dataset.cooldown = (
 			parseInt(element.dataset.cooldown, 10) - 1
 		).toString();
