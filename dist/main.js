@@ -12817,16 +12817,12 @@ function startCooldownTimer(element, cooldownTimer) {
     });
 }
 function countdown(element, cooldownTimer, timer) {
-    if (element.dataset.cooldown == '') {
-        element.dataset.startedTimer = 'false';
-        element.dataset.cooldown = '';
-        setInactive(element);
-        clearInterval(timer);
+    var cooldown = parseInt(element.dataset.cooldown, 10);
+    if (cooldown > 0 &&
+        !isNaN(cooldown)) {
+        element.dataset.cooldown = cooldown.toString();
     }
-    else if (parseInt(element.dataset.cooldown, 10) > 0) {
-        element.dataset.cooldown = (parseInt(element.dataset.cooldown, 10) - 1).toString();
-    }
-    else if (element.dataset.cooldown == '0') {
+    else if (element.dataset.cooldown == '0' || isNaN(cooldown)) {
         element.dataset.startedTimer = 'false';
         element.dataset.cooldown = '';
         setInactive(element);

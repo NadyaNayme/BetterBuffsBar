@@ -1171,16 +1171,13 @@ async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
 }
 
 function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
-	if (element.dataset.cooldown == '') {
-		element.dataset.startedTimer = 'false';
-		element.dataset.cooldown = '';
-		setInactive(element);
-		clearInterval(timer);
-	} else if (parseInt(element.dataset.cooldown, 10) > 0) {
-		element.dataset.cooldown = (
-			parseInt(element.dataset.cooldown, 10) - 1
-		).toString();
-	} else if (element.dataset.cooldown == '0') {
+	let cooldown = parseInt(element.dataset.cooldown, 10);
+	if (
+		 cooldown > 0 &&
+		!isNaN(cooldown)
+	) {
+		element.dataset.cooldown = cooldown.toString();
+	} else if (element.dataset.cooldown == '0' || isNaN(cooldown)) {
 		element.dataset.startedTimer = 'false';
 		element.dataset.cooldown = '';
 		setInactive(element);
