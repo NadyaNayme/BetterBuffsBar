@@ -92,6 +92,7 @@ let buffsList = {
 	PowderOfProtection: getByID('PowderOfProtectionBuff'),
 	PowderOfPenance: getByID('PowderOfPenanceBuff'),
 	QuiverAmmo: getByID('QuiverAmmo'),
+	InvokeLordOfBones: getByID('InvokeLordOfBones'),
 };
 
 let debuffsList = {
@@ -180,6 +181,7 @@ var buffImages = a1lib.webpackImages({
 	AggressionPotion: require('./asset/data/aggression_potion.data.png'),
 	PowderOfProtection: require('./asset/data/powder_of_protection.data.png'),
 	PowderOfPenance: require('./asset/data/powder_of_penance.data.png'),
+	InvokeLordOfBones: require('./asset/data/Invoke_Lord_of_Bones.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
@@ -751,6 +753,11 @@ function watchBuffs() {
 			findStatus(buffs, buffImages.ConjureGhost, buffsList.ConjureGhost, {
 				threshold: 300,
 				expirationPulse: true,
+			});
+
+
+			findStatus(buffs, buffImages.InvokeLordOfBones, buffsList.InvokeLordOfBones, {
+				threshold: 300,
 			});
 
 			findAmmo(buffs);
@@ -2299,7 +2306,7 @@ function roundedToFixed(input, digits) {
 }
 
 /* Settings */
-const currentVersion = "2.1.0";
+const currentVersion = "2.1.1";
 const settingsObject = {
 	settingsHeader: sauce.createHeading(
 		'h2',
