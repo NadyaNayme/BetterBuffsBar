@@ -757,7 +757,7 @@ function watchBuffs() {
 
 
 			findStatus(buffs, buffImages.InvokeLordOfBones, buffsList.InvokeLordOfBones, {
-				threshold: 300,
+				threshold: 180,
 			});
 
 			findAmmo(buffs);
