@@ -1,7 +1,5 @@
-// TODO: Figure out why I can't just import { default as config } from './appconfig.json';
-let config = {
-	appName: 'betterBuffBar',
-};
+var config = require('./appconfig.json');
+var appName = config.appName;
 
 export function createHeading(size: string, content: string) {
 	let header = <HTMLElement>document.createElement(size);
@@ -169,13 +167,13 @@ export function createRangeSetting(
 }
 
 export function createProfileManager() {
-
 	function saveProfile() {
-		let profileNameInput: HTMLInputElement = container.querySelector('#ProfileName');
+		let profileNameInput: HTMLInputElement =
+			container.querySelector('#ProfileName');
 		let profileName = profileNameInput.value;
 		if (profileName.indexOf('|') > -1) {
-			console.log('Pipe character is not allowed in profile names.')
-			return
+			console.log('Pipe character is not allowed in profile names.');
+			return;
 		}
 		let profiles = localStorage.getItem('bbb_profiles');
 		let profilesArray = localStorage
@@ -189,7 +187,7 @@ export function createProfileManager() {
 		}
 
 		// If the profile name doesn't exist in our profiles - add it
-		if (!(profilesArray.includes(profileName))) {
+		if (!profilesArray.includes(profileName)) {
 			profiles = profiles + '|' + profileName + '|';
 			localStorage.setItem('bbb_profiles', profiles);
 		}
@@ -200,9 +198,14 @@ export function createProfileManager() {
 		data['Buffs2'] = localStorage['Buffs2'];
 		data['Buffs3'] = localStorage['Buffs3'];
 		data['UntrackedBuffs'] = localStorage['UntrackedBuffs'];
-		data['Settings'] = JSON.parse(localStorage[config.appName]);
-		localStorage.setItem(`bbb_profile_${profileName}`, JSON.stringify(data));
-		console.log(`${profileName} added to profiles. Existing profiles: \n ${profiles}`);
+		data['Settings'] = JSON.parse(localStorage[appName]);
+		localStorage.setItem(
+			`bbb_profile_${profileName}`,
+			JSON.stringify(data)
+		);
+		console.log(
+			`${profileName} added to profiles. Existing profiles: \n ${profiles}`
+		);
 		location.reload();
 	}
 
@@ -228,36 +231,32 @@ export function createProfileManager() {
 				.split('|')
 				.filter((str) => str !== '');
 			let storageName = profiles[index - 1];
-			let data = JSON.parse(localStorage.getItem(`bbb_profile_${storageName}`));
-				if (data['Buffs'] !== undefined && data['Buffs'] !== '') {
-					localStorage.setItem('Buffs', data['Buffs']);
-				}
-				if (data['Buffs2'] !== undefined && data['Buffs2'] !== "") {
-					localStorage.setItem('Buffs2', data['Buffs2']);
-				}
-				if (data['Buffs3'] !== undefined && data['Buffs3'] !== '') {
-					localStorage.setItem('Buffs3', data['Buffs3']);
-				}
-				if (
-					data['UntrackedBuffs'] !== undefined &&
-					data['UntrackedBuffs'] !== ''
-				) {
-					localStorage.setItem(
-						'UntrackedBuffs',
-						data['UntrackedBuffs']
-					);
-				}
-				Object.entries(data['Settings']).forEach((setting) => {
-					updateSetting(setting[0], setting[1]);
-				});
+			let data = JSON.parse(
+				localStorage.getItem(`bbb_profile_${storageName}`)
+			);
+			if (data['Buffs'] !== undefined && data['Buffs'] !== '') {
+				localStorage.setItem('Buffs', data['Buffs']);
+			}
+			if (data['Buffs2'] !== undefined && data['Buffs2'] !== '') {
+				localStorage.setItem('Buffs2', data['Buffs2']);
+			}
+			if (data['Buffs3'] !== undefined && data['Buffs3'] !== '') {
+				localStorage.setItem('Buffs3', data['Buffs3']);
+			}
+			if (
+				data['UntrackedBuffs'] !== undefined &&
+				data['UntrackedBuffs'] !== ''
+			) {
+				localStorage.setItem('UntrackedBuffs', data['UntrackedBuffs']);
+			}
+			Object.entries(data['Settings']).forEach((setting) => {
+				updateSetting(setting[0], setting[1]);
+			});
 		}
 		location.reload();
 	}
 
-
-	let profileOptions = [
-		{ value: '0', name: 'Select Profile' },
-	];
+	let profileOptions = [{ value: '0', name: 'Select Profile' }];
 	let profiles;
 	if (localStorage.getItem('bbb_profiles')) {
 		profiles = localStorage
@@ -460,7 +459,7 @@ export function loadSettings() {
 }
 
 export function settingsExist() {
-	if (!localStorage[config.appName]) {
+	if (!localStorage[appName]) {
 		setDefaultSettings();
 	} else {
 		loadSettings();
@@ -468,24 +467,24 @@ export function settingsExist() {
 }
 
 export function getSetting(setting) {
-	if (!localStorage[config.appName]) {
-		localStorage.setItem(config.appName, JSON.stringify({}));
+	if (!localStorage[appName]) {
+		localStorage.setItem(appName, JSON.stringify({}));
 		setDefaultSettings();
 	}
-	return JSON.parse(localStorage[config.appName])[setting];
+	return JSON.parse(localStorage[appName])[setting];
 }
 
 export function updateSetting(setting, value) {
-	if (!localStorage.getItem(config.appName)) {
-		localStorage.setItem(config.appName, JSON.stringify({}));
+	if (!localStorage.getItem(appName)) {
+		localStorage.setItem(appName, JSON.stringify({}));
 	}
-	var save_data = JSON.parse(localStorage[config.appName]);
+	var save_data = JSON.parse(localStorage[appName]);
 	save_data[setting] = value;
-	localStorage.setItem(config.appName, JSON.stringify(save_data));
+	localStorage.setItem(appName, JSON.stringify(save_data));
 }
 
 export async function timeout(millis: number) {
 	return new Promise(function (resolve) {
-		setTimeout(resolve, millis)
+		setTimeout(resolve, millis);
 	});
 }

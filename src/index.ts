@@ -530,7 +530,16 @@ function watchBuffs() {
 				buffImages.balanceByForce,
 				buffsList.BalanceByForceBuff,
 				{
-					threshold: 70,
+					threshold: 30,
+				}
+			);
+
+			findStatus(
+				buffs,
+				buffImages.perfectEquilibriumNoBorder,
+				buffsList.BolgStacksBuff,
+				{
+					threshold: 90,
 				}
 			);
 
@@ -643,15 +652,6 @@ function watchBuffs() {
 				}
 			);
 
-			/* BOLG is currently still special */
-			if (
-				document.querySelectorAll('#Buffs #BolgStacksBuff').length ||
-				document.querySelectorAll('#Buffs2 #BolgStacksBuff').length ||
-				document.querySelectorAll('#Buffs3 #BolgStacksBuff').length
-			) {
-				findBolgStacks(buffs);
-			}
-
 			findStatus(buffs, ultimateImages.berserk, ultimatesList.Berserk, {
 				threshold: 200,
 				showCooldown: true,
@@ -755,14 +755,16 @@ function watchBuffs() {
 				expirationPulse: true,
 			});
 
-
-			findStatus(buffs, buffImages.InvokeLordOfBones, buffsList.InvokeLordOfBones, {
-				threshold: 180,
-			});
+			findStatus(
+				buffs,
+				buffImages.InvokeLordOfBones,
+				buffsList.InvokeLordOfBones,
+				{
+					threshold: 180,
+				}
+			);
 
 			findAmmo(buffs);
-
-			//findPerfectEquilibriumStacks(buffs);
 
 			checkBuffsForHidingOverlay(buffs);
 
@@ -921,9 +923,9 @@ async function findStatus(
 	} = options;
 	// Exit early if our buff isn't in the Tracked Buffs list
 	if (
-		!getByID('Buffs').contains(element) &&
-		!getByID('Buffs2').contains(element) &&
-		!getByID('Buffs3').contains(element) ||
+		(!getByID('Buffs').contains(element) &&
+			!getByID('Buffs2').contains(element) &&
+			!getByID('Buffs3').contains(element)) ||
 		!buffsReader
 	) {
 		return;
@@ -946,7 +948,6 @@ async function findStatus(
 	}
 
 	for (let [_key, value] of Object.entries(buffsReader)) {
-
 		// If the buff has been found do an early return
 		if (foundBuff) {
 			return;
@@ -965,6 +966,7 @@ async function findStatus(
 		let findBuffImage = value.countMatch(buffImage, false);
 
 		// Death Spark doesn't have a readarg so if it is found set it to active and stop evaluating it
+		// Same thing for BOLG at 0 stacks
 		if (
 			findBuffImage.passed > threshold &&
 			buffImage == buffImages.DeathSpark
@@ -975,7 +977,8 @@ async function findStatus(
 
 		if (
 			findBuffImage.passed > threshold ||
-			(findBuffImage.failed == 0 && buffImage !== buffImages.DeathSpark)
+			(findBuffImage.failed == 0 && buffImage !== buffImages.DeathSpark) ||
+			(findBuffImage.failed == 0 && buffImage !== buffImages.perfectEquilibriumNoBorder)
 		) {
 			// If we find a match for the buff it will always exceed the threshold
 			// the threshold depends largely on which buff is being matched against
@@ -997,9 +1000,9 @@ async function findStatus(
 			// If the time remaining is 1 and the buff is supposed to show a cooldown - start the cooldown timer and stop evaluating
 			if (
 				element.dataset.time == '0' ||
-				element.dataset.time == '1' &&
-				showCooldown &&
-				element.dataset.startedTimer == 'false'
+				(element.dataset.time == '1' &&
+					showCooldown &&
+					element.dataset.startedTimer == 'false')
 			) {
 				if (debugMode) {
 					console.log(`Starting cooldown timer for ${element.id}`);
@@ -1032,27 +1035,22 @@ async function findStatus(
 			}
 			// If time exceeds the minimum match range and is under the maximum match range
 			else if (timearg.time > minRange && timearg.time < maxRange) {
-				let buffTimeRemaining = timearg.time - cooldownAdjustment;
+				let buffTimeRemaining = timearg.time;
 
-				// And the buff has time remaining and is not Necrosis or BOLG Stacks - display the remaining time
 				if (
-					buffTimeRemaining > 0 &&
-					buffImage != buffImages.necrosis &&
-					element != buffsList.BolgStacksBuff
+					buffTimeRemaining > 0 || buffImage == buffImages.necrosis || buffImage == buffImages.balanceByForce
 				) {
+					// And the buff has time remaining and is not a stacks counting buff - display the tim
 					element.dataset.time = buffTimeRemaining.toString();
-				}
-				// Otherwise if the buff is Necrosis or BolgStacks display the stacks
-				else if (
-					buffTimeRemaining > 0 &&
-					(buffImage == buffImages.necrosis ||
-						element == buffsList.BolgStacksBuff)
-				) {
-					element.dataset.time = timearg.time;
 				}
 
 				// If our time is at 1 second and we are not going to display a cooldown - set the element to inactive
-				if (timearg.time - 1 == 0 && !showCooldown) {
+				if (
+					timearg.time - 1 == 0 &&
+					!showCooldown &&
+					(buffImage == buffImages.necrosis ||
+						buffImage == buffImages.balanceByForce)
+				) {
 					await setInactive(element);
 				}
 			}
@@ -1067,7 +1065,11 @@ async function findStatus(
 		}
 	}
 
-	if (cooldownTimer > 0 && element.dataset.cooldown == '0' && !element.classList.contains('active')) {
+	if (
+		cooldownTimer > 0 &&
+		element.dataset.cooldown == '0' &&
+		!element.classList.contains('active')
+	) {
 		setInactive(element);
 	}
 
@@ -1129,22 +1131,20 @@ async function findDeathspores(
 		}
 
 		let findBuffImage = value.countMatch(buffImage, false);
-			if (
-				findBuffImage.passed > threshold
-			) {
-				// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
-				foundBuff = true;
-				timearg = value.readArg('timearg').time;
-				if (timearg <= 9 && timearg >= 1) {
-					await setActive(element);
-					let buffTimeRemaining = timearg - cooldownAdjustment;
-					element.dataset.time = buffTimeRemaining.toString();
-				} else {
-					await setInactive(element);
-				}
-			} else if (!showCooldown) {
+		if (findBuffImage.passed > threshold) {
+			// If a buff has exceeded the threshold or has a 0px failure rate we have a match and want to set it to active
+			foundBuff = true;
+			timearg = value.readArg('timearg').time;
+			if (timearg <= 9 && timearg >= 1) {
+				await setActive(element);
+				let buffTimeRemaining = timearg - cooldownAdjustment;
+				element.dataset.time = buffTimeRemaining.toString();
+			} else {
 				await setInactive(element);
 			}
+		} else if (!showCooldown) {
+			await setInactive(element);
+		}
 	}
 
 	// If we didn't find the buff try again after a brief timeout
@@ -1152,7 +1152,6 @@ async function findDeathspores(
 		// The FoundBuff ensures we don't wait 10s to add inactive when BBB first loads
 		if (expirationPulse) {
 			await sauce.timeout(10000);
-
 		}
 		await setInactive(element);
 	}
@@ -1168,7 +1167,10 @@ async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
 	 */
 	await sauce.timeout(1050);
 	await setCooldown(element, cooldownTimer);
-	if (element.dataset.cooldown != '0' && element.dataset.startedTimer !== 'true') {
+	if (
+		element.dataset.cooldown != '0' &&
+		element.dataset.startedTimer !== 'true'
+	) {
 		element.dataset.startedTimer = 'true';
 		element.dataset.cooldown = cooldownTimer.toString();
 		let timer = setInterval(() => {
@@ -1179,10 +1181,7 @@ async function startCooldownTimer(element: HTMLElement, cooldownTimer: number) {
 
 function countdown(element: HTMLElement, cooldownTimer: number, timer: any) {
 	let cooldown = parseInt(element.dataset.cooldown, 10);
-	if (
-		 cooldown > 0 &&
-		!isNaN(cooldown)
-	) {
+	if (cooldown > 0 && !isNaN(cooldown)) {
 		element.dataset.cooldown = cooldown.toString();
 	} else if (element.dataset.cooldown == '0' || isNaN(cooldown)) {
 		element.dataset.startedTimer = 'false';
@@ -1230,40 +1229,6 @@ async function findVirus(debuffs: BuffReader.Buff[]) {
 	} else {
 		debuffsList.Virus.dataset.virus = currentVirus;
 		debuffsList.Virus.classList.add('active');
-	}
-}
-
-async function findPerfectEquilibriumStacks(buffs: BuffReader.Buff[]) {
-	if (!buffs) {
-		return;
-	}
-
-	let peActive: number = 0;
-	let capped = '';
-
-	for (let [_key, value] of Object.entries(buffs)) {
-		let checkGreen = value.countMatch(buffImages.perfectEquilibrium, false);
-		let checkRed = value.countMatch(buffImages.perfectEquilibriumCapped, false);
-
-		if (checkGreen.failed == 0 || checkGreen.passed > 380) {
-			buffsList.BolgStacksBuff.dataset.color = 'green';
-			capped = value.readTime().toString();
-			peActive++;
-		}
-		if (checkRed.failed == 0 || checkRed.passed > 300) {
-			buffsList.BolgStacksBuff.dataset.color = 'red';
-			capped = value.readTime().toString();
-			peActive++;
-		}
-	}
-
-	if (!peActive) {
-		buffsList.BolgStacksBuff.dataset.stacks = '';
-		buffsList.BolgStacksBuff.dataset.color = '';
-		buffsList.BolgStacksBuff.classList.add('inactive');
-	} else {
-		buffsList.BolgStacksBuff.dataset.stacks = capped;
-		buffsList.BolgStacksBuff.classList.add('active');
 	}
 }
 
@@ -1352,15 +1317,15 @@ function findEnemyDebuffs() {
 	}
 
 	if (
-		(!getByID('Buffs').contains(getByID('DeathMarkDebuff')) &&
-			!getByID('Buffs2').contains(getByID('DeathMarkDebuff')) &&
-			!getByID('Buffs3').contains(getByID('DeathMarkDebuff'))) &&
-		(!getByID('Buffs').contains(getByID('VulnerabilityDebuff')) &&
-			!getByID('Buffs2').contains(getByID('VulnerabilityDebuff')) &&
-			!getByID('Buffs3').contains(getByID('VulnerabilityDebuff'))) &&
-		(!getByID('Buffs').contains(getByID('Bloat')) &&
-			!getByID('Buffs2').contains(getByID('Bloat')) &&
-			!getByID('Buffs3').contains(getByID('Bloat')))
+		!getByID('Buffs').contains(getByID('DeathMarkDebuff')) &&
+		!getByID('Buffs2').contains(getByID('DeathMarkDebuff')) &&
+		!getByID('Buffs3').contains(getByID('DeathMarkDebuff')) &&
+		!getByID('Buffs').contains(getByID('VulnerabilityDebuff')) &&
+		!getByID('Buffs2').contains(getByID('VulnerabilityDebuff')) &&
+		!getByID('Buffs3').contains(getByID('VulnerabilityDebuff')) &&
+		!getByID('Buffs').contains(getByID('Bloat')) &&
+		!getByID('Buffs2').contains(getByID('Bloat')) &&
+		!getByID('Buffs3').contains(getByID('Bloat'))
 	) {
 		return;
 	}
@@ -1371,13 +1336,16 @@ function findEnemyDebuffs() {
 		w: 150,
 		h: 60,
 	};
+
 	var targetDebuffs = a1lib.captureHold(
 		target_display_loc.x,
 		target_display_loc.y,
 		target_display_loc.w,
 		target_display_loc.h
 	);
-	var targetIsDeathMarked = targetDebuffs.findSubimage(enemyImages.DeathMark).length;
+	var targetIsDeathMarked = targetDebuffs.findSubimage(
+		enemyImages.DeathMark
+	).length;
 	if (targetIsDeathMarked) {
 		setActive(getByID('DeathMarkDebuff'));
 	} else if (!targetIsDeathMarked) {
@@ -1407,7 +1375,6 @@ function findEnemyDebuffs() {
 		setInactive(getByID('Bloat'));
 	}
 }
-
 
 async function findPrayer(
 	buffsList: BuffReader.Buff[],
@@ -1445,8 +1412,8 @@ async function findPrayer(
 	if (
 		(prayersActive > 0 &&
 			getByID('Buffs').contains(prayersList.OverheadPrayer)) ||
-			getByID('Buffs2').contains(prayersList.OverheadPrayer) ||
-			getByID('Buffs3').contains(prayersList.OverheadPrayer)
+		getByID('Buffs2').contains(prayersList.OverheadPrayer) ||
+		getByID('Buffs3').contains(prayersList.OverheadPrayer)
 	) {
 		for (let [_key, value] of Object.entries(buffsList)) {
 			lastActiveOverhead = testOverheadPrayers(value);
@@ -1555,7 +1522,7 @@ var timersCollection = {};
 async function watchTimers() {
 	let items = helperItems.TrackedBuffs.querySelectorAll('li');
 	items.forEach((item) => {
-		var time =  '0';
+		var time = '0';
 		if (item.dataset.time !== undefined || item.dataset.time !== null) {
 			time = item.dataset.time;
 		}
@@ -1564,7 +1531,12 @@ async function watchTimers() {
 			item.classList.contains('active') &&
 			item.dataset.startedTimer
 		) {
-			startCooldownTimer(item, (parseInt(item.dataset.cooldownTime, 10)) + parseInt(item.dataset.time, 10) - 3);
+			startCooldownTimer(
+				item,
+				parseInt(item.dataset.cooldownTime, 10) +
+					parseInt(item.dataset.time, 10) -
+					3
+			);
 		} else if (
 			timersCollection[item.dataset.name] == item.dataset.time &&
 			parseInt(item.dataset.time, 10) < 60 &&
@@ -1607,128 +1579,6 @@ async function setActive(element: HTMLElement) {
 	element.classList.remove('cooldown');
 	element.classList.remove('inactive');
 	element.classList.add('active');
-}
-
-let bolgSpecActive = false;
-async function findBolgStacks(buffs: BuffReader.Buff[]) {
-	let bolgStacksData;
-	let bolgFound = false;
-	/* Taking from the BOLG Plugin <https://holycoil.nl/alt1/bolg/index.bundle.js>
-	   the Zamorak mechanic is always the first so we need to reverse the buffs first
-	 */
-
-	if (!sauce.getSetting('singleBOLG')) {
-		let canvas = <HTMLCanvasElement>document.getElementById('bolgCanvas');
-		let ctx = canvas.getContext('2d');
-		ctx.drawImage(
-			buffImages.perfectEquilibriumNoBorder.toImage(),
-			0,
-			0,
-			canvas.width,
-			canvas.height
-		);
-		for (let a in buffs.reverse()) {
-			if (
-				buffs[a].compareBuffer(buffImages.perfectEquilibriumNoBorder) &&
-				bolgFound == false
-			) {
-				bolgFound = true;
-				let buffsImage = buffs[a].buffer.toImage();
-				ctx.drawImage(
-					buffsImage,
-					buffs[a].bufferx,
-					buffs[a].buffery,
-					27,
-					27,
-					0,
-					0,
-					canvas.width,
-					canvas.height
-				);
-				let bolgBuffImage = ctx.getImageData(
-					0,
-					0,
-					canvas.width,
-					canvas.height
-				);
-				setActive(buffsList.BolgStacksBuff);
-				buffsList.BolgStacksBuff.style.backgroundImage =
-					'url("data:image/png;base64,' +
-					bolgBuffImage.toPngBase64() +
-					'")';
-			}
-		}
-	} else if (sauce.getSetting('singleBOLG')) {
-		for (let [_key, value] of Object.entries(buffs).reverse()) {
-			let bolgStacksBuff = value.countMatch(
-				buffImages.perfectEquilibrium,
-				false
-			);
-			if (bolgStacksBuff.passed > 200) {
-				bolgFound = true;
-				bolgStacksData = value.readArg('arg').arg;
-				let bolgData = await parseBolgBuff(bolgStacksData);
-				console.log(bolgData);
-				let bolgTime = bolgData[0];
-				let bolgStacks = bolgData[1];
-				buffsList.BolgStacksBuff.dataset.time = bolgStacks;
-				buffsList.BalanceByForceBuff.dataset.time = bolgTime;
-				await sauce.timeout(600);
-			}
-		}
-		if (bolgStacksData == undefined) {
-			buffsList.BolgStacksBuff.classList.add('inactive');
-			buffsList.BalanceByForceBuff.classList.add('inactive');
-			await sauce.timeout(600);
-			buffsList.BolgStacksBuff.dataset.time = '';
-			buffsList.BalanceByForceBuff.dataset.time = '';
-		} else {
-			buffsList.BolgStacksBuff.classList.remove('inactive');
-			buffsList.BalanceByForceBuff.classList.remove('inactive');
-		}
-	}
-	await sauce.timeout(10);
-	return bolgStacksData;
-}
-
-async function parseBolgBuff(data: string) {
-	let bolgSpecTime;
-	let bolgStacks;
-	let buffRegexp = /(?<time>\d{1,2})(.*\((?<stacks>\d)\))?/g;
-	let results = Array.from(data.matchAll(buffRegexp));
-	if (results[0]) {
-		console.log(`Results: ${data}`);
-		// We have stacks guaranteed
-		if (data.indexOf('(') > -1) {
-			bolgSpecActive = true;
-			bolgSpecTime = results[0].groups.time;
-			bolgStacks = results[0].groups.stacks;
-		} else if (parseInt(data, 10) == 30) {
-			bolgSpecActive = true;
-			bolgSpecTime = '30';
-			bolgStacks = results[0].groups.stacks;
-			await sauce.timeout(30000);
-			bolgSpecActive = false;
-		} else if (bolgSpecActive) {
-			bolgSpecTime = results[0].groups.time ?? 0;
-			bolgStacks = '0';
-		} else if (!bolgSpecActive) {
-			if (parseInt(results[0].groups.time, 10) > 8) {
-				bolgSpecTime = results[0].groups.time;
-				bolgStacks = '0';
-				bolgSpecActive = true;
-				await sauce.timeout(parseInt(results[0].groups.time, 10) * 1000);
-				bolgSpecActive = false;
-			} else {
-				bolgSpecTime = '';
-				bolgStacks = results[0].groups.time ?? 0;
-			}
-		}
-	}
-	if (bolgSpecTime == undefined || bolgStacks == undefined) {
-		return ['', ''];
-	}
-	return [bolgSpecTime, bolgStacks];
 }
 
 async function setOverlayPosition() {
@@ -1893,8 +1743,8 @@ async function startOverlay(element: HTMLElement, region?: string) {
 				height:
 					parseInt(styles.minHeight, 10) +
 					Math.floor(totalTrackeDItems / buffsPerRow + 1) *
-					27 *
-					(uiScale / 100),
+						27 *
+						(uiScale / 100),
 				quality: 1,
 				pixelRatio: uiScale / 100 - 0.00999999999999999999,
 				skipAutoScale: true,
@@ -2015,7 +1865,9 @@ function loadSettings() {
 		'blink-maintainables',
 		sauce.getSetting('showMaintainableBlinking')
 	);
-	if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
+	if (
+		parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100
+	) {
 		helperItems.TrackedBuffs.classList.add('scaled');
 	}
 
@@ -2306,7 +2158,7 @@ function roundedToFixed(input, digits) {
 }
 
 /* Settings */
-const currentVersion = "2.1.1";
+const currentVersion = '2.1.1';
 const settingsObject = {
 	settingsHeader: sauce.createHeading(
 		'h2',
@@ -2355,11 +2207,11 @@ const settingsObject = {
 		'<u>100% Uptime</u> Adds a blinking "!!" effect for inactive buffs that can and should be maintained with 100% uptime',
 		sauce.getSetting('showMaintainableBlinking') ?? true
 	),
-	SingleBOLG: sauce.createCheckboxSetting(
-		'singleBOLG',
-		'<u>Split BOLG Weapon Special / Stacks</u> Tracks Balance by Force and Perfect Equlibrium stacks as separate buffs',
-		sauce.getSetting('singleBOLG') ?? false
-	),
+	// SingleBOLG: sauce.createCheckboxSetting(
+	// 	'singleBOLG',
+	// 	'<u>Split BOLG Weapon Special / Stacks</u> Tracks Balance by Force and Perfect Equlibrium stacks as separate buffs',
+	// 	sauce.getSetting('singleBOLG') ?? false
+	// ),
 	endGeneral: sauce.createSeperator(),
 	OverlayHeader: sauce.createHeading('h2', 'Overlay'),
 	OverlayActive: sauce.createCheckboxSetting(
@@ -2450,11 +2302,9 @@ const settingsObject = {
 	ResetText: sauce.createText(
 		`This will reset your configuration and reload the plugin in an attempt to solve any problems caused by missing or bad values`
 	),
-	resetButton: sauce.createButton(
-		'Reset All Settings',
-		deleteLocalStorage,
-		{ classes: ['nisbutton'] }
-	),
+	resetButton: sauce.createButton('Reset All Settings', deleteLocalStorage, {
+		classes: ['nisbutton'],
+	}),
 	endreset: sauce.createSeperator(),
 	troubleshootingHeader: sauce.createHeading(
 		'h3',
@@ -2503,7 +2353,9 @@ settingsObject.BlinkExpiredBuffs.addEventListener('change', () => {
 
 settingsObject.UIScale.addEventListener('change', () => {
 	getByID('Buffs').style.setProperty('--scale', sauce.getSetting('uiScale'));
-	if (parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100) {
+	if (
+		parseInt(settingsObject.UIScale.querySelector('input').value, 10) < 100
+	) {
 		helperItems.TrackedBuffs.classList.add('scaled');
 	}
 });
@@ -2513,30 +2365,49 @@ settingsObject.ProfileManager.querySelector('.profile-list').addEventListener(
 	() => {
 		let name: HTMLInputElement =
 			settingsObject.ProfileManager.querySelector('.profile-name');
-		let index = settingsObject.ProfileManager.querySelector('select').selectedIndex;
-		let profileName = settingsObject.ProfileManager.querySelector('select').options[index].text;
+		let index =
+			settingsObject.ProfileManager.querySelector('select').selectedIndex;
+		let profileName =
+			settingsObject.ProfileManager.querySelector('select').options[index]
+				.text;
 		name.value = profileName;
 	}
 );
 
-settingsObject.Brightness.querySelector('input').addEventListener('change', (e) => {
-	document.documentElement.style.setProperty(
-		'--brightness',
-		(parseInt(settingsObject.Brightness.querySelector('input').value, 10) / 100).toString()
-	);
-});
+settingsObject.Brightness.querySelector('input').addEventListener(
+	'change',
+	(e) => {
+		document.documentElement.style.setProperty(
+			'--brightness',
+			(
+				parseInt(
+					settingsObject.Brightness.querySelector('input').value,
+					10
+				) / 100
+			).toString()
+		);
+	}
+);
 
-settingsObject.ProfileManager.querySelector('.load-btn').addEventListener('click', () => {
-	location.reload();
-});
+settingsObject.ProfileManager.querySelector('.load-btn').addEventListener(
+	'click',
+	() => {
+		location.reload();
+	}
+);
 
-settingsObject.OverlayActive.querySelector('input').addEventListener('click', () => {
-	location.reload();
-});
+settingsObject.OverlayActive.querySelector('input').addEventListener(
+	'click',
+	() => {
+		location.reload();
+	}
+);
 
-settingsObject.debugMode.querySelector('input').addEventListener('change', () => {
-	location.reload();
-});
+settingsObject.debugMode
+	.querySelector('input')
+	.addEventListener('change', () => {
+		location.reload();
+	});
 
 settingsObject.beta.querySelector('input').addEventListener('change', () => {
 	location.reload();
@@ -2561,14 +2432,16 @@ window.onload = function () {
 			'--brightness',
 			(
 				parseInt(
-					settingsObject.Brightness.querySelector(
-						'input'
-					).value,
+					settingsObject.Brightness.querySelector('input').value,
 					10
 				) / 100
 			).toString()
 		);
-		const mutationConfig = { attributes: false, childList: true, subtree: false };
+		const mutationConfig = {
+			attributes: false,
+			childList: true,
+			subtree: false,
+		};
 		const callback = (mutationList, observer) => {
 			for (const mutation of mutationList) {
 				if (mutation.type === 'childList') {
@@ -2576,9 +2449,8 @@ window.onload = function () {
 						'--brightness',
 						(
 							parseInt(
-								settingsObject.Brightness.querySelector(
-									'input'
-								).value,
+								settingsObject.Brightness.querySelector('input')
+									.value,
 								10
 							) / 100
 						).toString()

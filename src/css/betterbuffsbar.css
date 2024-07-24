@@ -332,7 +332,7 @@ html:not(.beta) .beta-only {
 
 #BolgStacksBuff::before,
 #BolgStacksBuff::after {
-    content: attr(data-stacks)
+    content: attr(data-time)
 }
 
 #QuiverAmmo::before,
