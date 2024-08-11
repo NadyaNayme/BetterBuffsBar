@@ -183,7 +183,7 @@ export function createProfileManager() {
 
 		// If we do not have profiles set it to be empty
 		if (profiles == undefined) {
-			profiles = '';
+			profiles = 'Default||';
 		}
 
 		// If the profile name doesn't exist in our profiles - add it
@@ -267,7 +267,7 @@ export function createProfileManager() {
 			profileOptions.push({ value: index.toString(), name: profile });
 		});
 	} else {
-		profiles = '|';
+		profiles = 'Default||';
 	}
 
 	var profileHeader = createHeading('h3', 'Profiles');
