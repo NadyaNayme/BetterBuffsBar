@@ -176,15 +176,15 @@ export function createProfileManager() {
 			return;
 		}
 		let profiles = localStorage.getItem('bbb_profiles');
+		// If we do not have profiles set it to be empty
+		if (profiles == undefined || profiles == '' || profiles == '|' || profiles === null) {
+			profiles = 'Default||';
+			localStorage.setItem('bbb_profiles', profiles);
+		}
 		let profilesArray = localStorage
 			.getItem('bbb_profiles')
 			.split('|')
 			.filter((str) => str !== '');
-
-		// If we do not have profiles set it to be empty
-		if (profiles == undefined) {
-			profiles = 'Default||';
-		}
 
 		// If the profile name doesn't exist in our profiles - add it
 		if (!profilesArray.includes(profileName)) {
@@ -268,6 +268,7 @@ export function createProfileManager() {
 		});
 	} else {
 		profiles = 'Default||';
+		localStorage.setItem('bbb_profiles', profiles);
 	}
 
 	var profileHeader = createHeading('h3', 'Profiles');
