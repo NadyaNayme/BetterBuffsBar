@@ -539,7 +539,7 @@ function watchBuffs() {
 				buffImages.perfectEquilibriumNoBorder,
 				buffsList.BolgStacksBuff,
 				{
-					threshold: 90,
+					threshold: 300,
 				}
 			);
 
@@ -1023,7 +1023,7 @@ async function findStatus(
 				await sauce.timeout(600);
 			}
 			// If we've reached 11 seconds force the item active for 10s and then set it to inactive
-			else if (expirationPulse && timearg.time == 11 && !onCooldown) {
+			else if (expirationPulse && timearg.time <= 15 && !onCooldown) {
 				element.dataset.time = '<10s';
 				await setActive(element);
 				// This can be desynced from in-game 10s but it's accurate enough
