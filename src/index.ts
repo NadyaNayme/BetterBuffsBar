@@ -775,7 +775,7 @@ function watchBuffs() {
 				buffImages.adrenCrit,
 				buffsList.AdrenCritBuff,
 				{
-					threshold: 60,
+					threshold: 300,
 				}
 			);
 			
