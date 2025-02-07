@@ -185,7 +185,7 @@ var buffImages = a1lib.webpackImages({
 	PowderOfProtection: require('./asset/data/powder_of_protection.data.png'),
 	PowderOfPenance: require('./asset/data/powder_of_penance.data.png'),
 	InvokeLordOfBones: require('./asset/data/Invoke_Lord_of_Bones.data.png'),
-	adrenCrit: require('./asset/data/Adren_Crit_Buff-noborder.data.png'),
+	adrenCrit: require('./asset/data/Adren_Crit_Buff.data.png'),
 	glacialEmbrace: require('./asset/data/Glacial_Embrace-noborder.data.png'),
 	bloodTithe: require('./asset/data/Blood_Tithe-noborder.data.png'),
 });
