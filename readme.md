@@ -77,6 +77,9 @@ If you do not have Alt1 Toolkit installed already you can [download it from rune
 - Death Spark
 - Vulnerability Bomb
 - Death Mark
+- Incite Fear
+- Excang.
+- Crit. Buffs
 
 
 \* An attempt is made to track cooldowns. It can drift and become inaccurate when the server drops ticks/lags. Outside of DXPW on very laggy worlds it typically shouldn't be off by more than a second or two.
