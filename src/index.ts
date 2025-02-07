@@ -93,6 +93,9 @@ let buffsList = {
 	PowderOfPenance: getByID('PowderOfPenanceBuff'),
 	QuiverAmmo: getByID('QuiverAmmo'),
 	InvokeLordOfBones: getByID('InvokeLordOfBones'),
+	AdrenCritBuff: getByID('AdrenCritBuff'),
+	GlacialEmbraceBuff: getByID('GlacialEmbraceBuff'),
+	BloodTitheBuff: getByID('BloodTitheBuff'),
 };
 
 let debuffsList = {
@@ -182,6 +185,9 @@ var buffImages = a1lib.webpackImages({
 	PowderOfProtection: require('./asset/data/powder_of_protection.data.png'),
 	PowderOfPenance: require('./asset/data/powder_of_penance.data.png'),
 	InvokeLordOfBones: require('./asset/data/Invoke_Lord_of_Bones.data.png'),
+	adrenCrit: require('./asset/data/Adren_Crit_Buff-noborder.data.png'),
+	glacialEmbrace: require('./asset/data/Glacial_Embrace-noborder.data.png'),
+	bloodTithe: require('./asset/data/Blood_Tithe-noborder.data.png'),
 });
 
 var incenseImages = a1lib.webpackImages({
@@ -761,6 +767,33 @@ function watchBuffs() {
 				buffsList.InvokeLordOfBones,
 				{
 					threshold: 180,
+				}
+			);
+
+			findStatus(
+				buffs,
+				buffImages.adrenCrit,
+				buffsList.AdrenCritBuff,
+				{
+					threshold: 60,
+				}
+			);
+			
+			findStatus(
+				buffs,
+				buffImages.glacialEmbrace,
+				buffsList.GlacialEmbraceBuff,
+				{
+					threshold: 60,
+				}
+			);
+			
+			findStatus(
+				buffs,
+				buffImages.bloodTithe,
+				buffsList.BloodTitheBuff,
+				{
+					threshold: 60,
 				}
 			);
 
